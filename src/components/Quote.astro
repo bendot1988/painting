@@ -17,28 +17,62 @@
 
         <ul class="quote__contacts">
           <li>
-            <span class="quote__lbl">Phone</span>
-            <a href="tel:+441162914746">0116 291 4746</a>
+            <span class="quote__lbl">
+              <svg class="quote__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.85 21 3 12.15 3 2a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.24 1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Phone
+            </span>
+            <a class="quote__value" href="tel:+441162914746">0116 291 4746</a>
           </li>
           <li>
-            <span class="quote__lbl">Freephone</span>
-            <a href="tel:+448000096694">0800 0096 694</a>
+            <span class="quote__lbl">
+              <svg class="quote__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.85 21 3 12.15 3 2a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.24 1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Freephone
+            </span>
+            <a class="quote__value" href="tel:+448000096694">0800 0096 694</a>
           </li>
           <li>
-            <span class="quote__lbl">WhatsApp</span>
-            <a href="https://wa.me/447548971520" target="_blank" rel="noopener">07548 971 520</a>
+            <span class="quote__lbl">
+              <svg class="quote__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9.5 10.2c.2-.5.5-.5.7-.5h.5c.1 0 .3 0 .4.3l.6 1.4c.1.2 0 .3 0 .4l-.3.4c-.1.1-.2.2-.1.4.3.6.9 1.2 1.6 1.5.2.1.3 0 .4-.1l.4-.5c.1-.1.2-.2.4-.1l1.4.6c.2.1.3.2.3.3v.5c0 .2 0 .5-.5.7-.4.2-1.1.2-2-.2-1.3-.5-2.7-1.8-3.3-3.1-.4-.9-.4-1.6-.2-2z" fill="currentColor" />
+              </svg>
+              WhatsApp
+            </span>
+            <a class="quote__value" href="https://wa.me/447548971520" target="_blank" rel="noopener">07548 971 520</a>
           </li>
           <li>
-            <span class="quote__lbl">Email</span>
-            <a href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a>
+            <span class="quote__lbl">
+              <svg class="quote__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8" />
+                <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Email
+            </span>
+            <a class="quote__value" href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a>
           </li>
           <li>
-            <span class="quote__lbl">Hours</span>
-            <span>Mon–Sun · 6 am – 5 pm</span>
+            <span class="quote__lbl">
+              <svg class="quote__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8" />
+                <path d="M12 8v4l2.8 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Hours
+            </span>
+            <span class="quote__value">Mon-Sun · 6 am - 5 pm</span>
           </li>
           <li>
-            <span class="quote__lbl">Base</span>
-            <span>Leicester · LE19 4DG</span>
+            <span class="quote__lbl">
+              <svg class="quote__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="11" r="2.3" fill="currentColor" />
+              </svg>
+              Base
+            </span>
+            <span class="quote__value">Leicester · LE19 4DG</span>
           </li>
         </ul>
       </div>
@@ -104,6 +138,7 @@
     z-index: -1;
   }
   .quote__copy h2 { color: #fff; margin: 14px 0 16px; }
+  .quote__copy .lead { color: #fff; }
   .quote__copy a { color: var(--c-yellow); border-bottom: 1px solid currentColor; }
 
   .eyebrow--inv { color: var(--c-yellow); }
@@ -114,12 +149,25 @@
   }
   .quote__contacts li { display: flex; flex-direction: column; gap: 2px; }
   .quote__lbl {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 11px; font-weight: 700;
     color: #b0aea8;
     text-transform: uppercase; letter-spacing: 0.12em;
   }
-  .quote__contacts a, .quote__contacts span:not(.quote__lbl) {
-    color: #fff; font-weight: 600; font-size: 15px; border-bottom: 0;
+  .quote__icon {
+    width: 13px;
+    height: 13px;
+    color: var(--c-yellow);
+    flex-shrink: 0;
+  }
+  .quote__value {
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 0;
+    text-decoration: none;
   }
 
   /* Form */
