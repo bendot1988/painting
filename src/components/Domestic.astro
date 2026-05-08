@@ -1,0 +1,128 @@
+---
+const features = [
+  { t: 'Whole-house refresh',  d: 'Top-to-toe interior repaint with proper prep, dust sheets and a tidy crew you actually want in the house.' },
+  { t: 'Exterior &amp; render',    d: 'Masonry, render, soffits, fascias and woodwork — sealed, primed and finished to last a British winter.' },
+  { t: 'Joinery &amp; trim',       d: 'Doors, skirts, architrave and built-ins hand-painted in eggshell or oil for that crisp, factory-look finish.' },
+  { t: 'Wallpaper &amp; finishes', d: 'Hung straight, paste tidy. Lining paper, feature walls, panelling and specialist effects.' },
+];
+---
+<section id="domestic" class="section domestic" aria-label="Domestic painting">
+  <div class="container domestic__inner">
+    <div class="domestic__media reveal">
+      <div class="domestic__photo domestic__photo--main">
+        <img src="/images/work/proj-05.jpg" alt="Period detached home in Leicester with freshly painted white render and dark window frames" loading="lazy" />
+      </div>
+      <div class="domestic__photo domestic__photo--alt">
+        <img src="/images/work/stock-livingroom.jpg" alt="A contemporary living room with a soft white painted feature wall" loading="lazy" />
+      </div>
+      <div class="domestic__photo domestic__photo--small">
+        <img src="/images/work/proj-03.jpg" alt="Period kitchen island hand-painted in fresh white" loading="lazy" />
+      </div>
+
+      <!-- Tape badge -->
+      <div class="domestic__sticker" aria-hidden="true">
+        <strong>Free</strong>
+        <span>quote &amp; colour advice</span>
+      </div>
+    </div>
+
+    <div class="domestic__copy reveal">
+      <span class="eyebrow">Domestic · 40% of our diary</span>
+      <h2 class="display h2">
+        Make it feel like <span class="painted-word painted-word--pink">home</span> again.
+      </h2>
+      <p class="lead">
+        From a tired hallway to a full re-decoration before you move in. We
+        work cleanly, finish on time and leave the house better than we found
+        it. Free in-home quotes — no pressure, no hard sell.
+      </p>
+
+      <ul class="domestic__features">
+        {features.map((f) => (
+          <li>
+            <h3 set:html={f.t} />
+            <p set:html={f.d} />
+          </li>
+        ))}
+      </ul>
+
+      <div class="domestic__ctas">
+        <a class="btn" href="#quote">Book a free home visit <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="#work">See domestic work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .domestic { padding-top: clamp(72px, 9vw, 120px); padding-bottom: clamp(72px, 9vw, 120px); }
+  .domestic__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  .domestic__copy h2 { margin: 16px 0 18px; }
+
+  .domestic__features {
+    list-style: none; padding: 0; margin: 22px 0 30px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 22px;
+  }
+  .domestic__features li {
+    background: var(--c-cream);
+    padding: 18px;
+    border-radius: 14px;
+    border-bottom: 4px solid var(--c-pink);
+  }
+  .domestic__features li:nth-child(2) { border-bottom-color: var(--c-yellow); }
+  .domestic__features li:nth-child(3) { border-bottom-color: var(--c-lime); }
+  .domestic__features li:nth-child(4) { border-bottom-color: var(--c-blue); }
+  .domestic__features h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .domestic__features p { margin: 0; font-size: 14.5px; color: var(--c-graphite); line-height: 1.45; }
+
+  .domestic__media {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    aspect-ratio: 5 / 6;
+  }
+  .domestic__photo { border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-md); }
+  .domestic__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .domestic__photo--main { grid-column: 1 / span 2; grid-row: 1 / span 1; }
+  .domestic__photo--alt  { grid-column: 1; grid-row: 2; transform: rotate(-2deg); }
+  .domestic__photo--small{ grid-column: 2; grid-row: 2; transform: rotate(2deg); }
+
+  .domestic__sticker {
+    position: absolute;
+    top: -16px; right: -16px;
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: var(--c-yellow);
+    color: var(--c-ink);
+    display: grid; place-items: center; text-align: center;
+    transform: rotate(-8deg);
+    box-shadow: var(--shadow-md);
+    font-family: var(--font-display);
+    line-height: 1;
+    padding: 8px;
+  }
+  .domestic__sticker strong { font-size: 26px; display: block; }
+  .domestic__sticker span { font-size: 11px; font-weight: 600; margin-top: 4px; display: block; line-height: 1.2; }
+
+  .domestic__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  @media (max-width: 980px) {
+    .domestic__inner { grid-template-columns: 1fr; }
+    .domestic__media { order: -1; aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 520px) {
+    .domestic__features { grid-template-columns: 1fr; }
+  }
+</style>

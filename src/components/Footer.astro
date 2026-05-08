@@ -1,0 +1,140 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <!-- Painted top edge -->
+  <div class="footer__edge" aria-hidden="true">
+    <div class="bar bar--red"></div>
+    <div class="bar bar--yellow"></div>
+    <div class="bar bar--lime"></div>
+    <div class="bar bar--pink"></div>
+    <div class="bar bar--blue"></div>
+  </div>
+
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <img src="/images/brand/logo.png" alt="A.S Painting Contractors" width="200" height="100" />
+      <p class="footer__tag">
+        <span class="display">"Keep it moving."</span>
+        Painting &amp; decorating contractors based in Leicester. Commercial,
+        industrial &amp; domestic — for the whole of Leicestershire.
+      </p>
+      <div class="footer__swatch swatch-row">
+        <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span><span class="s5"></span>
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#commercial">Commercial</a></li>
+        <li><a href="#domestic">Domestic</a></li>
+        <li><a href="#work">Recent work</a></li>
+        <li><a href="#process">How we work</a></li>
+        <li><a href="#areas">Areas covered</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Get in touch</h4>
+      <ul class="contact">
+        <li><span>Phone</span><a href="tel:+441162914746">0116 291 4746</a></li>
+        <li><span>Freephone</span><a href="tel:+448000096694">0800 0096 694</a></li>
+        <li><span>WhatsApp</span><a href="https://wa.me/447548971520">07548 971 520</a></li>
+        <li><span>Email</span><a href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a></li>
+        <li><span>Hours</span>Mon–Sun · 6am – 5pm</li>
+        <li><span>Base</span>Leicester · LE19 4DG</li>
+      </ul>
+    </div>
+
+    <div class="footer__col footer__col--cta">
+      <h4>Got a project?</h4>
+      <p>Same-day reply, fixed-price quotes, no nonsense.</p>
+      <a class="btn" href="#quote">Get a quote <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <div class="footer__base container">
+    <small>© {year} A.S Painting Contractors. All rights reserved.</small>
+    <small>Site rebuilt with Astro · Designed with paint in mind.</small>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--c-ink);
+    color: var(--c-paper);
+    position: relative;
+    padding-bottom: 24px;
+  }
+  .footer__edge {
+    height: 18px;
+    display: flex;
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 18' preserveAspectRatio='none'><path d='M0 14 C 80 4, 160 18, 240 8 S 420 18, 520 6 S 700 16, 800 8 S 940 0, 1000 8 L 1000 0 L 0 0 Z' fill='black'/></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 18' preserveAspectRatio='none'><path d='M0 14 C 80 4, 160 18, 240 8 S 420 18, 520 6 S 700 16, 800 8 S 940 0, 1000 8 L 1000 0 L 0 0 Z' fill='black'/></svg>");
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .footer__edge .bar { flex: 1; }
+  .bar--red    { background: var(--c-red); }
+  .bar--yellow { background: var(--c-yellow); }
+  .bar--lime   { background: var(--c-lime); }
+  .bar--pink   { background: var(--c-pink); }
+  .bar--blue   { background: var(--c-blue); }
+
+  .footer__inner {
+    padding-top: clamp(48px, 6vw, 80px);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 36px;
+  }
+  .footer__brand img { height: 76px; width: auto; filter: brightness(1.05); }
+  .footer__tag {
+    margin-top: 16px;
+    color: #cfcdc8;
+    max-width: 38ch;
+    font-size: 14.5px;
+  }
+  .footer__tag .display {
+    display: block;
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .footer__swatch { width: 200px; margin-top: 18px; }
+
+  .footer__col h4 {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-yellow);
+    margin-bottom: 14px;
+  }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .footer__col a { color: #ebeae6; transition: color .2s; }
+  .footer__col a:hover { color: var(--c-yellow); }
+  .footer__col li { font-size: 14.5px; }
+
+  .contact li { display: flex; flex-direction: column; gap: 2px; }
+  .contact span:first-child {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: #8a8881; text-transform: uppercase;
+  }
+
+  .footer__col--cta p { color: #cfcdc8; font-size: 14.5px; max-width: 26ch; }
+
+  .footer__base {
+    padding-top: 28px; margin-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    color: #8a8881;
+  }
+
+  @media (max-width: 980px) {
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .footer__inner { grid-template-columns: 1fr; }
+  }
+</style>

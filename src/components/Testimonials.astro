@@ -1,0 +1,92 @@
+---
+const reviews = [
+  {
+    body: 'Repainted our whole production unit over two weekends — back up and running Monday with zero downtime. Spotless finish, properly tidy crew.',
+    name: 'Daniel R.',
+    role: 'Operations Manager · Manufacturing, Loughborough',
+    type: 'commercial',
+  },
+  {
+    body: 'A.S did our hallway, stairs and landing in three days. Clean dust sheets every morning, lovely lads, and the woodwork looks like a showroom.',
+    name: 'Emma & Tom',
+    role: 'Domestic · Stoneygate',
+    type: 'domestic',
+  },
+  {
+    body: 'Quoted on Friday, started Monday, finished Tuesday. Fitted around our customers and made the shop look brand new. We will be using them again.',
+    name: 'Priya S.',
+    role: 'Owner · Independent retail, Leicester',
+    type: 'commercial',
+  },
+  {
+    body: 'Honest quote, no nasty extras, and they actually turned up when they said they would. Rare these days. Highly recommended.',
+    name: 'Mark P.',
+    role: 'Domestic · Knighton',
+    type: 'domestic',
+  },
+];
+---
+<section class="section section--ink testimonials" aria-label="What clients say">
+  <div class="container">
+    <div class="row-meta reveal">
+      <div>
+        <span class="eyebrow">Reviews</span>
+        <h2 class="display h2">
+          Quietly proud of <span class="painted-word painted-word--yellow">our reviews.</span>
+        </h2>
+      </div>
+      <p class="lead">
+        Word of mouth is most of our work. These are real comments from real
+        clients — homes, factories and shopfronts across Leicestershire.
+      </p>
+    </div>
+
+    <div class="reviews">
+      {reviews.map((r, i) => (
+        <article class={`review reveal review--${r.type}`} style={`--i:${i}`}>
+          <div class="review__stars" aria-label="5 out of 5">
+            ★★★★★
+          </div>
+          <blockquote>
+            <p>{r.body}</p>
+          </blockquote>
+          <footer>
+            <strong>{r.name}</strong>
+            <span>{r.role}</span>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .review {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 22px;
+    transition-delay: calc(var(--i) * 70ms);
+    position: relative;
+  }
+  .review--commercial { border-top: 4px solid var(--c-yellow); }
+  .review--domestic   { border-top: 4px solid var(--c-pink); }
+  .review__stars { color: var(--c-yellow); letter-spacing: 2px; font-size: 14px; margin-bottom: 8px; }
+  .review blockquote { margin: 0 0 14px; }
+  .review p { font-size: 15.5px; color: #ebeae6; line-height: 1.5; margin: 0; }
+  .review footer { display: flex; flex-direction: column; }
+  .review strong { font-size: 14px; color: #fff; }
+  .review span { font-size: 12px; color: #b0aea8; margin-top: 2px; }
+
+  @media (max-width: 1024px) {
+    .reviews { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .reviews { grid-template-columns: 1fr; }
+  }
+</style>

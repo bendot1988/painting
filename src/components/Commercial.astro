@@ -1,0 +1,160 @@
+---
+const sectors = [
+  { name: 'Manufacturing & factories', icon: 'factory' },
+  { name: 'Offices & corporate HQ',    icon: 'office' },
+  { name: 'Retail & hospitality',      icon: 'shop' },
+  { name: 'Schools & care',            icon: 'school' },
+  { name: 'Logistics & warehousing',   icon: 'box' },
+  { name: 'Healthcare & clinics',      icon: 'plus' },
+];
+---
+<section id="commercial" class="section commercial" aria-label="Commercial painting">
+  <div class="container commercial__inner">
+    <div class="commercial__copy reveal">
+      <span class="eyebrow">Commercial · 60% of our diary</span>
+      <h2 class="display h2">
+        Painting that <span class="painted-word">works</span> for hours.
+      </h2>
+      <p class="lead">
+        Decorating a working business is a different beast — production lines
+        you can't pause, public-facing units that have to look spotless on
+        Monday, surfaces that take real punishment. We plan it, price it
+        properly, and we keep it moving.
+      </p>
+
+      <ul class="commercial__bullets">
+        <li>
+          <strong>Out-of-hours, weekends &amp; nights.</strong>
+          We work around your operations, not the other way around.
+        </li>
+        <li>
+          <strong>RAMS, COSHH &amp; PPE in place.</strong>
+          Risk assessments and method statements supplied before work starts.
+        </li>
+        <li>
+          <strong>Specialist coatings.</strong>
+          Two-pack, intumescent, anti-graffiti, line-marking and epoxy floors.
+        </li>
+        <li>
+          <strong>Single point of contact.</strong>
+          One project lead from quote to sign-off — no chasing.
+        </li>
+      </ul>
+
+      <div class="commercial__ctas">
+        <a class="btn" href="#quote">Get a fixed-price quote <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="#work">See commercial work</a>
+      </div>
+    </div>
+
+    <div class="commercial__media reveal">
+      <div class="commercial__photo commercial__photo--main">
+        <img src="/images/work/proj-13.jpg" alt="Repainted warehouse with bright blue steel beams and white walls" loading="lazy" />
+      </div>
+      <div class="commercial__photo commercial__photo--alt">
+        <img src="/images/work/stock-painter-roller.jpg" alt="Painter rolling fresh paint onto a wall" loading="lazy" />
+      </div>
+      <div class="commercial__photo commercial__photo--small">
+        <img src="/images/work/proj-09.jpg" alt="Office boardroom with a yellow accent wall" loading="lazy" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="sectors reveal">
+      <h3 class="sectors__title">Sectors we work in</h3>
+      <ul>
+        {sectors.map((s) => (
+          <li>
+            <span class="sectors__dot" aria-hidden="true"></span>
+            {s.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .commercial { padding-top: clamp(72px, 9vw, 120px); padding-bottom: clamp(72px, 9vw, 120px); background: var(--c-cream); }
+  .commercial__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  .commercial__copy h2 { margin: 16px 0 18px; }
+
+  .commercial__bullets { list-style: none; padding: 0; margin: 18px 0 28px; display: grid; gap: 14px; }
+  .commercial__bullets li {
+    padding: 14px 16px;
+    background: #fff;
+    border-radius: 12px;
+    border-left: 4px solid var(--c-yellow);
+    box-shadow: var(--shadow-sm);
+    font-size: 15px;
+  }
+  .commercial__bullets strong { color: var(--c-ink); }
+
+  .commercial__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .commercial__media {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    aspect-ratio: 5 / 6;
+  }
+  .commercial__photo {
+    border-radius: 18px; overflow: hidden;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .commercial__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .commercial__photo--main { grid-row: 1 / span 2; }
+  .commercial__photo--alt  { transform: rotate(2deg); }
+  .commercial__photo--small{ transform: rotate(-2deg); }
+
+  /* Sectors strip */
+  .sectors {
+    margin-top: 64px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(14,14,16,0.10);
+  }
+  .sectors__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--c-stone);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 18px;
+  }
+  .sectors ul {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 28px;
+  }
+  .sectors li {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 16px;
+  }
+  .sectors__dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--c-red);
+  }
+  .sectors li:nth-child(2) .sectors__dot { background: var(--c-yellow); }
+  .sectors li:nth-child(3) .sectors__dot { background: var(--c-lime); }
+  .sectors li:nth-child(4) .sectors__dot { background: var(--c-pink); }
+  .sectors li:nth-child(5) .sectors__dot { background: var(--c-blue); }
+  .sectors li:nth-child(6) .sectors__dot { background: var(--c-ink); }
+
+  @media (max-width: 980px) {
+    .commercial__inner { grid-template-columns: 1fr; }
+    .commercial__media { aspect-ratio: 4 / 3; }
+    .sectors ul { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .sectors ul { grid-template-columns: 1fr; }
+  }
+</style>

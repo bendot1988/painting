@@ -1,0 +1,73 @@
+---
+const areas = [
+  'Leicester','Loughborough','Hinckley','Coalville','Melton Mowbray','Market Harborough',
+  'Oadby & Wigston','Ashby-de-la-Zouch','Lutterworth','Syston','Anstey','Birstall',
+  'Blaby','Glenfield','Kibworth','Shepshed','Earl Shilton','Narborough',
+];
+// Doubled for seamless marquee
+const loop = [...areas, ...areas];
+---
+<section id="areas" class="section areas" aria-label="Areas covered">
+  <div class="container">
+    <div class="areas__top reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="display h2">
+        Leicester &amp; <span class="painted-word painted-word--lime">Leicestershire.</span>
+      </h2>
+      <p class="lead">
+        Based in the south of the city, we cover Leicestershire end-to-end —
+        plus most of the East Midlands for commercial contracts. If you're not
+        sure, ask. We probably do.
+      </p>
+    </div>
+  </div>
+
+  <div class="areas__marquee" aria-hidden="true">
+    <div class="marquee">
+      {loop.map((a, i) => (
+        <span class="areas__chip">
+          <span class="areas__dot" data-i={i % 5}></span>
+          {a}
+        </span>
+      ))}
+    </div>
+  </div>
+  <div class="areas__marquee" aria-hidden="true">
+    <div class="marquee marquee--reverse">
+      {loop.slice().reverse().map((a, i) => (
+        <span class="areas__chip areas__chip--alt">
+          <span class="areas__dot" data-i={i % 5}></span>
+          {a}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .areas { padding-top: clamp(72px, 8vw, 110px); padding-bottom: clamp(72px, 8vw, 110px); overflow: hidden; }
+  .areas__top { max-width: 720px; margin-bottom: 36px; }
+  .areas__marquee { padding: 8px 0; }
+  .areas__chip {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(14,14,16,0.08);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(20px, 2.2vw, 30px);
+    color: var(--c-ink);
+    white-space: nowrap;
+  }
+  .areas__chip--alt { background: var(--c-ink); color: var(--c-paper); border-color: var(--c-ink); }
+  .areas__dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--c-red);
+  }
+  .areas__dot[data-i="1"] { background: var(--c-yellow); }
+  .areas__dot[data-i="2"] { background: var(--c-lime); }
+  .areas__dot[data-i="3"] { background: var(--c-pink); }
+  .areas__dot[data-i="4"] { background: var(--c-blue); }
+</style>

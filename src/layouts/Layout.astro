@@ -1,0 +1,102 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'A.S Painting Contractors — Commercial & Domestic Painters in Leicester',
+  description = 'Leicester-based painting & decorating contractors. Commercial fit-outs, factories and offices. Domestic interiors and exteriors. Quality work, on time, on budget. Free quotes — 7 days a week.'
+} = Astro.props;
+import '~/styles/global.css';
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0e10" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/images/brand/icon.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/brand/logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'PaintingService',
+      name: 'A.S Painting Contractors',
+      image: 'https://www.as-painting.co.uk/wp-content/uploads/2021/07/A.S-Painting-Contractors-2.png',
+      telephone: ['+441162914746','+448000096694'],
+      areaServed: ['Leicester','Leicestershire','East Midlands'],
+      address: { '@type': 'PostalAddress', addressLocality: 'Leicester', postalCode: 'LE19 4DG', addressCountry: 'GB' },
+      priceRange: '££',
+      openingHours: 'Mo-Su 06:00-17:00'
+    })} />
+  </head>
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <slot />
+
+    <script>
+      // Reveal-on-scroll
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        }
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      // Sticky header shadow on scroll
+      const header = document.querySelector('[data-header]');
+      const onScroll = () => {
+        if (!header) return;
+        if (window.scrollY > 8) header.classList.add('is-scrolled');
+        else header.classList.remove('is-scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Mobile nav toggle
+      const navToggle = document.querySelector('[data-nav-toggle]');
+      const nav = document.querySelector('[data-nav]');
+      navToggle?.addEventListener('click', () => {
+        const open = nav?.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', String(!!open));
+      });
+
+      // Subtle paint-dot cursor trail (skipped on touch & reduced motion)
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isTouch = matchMedia('(hover: none)').matches;
+      if (!reduce && !isTouch) {
+        const colors = ['#d4262c','#ec008c','#ffd60a','#7ED321'];
+        let last = 0;
+        document.addEventListener('pointermove', (e) => {
+          const now = performance.now();
+          if (now - last < 60) return;
+          last = now;
+          const dot = document.createElement('span');
+          dot.className = 'paint-dot';
+          const c = colors[Math.floor(Math.random() * colors.length)];
+          dot.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:8px;height:8px;border-radius:50%;background:${c};pointer-events:none;z-index:9999;transform:translate(-50%,-50%) scale(1);transition:transform .6s ease-out, opacity .6s ease-out;opacity:.85;mix-blend-mode:multiply;`;
+          document.body.appendChild(dot);
+          requestAnimationFrame(() => {
+            dot.style.transform = `translate(-50%,-50%) scale(0.3)`;
+            dot.style.opacity = '0';
+          });
+          setTimeout(() => dot.remove(), 700);
+        });
+      }
+    </script>
+  </body>
+</html>

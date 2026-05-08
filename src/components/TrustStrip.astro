@@ -1,0 +1,68 @@
+---
+const stats = [
+  { num: '15+', label: 'Years on the tools' },
+  { num: '500+', label: 'Projects delivered' },
+  { num: '7',    label: 'Days a week, 6am–5pm' },
+  { num: '100%', label: 'Insured & vetted team' },
+];
+---
+<section class="trust" aria-label="At a glance">
+  <div class="container">
+    <div class="trust__grid">
+      {stats.map((s, i) => (
+        <div class="trust__stat reveal" style={`--i:${i}`}>
+          <div class="trust__num display">{s.num}</div>
+          <div class="trust__lbl">{s.label}</div>
+        </div>
+      ))}
+    </div>
+    <div class="trust__swatch" aria-hidden="true">
+      <div class="swatch-row"><span class="s1"/><span class="s2"/><span class="s3"/><span class="s4"/><span class="s5"/></div>
+      <span class="trust__motto">Same crew. Same standards. Domestic to industrial.</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-block: clamp(40px, 5vw, 64px);
+    background: var(--bg);
+    border-top: 1px solid rgba(14,14,16,0.06);
+    border-bottom: 1px solid rgba(14,14,16,0.06);
+  }
+  .trust__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .trust__stat {
+    transition-delay: calc(var(--i) * 70ms);
+    border-left: 4px solid var(--c-red);
+    padding: 6px 0 6px 18px;
+  }
+  .trust__stat:nth-child(2) { border-color: var(--c-yellow); }
+  .trust__stat:nth-child(3) { border-color: var(--c-lime); }
+  .trust__stat:nth-child(4) { border-color: var(--c-pink); }
+  .trust__num {
+    font-size: clamp(36px, 4.4vw, 56px);
+    color: var(--c-ink);
+    line-height: 0.95;
+  }
+  .trust__lbl {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--c-stone);
+    font-weight: 500;
+  }
+  .trust__swatch {
+    margin-top: 28px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  .trust__motto {
+    font-size: 14px; color: var(--c-graphite);
+    font-weight: 500;
+  }
+  @media (max-width: 720px) {
+    .trust__grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  }
+</style>
