@@ -74,6 +74,12 @@ import '~/styles/global.css';
         const open = nav?.classList.toggle('is-open');
         navToggle.setAttribute('aria-expanded', String(!!open));
       });
+      nav?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          navToggle?.setAttribute('aria-expanded', 'false');
+        });
+      });
 
       // Subtle paint-dot cursor trail (skipped on touch & reduced motion)
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
