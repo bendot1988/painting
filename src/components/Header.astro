@@ -9,9 +9,9 @@ const nav = [
 ];
 ---
 <header class="site-header" data-header>
-  <div class="container site-header__row">
+  <div class="site-header__row">
     <a href="#top" class="brand" aria-label="A.S Painting Contractors — home">
-      <img src="/images/brand/logo.png" alt="A.S Painting Contractors" width="140" height="72" />
+      <img src="/images/brand/logo.png" alt="A.S Painting Contractors" width="264" height="144" />
     </a>
 
     <nav class="nav" data-nav aria-label="Primary">
@@ -38,14 +38,13 @@ const nav = [
 <style>
   .site-header {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(250, 247, 242, 0.78);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    overflow: visible;
+    background: var(--c-paper);
     border-bottom: 1px solid transparent;
     transition: background .25s, border-color .25s, box-shadow .25s;
   }
   .site-header.is-scrolled {
-    background: rgba(250, 247, 242, 0.92);
+    background: var(--c-paper);
     border-bottom-color: rgba(14,14,16,0.08);
     box-shadow: 0 6px 24px rgba(14,14,16,0.06);
   }
@@ -54,9 +53,23 @@ const nav = [
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 24px;
-    padding-block: 14px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    min-height: 52px;
+    padding: 6px var(--gutter) 10px;
   }
-  .brand img { height: 56px; width: auto; }
+  .brand {
+    position: relative;
+    z-index: 55;
+    margin-bottom: -38px;
+    line-height: 0;
+  }
+  .brand img {
+    height: 115px;
+    width: auto;
+    display: block;
+  }
 
   .nav { justify-self: center; }
   .nav ul {
@@ -112,7 +125,8 @@ const nav = [
   @media (max-width: 720px) {
     .site-header { overflow: visible; }
     .site-header__row { grid-template-columns: auto 1fr auto; gap: 12px; }
-    .brand img { height: 56px; }
+    .brand { margin-bottom: -28px; }
+    .brand img { height: 91px; }
     .site-header__cta { gap: 10px; }
     .nav-toggle { display: flex; }
     .site-header__cta .btn { display: none; }
