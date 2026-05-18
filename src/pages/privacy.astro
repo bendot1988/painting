@@ -1,0 +1,33 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+---
+<Layout title="Privacy policy — A.S Painting Contractors" description="Privacy policy for A.S Painting Contractors.">
+  <Header />
+  <main id="main" class="legal-page section">
+    <div class="container legal-page__inner">
+      <span class="eyebrow">Legal</span>
+      <h1 class="display h2">Privacy policy</h1>
+      <p class="lead">
+        We only use your details to respond to enquiries about painting work.
+        We do not sell your data to third parties.
+      </p>
+      <p>
+        If you submit our quote form, we store your name, contact details and
+        project information so we can provide a quote and follow up. You can
+        ask us to delete your data at any time by emailing
+        <a href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a>.
+      </p>
+      <p><a class="btn btn--ghost" href="/#quote">Back to quote form</a></p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page { padding-block: clamp(120px, 14vw, 160px) clamp(72px, 9vw, 120px); }
+  .legal-page__inner { max-width: 60ch; }
+  .legal-page h1 { margin: 14px 0 18px; }
+  .legal-page p { color: var(--c-graphite); line-height: 1.6; margin: 0 0 1em; }
+</style>

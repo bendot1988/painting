@@ -1,9 +1,9 @@
 ---
 const features = [
-  { t: 'Whole-house refresh',  d: 'Top-to-toe interior repaint with proper prep, dust sheets and a tidy crew you actually want in the house.' },
-  { t: 'Exterior &amp; render',    d: 'Masonry, render, soffits, fascias and woodwork — sealed, primed and finished to last a British winter.' },
-  { t: 'Joinery &amp; trim',       d: 'Doors, skirts, architrave and built-ins hand-painted in eggshell or oil for that crisp, factory-look finish.' },
-  { t: 'Wallpaper &amp; finishes', d: 'Hung straight, paste tidy. Lining paper, feature walls, panelling and specialist effects.' },
+  { t: 'Whole-house refresh',  d: 'Top-to-toe interior repaint with proper prep, dust sheets and a tidy crew you actually want in the house.', c: 'pink' },
+  { t: 'Exterior &amp; render',    d: 'Masonry, render, soffits, fascias and woodwork — sealed, primed and finished to last a British winter.', c: 'yellow' },
+  { t: 'Joinery &amp; trim',       d: 'Doors, skirts, architrave and built-ins hand-painted in eggshell or oil for that crisp, factory-look finish.', c: 'lime' },
+  { t: 'Wallpaper &amp; finishes', d: 'Hung straight, paste tidy. Lining paper, feature walls, panelling and specialist effects.', c: 'blue' },
 ];
 ---
 <section id="domestic" class="section domestic" aria-label="Domestic painting">
@@ -39,9 +39,10 @@ const features = [
 
       <ul class="domestic__features">
         {features.map((f) => (
-          <li>
+          <li class={`domestic__feature domestic__feature--${f.c}`}>
             <h3 set:html={f.t} />
             <p set:html={f.d} />
+            <span class="domestic__feature-chip" aria-hidden="true"></span>
           </li>
         ))}
       </ul>
@@ -68,22 +69,68 @@ const features = [
     list-style: none; padding: 0; margin: 22px 0 30px;
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 22px;
   }
-  .domestic__features li {
-    background: var(--c-cream);
-    padding: 18px;
+  .domestic__feature {
+    position: relative;
+    background: #fff;
+    padding: 18px 18px 20px;
     border-radius: 14px;
-    border-bottom: 4px solid var(--c-pink);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    isolation: isolate;
   }
-  .domestic__features li:nth-child(2) { border-bottom-color: var(--c-yellow); }
-  .domestic__features li:nth-child(3) { border-bottom-color: var(--c-lime); }
-  .domestic__features li:nth-child(4) { border-bottom-color: var(--c-blue); }
+  .domestic__feature::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: var(--swatch, var(--c-pink));
+  }
+  .domestic__feature--pink   { --swatch: var(--c-pink); }
+  .domestic__feature--yellow { --swatch: var(--c-yellow); }
+  .domestic__feature--lime   { --swatch: var(--c-lime); }
+  .domestic__feature--blue   { --swatch: var(--c-blue); }
+
+  .domestic__feature-chip {
+    position: absolute;
+    right: -18px;
+    bottom: -18px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--swatch, var(--c-pink));
+    opacity: 0.12;
+    transition: transform .6s var(--ease), opacity .35s;
+    z-index: 0;
+  }
+  .domestic__feature:hover .domestic__feature-chip {
+    transform: scale(2.6);
+    opacity: 0.18;
+  }
+
   .domestic__features h3 {
+    position: relative;
+    z-index: 1;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 17px;
     margin-bottom: 4px;
   }
-  .domestic__features p { margin: 0; font-size: 14.5px; color: var(--c-graphite); line-height: 1.45; }
+  .domestic__features p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--c-graphite);
+    line-height: 1.45;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .domestic__feature-chip { transition: none; }
+    .domestic__feature:hover .domestic__feature-chip { transform: none; }
+    .domestic__photo:hover img { transform: none; }
+  }
 
   .domestic__media {
     position: relative;
@@ -93,8 +140,22 @@ const features = [
     gap: 14px;
     aspect-ratio: 5 / 6;
   }
-  .domestic__photo { border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-md); }
-  .domestic__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .domestic__photo {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .domestic__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
+  .domestic__photo:hover img {
+    transform: scale(1.06);
+  }
+
   .domestic__photo--main { grid-column: 1 / span 2; grid-row: 1 / span 1; }
   .domestic__photo--alt  { grid-column: 1; grid-row: 2; transform: rotate(-2deg); }
   .domestic__photo--small{ grid-column: 2; grid-row: 2; transform: rotate(2deg); }

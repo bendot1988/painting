@@ -90,15 +90,19 @@ const items: Item[] = [
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 220px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
     gap: 16px;
+    width: 100%;
   }
   .tile {
     position: relative; margin: 0;
     border-radius: 18px; overflow: hidden;
     background: #1c1c1f;
-    grid-column: span 4; grid-row: span 1;
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 200px;
     transition: transform .35s var(--ease);
   }
   .tile:hover { transform: translateY(-4px); }
@@ -118,24 +122,30 @@ const items: Item[] = [
   .tile p { margin: 0; font-size: 13px; color: #d8d6cf; }
   .tile .tag { font-size: 11px; padding: 3px 8px; }
 
-  /* Bento sizing — bigger and more frequent commercial tiles */
-  .tile--lg { grid-column: span 6; grid-row: span 2; }
-  .tile--md { grid-column: span 4; grid-row: span 2; }
-  .tile--sm { grid-column: span 3; grid-row: span 1; }
+  /* Bento sizing — spans fit a 4-column grid with dense packing */
+  .tile--lg { grid-column: span 2; grid-row: span 2; }
+  .tile--md { grid-column: span 1; grid-row: span 2; }
+  .tile--sm { grid-column: span 1; grid-row: span 1; }
 
   /* A coloured edge cue for tag — read at a glance */
   .tile--commercial::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c-yellow); }
   .tile--domestic::after   { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c-pink); }
 
   @media (max-width: 1024px) {
-    .grid { grid-auto-rows: 200px; }
-    .tile { grid-column: span 6; }
-    .tile--lg { grid-column: span 12; grid-row: span 2; }
-    .tile--md { grid-column: span 6; }
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 200px;
+    }
+    .tile--lg { grid-column: span 2; grid-row: span 2; }
+    .tile--md { grid-column: span 1; grid-row: span 2; }
   }
   @media (max-width: 600px) {
-    .grid { grid-auto-rows: 180px; gap: 12px; }
-    .tile, .tile--md, .tile--lg { grid-column: span 12; grid-row: span 1; }
+    .grid {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 220px;
+      gap: 12px;
+    }
+    .tile, .tile--md, .tile--lg { grid-column: span 1; grid-row: span 1; min-height: 220px; }
     .tile figcaption { transform: none; opacity: 1; }
   }
 </style>

@@ -27,7 +27,7 @@ import '~/styles/global.css';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -80,6 +80,41 @@ import '~/styles/global.css';
           navToggle?.setAttribute('aria-expanded', 'false');
         });
       });
+
+      // Highlight nav bubble for the section in view
+      const navLinks = nav?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
+      const sectionIds = ['commercial', 'domestic', 'work', 'reviews', 'quote'];
+      const setActiveNav = () => {
+        if (!navLinks?.length) return;
+
+        if (window.location.pathname === '/reviews') {
+          navLinks.forEach((link) => {
+            const active = link.getAttribute('href') === '/reviews';
+            link.classList.toggle('is-active', active);
+            if (active) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          });
+          return;
+        }
+
+        const offset = 100;
+        let current = '';
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && window.scrollY + offset >= el.offsetTop) current = id;
+        }
+        navLinks.forEach((link) => {
+          const href = link.getAttribute('href') ?? '';
+          const active = href === '/reviews'
+            ? current === 'reviews'
+            : href === `#${current}` || href === `/#${current}`;
+          link.classList.toggle('is-active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      };
+      window.addEventListener('scroll', setActiveNav, { passive: true });
+      setActiveNav();
 
       // Subtle paint-dot cursor trail (skipped on touch & reduced motion)
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

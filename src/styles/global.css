@@ -29,8 +29,14 @@
   --fg-mute: var(--c-stone);
 
   /* Type */
-  --font-display: 'Bricolage Grotesque', 'Archivo Black', system-ui, -apple-system, Segoe UI, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-header: var(--font-sans);
+  --tracking-tight: -0.04em;
+  --tracking-snug: -0.025em;
+  --tracking-body: -0.015em;
+  --tracking-ui: -0.02em;
 
   /* Layout */
   --container: 1240px;
@@ -83,6 +89,7 @@ body {
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.55;
+  letter-spacing: var(--tracking-body);
   color: var(--fg);
   background: transparent;
   min-height: 100%;
@@ -95,7 +102,11 @@ body {
 img, svg, video { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; }
-:where(h1, h2, h3, h4) { margin: 0; }
+:where(h1, h2, h3, h4) {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-snug);
+}
 :where(p) { margin: 0 0 1em; }
 
 /* Selection */
@@ -107,15 +118,15 @@ button { font: inherit; cursor: pointer; }
 .display {
   font-family: var(--font-display);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
 }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--c-red);
 }
@@ -127,7 +138,12 @@ button { font: inherit; cursor: pointer; }
 .h1 { font-size: clamp(40px, 6.4vw, 92px); }
 .h2 { font-size: clamp(32px, 4.6vw, 60px); }
 .h3 { font-size: clamp(22px, 2.4vw, 32px); }
-.lead { font-size: clamp(17px, 1.3vw, 20px); color: var(--c-graphite); max-width: 60ch; }
+.lead {
+  font-size: clamp(17px, 1.3vw, 20px);
+  color: var(--c-graphite);
+  max-width: 60ch;
+  letter-spacing: var(--tracking-body);
+}
 
 /* =========================================================
    Layout helpers
@@ -163,7 +179,7 @@ button { font: inherit; cursor: pointer; }
   color: var(--btn-fg);
   border: 0; border-radius: 999px;
   font-weight: 600; font-size: 15px;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-ui);
   transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .2s;
   box-shadow: 0 6px 0 0 var(--c-red-deep), var(--shadow-sm);
   position: relative;
@@ -197,7 +213,7 @@ button { font: inherit; cursor: pointer; }
 .tag {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 4px 10px; border-radius: 999px;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 .tag--commercial { background: var(--c-yellow); color: var(--c-ink); }

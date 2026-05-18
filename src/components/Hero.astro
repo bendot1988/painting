@@ -99,22 +99,6 @@
           <div class="hero__chip-s">Est. 2010 · Leicester &amp; county-wide</div>
         </div>
       </div>
-
-      <!-- Decorative paint splatter behind frame -->
-      <svg class="hero__splat" viewBox="0 0 600 600" aria-hidden="true">
-        <g>
-          <circle cx="120" cy="140" r="56" fill="#ffd60a"/>
-          <circle cx="60"  cy="220" r="20" fill="#ffd60a"/>
-          <circle cx="200" cy="80"  r="14" fill="#ffd60a"/>
-          <path d="M310 90 q40 -50 90 -10 q60 50 -10 90 q-50 30 -90 -20 q-30 -40 10 -60z" fill="#ec008c"/>
-          <circle cx="430" cy="60"  r="12" fill="#ec008c"/>
-          <circle cx="80"  cy="430" r="44" fill="#7ed321"/>
-          <circle cx="36"  cy="500" r="10" fill="#7ed321"/>
-          <circle cx="160" cy="510" r="20" fill="#d4262c"/>
-          <circle cx="230" cy="556" r="8"  fill="#d4262c"/>
-          <circle cx="500" cy="500" r="44" fill="#1f6feb" opacity=".18"/>
-        </g>
-      </svg>
     </div>
   </div>
 
@@ -144,6 +128,8 @@
   }
   .hero__copy h1 {
     margin: 18px 0 22px;
+    font-size: clamp(32px, 3.8vw, 54px);
+    line-height: 1.12;
   }
   .hero__copy h1 .painted-word { z-index: 0; }
   .hero__ctas {
@@ -237,15 +223,6 @@
   }
   .hero__frame:hover { transform: rotate(0deg); }
   .hero__frame img { width: 100%; height: 100%; object-fit: cover; }
-  .hero__splat {
-    position: absolute;
-    inset: -8% -10% auto auto;
-    width: 78%;
-    z-index: -1;
-    filter: blur(0.2px);
-    transform: rotate(-12deg);
-  }
-
   .hero__tape {
     position: absolute;
     top: 6%; left: -6%;
@@ -256,7 +233,7 @@
     font-family: var(--font-display);
     font-weight: 800;
     font-size: clamp(20px, 2.2vw, 26px);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--tracking-snug);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -286,12 +263,11 @@
     transform: rotate(-3deg);
   }
   .hero__chip-num {
-    font-family: var(--font-display);
     font-weight: 800;
     font-size: 44px;
     line-height: 1;
     color: var(--c-red);
-    letter-spacing: -0.03em;
+    letter-spacing: var(--tracking-tight);
   }
   .hero__chip-num span { font-size: 24px; vertical-align: super; color: var(--c-ink); }
   .hero__chip-h { font-weight: 700; font-size: 13px; color: var(--c-ink); }

@@ -1,17 +1,25 @@
 ---
 const stats = [
-  { num: '15+', label: 'Years on the tools' },
-  { num: '500+', label: 'Projects delivered' },
-  { num: '7',    label: 'Days a week, 6am–5pm' },
-  { num: '100%', label: 'Insured & vetted team' },
+  { value: 15, suffix: '+', label: 'Years on the tools' },
+  { value: 500, suffix: '+', label: 'Projects delivered' },
+  { value: 7, suffix: '', label: 'Days a week, 6am–5pm' },
+  { value: 100, suffix: '%', label: 'Insured & vetted team' },
 ];
 ---
-<section class="trust" aria-label="At a glance">
+<section class="trust" aria-label="At a glance" data-trust-strip>
   <div class="container">
     <div class="trust__grid">
       {stats.map((s, i) => (
         <div class="trust__stat reveal" style={`--i:${i}`}>
-          <div class="trust__num display">{s.num}</div>
+          <div
+            class="trust__num display"
+            data-trust-count
+            data-to={s.value}
+            data-suffix={s.suffix}
+            data-delay={i * 90}
+          >
+            0{s.suffix}
+          </div>
           <div class="trust__lbl">{s.label}</div>
         </div>
       ))}
@@ -22,6 +30,63 @@ const stats = [
     </div>
   </div>
 </section>
+
+<script>
+  const strip = document.querySelector('[data-trust-strip]');
+  if (strip) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const counters = [...strip.querySelectorAll<HTMLElement>('[data-trust-count]')];
+
+    const runCounter = (el: HTMLElement) => {
+      const target = Number(el.dataset.to ?? 0);
+      const suffix = el.dataset.suffix ?? '';
+      const delay = Number(el.dataset.delay ?? 0);
+      const duration = target >= 100 ? 1600 : 1200;
+
+      const finish = () => {
+        el.textContent = `${target}${suffix}`;
+      };
+
+      if (reduce || el.dataset.counted === 'true') {
+        finish();
+        return;
+      }
+      el.dataset.counted = 'true';
+
+      const startCount = (startTime: number) => {
+        const tick = (now: number) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - (1 - progress) ** 3;
+          const value = Math.round(target * eased);
+          el.textContent = `${value}${suffix}`;
+          if (progress < 1) requestAnimationFrame(tick);
+          else finish();
+        };
+        requestAnimationFrame(tick);
+      };
+
+      if (delay > 0) window.setTimeout(() => requestAnimationFrame(startCount), delay);
+      else requestAnimationFrame(startCount);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          runCounter(entry.target as HTMLElement);
+          io.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    counters.forEach((el) => {
+      if (reduce) runCounter(el);
+      else io.observe(el);
+    });
+  }
+</script>
 
 <style>
   .trust {
@@ -47,6 +112,7 @@ const stats = [
     font-size: clamp(36px, 4.4vw, 56px);
     color: var(--c-ink);
     line-height: 0.95;
+    font-variant-numeric: tabular-nums;
   }
   .trust__lbl {
     margin-top: 6px;

@@ -1,0 +1,184 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import googleReviews from '~/data/google-reviews.json';
+import { reviewSnippet, type GoogleReview } from '~/lib/reviews';
+
+const reviews = googleReviews.reviews as GoogleReview[];
+const accents = ['red', 'yellow', 'lime', 'pink', 'blue'] as const;
+
+const pageTitle = 'Google Reviews — A.S Painting Contractors';
+const pageDescription =
+  'Read what clients across Leicestershire say about A.S Painting Contractors — domestic and commercial painting & decorating.';
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main id="main" class="reviews-page">
+    <section class="reviews-page__hero" aria-labelledby="reviews-heading">
+      <div class="container">
+        <span class="eyebrow">Google reviews</span>
+        <h1 id="reviews-heading" class="display h1">
+          What our clients <span class="painted-word painted-word--yellow">say.</span>
+        </h1>
+        <p class="lead reviews-page__intro">
+          Real feedback from homeowners and businesses across Leicestershire.
+          {reviews.length} reviews — all five stars.
+        </p>
+        <div class="reviews-page__rating" aria-label="4.9 out of 5 from 58 Google reviews">
+          <span class="reviews-page__stars" aria-hidden="true">★★★★★</span>
+          <span><strong>4.9</strong> rated · 58 Google reviews</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews-page__list" aria-label="All reviews">
+      <div class="container">
+        <ol class="reviews-page__grid">
+          {reviews.map((item, i) => (
+            <li class={`review-card review-card--${accents[i % accents.length]} reveal`} style={`--i:${i % 6}`}>
+              <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+              <p class="review-card__snippet">{reviewSnippet(item.review)}</p>
+              <blockquote class="review-card__body">
+                <p>{item.review}</p>
+              </blockquote>
+              <footer class="review-card__meta">
+                <strong>{item.name}</strong>
+                <time>{item.date}</time>
+              </footer>
+            </li>
+          ))}
+        </ol>
+        <p class="reviews-page__cta">
+          <a class="btn" href="/#quote">Get a free quote <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .reviews-page {
+    --reviews-stack-gap: 50px;
+  }
+  .reviews-page__hero {
+    /* Logo overhang (~38px) + same gap as badge → cards */
+    padding-top: calc(38px + var(--reviews-stack-gap));
+    padding-bottom: 0;
+  }
+  .reviews-page__hero .eyebrow {
+    display: inline-block;
+  }
+  .reviews-page__hero h1 {
+    margin-top: 14px;
+    max-width: 14ch;
+  }
+  .reviews-page__intro {
+    max-width: 52ch;
+    margin-top: 16px;
+  }
+  .reviews-page__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    margin-bottom: var(--reviews-stack-gap);
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(14, 14, 16, 0.05);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-graphite);
+  }
+  .reviews-page__stars {
+    color: var(--c-yellow);
+    letter-spacing: 2px;
+    font-size: 15px;
+  }
+
+  .reviews-page__list {
+    background: var(--bg-alt);
+    padding-top: 0;
+    padding-bottom: clamp(72px, 9vw, 120px);
+  }
+  .reviews-page__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .review-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px 24px 22px;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--swatch, var(--c-red));
+    transition-delay: calc(var(--i) * 60ms);
+  }
+  .review-card--red    { --swatch: var(--c-red); }
+  .review-card--yellow { --swatch: var(--c-yellow); }
+  .review-card--lime   { --swatch: var(--c-lime); }
+  .review-card--pink   { --swatch: var(--c-pink); }
+  .review-card--blue   { --swatch: var(--c-blue); }
+
+  .review-card__stars {
+    color: var(--c-yellow);
+    letter-spacing: 2px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .review-card__snippet {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.35;
+    letter-spacing: var(--tracking-snug);
+    color: var(--c-ink);
+  }
+  .review-card__body {
+    margin: 0 0 16px;
+    padding: 0;
+    border: 0;
+  }
+  .review-card__body p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+  .review-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(14, 14, 16, 0.08);
+  }
+  .review-card__meta strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .review-card__meta time {
+    font-size: 13px;
+    color: var(--c-stone);
+    font-weight: 500;
+  }
+
+  .reviews-page__cta {
+    margin: 40px 0 0;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .reviews-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

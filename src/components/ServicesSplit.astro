@@ -98,12 +98,13 @@ const domestic = [
   .service-card--commercial { background: #fff; }
   .service-card--domestic   { background: var(--c-ink); color: var(--c-paper); }
   .service-card--domestic header h3 { color: #fff; }
-  .service-card--domestic p { color: #fff; }
   .service-card--domestic ul li { border-bottom-color: rgba(255,255,255,0.10); }
   .service-card--domestic ul li::before { background: var(--c-pink); }
 
   .service-card header h3 { margin: 10px 0 8px; }
-  .service-card p { color: var(--c-graphite); margin: 0; max-width: 50ch; }
+  .service-card p { margin: 0; max-width: 50ch; }
+  .service-card--commercial p { color: var(--c-graphite); }
+  .service-card--domestic header p { color: #fff; }
 
   .service-card ul {
     list-style: none; padding: 0; margin: 6px 0 0;

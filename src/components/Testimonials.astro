@@ -1,32 +1,30 @@
 ---
-const reviews = [
-  {
-    body: 'Repainted our whole production unit over two weekends — back up and running Monday with zero downtime. Spotless finish, properly tidy crew.',
-    name: 'Daniel R.',
-    role: 'Operations Manager · Manufacturing, Loughborough',
-    type: 'commercial',
-  },
-  {
-    body: 'A.S did our hallway, stairs and landing in three days. Clean dust sheets every morning, lovely lads, and the woodwork looks like a showroom.',
-    name: 'Emma & Tom',
-    role: 'Domestic · Stoneygate',
-    type: 'domestic',
-  },
-  {
-    body: 'Quoted on Friday, started Monday, finished Tuesday. Fitted around our customers and made the shop look brand new. We will be using them again.',
-    name: 'Priya S.',
-    role: 'Owner · Independent retail, Leicester',
-    type: 'commercial',
-  },
-  {
-    body: 'Honest quote, no nasty extras, and they actually turned up when they said they would. Rare these days. Highly recommended.',
-    name: 'Mark P.',
-    role: 'Domestic · Knighton',
-    type: 'domestic',
-  },
+import googleReviews from '~/data/google-reviews.json';
+import { reviewSnippet, type GoogleReview } from '~/lib/reviews';
+
+/** Four Google reviews highlighted on the homepage — keep in sync with google-reviews.json */
+const featured = [
+  { name: 'Reena Purewal', type: 'commercial' as const },
+  { name: 'Arun Singh', type: 'domestic' as const },
+  { name: 'Chris Yewdall', type: 'domestic' as const },
+  { name: 'William Senior', type: 'commercial' as const },
 ];
+
+const all = googleReviews.reviews as GoogleReview[];
+const reviews = featured
+  .map(({ name, type }) => {
+    const source = all.find((r) => r.name === name);
+    if (!source) return null;
+    return {
+      body: reviewSnippet(source.review, 200),
+      name: source.name,
+      role: source.date,
+      type,
+    };
+  })
+  .filter((r): r is NonNullable<typeof r> => r !== null);
 ---
-<section class="section section--ink testimonials" aria-label="What clients say">
+<section id="reviews" class="section section--ink testimonials" aria-label="What clients say">
   <div class="container">
     <div class="row-meta reveal">
       <div>
@@ -35,10 +33,15 @@ const reviews = [
           Quietly proud of <span class="painted-word painted-word--yellow">our reviews.</span>
         </h2>
       </div>
-      <p class="lead">
-        Word of mouth is most of our work. These are real comments from real
-        clients — homes, factories and shopfronts across Leicestershire.
-      </p>
+      <div>
+        <p class="lead">
+          A handful of recent Google reviews — real clients across homes,
+          offices, factories and shopfronts in Leicestershire.
+        </p>
+        <p class="testimonials__more">
+          <a class="btn btn--ghost" href="/reviews">Read all Google reviews <span class="arrow">→</span></a>
+        </p>
+      </div>
     </div>
 
     <div class="reviews">
@@ -82,6 +85,7 @@ const reviews = [
   .review footer { display: flex; flex-direction: column; }
   .review strong { font-size: 14px; color: #fff; }
   .review span { font-size: 12px; color: #b0aea8; margin-top: 2px; }
+  .testimonials__more { margin: 18px 0 0; }
 
   @media (max-width: 1024px) {
     .reviews { grid-template-columns: repeat(2, 1fr); }

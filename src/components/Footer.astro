@@ -1,6 +1,9 @@
 ---
+import YouTubeFeed from './YouTubeFeed.astro';
+
 const year = new Date().getFullYear();
 ---
+<YouTubeFeed />
 <footer class="footer">
   <!-- Painted top edge -->
   <div class="footer__edge" aria-hidden="true">
@@ -15,7 +18,7 @@ const year = new Date().getFullYear();
     <div class="footer__brand">
       <img src="/images/brand/logo.png" alt="A.S Painting Contractors" width="200" height="100" />
       <p class="footer__tag">
-        <span class="display">"Keep it moving."</span>
+        <span class="display">Prep. Paint. Perfect.</span>
         Painting &amp; decorating contractors based in Leicester. Commercial,
         industrial &amp; domestic — for the whole of Leicestershire.
       </p>
@@ -88,9 +91,14 @@ const year = new Date().getFullYear();
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     gap: 36px;
   }
-  .footer__brand img { height: 76px; width: auto; filter: brightness(1.05); }
+  .footer__brand img {
+    height: clamp(108px, 13vw, 148px);
+    width: auto;
+    display: block;
+    filter: brightness(1.05);
+  }
   .footer__tag {
-    margin-top: 16px;
+    margin-top: 20px;
     color: #cfcdc8;
     max-width: 38ch;
     font-size: 14.5px;
@@ -106,7 +114,7 @@ const year = new Date().getFullYear();
   .footer__col h4 {
     font-family: var(--font-display);
     font-size: 14px; font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--c-yellow);
     margin-bottom: 14px;
@@ -118,7 +126,7 @@ const year = new Date().getFullYear();
 
   .contact li { display: flex; flex-direction: column; gap: 2px; }
   .contact span:first-child {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
     color: #8a8881; text-transform: uppercase;
   }
 
