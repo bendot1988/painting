@@ -1,19 +1,5 @@
 ---
-type Item = { src: string; alt: string; tag: 'commercial'|'domestic'; title: string; meta: string; w?: number; h?: number; size?: 'lg'|'md'|'sm' };
-
-const items: Item[] = [
-  { src: '/images/commercial-interior-qualvis-reception.jpeg', alt: 'Repainted Qualvis reception with feature wall and branded signage', tag: 'commercial', title: 'Qualvis · Reception refresh', meta: 'Loughborough · 2 days', size: 'lg' },
-  { src: '/images/commercial-exterior-gsf-red-shutters.jpeg', alt: 'GSF Car Parts warehouse with freshly coated red roller shutters', tag: 'commercial', title: 'GSF · Roller shutters', meta: 'High-build coating · Leicester' },
-  { src: '/images/commercial-interior-yellow-accent-office.jpeg', alt: 'Office space with a bold yellow accent wall and crisp white trim', tag: 'commercial', title: 'Office · accent wall', meta: 'Office fit-out · Hinckley', size: 'md' },
-  { src: '/images/domestic-exterior-period-white-house-front.jpeg', alt: 'Period detached home with freshly painted white render and dark window frames', tag: 'domestic', title: 'Period home · full exterior', meta: 'Render & woodwork · Oadby', size: 'lg' },
-  { src: '/images/commercial-exterior-green-roller-shutter-01.jpeg', alt: 'Industrial unit with bright green roller shutter and matching steel frame', tag: 'commercial', title: 'Industrial unit · shutter', meta: 'Anti-rust coating · Coalville' },
-  { src: '/images/commercial-interior-warehouse-epoxy-floor-01.jpeg', alt: 'Warehouse with new epoxy resin floor and white-painted walls', tag: 'commercial', title: 'Warehouse · epoxy floor', meta: 'Resin floor & walls · Leicester' },
-  { src: '/images/domestic-interior-classic-kitchen-island-detail-01.jpeg', alt: 'Hand-painted period kitchen island with detailed mouldings', tag: 'domestic', title: 'Kitchen island re-paint', meta: 'Hand-painted · Stoneygate' },
-  { src: '/images/commercial-interior-navy-breakout-area-01.jpeg', alt: 'Office breakout area painted in deep navy with crisp white ceiling', tag: 'commercial', title: 'Breakout · navy accent', meta: 'Office fit-out · Leicester', size: 'md' },
-  { src: '/images/commercial-interior-school-assembly-hall.jpeg', alt: 'School assembly hall repainted with bright clean walls', tag: 'commercial', title: 'School · assembly hall', meta: 'Education sector · Leicester' },
-  { src: '/images/domestic-interior-marble-living-room-tv-wall.jpeg', alt: 'Contemporary living room with marble-effect feature wall', tag: 'domestic', title: 'Living room · feature wall', meta: 'Marble effect · Knighton' },
-  { src: '/images/domestic-interior-sage-green-kitchen-01.jpeg', alt: 'Sage green shaker kitchen with hand-painted cabinetry', tag: 'domestic', title: 'Sage shaker kitchen', meta: 'Hand-painted · Clarendon Park' },
-];
+import { showcaseItems as items } from '~/data/showcase-work';
 ---
 <section id="work" class="section section--ink showcase" aria-label="Recent work">
   <div class="container">
@@ -22,10 +8,15 @@ const items: Item[] = [
         <span class="eyebrow">Recent work</span>
         <h2 class="display h2">Real jobs.<br/>Real <span class="painted-word painted-word--lime">Leicester</span> walls.</h2>
       </div>
-      <p class="lead">
-        A selection from the last few months — factory refurbs, office fit-outs,
-        retail signage units and family homes. Tap a chip to filter.
-      </p>
+      <div>
+        <p class="lead">
+          A selection from the last few months — factory refurbs, office fit-outs,
+          retail units and family homes. Tap a chip to filter.
+        </p>
+        <p class="showcase__more">
+          <a class="btn btn--ghost" href="/work">View all our work <span class="arrow">→</span></a>
+        </p>
+      </div>
     </div>
 
     <div class="filters reveal" role="tablist" aria-label="Filter projects">
@@ -68,6 +59,7 @@ const items: Item[] = [
 
 <style>
   .showcase { padding-bottom: clamp(72px, 9vw, 130px); }
+  .showcase__more { margin: 18px 0 0; }
   .filters {
     display: inline-flex; padding: 6px;
     background: rgba(255,255,255,0.06);

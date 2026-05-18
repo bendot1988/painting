@@ -1,42 +1,5 @@
 ---
-const sectors = [
-  {
-    name: 'Manufacturing & factories',
-    desc: 'Production floors, mezzanines and plant rooms — coatings that stand up to shift work, forklifts and heavy use.',
-    src: '/images/commercial-interior-factory-cmm-floor.jpeg',
-    alt: 'Factory floor with fresh epoxy coating and clean painted walls',
-  },
-  {
-    name: 'Offices & corporate HQ',
-    desc: 'Open-plan offices, corridors and breakout spaces finished to a standard your team and clients notice.',
-    src: '/images/commercial-interior-open-plan-office.jpeg',
-    alt: 'Open-plan office with freshly painted walls and crisp trim',
-  },
-  {
-    name: 'Retail & hospitality',
-    desc: 'Shopfronts, food courts and customer areas — smart finishes that stay presentable through busy trading hours.',
-    src: '/images/commercial-interior-costco-food-court-01.jpeg',
-    alt: 'Retail food court with repainted walls and ceiling',
-  },
-  {
-    name: 'Schools & care',
-    desc: 'Classrooms, halls and circulation spaces decorated safely around term time, with minimal disruption.',
-    src: '/images/commercial-interior-school-assembly-hall.jpeg',
-    alt: 'School assembly hall with bright freshly painted walls',
-  },
-  {
-    name: 'Logistics & warehousing',
-    desc: 'Warehouses, distribution units and roller-shutter buildings — interior and exterior work at scale.',
-    src: '/images/commercial-exterior-gsf-car-parts-warehouse.jpeg',
-    alt: 'Warehouse exterior with freshly coated roller shutters',
-  },
-  {
-    name: 'Healthcare & clinics',
-    desc: 'Clinics, studios and care settings where a clean, calm finish matters as much as durability.',
-    src: '/images/commercial-exterior-wellness-studio-shopfront.jpeg',
-    alt: 'Wellness studio shopfront with fresh exterior paint finish',
-  },
-];
+import { homepageSectors as sectors } from '~/data/commercial-page';
 ---
 <section id="commercial" class="section commercial" aria-label="Commercial painting">
   <div class="container commercial__inner">
@@ -46,34 +9,28 @@ const sectors = [
         Painting that <span class="painted-word">works</span> for hours.
       </h2>
       <p class="lead">
-        Decorating a working business is a different beast — production lines
-        you can't pause, public-facing units that have to look spotless on
-        Monday, surfaces that take real punishment. We plan it, price it
-        properly, and we keep it moving.
+        Factories, offices, retail and warehouses across Leicestershire. Interior and
+        exterior painting planned around your operations.
       </p>
 
       <ul class="commercial__bullets">
         <li>
-          <strong>Out-of-hours, weekends &amp; nights.</strong>
+          <strong>Out-of-hours, weekends and nights.</strong>
           <span>We work around your operations, not the other way around.</span>
         </li>
         <li>
-          <strong>RAMS, COSHH &amp; PPE in place.</strong>
+          <strong>RAMS, COSHH and PPE in place.</strong>
           <span>Risk assessments and method statements supplied before work starts.</span>
         </li>
         <li>
-          <strong>Specialist coatings.</strong>
-          <span>Two-pack, intumescent, anti-graffiti, line-marking and epoxy floors.</span>
-        </li>
-        <li>
-          <strong>Single point of contact.</strong>
-          <span>One project lead from quote to sign-off — no chasing.</span>
+          <strong>Interior and exterior painting.</strong>
+          <span>Shutters, cladding, stair towers, shopfronts and full interior programmes.</span>
         </li>
       </ul>
 
       <div class="commercial__ctas">
-        <a class="btn" href="#quote">Get a fixed-price quote <span class="arrow">→</span></a>
-        <a class="btn btn--ghost" href="#work">See commercial work</a>
+        <a class="btn" href="/#quote">Get a fixed-price quote <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="/commercial">Commercial services <span class="arrow">→</span></a>
       </div>
     </div>
 
@@ -106,6 +63,9 @@ const sectors = [
           </article>
         ))}
       </div>
+      <p class="commercial__more">
+        <a class="btn btn--ghost" href="/commercial">See full commercial offering <span class="arrow">→</span></a>
+      </p>
     </div>
   </div>
 </section>
@@ -146,6 +106,7 @@ const sectors = [
   }
 
   .commercial__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .commercial__more { margin: 28px 0 0; text-align: center; }
 
   .commercial__media {
     position: relative;
@@ -174,7 +135,6 @@ const sectors = [
   .commercial__photo--alt  { transform: rotate(2deg); }
   .commercial__photo--small { transform: rotate(-2deg); }
 
-  /* Sectors cards */
   .sectors {
     margin-top: 64px;
     padding-top: 36px;
@@ -250,7 +210,10 @@ const sectors = [
     .commercial__media { aspect-ratio: 4 / 3; }
     .sectors__grid { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 540px) {
-    .sectors__grid { grid-template-columns: 1fr; }
+  @media (max-width: 480px) {
+    .sectors__grid { gap: 12px; }
+    .sector-card__body { padding: 14px 14px 16px; }
+    .sector-card__body h4 { font-size: 15px; }
+    .sector-card__body p { font-size: 13px; line-height: 1.45; }
   }
 </style>

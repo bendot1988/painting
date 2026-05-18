@@ -1,10 +1,5 @@
 ---
-const features = [
-  { t: 'Whole-house refresh',  d: 'Top-to-toe interior repaint with proper prep, dust sheets and a tidy crew you actually want in the house.', c: 'pink' },
-  { t: 'Exterior &amp; render',    d: 'Masonry, render, soffits, fascias and woodwork — sealed, primed and finished to last a British winter.', c: 'yellow' },
-  { t: 'Joinery &amp; trim',       d: 'Doors, skirts, architrave and built-ins hand-painted in eggshell or oil for that crisp, factory-look finish.', c: 'lime' },
-  { t: 'Wallpaper &amp; finishes', d: 'Hung straight, paste tidy. Lining paper, feature walls, panelling and specialist effects.', c: 'blue' },
-];
+import { homepageFeatures as features } from '~/data/domestic-page';
 ---
 <section id="domestic" class="section domestic" aria-label="Domestic painting">
   <div class="container domestic__inner">
@@ -19,7 +14,6 @@ const features = [
         <img src="/images/domestic-interior-classic-kitchen-island-detail-01.jpeg" alt="Hand-painted classic kitchen island with detailed cornice and mouldings" loading="lazy" />
       </div>
 
-      <!-- Tape badge -->
       <div class="domestic__sticker" aria-hidden="true">
         <strong>Free</strong>
         <span>quote &amp; colour advice</span>
@@ -34,22 +28,22 @@ const features = [
       <p class="lead">
         From a tired hallway to a full re-decoration before you move in. We
         work cleanly, finish on time and leave the house better than we found
-        it. Free in-home quotes — no pressure, no hard sell.
+        it. Free in-home quotes with no pressure.
       </p>
 
       <ul class="domestic__features">
         {features.map((f) => (
-          <li class={`domestic__feature domestic__feature--${f.c}`}>
-            <h3 set:html={f.t} />
-            <p set:html={f.d} />
+          <li class={`domestic__feature domestic__feature--${f.accent}`}>
+            <h3>{f.title}</h3>
+            <p>{f.desc}</p>
             <span class="domestic__feature-chip" aria-hidden="true"></span>
           </li>
         ))}
       </ul>
 
       <div class="domestic__ctas">
-        <a class="btn" href="#quote">Book a free home visit <span class="arrow">→</span></a>
-        <a class="btn btn--ghost" href="#work">See domestic work</a>
+        <a class="btn" href="/#quote">Book a free home visit <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="/domestic">Domestic services <span class="arrow">→</span></a>
       </div>
     </div>
   </div>

@@ -2,11 +2,13 @@
 const pathname = Astro.url.pathname;
 const sectionHref = (id: string) => (pathname === '/' ? `#${id}` : `/#${id}`);
 const homeHref = pathname === '/' ? '#top' : '/';
+const commercialHref = pathname === '/' ? '#commercial' : '/commercial';
+const domesticHref = pathname === '/' ? '#domestic' : '/domestic';
 
 const nav = [
-  { href: sectionHref('commercial'), label: 'Commercial', match: 'commercial' },
-  { href: sectionHref('domestic'),   label: 'Domestic',   match: 'domestic' },
-  { href: sectionHref('work'),       label: 'Our work',   match: 'work' },
+  { href: commercialHref, label: 'Commercial', match: 'commercial' },
+  { href: domesticHref,   label: 'Domestic',   match: 'domestic' },
+  { href: '/work',                   label: 'Our work',   match: 'work-page' },
   { href: '/reviews',                label: 'Our reviews', match: 'reviews-page' },
   { href: sectionHref('quote'),      label: 'Get a quote', match: 'quote' },
 ];

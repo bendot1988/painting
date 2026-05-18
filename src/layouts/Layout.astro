@@ -8,6 +8,7 @@ const {
   description = 'Leicester-based painting & decorating contractors. Commercial fit-outs, factories and offices. Domestic interiors and exteriors. Quality work, on time, on budget. Free quotes — 7 days a week.'
 } = Astro.props;
 import '~/styles/global.css';
+import ContactFab from '~/components/ContactFab.astro';
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -44,6 +45,7 @@ import '~/styles/global.css';
   <body>
     <a href="#main" class="skip">Skip to content</a>
     <slot />
+    <ContactFab />
 
     <script>
       // Reveal-on-scroll
@@ -82,14 +84,16 @@ import '~/styles/global.css';
       });
 
       // Highlight nav bubble for the section in view
-      const navLinks = nav?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
+      const navLinks = nav?.querySelectorAll<HTMLAnchorElement>('.nav a');
       const sectionIds = ['commercial', 'domestic', 'work', 'reviews', 'quote'];
       const setActiveNav = () => {
         if (!navLinks?.length) return;
 
-        if (window.location.pathname === '/reviews') {
+        const path = window.location.pathname;
+        if (path === '/reviews' || path === '/work' || path === '/commercial' || path === '/domestic') {
           navLinks.forEach((link) => {
-            const active = link.getAttribute('href') === '/reviews';
+            const href = link.getAttribute('href') ?? '';
+            const active = href === path;
             link.classList.toggle('is-active', active);
             if (active) link.setAttribute('aria-current', 'location');
             else link.removeAttribute('aria-current');
@@ -105,9 +109,10 @@ import '~/styles/global.css';
         }
         navLinks.forEach((link) => {
           const href = link.getAttribute('href') ?? '';
-          const active = href === '/reviews'
-            ? current === 'reviews'
-            : href === `#${current}` || href === `/#${current}`;
+          const active =
+            href === '/reviews' || href === '/work' || href === '/commercial' || href === '/domestic'
+              ? false
+              : href === `#${current}` || href === `/#${current}`;
           link.classList.toggle('is-active', active);
           if (active) link.setAttribute('aria-current', 'location');
           else link.removeAttribute('aria-current');

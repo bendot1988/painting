@@ -1,0 +1,437 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import {
+  commercialHeroGallery,
+  commercialHighlights,
+  interiorSectors,
+  exteriorProjects,
+  commercialFaqs,
+} from '~/data/commercial-page';
+import { workItems } from '~/data/showcase-work';
+
+const commercialWork = workItems.filter((i) => i.tag === 'commercial').slice(0, 6);
+
+const pageTitle = 'Commercial Painting | A.S Painting Contractors';
+const pageDescription =
+  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail and schools. Out-of-hours available.';
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main id="main" class="commercial-page">
+    <section class="commercial-page__hero" aria-labelledby="commercial-heading">
+      <div class="container">
+        <span class="eyebrow">Commercial · 60% of our diary</span>
+        <h1 id="commercial-heading" class="display h1">
+          Painting that <span class="painted-word painted-word--yellow">works</span> for hours.
+        </h1>
+        <p class="lead commercial-page__intro">
+          Decorating a working business is a different job. Production lines you cannot pause,
+          shopfronts that must look sharp on Monday, surfaces that take real punishment.
+          We plan it, price it properly, and we keep sites moving.
+        </p>
+        <div class="commercial-page__pills" aria-label="Commercial services">
+          <span class="commercial-page__pill">Interior painting</span>
+          <span class="commercial-page__pill">Exterior painting</span>
+          <span class="commercial-page__pill">Out-of-hours work</span>
+        </div>
+
+        <div class="commercial-page__hero-gallery reveal" aria-label="Commercial project gallery">
+          {commercialHeroGallery.map((img, i) => (
+            <figure class="commercial-page__gallery-tile" style={`--i:${i}`}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                width="640"
+                height="480"
+              />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-page__band" aria-label="Why businesses choose us">
+      <div class="container">
+        <h2 class="commercial-page__section-title">Built for working sites</h2>
+        <ul class="commercial-page__highlights">
+          {commercialHighlights.map((item, i) => (
+            <li class="commercial-page__highlight reveal" style={`--i:${i}`}>
+              <strong>{item.title}</strong>
+              <p>{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="commercial-page__section" aria-labelledby="interior-heading">
+      <div class="container">
+        <h2 id="interior-heading" class="commercial-page__section-title">Interior sectors we work in</h2>
+        <p class="commercial-page__section-lead">
+          Offices, factories, retail, schools and more. We paint walls, ceilings, woodwork,
+          steel and floors. No wallpaper hanging. No plastering.
+        </p>
+        <div class="commercial-page__grid">
+          {interiorSectors.map((s, i) => (
+            <article class="commercial-page__card reveal" style={`--i:${i % 6}`}>
+              <div class="commercial-page__card-media">
+                <img src={s.src} alt={s.alt} loading="lazy" width="640" height="400" />
+              </div>
+              <div class="commercial-page__card-body">
+                <h3>{s.name}</h3>
+                <p>{s.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-page__band" aria-labelledby="exterior-heading">
+      <div class="container">
+        <h2 id="exterior-heading" class="commercial-page__section-title">Exterior commercial painting</h2>
+        <p class="commercial-page__section-lead">
+          Weather-facing work needs the right prep and the right system. We handle shutters,
+          cladding, stair towers, railings, shopfronts and unit exteriors across Leicestershire.
+        </p>
+        <div class="commercial-page__grid">
+          {exteriorProjects.map((p, i) => (
+            <article class="commercial-page__card commercial-page__card--exterior reveal" style={`--i:${i % 6}`}>
+              <div class="commercial-page__card-media">
+                <img src={p.src} alt={p.alt} loading="lazy" width="640" height="400" />
+              </div>
+              <div class="commercial-page__card-body">
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-page__section" aria-labelledby="work-snapshot-heading">
+      <div class="container">
+        <h2 id="work-snapshot-heading" class="commercial-page__section-title">Recent commercial projects</h2>
+        <div class="commercial-page__snapshots">
+          {commercialWork.map((item, i) => (
+            <a class="commercial-page__snapshot reveal" href="/work" style={`--i:${i}`}>
+              <img src={item.src} alt={item.alt} loading="lazy" />
+              <span>{item.title}</span>
+            </a>
+          ))}
+        </div>
+        <p class="commercial-page__link-row">
+          <a class="btn btn--ghost" href="/work">View all our work <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="commercial-page__band commercial-page__faqs" aria-label="Frequently asked questions">
+      <div class="container">
+        <h2 class="commercial-page__section-title">Quick answers</h2>
+        <div class="commercial-page__faq-list">
+          {commercialFaqs.map((item) => (
+            <details class="commercial-page__faq">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+        <p class="commercial-page__cta">
+          <a class="btn" href="/#quote">Get a fixed-price quote <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .commercial-page {
+    --page-stack-gap: 50px;
+  }
+  .commercial-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: 0;
+  }
+  .commercial-page__hero h1 {
+    margin-top: 14px;
+    max-width: 14ch;
+  }
+  .commercial-page__intro {
+    max-width: 52ch;
+    margin-top: 16px;
+  }
+  .commercial-page__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+    margin-bottom: 28px;
+  }
+  .commercial-page__pill {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(14, 14, 16, 0.06);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-graphite);
+  }
+
+  .commercial-page__hero-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: var(--page-stack-gap);
+  }
+  .commercial-page__gallery-tile {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e8e8e6;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .commercial-page__gallery-tile::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--c-yellow);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .commercial-page__gallery-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .commercial-page__gallery-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.65s var(--ease);
+  }
+  .commercial-page__gallery-tile:hover img {
+    transform: scale(1.05);
+  }
+
+  .commercial-page__band {
+    background: var(--bg-alt);
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .commercial-page__section {
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .commercial-page__section-title {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .commercial-page__section-lead {
+    max-width: 58ch;
+    margin: 0 0 28px;
+    color: var(--c-graphite);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .commercial-page__highlights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .commercial-page__highlight {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border-left: 4px solid var(--c-yellow);
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 60ms);
+  }
+  .commercial-page__highlight strong {
+    display: block;
+    font-size: 16px;
+    color: var(--c-ink);
+    margin-bottom: 6px;
+  }
+  .commercial-page__highlight p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--c-graphite);
+    line-height: 1.45;
+  }
+
+  .commercial-page__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .commercial-page__card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--c-yellow);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .commercial-page__card--exterior {
+    border-top-color: var(--c-blue);
+  }
+  .commercial-page__card-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #e8e8e6;
+  }
+  .commercial-page__card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
+  .commercial-page__card:hover .commercial-page__card-media img {
+    transform: scale(1.05);
+  }
+  .commercial-page__card-body {
+    padding: 18px 20px 22px;
+  }
+  .commercial-page__card-body h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.25;
+  }
+  .commercial-page__card-body p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+
+  .commercial-page__snapshots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .commercial-page__snapshot {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    display: block;
+    text-decoration: none;
+  }
+  .commercial-page__snapshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+  }
+  .commercial-page__snapshot span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+  }
+  .commercial-page__snapshot:hover img {
+    transform: scale(1.05);
+  }
+  .commercial-page__link-row {
+    margin: 0;
+  }
+
+  .commercial-page__faq-list {
+    max-width: 720px;
+  }
+  .commercial-page__faq {
+    border-top: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .commercial-page__faq:last-of-type {
+    border-bottom: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .commercial-page__faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 32px 16px 0;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--c-ink);
+    position: relative;
+  }
+  .commercial-page__faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .commercial-page__faq summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--c-red);
+  }
+  .commercial-page__faq[open] summary::after {
+    content: "−";
+  }
+  .commercial-page__faq p {
+    margin: 0 0 16px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+
+  .commercial-page__cta {
+    margin: 36px 0 0;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .commercial-page__gallery-tile:hover {
+      transform: none;
+    }
+    .commercial-page__gallery-tile:hover img {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .commercial-page__grid,
+    .commercial-page__snapshots {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .commercial-page__hero-gallery {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .commercial-page__highlights,
+    .commercial-page__grid,
+    .commercial-page__snapshots {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
