@@ -227,13 +227,14 @@ const faqs = [
       }
 
       try {
-        const response = await fetch('/', {
+        const response = await fetch('/.netlify/functions/submit-quote', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: body.toString(),
         });
 
-        if (response.ok) {
+        const result = response.ok ? await response.json().catch(() => null) : null;
+        if (response.ok && result?.ok) {
           window.location.assign(successUrl);
           return;
         }

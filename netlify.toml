@@ -5,5 +5,6 @@
 [functions]
   directory = "netlify/functions"
 
-# Quote form submissions trigger netlify/functions/submission-created.mjs
-# which emails via Resend (RESEND_* env vars in Netlify UI).
+# Quote form: browser POSTs to netlify/functions/submit-quote.mjs (Resend).
+# submission-created.mjs is a backup if Netlify Forms detection is enabled.
+# Set RESEND_API_KEY, RESEND_FROM, RESEND_TO (and optional RESEND_BCC) in Netlify UI.
