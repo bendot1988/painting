@@ -78,10 +78,20 @@ import ContactFab from '~/components/ContactFab.astro';
       const setNavOpen = (open: boolean) => {
         if (!nav || !navToggle) return;
         nav.classList.toggle('is-open', open);
+        document.body.classList.toggle('nav-is-open', open);
         navToggle.setAttribute('aria-expanded', String(open));
         navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         document.body.style.overflow = open ? 'hidden' : '';
         navBackdrop?.setAttribute('aria-hidden', String(!open));
+        if (open) {
+          const fab = document.querySelector('[data-contact-fab]');
+          fab?.classList.remove('is-open');
+          const fabMenu = fab?.querySelector<HTMLElement>('[data-contact-menu]');
+          const fabToggle = fab?.querySelector<HTMLButtonElement>('[data-contact-toggle]');
+          if (fabMenu) fabMenu.hidden = true;
+          fabToggle?.setAttribute('aria-expanded', 'false');
+          fabToggle?.setAttribute('aria-label', 'Open contact options');
+        }
       };
 
       navToggle?.addEventListener('click', () => {
@@ -103,7 +113,7 @@ import ContactFab from '~/components/ContactFab.astro';
         if (!navLinks?.length) return;
 
         const path = window.location.pathname;
-        if (path === '/reviews' || path === '/work' || path === '/commercial' || path === '/domestic') {
+        if (path === '/reviews' || path === '/work' || path === '/commercial' || path === '/domestic' || path === '/contact') {
           navLinks.forEach((link) => {
             const href = link.getAttribute('href') ?? '';
             const active = href === path;
@@ -123,7 +133,7 @@ import ContactFab from '~/components/ContactFab.astro';
         navLinks.forEach((link) => {
           const href = link.getAttribute('href') ?? '';
           const active =
-            href === '/reviews' || href === '/work' || href === '/commercial' || href === '/domestic'
+            href === '/reviews' || href === '/work' || href === '/commercial' || href === '/domestic' || href === '/contact'
               ? false
               : href === `#${current}` || href === `/#${current}`;
           link.classList.toggle('is-active', active);

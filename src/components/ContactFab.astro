@@ -1,7 +1,5 @@
 ---
-import { contact } from '~/data/contact';
-
-const quoteHref = Astro.url.pathname === '/' ? '#quote' : '/#quote';
+import { contact, quotePageHref } from '~/data/contact';
 ---
 <div class="contact-fab" data-contact-fab>
   <div class="contact-fab__menu" id="contact-fab-menu" data-contact-menu hidden>
@@ -30,7 +28,7 @@ const quoteHref = Astro.url.pathname === '/' ? '#quote' : '/#quote';
         </a>
       </li>
       <li>
-        <a class="contact-fab__action" href={quoteHref}>
+        <a class="contact-fab__action" href={quotePageHref}>
           <span class="contact-fab__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M4 6h16v12H4V6zm2 2v8h12V8H6zm2 2h8v1.5H8V10zm0 2.5h5V14H8v-1.5z"/></svg>
           </span>
@@ -111,6 +109,32 @@ const quoteHref = Astro.url.pathname === '/' ? '#quote' : '/#quote';
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => closeMenu());
   });
+
+  const footer = document.querySelector('.footer');
+  const fadeZone = 140;
+
+  const updateFabNearFooter = () => {
+    if (!fab || !footer) return;
+    const footerTop = footer.getBoundingClientRect().top;
+    const trigger = window.innerHeight - 24;
+    if (footerTop >= trigger) {
+      fab.style.removeProperty('--fab-opacity');
+      fab.classList.remove('is-near-footer');
+      return;
+    }
+    const progress = Math.min(1, (trigger - footerTop) / fadeZone);
+    fab.style.setProperty('--fab-opacity', String(1 - progress));
+    if (progress >= 0.85) {
+      fab.classList.add('is-near-footer');
+      if (fab.classList.contains('is-open')) closeMenu();
+    } else {
+      fab.classList.remove('is-near-footer');
+    }
+  };
+
+  updateFabNearFooter();
+  window.addEventListener('scroll', updateFabNearFooter, { passive: true });
+  window.addEventListener('resize', updateFabNearFooter, { passive: true });
 </script>
 
 <style>
@@ -123,6 +147,11 @@ const quoteHref = Astro.url.pathname === '/' ? '#quote' : '/#quote';
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
+    opacity: var(--fab-opacity, 1);
+    transition: opacity 0.3s var(--ease);
+  }
+  .contact-fab.is-near-footer {
+    pointer-events: none;
   }
 
   .contact-fab__toggle {
@@ -235,7 +264,18 @@ const quoteHref = Astro.url.pathname === '/' ? '#quote' : '/#quote';
     flex-shrink: 0;
   }
 
+  @media (max-width: 1024px) {
+    body.nav-is-open .contact-fab {
+      visibility: hidden;
+      pointer-events: none;
+      opacity: 0 !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .contact-fab {
+      transition: none;
+    }
     .contact-fab__toggle,
     .contact-fab__roller {
       transition: none;

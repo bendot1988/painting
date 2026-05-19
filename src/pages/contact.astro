@@ -1,0 +1,171 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import Quote from '~/components/Quote.astro';
+import { contact } from '~/data/contact';
+
+const pageTitle = 'Contact | A.S Painting Contractors';
+const pageDescription =
+  'Contact A.S Painting Contractors in Leicester. Call, email or WhatsApp for commercial and domestic painting quotes across Leicestershire.';
+
+const contactMethods = [
+  {
+    label: 'Phone',
+    value: contact.phone.display,
+    href: `tel:${contact.phone.tel}`,
+    accent: 'red',
+  },
+  {
+    label: 'Freephone',
+    value: contact.freephone.display,
+    href: `tel:${contact.freephone.tel}`,
+    accent: 'yellow',
+  },
+  {
+    label: 'WhatsApp',
+    value: contact.whatsapp.display,
+    href: contact.whatsapp.href,
+    external: true,
+    accent: 'lime',
+  },
+  {
+    label: 'Email',
+    value: contact.email,
+    href: `mailto:${contact.email}`,
+    accent: 'blue',
+  },
+];
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main id="main" class="contact-page">
+    <section class="contact-page__hero" aria-labelledby="contact-heading">
+      <div class="container">
+        <span class="eyebrow">Get in touch</span>
+        <h1 id="contact-heading" class="display h1">
+          Talk to us about your <span class="painted-word painted-word--pink">project.</span>
+        </h1>
+        <p class="lead contact-page__intro">
+          Call, email or message us for a free quote. We cover Leicester and the whole of
+          Leicestershire for commercial and domestic painting.
+        </p>
+      </div>
+    </section>
+
+    <section class="contact-page__details" aria-label="Contact details">
+      <div class="container">
+        <div class="contact-page__grid">
+          {contactMethods.map((item, i) => (
+            <a
+              class={`contact-card contact-card--${item.accent} reveal`}
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              style={`--i:${i}`}
+            >
+              <span class="contact-card__label">{item.label}</span>
+              <span class="contact-card__value">{item.value}</span>
+            </a>
+          ))}
+
+          <div class="contact-card contact-card--pink contact-card--static reveal" style="--i:4">
+            <span class="contact-card__label">Hours</span>
+            <span class="contact-card__value">Mon–Sun · 6am–5pm</span>
+            <span class="contact-card__hint">Same-day reply during working hours</span>
+          </div>
+
+          <div class="contact-card contact-card--static reveal" style="--i:5">
+            <span class="contact-card__label">Base</span>
+            <span class="contact-card__value">{contact.location} · {contact.postcode}</span>
+            <span class="contact-card__hint">Covering Leicestershire and the East Midlands</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <Quote compact hideContacts />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .contact-page {
+    --page-stack-gap: 50px;
+  }
+  .contact-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: 0;
+  }
+  .contact-page__hero h1 {
+    margin-top: 14px;
+    max-width: 14ch;
+  }
+  .contact-page__intro {
+    max-width: 52ch;
+    margin-top: 16px;
+  }
+
+  .contact-page__details {
+    padding: var(--page-stack-gap) 0 clamp(32px, 4vw, 48px);
+  }
+  .contact-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: inherit;
+    border-top: 4px solid var(--accent, var(--c-red));
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .contact-card--red    { --accent: var(--c-red); }
+  .contact-card--yellow { --accent: var(--c-yellow); }
+  .contact-card--lime   { --accent: var(--c-lime); }
+  .contact-card--blue   { --accent: var(--c-blue); }
+  .contact-card--pink   { --accent: var(--c-pink); }
+  .contact-card--static {
+    border-top-color: var(--c-graphite);
+  }
+  a.contact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .contact-card__label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .contact-card__value {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.25;
+    word-break: break-word;
+  }
+  .contact-card__hint {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--c-graphite);
+    margin-top: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .contact-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

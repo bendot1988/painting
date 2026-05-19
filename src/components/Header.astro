@@ -1,5 +1,5 @@
 ---
-import { contact, siteStats } from '~/data/contact';
+import { contact, quotePageHref, siteStats } from '~/data/contact';
 
 const pathname = Astro.url.pathname;
 const sectionHref = (id: string) => (pathname === '/' ? `#${id}` : `/#${id}`);
@@ -10,16 +10,11 @@ const domesticHref = pathname === '/' ? '#domestic' : '/domestic';
 const nav = [
   { href: commercialHref, label: 'Commercial', match: 'commercial' },
   { href: domesticHref,   label: 'Domestic',   match: 'domestic' },
-  { href: '/work',                   label: 'Our work',   match: 'work-page' },
-  { href: '/reviews',                label: 'Our reviews', match: 'reviews-page' },
-  { href: sectionHref('quote'),      label: 'Get a quote', match: 'quote' },
+  { href: '/work',        label: 'Our work',   match: 'work-page' },
+  { href: '/reviews',     label: 'Our reviews', match: 'reviews-page' },
+  { href: '/contact',     label: 'Contact',    match: 'contact-page' },
 ];
-const menuLinks = nav.filter((item) => item.match !== 'quote');
-const quoteHref = sectionHref('quote');
-const mobileNavLinks = [
-  ...menuLinks,
-  { href: quoteHref, label: 'Contact', match: 'contact' },
-];
+const quoteHref = quotePageHref;
 ---
 <header class="site-header" data-header>
   <div class="site-header__top">
@@ -60,7 +55,7 @@ const mobileNavLinks = [
             </button>
           </div>
           <ul class="nav__links nav__links--mobile">
-            {mobileNavLinks.map((item) => (
+            {nav.map((item) => (
               <li><a href={item.href}>{item.label}</a></li>
             ))}
           </ul>
