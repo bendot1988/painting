@@ -4,8 +4,12 @@ import { contact } from '~/data/contact';
 interface Props {
   compact?: boolean;
   hideContacts?: boolean;
+  /** Where Netlify POSTs the form (include ?submitted=true for thank-you state) */
+  formAction?: string;
 }
-const { compact = false, hideContacts = false } = Astro.props;
+const { compact = false, hideContacts = false, formAction = '/contact/?submitted=true' } = Astro.props;
+
+const submitted = Astro.url.searchParams.get('submitted') === 'true';
 
 const faqs = [
   {
@@ -86,13 +90,27 @@ const faqs = [
 
       <form
         class="quote__form"
-        action={`mailto:${contact.email}`}
-        method="post"
-        enctype="text/plain"
+        name="quote"
+        method="POST"
+        action={formAction}
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
         aria-label="Quote request form"
       >
-        <p class="quote__form-intro">Request a free quote — we'll reply the same day.</p>
+        <input type="hidden" name="form-name" value="quote" />
+        <p class="visually-hidden" aria-hidden="true">
+          <label>Don’t fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        {submitted ? (
+          <p class="quote__success" role="status">
+            Thanks — we’ve received your details and will reply the same day during working hours.
+          </p>
+        ) : (
+          <p class="quote__form-intro">Request a free quote — we'll reply the same day.</p>
+        )}
 
+        {!submitted && (
+          <>
         <div class="quote__field">
           <label class="visually-hidden" for="q-name">Your name</label>
           <input
@@ -162,6 +180,8 @@ const faqs = [
         <div class="quote__submit quote__field--full">
           <button type="submit" class="btn quote__btn">Send my details <span class="arrow">→</span></button>
         </div>
+          </>
+        )}
       </form>
     </div>
   </div>
@@ -325,6 +345,17 @@ const faqs = [
     font-size: 15px;
     font-weight: 600;
     color: var(--c-ink);
+  }
+  .quote__success {
+    grid-column: 1 / -1;
+    margin: 0 0 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(126, 211, 33, 0.12);
+    border: 1px solid rgba(126, 211, 33, 0.35);
+    color: var(--c-ink);
+    font-size: 15px;
+    line-height: 1.5;
   }
   .quote__field {
     display: flex;

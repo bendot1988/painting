@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
 import { areas } from '~/data/areas';
 import { sitemapXmlUrls } from '~/data/sitemap';
+import { absoluteUrl } from '~/utils/site-url';
 
-const site = import.meta.env.SITE ?? 'https://www.as-painting.co.uk';
 const lastmod = new Date().toISOString().slice(0, 10);
 
 const areaXmlUrls = areas.map((area) => ({
-  loc: `/areas/${area.slug}`,
+  loc: `/areas/${area.slug}/`,
   priority: '0.6',
   changefreq: 'monthly',
 }));
@@ -16,7 +16,7 @@ export const GET: APIRoute = () => {
     .map(
       ({ loc, priority, changefreq }) => `
   <url>
-    <loc>${site.replace(/\/$/, '')}${loc === '/' ? '/' : loc}</loc>
+    <loc>${absoluteUrl(loc)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>

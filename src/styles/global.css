@@ -257,6 +257,7 @@ button { font: inherit; cursor: pointer; }
 .painted-word--yellow::after { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 60' preserveAspectRatio='none'><path d='M5 35 C 80 10, 200 50, 290 28 S 480 12, 595 30 L 590 50 C 470 30, 320 60, 200 50 S 60 40, 8 55 Z' fill='%23ffd60a'/></svg>"); }
 .painted-word--pink::after { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 60' preserveAspectRatio='none'><path d='M5 35 C 80 10, 200 50, 290 28 S 480 12, 595 30 L 590 50 C 470 30, 320 60, 200 50 S 60 40, 8 55 Z' fill='%23ec008c'/></svg>"); }
 .painted-word--lime::after { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 60' preserveAspectRatio='none'><path d='M5 35 C 80 10, 200 50, 290 28 S 480 12, 595 30 L 590 50 C 470 30, 320 60, 200 50 S 60 40, 8 55 Z' fill='%237ed321'/></svg>"); }
+.painted-word--blue::after { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 60' preserveAspectRatio='none'><path d='M5 35 C 80 10, 200 50, 290 28 S 480 12, 595 30 L 590 50 C 470 30, 320 60, 200 50 S 60 40, 8 55 Z' fill='%231f6feb'/></svg>"); }
 
 /* =========================================================
    Splatter & swatches (decorative)

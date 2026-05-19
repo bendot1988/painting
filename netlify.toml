@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Form notifications (email to info@aspainting.co.uk) are configured in the
+# Netlify UI: Site settings → Forms → Form notifications → Add notification.

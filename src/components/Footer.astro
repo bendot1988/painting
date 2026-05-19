@@ -4,9 +4,14 @@ import SocialIcon from './SocialIcon.astro';
 import { contact, quotePageHref } from '~/data/contact';
 import { socialLinks } from '~/data/social';
 
+interface Props {
+  areaName?: string;
+}
+
+const { areaName } = Astro.props;
 const year = new Date().getFullYear();
 ---
-<YouTubeFeed />
+<YouTubeFeed areaName={areaName} />
 <footer class="footer">
   <!-- Painted top edge -->
   <div class="footer__edge" aria-hidden="true">
@@ -54,7 +59,7 @@ const year = new Date().getFullYear();
         <li><a href="/commercial">Commercial</a></li>
         <li><a href="/domestic">Domestic</a></li>
         <li><a href="/work">Recent work</a></li>
-        <li><a href="#process">How we work</a></li>
+        <li><a href="/how-we-work/">How we work</a></li>
         <li><a href="/areas">Areas covered</a></li>
       </ul>
     </div>

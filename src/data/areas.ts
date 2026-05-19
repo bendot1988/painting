@@ -1,4 +1,5 @@
-import { areaContentBySlug } from './area-content';
+import { areaContentBySlug, type AreaFaq } from './area-content';
+import { areaMetaDescriptionBySlug } from './area-meta';
 
 export type AreaAccent = 'red' | 'yellow' | 'lime' | 'pink' | 'blue';
 
@@ -9,11 +10,28 @@ export type Area = {
   lat: number;
   lng: number;
   areaIntro: string;
+  localLandmark: string;
+  industrialEstates: string;
+  housingStock: string;
   commercialContext: string;
+  domesticContext: string;
+  faqs: AreaFaq[];
   nearby: string[];
 };
 
-const areaCoords: Omit<Area, 'areaIntro' | 'commercialContext' | 'nearby'>[] = [
+/** Nuneaton and Rugby were on the original plan list but sit outside core Leicestershire coverage — confirm with client before adding pages. */
+
+const areaCoords: Omit<
+  Area,
+  | 'areaIntro'
+  | 'localLandmark'
+  | 'industrialEstates'
+  | 'housingStock'
+  | 'commercialContext'
+  | 'domesticContext'
+  | 'faqs'
+  | 'nearby'
+>[] = [
   { slug: 'leicester', name: 'Leicester', lat: 52.6369, lng: -1.1398 },
   { slug: 'loughborough', name: 'Loughborough', lat: 52.7721, lng: -1.2042 },
   { slug: 'hinckley', name: 'Hinckley', lat: 52.5409, lng: -1.3745 },
@@ -73,15 +91,19 @@ export function getCommercialContext(area: Area): string {
   return area.commercialContext;
 }
 
+export function getDomesticContext(area: Area): string {
+  return area.domesticContext;
+}
+
 export function areaPageTitle(name: string): string {
   return `Painting & Decorating in ${name} | A.S Painting Contractors`;
 }
 
 export function areaPageDescription(area: Area): string {
-  const snippet = area.areaIntro.length > 155
-    ? `${area.areaIntro.slice(0, 152).trim()}…`
-    : area.areaIntro;
-  return `${snippet} Commercial and domestic painters in ${area.name}, Leicestershire. Free quotes from A.S Painting Contractors.`;
+  return (
+    areaMetaDescriptionBySlug[area.slug] ??
+    `Painting and decorating in ${area.name}, Leicestershire. Commercial and domestic work, free fixed quotes. A.S Painting Contractors.`
+  );
 }
 
 export function areaListTitle(name: string): string {

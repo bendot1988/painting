@@ -1,0 +1,80 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import Process from '~/components/Process.astro';
+import { quotePageHref } from '~/data/contact';
+
+const pageTitle = 'How We Work | A.S Painting Contractors';
+const pageDescription =
+  'How A.S Painting Contractors work from first call to sign-off — site survey, fixed quote, prep, paint and walk-round on commercial and domestic jobs in Leicestershire.';
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main id="main" class="how-we-work-page">
+    <section class="how-we-work-page__hero" aria-labelledby="how-heading">
+      <div class="container">
+        <span class="eyebrow">Our process</span>
+        <h1 id="how-heading" class="display h1">
+          Prep. Paint. <span class="painted-word painted-word--lime">Perfect.</span>
+        </h1>
+        <p class="lead how-we-work-page__intro">
+          The same five-step process on every job — whether it is a factory repaint, a shopfront
+          refresh or a full house decoration. Clear communication, tidy working and a finish you
+          sign off on.
+        </p>
+      </div>
+    </section>
+
+    <Process />
+
+    <section class="how-we-work-page__cta-band" aria-label="Get a quote">
+      <div class="container">
+        <div class="how-we-work-page__cta-inner reveal">
+          <h2 class="display h3">Ready to start?</h2>
+          <p>Tell us about your project — we aim to reply the same day with a free fixed-price quote.</p>
+          <a class="btn" href={quotePageHref}>Contact us <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .how-we-work-page__hero {
+    padding-top: calc(38px + 50px);
+    padding-bottom: 0;
+  }
+  .how-we-work-page__hero h1 {
+    margin-top: 14px;
+    max-width: 12ch;
+  }
+  .how-we-work-page__intro {
+    max-width: 48ch;
+    margin-top: 16px;
+  }
+  .how-we-work-page :global(.process) {
+    padding-top: 50px;
+  }
+  .how-we-work-page__cta-band {
+    padding: 50px 0 clamp(72px, 9vw, 120px);
+  }
+  .how-we-work-page__cta-inner {
+    text-align: center;
+    padding: clamp(32px, 4vw, 48px);
+    border-radius: 20px;
+    background: var(--c-ink);
+    color: var(--c-paper);
+  }
+  .how-we-work-page__cta-inner h2 {
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .how-we-work-page__cta-inner p {
+    margin: 0 0 20px;
+    color: #cfcdc8;
+    max-width: 40ch;
+    margin-inline: auto;
+  }
+</style>

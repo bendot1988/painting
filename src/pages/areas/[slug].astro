@@ -10,11 +10,14 @@ import {
   getAreaIntro,
   splitAreaIntro,
   getCommercialContext,
+  getDomesticContext,
   getNearbyAreas,
   areaPageTitle,
   areaPageDescription,
 } from '~/data/areas';
 import { quotePageHref } from '~/data/contact';
+import { getAreaGalleryImages } from '~/data/area-gallery';
+import { buildAreaPageJsonLd } from '~/utils/area-json-ld';
 
 export function getStaticPaths() {
   return areas.map((area) => ({ params: { slug: area.slug } }));
@@ -31,8 +34,11 @@ const nearby = getNearbyAreas(area);
 const intro = getAreaIntro(area);
 const [introColA, introColB] = splitAreaIntro(intro);
 const commercialContext = getCommercialContext(area);
+const domesticContext = getDomesticContext(area);
 const areaIndex = areas.findIndex((a) => a.slug === area.slug);
 const accent = areaAccent(areaIndex >= 0 ? areaIndex : 0);
+const areaJsonLd = buildAreaPageJsonLd(area, area.faqs);
+const galleryImages = getAreaGalleryImages(area.name);
 
 const commercialPoints = [
   'Factories, warehouses and production areas',
@@ -50,7 +56,7 @@ const domesticPoints = [
   'Free home visits with clear fixed quotes',
 ];
 ---
-<Layout title={areaPageTitle(area.name)} description={areaPageDescription(area)}>
+<Layout title={areaPageTitle(area.name)} description={areaPageDescription(area)} jsonLd={areaJsonLd}>
   <Header />
   <main id="main" class="area-page">
     <section class="area-page__hero" aria-labelledby="area-heading">
@@ -88,6 +94,26 @@ const domesticPoints = [
       </div>
     </section>
 
+    <section class="area-page__band area-page__local" aria-labelledby="local-heading">
+      <div class="container">
+        <h2 id="local-heading" class="area-page__section-title">Local knowledge</h2>
+        <div class="area-page__local-grid reveal">
+          <article class="area-page__local-block">
+            <h3 class="area-page__local-label">Landmarks &amp; town centre</h3>
+            <p>{area.localLandmark}</p>
+          </article>
+          <article class="area-page__local-block">
+            <h3 class="area-page__local-label">Business parks &amp; industry</h3>
+            <p>{area.industrialEstates}</p>
+          </article>
+          <article class="area-page__local-block">
+            <h3 class="area-page__local-label">Homes &amp; housing stock</h3>
+            <p>{area.housingStock}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="area-page__services" aria-label="Services in this area">
       <div class="container">
         <div class="area-page__services-grid">
@@ -110,10 +136,7 @@ const domesticPoints = [
         <article class="area-page__panel area-page__panel--domestic reveal">
           <span class="area-page__panel-tag">Domestic</span>
           <h2 class="display h3">Home painting in {area.name}</h2>
-          <p>
-            Respectful crews, dust sheets down and a finish you are happy to live with.
-            We paint walls, ceilings, woodwork and exteriors across {area.name}.
-          </p>
+          <p>{domesticContext}</p>
           <ul>
             {domesticPoints.map((point) => (
               <li>{point}</li>
@@ -121,6 +144,50 @@ const domesticPoints = [
           </ul>
           <a href="/domestic">Domestic services <span class="arrow">→</span></a>
         </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="area-page__gallery" aria-labelledby="gallery-heading">
+      <div class="container">
+        <h2 id="gallery-heading" class="area-page__section-title">
+          Recent painting work in {area.name}
+        </h2>
+        <p class="area-page__gallery-intro">
+          Commercial and domestic projects across {area.name} and Leicestershire — interiors,
+          exteriors, kitchens and industrial units.
+        </p>
+        <ul class="area-page__gallery-grid reveal">
+          {galleryImages.map((img, i) => (
+            <li class="area-page__gallery-item" style={`--i:${i % 12}`}>
+              <figure>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading={i < 6 ? 'eager' : 'lazy'}
+                  width="640"
+                  height="480"
+                />
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <p class="area-page__gallery-more">
+          <a href="/work">View all our work <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="area-page__faqs" aria-labelledby="faq-heading">
+      <div class="container">
+        <h2 id="faq-heading" class="area-page__section-title">Questions about painting in {area.name}</h2>
+        <div class="area-page__faq-list reveal">
+          {area.faqs.map((item) => (
+            <details class="area-page__faq">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -150,7 +217,7 @@ const domesticPoints = [
       </div>
     </section>
   </main>
-  <Footer />
+  <Footer areaName={area.name} />
 </Layout>
 
 <style>
@@ -224,8 +291,44 @@ const domesticPoints = [
     margin-top: 24px;
   }
 
+  .area-page__band {
+    background: var(--bg-alt);
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .area-page__local-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .area-page__local-block {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    border-top: 4px solid var(--c-lime);
+    box-shadow: var(--shadow-sm);
+  }
+  .area-page__local-block:nth-child(2) {
+    border-top-color: var(--c-blue);
+  }
+  .area-page__local-block:nth-child(3) {
+    border-top-color: var(--c-pink);
+  }
+  .area-page__local-label {
+    margin: 0 0 10px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .area-page__local-block p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+
   .area-page__services {
-    padding: var(--page-stack-gap) 0 0;
+    padding: clamp(48px, 6vw, 72px) 0 0;
   }
   .area-page__services-grid {
     display: grid;
@@ -284,6 +387,102 @@ const domesticPoints = [
   }
   .area-page__panel > a:hover {
     text-decoration: underline;
+  }
+
+  .area-page__gallery {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+    background: var(--bg-alt);
+  }
+  .area-page__gallery-intro {
+    margin: 0 0 24px;
+    max-width: 52ch;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+  .area-page__gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .area-page__gallery-item {
+    transition-delay: calc(var(--i) * 35ms);
+  }
+  .area-page__gallery-item figure {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    aspect-ratio: 4 / 3;
+  }
+  .area-page__gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s var(--ease);
+  }
+  .area-page__gallery-item:hover img {
+    transform: scale(1.04);
+  }
+  .area-page__gallery-more {
+    margin: 28px 0 0;
+    text-align: center;
+  }
+  .area-page__gallery-more a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .area-page__gallery-more a:hover {
+    text-decoration: underline;
+  }
+
+  .area-page__faqs {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+  }
+  .area-page__faq-list {
+    max-width: 720px;
+  }
+  .area-page__faq {
+    border-top: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .area-page__faq:last-of-type {
+    border-bottom: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .area-page__faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 32px 16px 0;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--c-ink);
+    position: relative;
+  }
+  .area-page__faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .area-page__faq summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--c-red);
+  }
+  .area-page__faq[open] summary::after {
+    content: '−';
+  }
+  .area-page__faq p {
+    margin: 0 0 16px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
   }
 
   .area-page__nearby {
@@ -389,6 +588,21 @@ const domesticPoints = [
       grid-row: 3;
       grid-template-columns: 1fr;
       gap: 20px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .area-page__local-grid {
+      grid-template-columns: 1fr;
+    }
+    .area-page__gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .area-page__gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

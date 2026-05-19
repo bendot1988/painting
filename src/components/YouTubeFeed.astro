@@ -1,11 +1,24 @@
 ---
+import { areaVideoThumbnailAlt } from '~/data/area-gallery';
 import { fetchChannelVideos, formatVideoDate, YOUTUBE_CHANNEL_URL } from '~/lib/youtube-feed';
+
+interface Props {
+  /** When set (area pages), thumbnails get locally relevant alt text */
+  areaName?: string;
+}
+
+const { areaName } = Astro.props;
 
 const INITIAL_VISIBLE = 3;
 const LOAD_MORE_COUNT = 3;
 
 const videos = await fetchChannelVideos(15);
 const hasVideos = videos.length > 0;
+
+function thumbnailAlt(title: string): string {
+  if (areaName) return areaVideoThumbnailAlt(title, areaName);
+  return title;
+}
 ---
 
 {hasVideos && (
@@ -30,7 +43,7 @@ const hasVideos = videos.length > 0;
         >
           <a class="yt-feed__card" href={video.url} target="_blank" rel="noopener noreferrer">
             <span class="yt-feed__thumb">
-              <img src={video.thumbnail} alt="" loading="lazy" width="640" height="360" />
+              <img src={video.thumbnail} alt={thumbnailAlt(video.title)} loading="lazy" width="640" height="360" />
               <span class="yt-feed__play" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="28" height="28">
                   <path d="M8 5v14l11-7z" fill="currentColor" />

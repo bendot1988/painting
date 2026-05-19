@@ -2,13 +2,41 @@
 interface Props {
   title?: string;
   description?: string;
+  /** Path with trailing slash, e.g. /about-us/ */
+  canonical?: string;
+  jsonLd?: Record<string, unknown>;
 }
 const {
   title = 'A.S Painting Contractors — Commercial & Domestic Painters in Leicester',
-  description = 'Leicester-based painting & decorating contractors. Commercial fit-outs, factories and offices. Domestic interiors and exteriors. Quality work, on time, on budget. Free quotes — 7 days a week.'
+  description = 'Leicester-based painting & decorating contractors. Commercial fit-outs, factories and offices. Domestic interiors and exteriors. Quality work, on time, on budget. Free quotes — 7 days a week.',
+  canonical,
+  jsonLd,
 } = Astro.props;
 import '~/styles/global.css';
 import ContactFab from '~/components/ContactFab.astro';
+import { absoluteUrl, OG_IMAGE_PATH } from '~/utils/site-url';
+
+const canonicalUrl = absoluteUrl(canonical ?? Astro.url.pathname);
+const ogImageUrl = absoluteUrl(OG_IMAGE_PATH);
+
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'PaintingService',
+  name: 'A.S Painting Contractors',
+  image: 'https://www.as-painting.co.uk/wp-content/uploads/2021/07/A.S-Painting-Contractors-2.png',
+  telephone: ['+441162914746', '+448000096694'],
+  areaServed: ['Leicester', 'Leicestershire', 'East Midlands'],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Leicester',
+    postalCode: 'LE19 4DG',
+    addressCountry: 'GB',
+  },
+  priceRange: '££',
+  openingHours: 'Mo-Su 06:00-17:00',
+};
+
+const schemaJson = jsonLd ?? defaultJsonLd;
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -18,29 +46,24 @@ import ContactFab from '~/components/ContactFab.astro';
     <meta name="theme-color" content="#0e0e10" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/images/brand/icon.png" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/brand/logo.png" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
     />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'PaintingService',
-      name: 'A.S Painting Contractors',
-      image: 'https://www.as-painting.co.uk/wp-content/uploads/2021/07/A.S-Painting-Contractors-2.png',
-      telephone: ['+441162914746','+448000096694'],
-      areaServed: ['Leicester','Leicestershire','East Midlands'],
-      address: { '@type': 'PostalAddress', addressLocality: 'Leicester', postalCode: 'LE19 4DG', addressCountry: 'GB' },
-      priceRange: '££',
-      openingHours: 'Mo-Su 06:00-17:00'
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaJson)} />
   </head>
   <body>
     <a href="#main" class="skip">Skip to content</a>
@@ -108,24 +131,26 @@ import ContactFab from '~/components/ContactFab.astro';
 
       // Highlight nav bubble for the section in view
       const navLinks = nav?.querySelectorAll<HTMLAnchorElement>('.nav a');
-      const sectionIds = ['commercial', 'domestic', 'work', 'reviews', 'quote'];
+      const sectionIds = ['work', 'reviews', 'quote'];
+      const normPath = (p: string) => {
+        if (!p || p === '/') return '/';
+        return p.endsWith('/') ? p : `${p}/`;
+      };
+      const isPrimaryPageLink = (href: string) =>
+        href.startsWith('/') && !href.startsWith('//') && !href.includes('#');
+
       const setActiveNav = () => {
         if (!navLinks?.length) return;
 
-        const path = window.location.pathname;
-        if (
-          path === '/reviews' ||
-          path === '/work' ||
-          path === '/commercial' ||
-          path === '/domestic' ||
-          path === '/contact' ||
-          path === '/sitemap' ||
-          path === '/areas' ||
-          path.startsWith('/areas/')
-        ) {
+        const path = normPath(window.location.pathname);
+
+        if (path !== '/') {
           navLinks.forEach((link) => {
             const href = link.getAttribute('href') ?? '';
-            const active = href === path || (path.startsWith('/areas/') && href === '/areas');
+            const active =
+              isPrimaryPageLink(href) &&
+              (normPath(href) === path ||
+                (path.startsWith('/areas/') && normPath(href) === '/areas/'));
             link.classList.toggle('is-active', active);
             if (active) link.setAttribute('aria-current', 'location');
             else link.removeAttribute('aria-current');
@@ -142,7 +167,7 @@ import ContactFab from '~/components/ContactFab.astro';
         navLinks.forEach((link) => {
           const href = link.getAttribute('href') ?? '';
           const active =
-            href === '/reviews' || href === '/work' || href === '/commercial' || href === '/domestic' || href === '/contact' || href === '/sitemap' || href === '/areas'
+            isPrimaryPageLink(href)
               ? false
               : href === `#${current}` || href === `/#${current}`;
           link.classList.toggle('is-active', active);

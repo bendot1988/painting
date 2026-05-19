@@ -1,0 +1,111 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import { quotePageHref } from '~/data/contact';
+
+const pageTitle = 'Blog & Updates | A.S Painting Contractors';
+const pageDescription =
+  'News and project updates from A.S Painting Contractors — commercial and domestic painting across Leicestershire. See recent work and follow us on YouTube.';
+---
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main id="main" class="info-page">
+    <section class="info-page__hero" aria-labelledby="blog-heading">
+      <div class="container">
+        <span class="eyebrow">News &amp; updates</span>
+        <h1 id="blog-heading" class="display h1">
+          From the <span class="painted-word painted-word--pink">job site.</span>
+        </h1>
+        <p class="lead info-page__intro">
+          We do not run a traditional blog — instead we share finished projects, short clips and
+          practical painting advice through our work gallery and YouTube channel.
+        </p>
+      </div>
+    </section>
+
+    <section class="info-page__band" aria-label="Where to find updates">
+      <div class="container info-page__content">
+        <h2 class="info-page__title">See what we have been working on</h2>
+        <p>
+          Photos from recent commercial and domestic jobs across Leicester and Leicestershire are
+          on our work pages — factories, offices, shops, kitchens and exteriors with honest
+          before-and-after style shots from real sites.
+        </p>
+        <p>
+          For video walkthroughs, prep tips and timelapse clips, follow A.S Painting Contractors
+          on YouTube. That is where we post most day-to-day updates from active projects.
+        </p>
+        <ul class="info-page__links">
+          <li><a href="/work/">Recent work gallery <span class="arrow">→</span></a></li>
+          <li><a href="/reviews/">Google reviews <span class="arrow">→</span></a></li>
+          <li>
+            <a href="https://www.youtube.com/channel/UCOYgdg7P_QOp1Yx5Y-rjO1w" target="_blank" rel="noopener noreferrer">
+              YouTube channel <span class="arrow">→</span>
+            </a>
+          </li>
+        </ul>
+        <p class="info-page__cta">
+          <a class="btn" href={quotePageHref}>Request a free quote <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .info-page {
+    --page-stack-gap: 50px;
+  }
+  .info-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: 0;
+  }
+  .info-page__hero h1 {
+    margin-top: 14px;
+    max-width: 14ch;
+  }
+  .info-page__intro {
+    max-width: 52ch;
+    margin-top: 16px;
+  }
+  .info-page__band {
+    padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
+    background: var(--bg-alt);
+  }
+  .info-page__content {
+    max-width: 52ch;
+  }
+  .info-page__title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.5vw, 28px);
+    margin: 0 0 16px;
+  }
+  .info-page__content p {
+    margin: 0 0 16px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+  .info-page__links {
+    list-style: none;
+    margin: 24px 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .info-page__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .info-page__links a:hover {
+    text-decoration: underline;
+  }
+  .info-page__cta {
+    margin-top: 28px;
+  }
+</style>
