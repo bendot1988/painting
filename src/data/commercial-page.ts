@@ -26,16 +26,16 @@ export const commercialHeroGallery: GalleryImage[] = [
     alt: 'Repainted Qualvis reception with feature wall and branded signage',
   },
   {
-    src: '/images/commercial-exterior-gsf-red-shutters.jpeg',
-    alt: 'GSF Car Parts warehouse with freshly coated red roller shutters',
+    src: '/images/commercial-interior-qualvis-yellow-stair-hall.jpeg',
+    alt: 'Qualvis stair hall with bold yellow accents and crisp white paint',
   },
   {
-    src: '/images/commercial-interior-warehouse-epoxy-floor-01.jpeg',
-    alt: 'Warehouse with new epoxy resin floor and white-painted walls',
+    src: '/images/commercial-exterior-senior-cars-showroom-01.jpeg',
+    alt: 'Senior Cars showroom exterior with fresh commercial paint finish',
   },
   {
-    src: '/images/commercial-exterior-wellness-studio-shopfront.jpeg',
-    alt: 'Wellness studio shopfront with crisp exterior paint finish',
+    src: '/images/commercial-interior-stained-glass-vestibule.jpeg',
+    alt: 'Commercial vestibule with stained glass and freshly painted joinery',
   },
 ];
 

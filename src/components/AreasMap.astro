@@ -1,0 +1,179 @@
+---
+import 'leaflet/dist/leaflet.css';
+import { areas, areaAccent } from '~/data/areas';
+
+const mapPoints = areas.map((a, i) => ({
+  slug: a.slug,
+  name: a.name,
+  lat: a.lat,
+  lng: a.lng,
+  accent: areaAccent(i),
+}));
+---
+<section class="areas-map-section" aria-labelledby="areas-map-heading">
+  <div class="container">
+    <div class="areas-map-section__head reveal">
+      <h2 id="areas-map-heading" class="display h3">Across Leicestershire</h2>
+      <p class="areas-map-section__lead">
+        Tap a pin for local information, or browse the full list below.
+      </p>
+    </div>
+    <div
+      id="areas-map"
+      class="areas-map"
+      role="img"
+      aria-label="Map of Leicestershire showing towns and villages we cover"
+      data-points={JSON.stringify(mapPoints)}
+    ></div>
+    <p class="areas-map-section__credit">
+      Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors
+    </p>
+  </div>
+</section>
+
+<script>
+  import L from 'leaflet';
+
+  function initAreasMap() {
+    const el = document.getElementById('areas-map');
+    if (!el?.dataset.points) return;
+
+    const root = getComputedStyle(document.documentElement);
+    const accentFill = (accent: string) =>
+      root.getPropertyValue(`--c-${accent}`).trim() || '#d4262c';
+    const accentStroke = (accent: string) =>
+      accent === 'yellow' || accent === 'lime' ? '#0e0e10' : '#ffffff';
+
+    const points = JSON.parse(el.dataset.points) as {
+      slug: string;
+      name: string;
+      lat: number;
+      lng: number;
+      accent: string;
+    }[];
+
+    const map = L.map(el, {
+      scrollWheelZoom: false,
+      attributionControl: true,
+    });
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    const bounds = L.latLngBounds([]);
+
+    points.forEach((area) => {
+      const latlng = L.latLng(area.lat, area.lng);
+      bounds.extend(latlng);
+
+      const fill = accentFill(area.accent);
+      const marker = L.circleMarker(latlng, {
+        radius: 10,
+        fillColor: fill,
+        color: accentStroke(area.accent),
+        weight: 2.5,
+        fillOpacity: 1,
+      }).addTo(map);
+
+      marker.bindPopup(
+        `<a class="areas-map-popup areas-map-popup--${area.accent}" href="/areas/${area.slug}" style="--popup-accent:${fill}"><strong>${area.name}</strong><br><span>Painting &amp; decorating</span></a>`,
+      );
+
+      marker.on('mouseover', () => marker.openPopup());
+      marker.on('mouseout', () => marker.closePopup());
+      marker.on('click', () => {
+        window.location.href = `/areas/${area.slug}`;
+      });
+    });
+
+    if (bounds.isValid()) {
+      map.fitBounds(bounds.pad(0.12));
+    } else {
+      map.setView([52.65, -1.1], 10);
+    }
+
+    const refresh = () => map.invalidateSize();
+    requestAnimationFrame(refresh);
+    setTimeout(refresh, 200);
+    window.addEventListener('load', refresh, { once: true });
+
+    const ro = new ResizeObserver(refresh);
+    ro.observe(el);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAreasMap, { once: true });
+  } else {
+    initAreasMap();
+  }
+</script>
+
+<style>
+  .areas-map-section {
+    padding-bottom: var(--page-stack-gap, 50px);
+  }
+  .areas-map-section__head {
+    margin-bottom: 20px;
+  }
+  .areas-map-section__head h2 {
+    margin: 0 0 8px;
+  }
+  .areas-map-section__lead {
+    margin: 0;
+    max-width: 42ch;
+    color: var(--c-graphite);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .areas-map {
+    width: 100%;
+    height: clamp(320px, 42vw, 480px);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(14, 14, 16, 0.1);
+    box-shadow: var(--shadow-md);
+    background: #e8e8e6;
+    z-index: 0;
+  }
+  .areas-map-section__credit {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--c-stone);
+  }
+  .areas-map-section__credit a {
+    color: var(--c-graphite);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  :global(.areas-map .leaflet-popup-content-wrapper) {
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+  }
+  :global(.areas-map .leaflet-popup-content) {
+    margin: 12px 14px;
+  }
+  :global(.areas-map-popup) {
+    display: block;
+    text-decoration: none;
+    color: var(--c-ink);
+    line-height: 1.4;
+    font-size: 14px;
+    border-top: 3px solid var(--popup-accent, var(--c-red));
+    padding-top: 8px;
+  }
+  :global(.areas-map-popup strong) {
+    font-family: var(--font-display);
+    font-size: 15px;
+  }
+  :global(.areas-map-popup span) {
+    color: var(--c-stone);
+    font-size: 13px;
+  }
+  :global(.areas-map-popup:hover strong) {
+    color: var(--popup-accent, var(--c-red));
+  }
+</style>

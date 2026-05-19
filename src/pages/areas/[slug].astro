@@ -1,0 +1,323 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import {
+  areas,
+  getAreaBySlug,
+  getAreaIntro,
+  getCommercialContext,
+  getNearbyAreas,
+  areaPageTitle,
+  areaPageDescription,
+} from '~/data/areas';
+import { quotePageHref } from '~/data/contact';
+
+export function getStaticPaths() {
+  return areas.map((area) => ({ params: { slug: area.slug } }));
+}
+
+const { slug } = Astro.params;
+const area = getAreaBySlug(slug!);
+
+if (!area) {
+  return Astro.redirect('/areas');
+}
+
+const nearby = getNearbyAreas(area);
+const intro = getAreaIntro(area);
+const commercialContext = getCommercialContext(area);
+
+const commercialPoints = [
+  'Factories, warehouses and production areas',
+  'Offices, corridors and breakout spaces',
+  'Retail units, shopfronts and food courts',
+  'Schools, halls and education buildings',
+  'Out-of-hours and weekend working available',
+];
+
+const domesticPoints = [
+  'Full house and room-by-room decorating',
+  'Kitchens, woodwork, doors and skirting',
+  'Exterior render, masonry and garden joinery',
+  'Landlord refreshes and pre-sale makeovers',
+  'Free home visits with clear fixed quotes',
+];
+---
+<Layout title={areaPageTitle(area.name)} description={areaPageDescription(area)}>
+  <Header />
+  <main id="main" class="area-page">
+    <section class="area-page__hero" aria-labelledby="area-heading">
+      <div class="container">
+        <nav class="area-page__crumb" aria-label="Breadcrumb">
+          <a href="/areas">Areas covered</a>
+          <span aria-hidden="true">/</span>
+          <span>{area.name}</span>
+        </nav>
+        <span class="eyebrow">Leicestershire</span>
+        <h1 id="area-heading" class="display h1">
+          Painting &amp; decorating in <span class="painted-word painted-word--lime">{area.name}.</span>
+        </h1>
+        <p class="lead area-page__intro">{intro}</p>
+        <div class="area-page__actions">
+          <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="/areas">All areas <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="area-page__services" aria-label="Services in this area">
+      <div class="container">
+        <div class="area-page__services-grid">
+        <article class="area-page__panel reveal">
+          <span class="area-page__panel-tag">Commercial</span>
+          <h2 class="display h3">Business painting in {area.name}</h2>
+          <p>{commercialContext}</p>
+          <p class="area-page__panel-note">
+            Interior and exterior painting for sites that need to stay operational.
+            RAMS, method statements and tidy working included as standard.
+          </p>
+          <ul>
+            {commercialPoints.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+          <a href="/commercial">Commercial services <span class="arrow">→</span></a>
+        </article>
+
+        <article class="area-page__panel area-page__panel--domestic reveal">
+          <span class="area-page__panel-tag">Domestic</span>
+          <h2 class="display h3">Home painting in {area.name}</h2>
+          <p>
+            Respectful crews, dust sheets down and a finish you are happy to live with.
+            We paint walls, ceilings, woodwork and exteriors across {area.name}.
+          </p>
+          <ul>
+            {domesticPoints.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+          <a href="/domestic">Domestic services <span class="arrow">→</span></a>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    {nearby.length > 0 && (
+      <section class="area-page__nearby" aria-labelledby="nearby-heading">
+        <div class="container">
+          <h2 id="nearby-heading" class="area-page__section-title">Nearby areas we cover</h2>
+          <ul class="area-page__nearby-list">
+            {nearby.map((n) => (
+              <li>
+                <a href={`/areas/${n.slug}`}>Painting &amp; decorating in {n.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <section class="area-page__cta-band" aria-label="Get a quote">
+      <div class="container">
+        <div class="area-page__cta-inner reveal">
+          <h2 class="display h3">Need painters in {area.name}?</h2>
+          <p>Same-day reply, fixed-price quotes, no hard sell. Call, message or use our form.</p>
+          <a class="btn" href={quotePageHref}>Contact us <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .area-page {
+    --page-stack-gap: 50px;
+  }
+  .area-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: 0;
+  }
+  .area-page__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .area-page__crumb a {
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .area-page__crumb a:hover {
+    text-decoration: underline;
+  }
+  .area-page__hero h1 {
+    margin-top: 14px;
+    max-width: 18ch;
+  }
+  .area-page__intro {
+    max-width: 56ch;
+    margin-top: 16px;
+  }
+  .area-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .area-page__services {
+    padding: var(--page-stack-gap) 0 0;
+  }
+  .area-page__services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .area-page__panel {
+    padding: clamp(24px, 3vw, 32px);
+    border-radius: 20px;
+    background: var(--bg-alt);
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    border-top: 4px solid var(--c-yellow);
+  }
+  .area-page__panel--domestic {
+    border-top-color: var(--c-pink);
+  }
+  .area-page__panel-tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .area-page__panel h2 {
+    margin: 0 0 12px;
+    max-width: 20ch;
+  }
+  .area-page__panel > p {
+    margin: 0 0 16px;
+    color: var(--c-graphite);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .area-page__panel-note {
+    font-size: 14px !important;
+    color: var(--c-stone) !important;
+  }
+  .area-page__panel ul {
+    margin: 0 0 20px;
+    padding-left: 1.2em;
+    color: var(--c-graphite);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .area-page__panel li + li {
+    margin-top: 6px;
+  }
+  .area-page__panel > a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .area-page__panel > a:hover {
+    text-decoration: underline;
+  }
+
+  .area-page__nearby {
+    padding: var(--page-stack-gap) 0 0;
+  }
+  .area-page__section-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.5vw, 28px);
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+  .area-page__nearby-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .area-page__nearby-list a {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(14, 14, 16, 0.1);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-ink);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .area-page__nearby-list a:hover {
+    border-color: var(--c-lime);
+    color: var(--c-red);
+  }
+
+  .area-page__cta-band {
+    padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
+  }
+  .area-page__cta-inner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: clamp(32px, 4vw, 48px);
+    border-radius: 20px;
+    color: var(--c-paper);
+    background-color: var(--c-ink);
+    background-image: url('/images/brand/paint-strokes.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(14, 14, 16, 0.12);
+    box-shadow: var(--shadow-md);
+  }
+  .area-page__cta-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(14, 14, 16, 0.88) 0%,
+      rgba(14, 14, 16, 0.78) 50%,
+      rgba(14, 14, 16, 0.85) 100%
+    );
+  }
+  .area-page__cta-inner :is(h2, p, .btn) {
+    position: relative;
+    z-index: 1;
+  }
+  .area-page__cta-inner h2 {
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .area-page__cta-inner p {
+    margin: 0 0 20px;
+    color: #cfcdc8;
+    max-width: 40ch;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 768px) {
+    .area-page__services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

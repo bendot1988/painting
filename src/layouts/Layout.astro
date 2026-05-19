@@ -113,10 +113,19 @@ import ContactFab from '~/components/ContactFab.astro';
         if (!navLinks?.length) return;
 
         const path = window.location.pathname;
-        if (path === '/reviews' || path === '/work' || path === '/commercial' || path === '/domestic' || path === '/contact') {
+        if (
+          path === '/reviews' ||
+          path === '/work' ||
+          path === '/commercial' ||
+          path === '/domestic' ||
+          path === '/contact' ||
+          path === '/sitemap' ||
+          path === '/areas' ||
+          path.startsWith('/areas/')
+        ) {
           navLinks.forEach((link) => {
             const href = link.getAttribute('href') ?? '';
-            const active = href === path;
+            const active = href === path || (path.startsWith('/areas/') && href === '/areas');
             link.classList.toggle('is-active', active);
             if (active) link.setAttribute('aria-current', 'location');
             else link.removeAttribute('aria-current');
@@ -133,7 +142,7 @@ import ContactFab from '~/components/ContactFab.astro';
         navLinks.forEach((link) => {
           const href = link.getAttribute('href') ?? '';
           const active =
-            href === '/reviews' || href === '/work' || href === '/commercial' || href === '/domestic' || href === '/contact'
+            href === '/reviews' || href === '/work' || href === '/commercial' || href === '/domestic' || href === '/contact' || href === '/sitemap' || href === '/areas'
               ? false
               : href === `#${current}` || href === `/#${current}`;
           link.classList.toggle('is-active', active);

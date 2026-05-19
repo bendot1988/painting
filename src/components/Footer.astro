@@ -1,6 +1,8 @@
 ---
 import YouTubeFeed from './YouTubeFeed.astro';
+import SocialIcon from './SocialIcon.astro';
 import { contact, quotePageHref } from '~/data/contact';
+import { socialLinks } from '~/data/social';
 
 const year = new Date().getFullYear();
 ---
@@ -26,6 +28,24 @@ const year = new Date().getFullYear();
       <div class="footer__swatch swatch-row">
         <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span><span class="s5"></span>
       </div>
+      <div class="footer__social">
+        <h4 class="footer__social-title">Follow us</h4>
+        <ul class="footer__social-list">
+          {socialLinks.map((item) => (
+            <li>
+              <a
+                class="footer__social-link"
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+              >
+                <SocialIcon icon={item.icon} size={17} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
 
     <div class="footer__col">
@@ -35,7 +55,7 @@ const year = new Date().getFullYear();
         <li><a href="/domestic">Domestic</a></li>
         <li><a href="/work">Recent work</a></li>
         <li><a href="#process">How we work</a></li>
-        <li><a href="#areas">Areas covered</a></li>
+        <li><a href="/areas">Areas covered</a></li>
       </ul>
     </div>
 
@@ -61,6 +81,8 @@ const year = new Date().getFullYear();
   <div class="footer__base container">
     <small>© {year} A.S Painting Contractors. All rights reserved.</small>
     <small class="footer__meta">
+      <a href="/sitemap">Sitemap</a>
+      <span class="footer__meta-sep" aria-hidden="true">·</span>
       <a href="https://dotwall.co.uk" target="_blank" rel="noopener noreferrer">dotwall</a>
     </small>
   </div>
@@ -114,6 +136,50 @@ const year = new Date().getFullYear();
   }
   .footer__swatch { width: 200px; margin-top: 18px; }
 
+  .footer__social {
+    margin-top: 24px;
+  }
+  .footer__social-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-yellow);
+    margin: 0 0 12px;
+  }
+  .footer__social-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    max-width: 100%;
+  }
+  .footer__social-link {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--c-red);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(212, 38, 44, 0.32);
+    transition: transform 0.25s var(--ease), background 0.2s, box-shadow 0.25s;
+  }
+  .footer__social-link:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: var(--c-red-deep);
+    box-shadow: 0 6px 16px rgba(212, 38, 44, 0.4);
+  }
+  .footer__social-link :global(.social-icon__img) {
+    width: 18px;
+    height: 18px;
+  }
+
   .footer__col h4 {
     font-family: var(--font-display);
     font-size: 14px; font-weight: 700;
@@ -141,6 +207,15 @@ const year = new Date().getFullYear();
     display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
     color: #8a8881;
     padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .footer__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .footer__meta-sep {
+    color: #6c6a64;
   }
   .footer__meta a {
     color: #cfcdc8;

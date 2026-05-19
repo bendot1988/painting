@@ -28,20 +28,20 @@ export type HomepageFeature = {
 /** Hero gallery on /domestic (4 equal tiles) */
 export const domesticHeroGallery: GalleryImage[] = [
   {
-    src: '/images/domestic-exterior-period-white-house-front.jpeg',
-    alt: 'Period detached home with freshly painted white render and crisp window frames',
+    src: '/images/domestic-interior-sage-green-kitchen-02.jpeg',
+    alt: 'Sage green shaker kitchen with hand-painted cabinetry and crisp finishes',
   },
   {
-    src: '/images/domestic-interior-marble-living-room-tv-wall.jpeg',
-    alt: 'Contemporary living room with marble-effect feature wall and soft neutral paintwork',
+    src: '/images/domestic-interior-classic-kitchen-rangecooker.jpeg',
+    alt: 'Classic kitchen with range cooker, detailed cornices and fresh paintwork',
   },
   {
-    src: '/images/domestic-interior-sage-green-kitchen-01.jpeg',
-    alt: 'Sage green shaker kitchen with hand-painted cabinetry',
+    src: '/images/domestic-interior-cinema-snug-fireplace.jpeg',
+    alt: 'Cosy cinema snug with fireplace and freshly decorated walls',
   },
   {
-    src: '/images/domestic-exterior-grey-blue-rendered-house.jpeg',
-    alt: 'Rendered house exterior in grey-blue with fresh window frames',
+    src: '/images/domestic-exterior-period-white-house-rear.jpeg',
+    alt: 'Period home rear elevation with crisp white render and painted woodwork',
   },
 ];
 

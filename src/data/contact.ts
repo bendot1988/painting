@@ -13,7 +13,7 @@ export const contact = {
   email: 'info@aspainting.co.uk',
   whatsapp: {
     display: '07548 971 520',
-    href: 'https://wa.me/447548971520',
+    href: 'https://wa.me/07548971520',
   },
 } as const;
 

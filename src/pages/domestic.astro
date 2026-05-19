@@ -201,6 +201,10 @@ const pageDescription =
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
     transition-delay: calc(var(--i) * 50ms);
   }
+  .domestic-page__gallery-tile:nth-child(1) { transform: rotate(-2.5deg); }
+  .domestic-page__gallery-tile:nth-child(2) { transform: rotate(2deg); }
+  .domestic-page__gallery-tile:nth-child(3) { transform: rotate(-1.5deg); }
+  .domestic-page__gallery-tile:nth-child(4) { transform: rotate(3deg); }
   .domestic-page__gallery-tile::after {
     content: "";
     position: absolute;
@@ -213,7 +217,7 @@ const pageDescription =
     pointer-events: none;
   }
   .domestic-page__gallery-tile:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) rotate(0deg);
     box-shadow: var(--shadow-md);
   }
   .domestic-page__gallery-tile img {
