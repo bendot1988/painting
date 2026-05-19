@@ -5,12 +5,15 @@ interface Props {
   /** Path with trailing slash, e.g. /about-us/ */
   canonical?: string;
   jsonLd?: Record<string, unknown>;
+  /** Thank-you and similar utility pages */
+  noindex?: boolean;
 }
 const {
   title = 'A.S Painting Contractors — Commercial & Domestic Painters in Leicester',
   description = 'Leicester-based painting & decorating contractors. Commercial fit-outs, factories and offices. Domestic interiors and exteriors. Quality work, on time, on budget. Free quotes — 7 days a week.',
   canonical,
   jsonLd,
+  noindex = false,
 } = Astro.props;
 import '~/styles/global.css';
 import ContactFab from '~/components/ContactFab.astro';
@@ -47,6 +50,7 @@ const schemaJson = jsonLd ?? defaultJsonLd;
     <meta name="theme-color" content="#0e0e10" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/images/brand/icon.png" />
     <meta property="og:title" content={title} />

@@ -20,6 +20,9 @@ export const contact = {
 /** All “get a quote” CTAs point here */
 export const quotePageHref = '/contact/';
 
+/** After a successful quote form submission */
+export const thankYouPageHref = '/thank-you/';
+
 /** Trust stats — keep in sync with TrustStrip counters */
 export const siteStats = {
   experience: '25+ years experience',

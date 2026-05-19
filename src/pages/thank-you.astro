@@ -1,0 +1,157 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import ConfettiCelebration from '~/components/ConfettiCelebration.astro';
+import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
+import { contact } from '~/data/contact';
+
+const rawName = Astro.url.searchParams.get('name')?.trim() ?? '';
+const firstName = rawName.split(/\s+/)[0] ?? '';
+const greeting = firstName ? `Thanks, ${firstName}!` : 'Thanks — we’ve got it!';
+
+const pageTitle = 'Thank you | A.S Painting Contractors';
+const pageDescription =
+  'Your quote request has been received. A.S Painting Contractors will reply the same day during working hours.';
+---
+<Layout title={pageTitle} description={pageDescription} canonical="/thank-you/" noindex>
+  <ConfettiCelebration />
+  <Header />
+  <main id="main" class="thank-you">
+    <section class="thank-you__hero" aria-labelledby="thank-you-heading">
+      <div class="container thank-you__inner reveal">
+        <div class="thank-you__icon" aria-hidden="true">✓</div>
+        <span class="eyebrow">Enquiry received</span>
+        <h1 id="thank-you-heading" class="display h1 thank-you__title">
+          {greeting}
+        </h1>
+        <p class="lead thank-you__lead">
+          Your details are with our team. We’ll get back to you the <strong>same day</strong> during
+          working hours (Mon–Sun, 6am–5pm) with a free, no-obligation quote.
+        </p>
+
+        <GoogleRatingBadge class="thank-you__rating" centered />
+
+        <ul class="thank-you__next" aria-label="What happens next">
+          <li>
+            <span class="thank-you__step-num">1</span>
+            <span>We read your message and check the job type.</span>
+          </li>
+          <li>
+            <span class="thank-you__step-num">2</span>
+            <span>We call or email you to confirm details and arrange a visit if needed.</span>
+          </li>
+          <li>
+            <span class="thank-you__step-num">3</span>
+            <span>You get a clear, fixed-price quote — no hard sell.</span>
+          </li>
+        </ul>
+
+        <div class="thank-you__actions">
+          <a class="btn" href="/">Back to home <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href={`tel:${contact.phone.tel}`}>
+            Call {contact.phone.display}
+          </a>
+        </div>
+
+        <p class="thank-you__urgent">
+          Need to speak now?
+          <a href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+          or freephone <a href={`tel:${contact.freephone.tel}`}>{contact.freephone.display}</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .thank-you__hero {
+    padding: calc(48px + var(--gutter, 24px)) 0 clamp(72px, 10vw, 120px);
+    min-height: min(88vh, 900px);
+    display: flex;
+    align-items: center;
+  }
+  .thank-you__inner {
+    max-width: 640px;
+    text-align: center;
+  }
+  .thank-you__icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-lime), #5cb318);
+    color: #fff;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 72px;
+    box-shadow: 0 12px 32px rgba(126, 211, 33, 0.35);
+  }
+  .thank-you__title {
+    margin-top: 12px;
+    max-width: 16ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .thank-you__lead {
+    margin: 18px auto 0;
+    max-width: 46ch;
+    color: var(--c-graphite);
+  }
+  .thank-you__lead strong {
+    color: var(--c-ink);
+  }
+  .thank-you__rating {
+    margin: 28px auto 0;
+    justify-content: center;
+  }
+  .thank-you__next {
+    list-style: none;
+    margin: 36px 0 0;
+    padding: 24px 28px;
+    text-align: left;
+    background: var(--c-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .thank-you__next li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+  .thank-you__step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--c-red);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 28px;
+    text-align: center;
+  }
+  .thank-you__actions {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .thank-you__urgent {
+    margin: 28px 0 0;
+    font-size: 14.5px;
+    color: var(--c-stone);
+  }
+  .thank-you__urgent a {
+    color: var(--c-red);
+    font-weight: 600;
+  }
+</style>

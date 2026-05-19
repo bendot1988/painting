@@ -1,24 +1,22 @@
 ---
 import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
-import { contact } from '~/data/contact';
+import { contact, thankYouPageHref } from '~/data/contact';
 import { normalizeTrailingSlash } from '~/utils/site-url';
 
 interface Props {
   compact?: boolean;
   hideContacts?: boolean;
-  /** Browser redirect after a successful submit (include ?submitted=true for thank-you state) */
+  /** Where to send the visitor after a successful submit */
   successUrl?: string;
 }
 const {
   compact = false,
   hideContacts = false,
-  successUrl = '/contact/?submitted=true',
+  successUrl = thankYouPageHref,
 } = Astro.props;
 
-/** Path-only action for no-JS fallback; query strings in action break Netlify’s redirect */
+/** Path-only action for no-JS fallback */
 const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
-
-const submitted = Astro.url.searchParams.get('submitted') === 'true';
 
 const faqs = [
   {
@@ -111,16 +109,8 @@ const faqs = [
         <p class="visually-hidden" aria-hidden="true">
           <label>Don’t fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
         </p>
-        {submitted ? (
-          <p class="quote__success" role="status">
-            Thanks — we’ve received your details and will reply the same day during working hours.
-          </p>
-        ) : (
-          <p class="quote__form-intro">Request a free quote — we'll reply the same day.</p>
-        )}
+        <p class="quote__form-intro">Request a free quote — we'll reply the same day.</p>
 
-        {!submitted && (
-          <>
         <div class="quote__field">
           <label class="visually-hidden" for="q-name">Your name</label>
           <input
@@ -194,8 +184,6 @@ const faqs = [
         <div class="quote__submit quote__field--full">
           <button type="submit" class="btn quote__btn">Send my details <span class="arrow">→</span></button>
         </div>
-          </>
-        )}
 
         <GoogleRatingBadge class="quote__rating quote__field--full" centered />
       </form>
@@ -208,7 +196,7 @@ const faqs = [
     if (form.dataset.netlifyBound) return;
     form.dataset.netlifyBound = 'true';
 
-    const successUrl = form.dataset.successUrl ?? '/contact/?submitted=true';
+    const successUrl = form.dataset.successUrl ?? '/thank-you/';
     const errorEl = form.querySelector('.quote__error');
     const submitBtn = form.querySelector('button[type="submit"]');
 
@@ -235,7 +223,12 @@ const faqs = [
 
         const result = response.ok ? await response.json().catch(() => null) : null;
         if (response.ok && result?.ok) {
-          window.location.assign(successUrl);
+          const name = body.get('name');
+          const dest = new URL(successUrl, window.location.origin);
+          if (name && typeof name === 'string') {
+            dest.searchParams.set('name', name.trim());
+          }
+          window.location.assign(dest.pathname + dest.search + dest.hash);
           return;
         }
       } catch {

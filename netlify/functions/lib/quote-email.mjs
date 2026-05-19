@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { buildQuoteEmailHtml, escapeHtml } from './quote-email-template.mjs';
 
 /**
  * @param {Record<string, string>} data
@@ -30,7 +31,7 @@ export async function sendQuoteEmail(data) {
   const name = escapeHtml(data.name ?? '');
   const phone = escapeHtml(data.phone ?? '');
   const email = escapeHtml(data.email ?? '');
-  const message = escapeHtml(data.message ?? '').replace(/\n/g, '<br />');
+  const messageHtml = escapeHtml(data.message ?? '').replace(/\n/g, '<br />');
 
   const bcc = process.env.RESEND_BCC?.trim();
   const resend = new Resend(apiKey);
@@ -41,19 +42,7 @@ export async function sendQuoteEmail(data) {
     ...(bcc ? { bcc: [bcc] } : {}),
     replyTo: data.email || undefined,
     subject: `Quote request — ${data.name || 'A.S Painting website'}`,
-    html: `
-      <h2>New quote request</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Job type:</strong> ${escapeHtml(jobLabel)}</p>
-      <p><strong>Project details:</strong><br />${message || '<em>No message</em>'}</p>
-      <hr />
-      <p style="color:#666;font-size:12px;">
-        Sent from the A.S Painting Contractors website quote form.
-        Privacy consent: yes.
-      </p>
-    `,
+    html: buildQuoteEmailHtml({ name, phone, email, jobLabel: escapeHtml(jobLabel), messageHtml }),
   });
 
   if (error) {
@@ -62,13 +51,4 @@ export async function sendQuoteEmail(data) {
   }
 
   return { ok: true };
-}
-
-/** @param {string} value */
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }
