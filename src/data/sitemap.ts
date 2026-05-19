@@ -28,7 +28,7 @@ export const sitemapGroups: SitemapGroup[] = [
       { label: 'How we work', href: '/how-we-work', description: 'Our process from survey to sign-off' },
       { label: 'Areas covered', href: '/areas', description: 'Towns and villages across Leicestershire' },
       { label: 'Blog', href: '/blog', description: 'Project updates and links to our gallery' },
-      { label: 'Plastering', href: '/plastering', description: 'Why we focus on painting, not plastering' },
+      { label: 'Plastering', href: '/plastering', description: 'We no longer offer plastering — painting only' },
     ],
   },
   {

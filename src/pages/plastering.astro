@@ -2,108 +2,43 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
-import { quotePageHref } from '~/data/contact';
 
-const pageTitle = 'Plastering — We Focus on Painting | A.S Painting Contractors';
+const pageTitle = 'Plastering — We No Longer Offer This | A.S Painting Contractors';
 const pageDescription =
-  'A.S Painting Contractors do not offer plastering. We prep and paint sound surfaces across Leicestershire — commercial and domestic painting with fixed quotes.';
+  'We no longer offer plastering. A.S Painting Contractors only provide commercial and domestic painting and decorating across Leicestershire.';
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
-  <main id="main" class="info-page">
-    <section class="info-page__hero" aria-labelledby="plastering-heading">
-      <div class="container">
-        <span class="eyebrow">Painting only</span>
-        <h1 id="plastering-heading" class="display h1">
-          We <span class="painted-word painted-word--yellow">paint</span> — we don’t plaster.
-        </h1>
-        <p class="lead info-page__intro">
-          If you searched for plastering in Leicestershire, you are in the right place for
-          clarity: A.S Painting Contractors specialise in commercial and domestic painting and
-          decorating. Plastering and major patching are not services we offer.
-        </p>
-      </div>
-    </section>
-
-    <section class="info-page__band" aria-label="What we do instead">
-      <div class="container info-page__content">
-        <h2 class="info-page__title">What we can help with</h2>
-        <p>
-          We prep and paint walls, ceilings, woodwork, metal and masonry that are already in sound
-          condition. Light filling, sanding and spot repairs are included as part of preparation
-          before paint — not full plastering, skimming or board-and-set work.
-        </p>
-        <p>
-          That focus keeps our crews fast, tidy and predictable on offices, factories, shops,
-          warehouses and family homes across Leicester and Leicestershire. You get a fixed-price
-          quote, clear programme and finishes that are ready to live or work around.
-        </p>
-        <ul class="info-page__links">
-          <li><a href="/commercial/">Commercial painting <span class="arrow">→</span></a></li>
-          <li><a href="/domestic/">Domestic painting <span class="arrow">→</span></a></li>
-          <li><a href="/work/">See our recent work <span class="arrow">→</span></a></li>
-        </ul>
-        <p class="info-page__cta">
-          <a class="btn" href={quotePageHref}>Get a free painting quote <span class="arrow">→</span></a>
-        </p>
-      </div>
+  <main id="main" class="plastering-page">
+    <section class="plastering-page__inner container" aria-labelledby="plastering-heading">
+      <h1 id="plastering-heading" class="display h1">Sorry, we don’t do this anymore</h1>
+      <p class="lead plastering-page__text">
+        If you searched for plastering and landed here — we don’t do plastering anymore.
+        We only do painting.
+      </p>
+      <p class="plastering-page__cta">
+        <a class="btn" href="/">Go to our painting services <span class="arrow">→</span></a>
+      </p>
     </section>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  .info-page {
-    --page-stack-gap: 50px;
+  .plastering-page__inner {
+    padding: clamp(72px, 12vw, 140px) 0 clamp(96px, 14vw, 160px);
+    max-width: 40ch;
   }
-  .info-page__hero {
-    padding-top: calc(38px + var(--page-stack-gap));
-    padding-bottom: 0;
+  .plastering-page__inner h1 {
+    margin: 0 0 20px;
+    line-height: 1.15;
   }
-  .info-page__hero h1 {
-    margin-top: 14px;
-    max-width: 14ch;
-  }
-  .info-page__intro {
-    max-width: 52ch;
-    margin-top: 16px;
-  }
-  .info-page__band {
-    padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
-    background: var(--bg-alt);
-  }
-  .info-page__content {
-    max-width: 52ch;
-  }
-  .info-page__title {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 2.5vw, 28px);
-    margin: 0 0 16px;
-  }
-  .info-page__content p {
-    margin: 0 0 16px;
-    line-height: 1.6;
+  .plastering-page__text {
+    margin: 0 0 28px;
+    line-height: 1.55;
     color: var(--c-graphite);
   }
-  .info-page__links {
-    list-style: none;
-    margin: 24px 0;
-    padding: 0;
-    display: grid;
-    gap: 10px;
-  }
-  .info-page__links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 700;
-    color: var(--c-red);
-    text-decoration: none;
-  }
-  .info-page__links a:hover {
-    text-decoration: underline;
-  }
-  .info-page__cta {
-    margin-top: 28px;
+  .plastering-page__cta {
+    margin: 0;
   }
 </style>
