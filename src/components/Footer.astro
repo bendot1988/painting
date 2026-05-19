@@ -1,5 +1,6 @@
 ---
 import YouTubeFeed from './YouTubeFeed.astro';
+import { contact } from '~/data/contact';
 
 const year = new Date().getFullYear();
 ---
@@ -41,12 +42,12 @@ const year = new Date().getFullYear();
     <div class="footer__col">
       <h4>Get in touch</h4>
       <ul class="contact">
-        <li><span>Phone</span><a href="tel:+441162914746">0116 291 4746</a></li>
-        <li><span>Freephone</span><a href="tel:+448000096694">0800 0096 694</a></li>
-        <li><span>WhatsApp</span><a href="https://wa.me/447548971520">07548 971 520</a></li>
-        <li><span>Email</span><a href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a></li>
+        <li><span>Phone</span><a href={`tel:${contact.phone.tel}`}>{contact.phone.display}</a></li>
+        <li><span>Freephone</span><a href={`tel:${contact.freephone.tel}`}>{contact.freephone.display}</a></li>
+        <li><span>WhatsApp</span><a href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">{contact.whatsapp.display}</a></li>
+        <li><span>Email</span><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
         <li><span>Hours</span>Mon–Sun · 6am – 5pm</li>
-        <li><span>Base</span>Leicester · LE19 4DG</li>
+        <li><span>Base</span>{contact.location} · {contact.postcode}</li>
       </ul>
     </div>
 

@@ -1,4 +1,6 @@
 ---
+import { contact } from '~/data/contact';
+
 const faqs = [
   {
     q: 'Do you do plastering?',
@@ -48,27 +50,27 @@ const faqs = [
 
         <ul class="quote__contacts">
           <li>
-            <a class="quote__contact-link" href="tel:+441162914746">
+            <a class="quote__contact-link" href={`tel:${contact.phone.tel}`}>
               <span class="quote__lbl">Phone</span>
-              <span class="quote__value">0116 291 4746</span>
+              <span class="quote__value">{contact.phone.display}</span>
             </a>
           </li>
           <li>
-            <a class="quote__contact-link" href="tel:+448000096694">
+            <a class="quote__contact-link" href={`tel:${contact.freephone.tel}`}>
               <span class="quote__lbl">Freephone</span>
-              <span class="quote__value">0800 0096 694</span>
+              <span class="quote__value">{contact.freephone.display}</span>
             </a>
           </li>
           <li>
-            <a class="quote__contact-link" href="https://wa.me/447548971520" target="_blank" rel="noopener noreferrer">
+            <a class="quote__contact-link" href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">
               <span class="quote__lbl">WhatsApp</span>
-              <span class="quote__value">07548 971 520</span>
+              <span class="quote__value">{contact.whatsapp.display}</span>
             </a>
           </li>
           <li>
-            <a class="quote__contact-link" href="mailto:info@as-painting.co.uk">
+            <a class="quote__contact-link" href={`mailto:${contact.email}`}>
               <span class="quote__lbl">Email</span>
-              <span class="quote__value">info@as-painting.co.uk</span>
+              <span class="quote__value">{contact.email}</span>
             </a>
           </li>
         </ul>
@@ -76,7 +78,7 @@ const faqs = [
 
       <form
         class="quote__form"
-        action="mailto:info@as-painting.co.uk"
+        action={`mailto:${contact.email}`}
         method="post"
         enctype="text/plain"
         aria-label="Quote request form"

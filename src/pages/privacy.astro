@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import { contact } from '~/data/contact';
 ---
 <Layout title="Privacy policy — A.S Painting Contractors" description="Privacy policy for A.S Painting Contractors.">
   <Header />
@@ -17,7 +18,7 @@ import Footer from '~/components/Footer.astro';
         If you submit our quote form, we store your name, contact details and
         project information so we can provide a quote and follow up. You can
         ask us to delete your data at any time by emailing
-        <a href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a>.
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>.
       </p>
       <p><a class="btn btn--ghost" href="/#quote">Back to quote form</a></p>
     </div>

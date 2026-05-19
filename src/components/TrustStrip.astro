@@ -1,7 +1,7 @@
 ---
 const stats = [
-  { value: 15, suffix: '+', label: 'Years on the tools' },
-  { value: 500, suffix: '+', label: 'Projects delivered' },
+  { value: 25, suffix: '+', label: 'Years experience' },
+  { value: 2000, suffix: '+', label: 'Jobs completed' },
   { value: 7, suffix: '', label: 'Days a week, 6am–5pm' },
   { value: 100, suffix: '%', label: 'Insured & vetted team' },
 ];
@@ -37,14 +37,17 @@ const stats = [
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const counters = [...strip.querySelectorAll<HTMLElement>('[data-trust-count]')];
 
+    const formatCount = (n: number) =>
+      n >= 1000 ? n.toLocaleString('en-GB') : String(n);
+
     const runCounter = (el: HTMLElement) => {
       const target = Number(el.dataset.to ?? 0);
       const suffix = el.dataset.suffix ?? '';
       const delay = Number(el.dataset.delay ?? 0);
-      const duration = target >= 100 ? 1600 : 1200;
+      const duration = target >= 1000 ? 2200 : target >= 100 ? 1600 : 1200;
 
       const finish = () => {
-        el.textContent = `${target}${suffix}`;
+        el.textContent = `${formatCount(target)}${suffix}`;
       };
 
       if (reduce || el.dataset.counted === 'true') {
@@ -59,7 +62,7 @@ const stats = [
           const progress = Math.min(elapsed / duration, 1);
           const eased = 1 - (1 - progress) ** 3;
           const value = Math.round(target * eased);
-          el.textContent = `${value}${suffix}`;
+          el.textContent = `${formatCount(value)}${suffix}`;
           if (progress < 1) requestAnimationFrame(tick);
           else finish();
         };

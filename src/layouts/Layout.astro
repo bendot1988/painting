@@ -70,17 +70,30 @@ import ContactFab from '~/components/ContactFab.astro';
       onScroll();
 
       // Mobile nav toggle
-      const navToggle = document.querySelector('[data-nav-toggle]');
-      const nav = document.querySelector('[data-nav]');
+      const navToggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+      const nav = document.querySelector<HTMLElement>('[data-nav]');
+      const navClose = nav?.querySelector<HTMLButtonElement>('[data-nav-close]');
+      const navBackdrop = nav?.querySelector<HTMLElement>('[data-nav-backdrop]');
+
+      const setNavOpen = (open: boolean) => {
+        if (!nav || !navToggle) return;
+        nav.classList.toggle('is-open', open);
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.style.overflow = open ? 'hidden' : '';
+        navBackdrop?.setAttribute('aria-hidden', String(!open));
+      };
+
       navToggle?.addEventListener('click', () => {
-        const open = nav?.classList.toggle('is-open');
-        navToggle.setAttribute('aria-expanded', String(!!open));
+        setNavOpen(!nav?.classList.contains('is-open'));
+      });
+      navClose?.addEventListener('click', () => setNavOpen(false));
+      navBackdrop?.addEventListener('click', () => setNavOpen(false));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav?.classList.contains('is-open')) setNavOpen(false);
       });
       nav?.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          nav.classList.remove('is-open');
-          navToggle?.setAttribute('aria-expanded', 'false');
-        });
+        link.addEventListener('click', () => setNavOpen(false));
       });
 
       // Highlight nav bubble for the section in view

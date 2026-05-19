@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import { contact } from '~/data/contact';
 ---
 <Layout title="Terms of service — A.S Painting Contractors" description="Terms of service for A.S Painting Contractors.">
   <Header />
@@ -16,8 +17,8 @@ import Footer from '~/components/Footer.astro';
       <p>
         Deposits, timings and scope are confirmed in your written quote before
         work begins. For questions, call
-        <a href="tel:+441162914746">0116 291 4746</a> or email
-        <a href="mailto:info@as-painting.co.uk">info@as-painting.co.uk</a>.
+        <a href={`tel:${contact.phone.tel}`}>{contact.phone.display}</a> or email
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>.
       </p>
       <p><a class="btn btn--ghost" href="/#quote">Back to quote form</a></p>
     </div>
