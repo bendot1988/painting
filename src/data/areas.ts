@@ -53,6 +53,22 @@ export function getAreaIntro(area: Area): string {
   return area.areaIntro;
 }
 
+/** Split long area intro into two columns at a sentence boundary */
+export function splitAreaIntro(text: string): [string, string] {
+  const sentences = text.match(/[^.!?]+[.!?]+(?:\s|$)/g);
+  if (sentences && sentences.length >= 2) {
+    const mid = Math.ceil(sentences.length / 2);
+    return [
+      sentences.slice(0, mid).join('').trim(),
+      sentences.slice(mid).join('').trim(),
+    ];
+  }
+  const mid = Math.floor(text.length / 2);
+  const breakAt = text.lastIndexOf(' ', mid);
+  const point = breakAt > mid * 0.55 ? breakAt : mid;
+  return [text.slice(0, point).trim(), text.slice(point).trim()];
+}
+
 export function getCommercialContext(area: Area): string {
   return area.commercialContext;
 }
