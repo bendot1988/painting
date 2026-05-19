@@ -1,4 +1,5 @@
 ---
+import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
@@ -25,10 +26,7 @@ const pageDescription =
           Real feedback from homeowners and businesses across Leicestershire.
           {reviews.length} reviews — all five stars.
         </p>
-        <div class="reviews-page__rating" aria-label="4.9 out of 5 from 58 Google reviews">
-          <span class="reviews-page__stars" aria-hidden="true">★★★★★</span>
-          <span><strong>4.9</strong> rated · 58 Google reviews</span>
-        </div>
+        <GoogleRatingBadge class="reviews-page__rating" />
       </div>
     </section>
 
@@ -79,22 +77,11 @@ const pageDescription =
     margin-top: 16px;
   }
   .reviews-page__rating {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
     margin-top: 22px;
     margin-bottom: var(--reviews-stack-gap);
     padding: 10px 16px;
     border-radius: 999px;
     background: rgba(14, 14, 16, 0.05);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--c-graphite);
-  }
-  .reviews-page__stars {
-    color: var(--c-yellow);
-    letter-spacing: 2px;
-    font-size: 15px;
   }
 
   .reviews-page__list {

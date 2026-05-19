@@ -20,6 +20,17 @@ import { contact } from '~/data/contact';
         ask us to delete your data at any time by emailing
         <a href={`mailto:${contact.email}`}>{contact.email}</a>.
       </p>
+      <h2 class="legal-page__h2">Cookies and analytics</h2>
+      <p>
+        If you choose <strong>Accept</strong> on our cookie notice, we load a privacy-friendly
+        analytics script (hosted by Dotwall) that helps us see how many people visit the site and
+        which pages they view. It does not use advertising cookies and we do not sell your data.
+        You can decline analytics cookies and still use the site normally.
+      </p>
+      <p>
+        Your choice is stored in your browser so we do not ask again on every visit. You can clear
+        it anytime by removing site data for as-painting.co.uk in your browser settings.
+      </p>
       <p><a class="btn btn--ghost" href="/contact">Back to quote form</a></p>
     </div>
   </main>
@@ -30,5 +41,10 @@ import { contact } from '~/data/contact';
   .legal-page { padding-block: clamp(120px, 14vw, 160px) clamp(72px, 9vw, 120px); }
   .legal-page__inner { max-width: 60ch; }
   .legal-page h1 { margin: 14px 0 18px; }
+  .legal-page__h2 {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.2vw, 24px);
+    margin: 1.75em 0 0.75em;
+  }
   .legal-page p { color: var(--c-graphite); line-height: 1.6; margin: 0 0 1em; }
 </style>

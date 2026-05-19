@@ -1,0 +1,67 @@
+---
+import { googleRating, googleRatingLabel } from '~/data/google-rating';
+
+interface Props {
+  class?: string;
+  centered?: boolean;
+}
+
+const { class: className, centered = false } = Astro.props;
+---
+<div
+  class:list={['google-rating', centered && 'google-rating--centered', className]}
+  aria-label={googleRatingLabel}
+>
+  <div class="google-rating__stars" aria-hidden="true">
+    {Array.from({ length: 5 }).map(() => (
+      <svg viewBox="0 0 24 24" width="22" height="22">
+        <path
+          d="M12 2l2.9 6.5 7.1 1-5.2 4.6 1.6 7.1L12 17.8 5.6 21.2l1.6-7.1L2 9.5l7.1-1L12 2z"
+          fill="currentColor"
+        />
+      </svg>
+    ))}
+  </div>
+  <span class="google-rating__text">
+    <strong>{googleRating.score}</strong> rated · <span>{googleRating.reviewCount} Google reviews</span>
+  </span>
+</div>
+
+<style>
+  .google-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .google-rating--centered {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .google-rating__stars {
+    display: inline-flex;
+    gap: 3px;
+    color: var(--c-yellow);
+    filter: drop-shadow(0 1px 0 rgba(14, 14, 16, 0.12));
+  }
+  .google-rating__stars svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+  .google-rating__text {
+    font-size: 15px;
+    color: var(--c-graphite);
+  }
+  .google-rating__text strong {
+    font-weight: 800;
+    color: var(--c-ink);
+    font-family: var(--font-display);
+    font-size: 17px;
+  }
+  .google-rating__text span {
+    font-weight: 600;
+    color: var(--c-ink);
+  }
+</style>

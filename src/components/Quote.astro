@@ -1,4 +1,5 @@
 ---
+import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import { contact } from '~/data/contact';
 
 interface Props {
@@ -182,6 +183,8 @@ const faqs = [
         </div>
           </>
         )}
+
+        <GoogleRatingBadge class="quote__rating quote__field--full" centered />
       </form>
     </div>
   </div>
@@ -451,6 +454,11 @@ const faqs = [
 
   .quote__submit {
     margin-top: 4px;
+  }
+  .quote__rating {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(14, 14, 16, 0.08);
   }
   .quote__btn {
     width: 100%;

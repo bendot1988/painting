@@ -1,4 +1,5 @@
 ---
+import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 ---
 <section id="top" class="hero">
   <div class="container hero__inner">
@@ -57,18 +58,7 @@
           <span><strong>Leicestershire-based</strong> — covering Leicester &amp; the whole county</span>
         </div>
 
-        <div class="hero__reviews" aria-label="Rated 4.9 out of 5 from 58 Google reviews">
-          <div class="hero__stars" aria-hidden="true">
-            {Array.from({ length: 5 }).map(() => (
-              <svg viewBox="0 0 24 24">
-                <path d="M12 2l2.9 6.5 7.1 1-5.2 4.6 1.6 7.1L12 17.8 5.6 21.2l1.6-7.1L2 9.5l7.1-1L12 2z" fill="currentColor" />
-              </svg>
-            ))}
-          </div>
-          <span class="hero__reviews-text">
-            <strong>4.9</strong> rated · <span>58 Google reviews</span>
-          </span>
-        </div>
+        <GoogleRatingBadge class="hero__reviews" />
       </div>
     </div>
 
@@ -177,37 +167,6 @@
     font-weight: 700;
     color: var(--c-red);
   }
-  .hero__reviews {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .hero__stars {
-    display: inline-flex;
-    gap: 3px;
-    color: var(--c-yellow);
-    filter: drop-shadow(0 1px 0 rgba(14,14,16,0.12));
-  }
-  .hero__stars svg {
-    width: 22px;
-    height: 22px;
-  }
-  .hero__reviews-text {
-    font-size: 15px;
-    color: var(--c-graphite);
-  }
-  .hero__reviews-text strong {
-    font-weight: 800;
-    color: var(--c-ink);
-    font-family: var(--font-display);
-    font-size: 17px;
-  }
-  .hero__reviews-text span {
-    font-weight: 600;
-    color: var(--c-ink);
-  }
-
   .hero__media {
     position: relative;
     isolation: isolate;
