@@ -18,14 +18,6 @@
 /sample-page/                      /                 301!
 /sample-page                       /                 301!
 
-# Trailing-slash consistency — enforce trailing slash everywhere
-/commercial    /commercial/    301!
-/domestic      /domestic/      301!
-/plastering    /plastering/    301!
-/work          /work/          301!
-/contact       /contact/       301!
-/reviews       /reviews/       301!
-/about-us      /about-us/      301!
-/areas         /areas/         301!
-/blog          /blog/          301!
-/how-we-work   /how-we-work/   301!
+# Trailing slashes: do not add manual /page → /page/ rules here. Netlify already
+# redirects extensionless paths to the folder index (e.g. /work → /work/). Forcing
+# them with 301! also matches /work/ and causes ERR_TOO_MANY_REDIRECTS.
