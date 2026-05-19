@@ -1,14 +1,22 @@
 ---
 import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import { contact } from '~/data/contact';
+import { normalizeTrailingSlash } from '~/utils/site-url';
 
 interface Props {
   compact?: boolean;
   hideContacts?: boolean;
-  /** Where Netlify POSTs the form (include ?submitted=true for thank-you state) */
-  formAction?: string;
+  /** Browser redirect after a successful submit (include ?submitted=true for thank-you state) */
+  successUrl?: string;
 }
-const { compact = false, hideContacts = false, formAction = '/contact/?submitted=true' } = Astro.props;
+const {
+  compact = false,
+  hideContacts = false,
+  successUrl = '/contact/?submitted=true',
+} = Astro.props;
+
+/** Path-only action for no-JS fallback; query strings in action break Netlify’s redirect */
+const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
 
 const submitted = Astro.url.searchParams.get('submitted') === 'true';
 
@@ -93,9 +101,10 @@ const faqs = [
         class="quote__form"
         name="quote"
         method="POST"
-        action={formAction}
+        action={netlifyAction}
         data-netlify="true"
         data-netlify-honeypot="bot-field"
+        data-success-url={successUrl}
         aria-label="Quote request form"
       >
         <input type="hidden" name="form-name" value="quote" />
@@ -178,6 +187,10 @@ const faqs = [
           </span>
         </label>
 
+        <p class="quote__error quote__field--full" role="alert" hidden>
+          Something went wrong sending your details. Please call us or try again.
+        </p>
+
         <div class="quote__submit quote__field--full">
           <button type="submit" class="btn quote__btn">Send my details <span class="arrow">→</span></button>
         </div>
@@ -189,6 +202,53 @@ const faqs = [
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('form.quote__form[data-netlify]').forEach((form) => {
+    if (form.dataset.netlifyBound) return;
+    form.dataset.netlifyBound = 'true';
+
+    const successUrl = form.dataset.successUrl ?? '/contact/?submitted=true';
+    const errorEl = form.querySelector('.quote__error');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorEl?.setAttribute('hidden', '');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.setAttribute('aria-busy', 'true');
+      }
+
+      const body = new URLSearchParams();
+      for (const [key, value] of new FormData(form).entries()) {
+        body.append(key, String(value));
+      }
+
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
+        });
+
+        if (response.ok) {
+          window.location.assign(successUrl);
+          return;
+        }
+      } catch {
+        /* show error below */
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+      }
+      errorEl?.removeAttribute('hidden');
+    });
+  });
+</script>
 
 <style>
   .quote {
@@ -359,6 +419,20 @@ const faqs = [
     color: var(--c-ink);
     font-size: 15px;
     line-height: 1.5;
+  }
+  .quote__error {
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(212, 38, 44, 0.08);
+    border: 1px solid rgba(212, 38, 44, 0.35);
+    color: var(--c-ink);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .quote__btn:disabled {
+    opacity: 0.65;
+    cursor: wait;
   }
   .quote__field {
     display: flex;

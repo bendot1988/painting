@@ -18,7 +18,7 @@ export const contact = {
 } as const;
 
 /** All “get a quote” CTAs point here */
-export const quotePageHref = '/contact';
+export const quotePageHref = '/contact/';
 
 /** Trust stats — keep in sync with TrustStrip counters */
 export const siteStats = {
