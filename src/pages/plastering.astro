@@ -10,25 +10,27 @@ const pageDescription =
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
   <main id="main" class="plastering-page">
-    <section class="plastering-page__inner container" aria-labelledby="plastering-heading">
-      <h1 id="plastering-heading" class="display h1">Sorry, we don’t do this anymore</h1>
-      <p class="lead plastering-page__text">
-        If you searched for plastering and landed here — we don’t do plastering anymore.
-        We only do painting.
-      </p>
-      <p class="plastering-page__cta">
-        <a class="btn" href="/">Go to our painting services <span class="arrow">→</span></a>
-      </p>
+    <section class="plastering-page__hero" aria-labelledby="plastering-heading">
+      <div class="container">
+        <h1 id="plastering-heading" class="display h1">Sorry, we don’t do this anymore</h1>
+        <p class="lead plastering-page__text">
+          If you searched for plastering and landed here — we don’t do plastering anymore.
+          We only do painting.
+        </p>
+        <p class="plastering-page__cta">
+          <a class="btn" href="/">Go to our painting services <span class="arrow">→</span></a>
+        </p>
+      </div>
     </section>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  .plastering-page__inner {
-    padding: clamp(120px, 14vw, 160px) 0 clamp(72px, 9vw, 120px);
+  .plastering-page__hero {
+    padding-block: clamp(120px, 14vw, 160px) clamp(72px, 9vw, 120px);
   }
-  .plastering-page__inner h1 {
+  .plastering-page__hero h1 {
     margin: 0 0 20px;
     line-height: 1.12;
     max-width: none;
