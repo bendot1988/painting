@@ -2,5 +2,8 @@
   command = "npm run build"
   publish = "dist"
 
-# Form notifications (email to info@aspainting.co.uk) are configured in the
-# Netlify UI: Site settings → Forms → Form notifications → Add notification.
+[functions]
+  directory = "netlify/functions"
+
+# Quote form submissions trigger netlify/functions/submission-created.mjs
+# which emails via Resend (RESEND_* env vars in Netlify UI).

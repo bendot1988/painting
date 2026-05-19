@@ -2,12 +2,20 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
-import { aboutHeroGallery, aboutPlaceholderHighlights } from '~/data/about-page';
+import {
+  aboutHeroGallery,
+  aboutHighlights,
+  aboutIntro,
+  aboutNarrative,
+  aboutVideo,
+} from '~/data/about-page';
+
+const aboutVideoEmbedUrl = `https://www.youtube-nocookie.com/embed/${aboutVideo.id}?mute=1&rel=0&modestbranding=1`;
 import { quotePageHref } from '~/data/contact';
 
 const pageTitle = 'About Us | A.S Painting Contractors';
 const pageDescription =
-  'About A.S Painting Contractors: Leicester-based commercial and domestic painters and decorators serving Leicestershire and the East Midlands.';
+  'About A.S Painting Contractors — commercial painting and office decorating in Leicester and Leicestershire for public and private sector clients. Quality materials, on time and on budget.';
 const aboutJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
@@ -44,10 +52,7 @@ const aboutJsonLd = {
         <h1 id="about-heading" class="display h1">
           Painters you can <span class="painted-word painted-word--blue">trust.</span>
         </h1>
-        <p class="lead about-page__intro">
-          Leicester-based painting and decorating for homes and businesses across
-          Leicestershire. This page will tell our story in full once the final copy is ready.
-        </p>
+        <p class="lead about-page__intro">{aboutIntro}</p>
         <div class="about-page__pills" aria-label="At a glance">
           <span class="about-page__pill">25+ years experience</span>
           <span class="about-page__pill">2,000+ jobs completed</span>
@@ -72,34 +77,44 @@ const aboutJsonLd = {
 
     <section class="about-page__band" aria-labelledby="about-story-heading">
       <div class="container">
-        <h2 id="about-story-heading" class="about-page__section-title">Our story</h2>
+        <h2 id="about-story-heading" class="about-page__section-title">About us</h2>
         <div class="about-page__prose reveal">
-          <!-- Ben will drop the About copy in here -->
-          <p>
-            Placeholder: A.S Painting Contractors has worked across Leicestershire for
-            homeowners, landlords and businesses who need reliable decorating without the
-            drama. The finished About page will cover how the company started, who leads
-            the team on site, and what clients can expect from first call to sign-off.
-          </p>
-          <p>
-            Placeholder: Until that copy is added, treat this section as layout-only filler.
-            Paragraphs will sit here in two columns on larger screens, matching the rhythm
-            of our Commercial and Domestic service pages. Quotes, timelines and quality
-            standards will all be spelled out in Ben&apos;s final draft.
-          </p>
+          {aboutNarrative.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
         </div>
+      </div>
+    </section>
+
+    <section class="about-page__video-section" aria-labelledby="about-video-heading">
+      <div class="container">
+        <span class="eyebrow">On YouTube</span>
+        <h2 id="about-video-heading" class="about-page__section-title">See us at work</h2>
+        <p class="about-page__video-lead">{aboutVideo.lead}</p>
+        <div class="about-page__video reveal">
+          <div class="about-page__video-frame">
+            <iframe
+              src={aboutVideoEmbedUrl}
+              title={aboutVideo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            />
+          </div>
+        </div>
+        <p class="about-page__video-note">
+          This clip has no narration. It loads muted — you can use YouTube&apos;s volume control if
+          sound is ever added.
+        </p>
       </div>
     </section>
 
     <section class="about-page__section" aria-label="What we stand for">
       <div class="container">
         <h2 class="about-page__section-title">What we stand for</h2>
-        <p class="about-page__section-lead">
-          Placeholder highlights below. Each card will be replaced with real points from
-          the About copy.
-        </p>
         <ul class="about-page__highlights">
-          {aboutPlaceholderHighlights.map((item, i) => (
+          {aboutHighlights.map((item, i) => (
             <li class="about-page__highlight reveal" style={`--i:${i}`}>
               <strong>{item.title}</strong>
               <p>{item.desc}</p>
@@ -206,6 +221,55 @@ const aboutJsonLd = {
     background: var(--bg-alt);
     padding: clamp(48px, 6vw, 72px) 0;
   }
+  .about-page__video-section {
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .about-page__video-lead {
+    max-width: 52ch;
+    margin: 0 0 28px;
+    color: var(--c-graphite);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .about-page__video {
+    max-width: min(920px, 100%);
+    margin: 0 auto;
+    padding: 0 clamp(8px, 2vw, 20px);
+  }
+  .about-page__video-frame {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--c-ink);
+    border: 3px solid var(--c-ink);
+    box-shadow:
+      14px 16px 0 var(--c-red),
+      0 28px 56px rgba(212, 38, 44, 0.28);
+    transform: rotate(-1.25deg);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+  .about-page__video-frame:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow:
+      16px 18px 0 var(--c-red-deep),
+      0 32px 64px rgba(212, 38, 44, 0.34);
+  }
+  .about-page__video-frame iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    vertical-align: middle;
+  }
+  .about-page__video-note {
+    max-width: 52ch;
+    margin: 16px auto 0;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--c-stone);
+  }
+
   .about-page__section {
     padding: clamp(48px, 6vw, 72px) 0;
   }
@@ -323,6 +387,10 @@ const aboutJsonLd = {
       transform: none;
     }
     .about-page__gallery-tile:hover img {
+      transform: none;
+    }
+    .about-page__video-frame,
+    .about-page__video-frame:hover {
       transform: none;
     }
   }
