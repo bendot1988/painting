@@ -1,0 +1,119 @@
+---
+import { blogPosts, formatBlogDate } from '~/data/blog';
+import '~/styles/blog-ui.css';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const otherPosts = [...blogPosts]
+  .filter((p) => p.slug !== currentSlug)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+<aside class="blog-aside" aria-label="More news">
+  <div class="blog-ui-card">
+    <h2 class="blog-ui-card__title">News</h2>
+    <a class="blog-ui-card__link" href="/blog/">← All news articles</a>
+  </div>
+
+  {otherPosts.length > 0 ? (
+    <div class="blog-ui-card">
+      <h2 class="blog-ui-card__title">More articles</h2>
+      <ul class="blog-aside__posts">
+        {otherPosts.map((item) => (
+          <li>
+            <a class="blog-aside__post-link" href={`/blog/${item.slug}/`}>
+              <figure class="blog-aside__thumb">
+                <img src={item.image.src} alt="" loading="lazy" width="80" height="60" />
+              </figure>
+              <span class="blog-aside__post-meta">
+                <time datetime={item.date}>{formatBlogDate(item.date)}</time>
+                <strong>{item.title}</strong>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : (
+    <div class="blog-ui-card">
+      <h2 class="blog-ui-card__title">More articles</h2>
+      <p class="blog-aside__note">More news posts will appear here as we publish them.</p>
+    </div>
+  )}
+</aside>
+
+<style>
+  .blog-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .blog-aside__posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .blog-aside__post-link {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    align-items: center;
+  }
+  .blog-aside__post-link:hover strong {
+    color: var(--c-red);
+  }
+  .blog-aside__thumb {
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #e8e8e6;
+  }
+  .blog-aside__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .blog-aside__post-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .blog-aside__post-meta time {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .blog-aside__post-meta strong {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--c-ink);
+  }
+  .blog-aside__note {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+  .blog-ui-card__link {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .blog-ui-card__link:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,32 @@
+/** Shared card chrome for blog index and single post columns */
+.blog-ui-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(14, 14, 16, 0.08);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+.blog-ui-card--article {
+  padding: 0;
+  overflow: hidden;
+}
+.blog-ui-card--article .blog-ui-card__body {
+  padding: clamp(24px, 3vw, 32px);
+}
+.blog-ui-card__title {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-stone);
+}
+.blog-ui-card--dark {
+  background: var(--c-ink);
+  color: var(--c-paper);
+  border-color: transparent;
+}
+.blog-ui-card--dark .blog-ui-card__title {
+  color: var(--c-yellow);
+}

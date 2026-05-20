@@ -4,6 +4,7 @@ import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import { blogIndexMeta, blogPosts, formatBlogDate } from '~/data/blog';
 import { quotePageHref } from '~/data/contact';
+import '~/styles/blog-ui.css';
 
 const sortedPosts = [...blogPosts].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -28,35 +29,39 @@ const sortedPosts = [...blogPosts].sort(
     <section class="blog-page__list-section" aria-label="All news posts">
       <div class="container">
         {sortedPosts.length > 0 ? (
-          <ul class="blog-page__list">
+          <ul class="blog-page__grid">
             {sortedPosts.map((post, i) => (
-              <li class="blog-page__card reveal" style={`--i:${i}`}>
-                <a class="blog-page__card-link" href={`/blog/${post.slug}/`}>
-                  <figure class="blog-page__card-media">
-                    <img
-                      src={post.image.src}
-                      alt={post.image.alt}
-                      loading={i === 0 ? 'eager' : 'lazy'}
-                      width="640"
-                      height="360"
-                    />
-                  </figure>
-                  <div class="blog-page__card-body">
-                    <time class="blog-page__date" datetime={post.date}>
-                      {formatBlogDate(post.date)}
-                    </time>
-                    <h2 class="blog-page__card-title">{post.title}</h2>
-                    <p class="blog-page__excerpt">{post.excerpt}</p>
-                    <span class="blog-page__read">
-                      Read article <span class="arrow">→</span>
-                    </span>
-                  </div>
-                </a>
+              <li class="blog-page__item reveal" style={`--i:${i}`}>
+                <article class="blog-ui-card blog-page__card">
+                  <a class="blog-page__card-link" href={`/blog/${post.slug}/`}>
+                    <figure class="blog-page__card-media">
+                      <img
+                        src={post.image.src}
+                        alt={post.image.alt}
+                        loading={i < 3 ? 'eager' : 'lazy'}
+                        width="400"
+                        height="260"
+                      />
+                    </figure>
+                    <div class="blog-page__card-body">
+                      <time class="blog-page__date" datetime={post.date}>
+                        {formatBlogDate(post.date)}
+                      </time>
+                      <h2 class="blog-page__card-title">{post.title}</h2>
+                      <p class="blog-page__excerpt">{post.excerpt}</p>
+                      <span class="blog-page__read">
+                        Read article <span class="arrow">→</span>
+                      </span>
+                    </div>
+                  </a>
+                </article>
               </li>
             ))}
           </ul>
         ) : (
-          <p class="blog-page__empty">No news posts yet — check back soon.</p>
+          <div class="blog-ui-card">
+            <p class="blog-page__empty">No news posts yet — check back soon.</p>
+          </div>
         )}
 
         <p class="blog-page__cta">
@@ -88,33 +93,33 @@ const sortedPosts = [...blogPosts].sort(
     padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
     background: var(--bg-alt);
   }
-  .blog-page__list {
+  .blog-page__grid {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
-    max-width: 720px;
+  }
+  .blog-page__item {
+    transition-delay: calc(var(--i) * 50ms);
   }
   .blog-page__card {
-    transition-delay: calc(var(--i) * 60ms);
-  }
-  .blog-page__card-link {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 0;
-    text-decoration: none;
-    color: inherit;
-    background: #fff;
-    border-radius: 18px;
+    padding: 0;
     overflow: hidden;
-    border: 1px solid rgba(14, 14, 16, 0.08);
-    box-shadow: var(--shadow-sm);
+    height: 100%;
     transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
   }
-  .blog-page__card-link:hover {
+  .blog-page__card:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+  }
+  .blog-page__card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
   }
   .blog-page__card-media {
     margin: 0;
@@ -128,17 +133,17 @@ const sortedPosts = [...blogPosts].sort(
     object-fit: cover;
     transition: transform 0.5s var(--ease);
   }
-  .blog-page__card-link:hover .blog-page__card-media img {
+  .blog-page__card:hover .blog-page__card-media img {
     transform: scale(1.04);
   }
   .blog-page__card-body {
-    padding: 22px 24px;
+    padding: 18px 20px 22px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    flex: 1;
   }
   .blog-page__date {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -147,40 +152,47 @@ const sortedPosts = [...blogPosts].sort(
   .blog-page__card-title {
     margin: 8px 0 10px;
     font-family: var(--font-display);
-    font-size: clamp(20px, 2.2vw, 24px);
+    font-size: 18px;
     font-weight: 700;
     color: var(--c-ink);
-    line-height: 1.2;
+    line-height: 1.25;
   }
   .blog-page__excerpt {
     margin: 0 0 14px;
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.5;
     color: var(--c-graphite);
     flex: 1;
   }
   .blog-page__read {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--c-red);
   }
   .blog-page__empty {
+    margin: 0;
     color: var(--c-graphite);
   }
   .blog-page__cta {
-    margin-top: 36px;
+    margin-top: 32px;
     text-align: center;
   }
 
+  @media (max-width: 1100px) {
+    .blog-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 820px) {
+    .blog-page__grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin-inline: auto;
+    }
+  }
   @media (max-width: 640px) {
     .blog-page__hero h1 {
       max-width: none;
-    }
-    .blog-page__card-link {
-      grid-template-columns: 1fr;
-    }
-    .blog-page__card-media {
-      aspect-ratio: 16 / 9;
     }
   }
 </style>
