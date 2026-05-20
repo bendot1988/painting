@@ -1,0 +1,218 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import BlogSidebar from '~/components/BlogSidebar.astro';
+import { blogPosts, formatBlogDate, getBlogPostBySlug } from '~/data/blog';
+import { quotePageHref } from '~/data/contact';
+import { absoluteUrl } from '~/utils/site-url';
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = getBlogPostBySlug(slug!);
+
+if (!post) {
+  return Astro.redirect('/blog/');
+}
+
+const pageUrl = absoluteUrl(`/blog/${post.slug}/`);
+const pageTitle = `${post.title} | A.S Painting Contractors`;
+const pageDescription = post.excerpt;
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      '@id': pageUrl,
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      image: absoluteUrl(post.image.src),
+      author: {
+        '@type': 'Organization',
+        name: 'A.S Painting Contractors',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'A.S Painting Contractors',
+      },
+      mainEntityOfPage: pageUrl,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: 'News', item: absoluteUrl('/blog/') },
+        { '@type': 'ListItem', position: 3, name: post.title, item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={`/blog/${post.slug}/`}
+  jsonLd={articleJsonLd}
+>
+  <Header />
+  <main id="main" class="blog-post">
+    <article class="blog-post__article">
+      <header class="blog-post__hero">
+        <div class="container">
+          <nav class="blog-post__crumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span aria-hidden="true">/</span>
+            <a href="/blog/">News</a>
+            <span aria-hidden="true">/</span>
+            <span>{post.title}</span>
+          </nav>
+          <time class="blog-post__date" datetime={post.date}>
+            {formatBlogDate(post.date)}
+          </time>
+          <h1 class="display h1 blog-post__title">{post.title}</h1>
+        </div>
+      </header>
+
+      <div class="container blog-post__layout">
+        <div class="blog-post__main">
+          <figure class="blog-post__figure">
+            <img
+              src={post.image.src}
+              alt={post.image.alt}
+              loading="eager"
+              width="800"
+              height="450"
+            />
+          </figure>
+
+          <div class="blog-post__prose">
+            {post.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            <p class="blog-post__credit">
+              Website by{' '}
+              <a href="https://dotwall.co.uk" target="_blank" rel="noopener noreferrer">dotwall</a>.
+            </p>
+          </div>
+
+          <footer class="blog-post__footer">
+            <a class="btn btn--ghost" href="/blog/">← All news</a>
+            <a class="btn" href={quotePageHref}>Get in touch <span class="arrow">→</span></a>
+          </footer>
+        </div>
+
+        <BlogSidebar />
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .blog-post__hero {
+    padding-top: calc(38px + 50px);
+    padding-bottom: 28px;
+  }
+  .blog-post__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .blog-post__crumb a {
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .blog-post__crumb a:hover {
+    text-decoration: underline;
+  }
+  .blog-post__date {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+    margin-bottom: 10px;
+  }
+  .blog-post__title {
+    margin: 0;
+    max-width: 20ch;
+  }
+
+  .blog-post__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
+    gap: clamp(32px, 4vw, 52px);
+    align-items: start;
+    padding-bottom: clamp(72px, 9vw, 120px);
+  }
+  .blog-post__main {
+    min-width: 0;
+  }
+  .blog-post__layout :global(.blog-sidebar) {
+    position: sticky;
+    top: calc(72px + 20px);
+  }
+
+  .blog-post__figure {
+    margin: 0 0 28px;
+  }
+  .blog-post__figure img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    display: block;
+  }
+  .blog-post__prose p {
+    margin: 0 0 1.25em;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--c-graphite);
+  }
+  .blog-post__credit {
+    margin-top: 2em !important;
+    font-size: 15px !important;
+    color: var(--c-stone) !important;
+  }
+  .blog-post__credit a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .blog-post__credit a:hover {
+    text-decoration: underline;
+  }
+  .blog-post__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(14, 14, 16, 0.1);
+  }
+
+  @media (max-width: 960px) {
+    .blog-post__layout {
+      grid-template-columns: 1fr;
+    }
+    .blog-post__layout :global(.blog-sidebar) {
+      position: static;
+    }
+    .blog-post__title {
+      max-width: none;
+    }
+  }
+</style>

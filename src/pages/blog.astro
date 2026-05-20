@@ -2,50 +2,64 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import { blogIndexMeta, blogPosts, formatBlogDate } from '~/data/blog';
 import { quotePageHref } from '~/data/contact';
 
-const pageTitle = 'Blog & Updates | A.S Painting Contractors';
-const pageDescription =
-  'News and project updates from A.S Painting Contractors — commercial and domestic painting across Leicestershire. See recent work and follow us on YouTube.';
+const sortedPosts = [...blogPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
 ---
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={blogIndexMeta.title} description={blogIndexMeta.description} canonical="/blog/">
   <Header />
-  <main id="main" class="info-page">
-    <section class="info-page__hero" aria-labelledby="blog-heading">
+  <main id="main" class="blog-page">
+    <section class="blog-page__hero" aria-labelledby="blog-heading">
       <div class="container">
         <span class="eyebrow">News &amp; updates</span>
         <h1 id="blog-heading" class="display h1">
-          From the <span class="painted-word painted-word--pink">job site.</span>
+          News from <span class="painted-word painted-word--pink">A.S Painting.</span>
         </h1>
-        <p class="lead info-page__intro">
-          We do not run a traditional blog — instead we share finished projects, short clips and
-          practical painting advice through our work gallery and YouTube channel.
+        <p class="lead blog-page__intro">
+          Company news, project snapshots and occasional updates from our team across
+          Leicestershire.
         </p>
       </div>
     </section>
 
-    <section class="info-page__band" aria-label="Where to find updates">
-      <div class="container info-page__content">
-        <h2 class="info-page__title">See what we have been working on</h2>
-        <p>
-          Photos from recent commercial and domestic jobs across Leicester and Leicestershire are
-          on our work pages — factories, offices, shops, kitchens and exteriors with honest
-          before-and-after style shots from real sites.
-        </p>
-        <p>
-          For video walkthroughs, prep tips and timelapse clips, follow A.S Painting Contractors
-          on YouTube. That is where we post most day-to-day updates from active projects.
-        </p>
-        <ul class="info-page__links">
-          <li><a href="/work/">Recent work gallery <span class="arrow">→</span></a></li>
-          <li><a href="/reviews/">Google reviews <span class="arrow">→</span></a></li>
-          <li>
-            <a href="https://www.youtube.com/channel/UCOYgdg7P_QOp1Yx5Y-rjO1w" target="_blank" rel="noopener noreferrer">
-              YouTube channel <span class="arrow">→</span>
-            </a>
-          </li>
-        </ul>
-        <p class="info-page__cta">
+    <section class="blog-page__list-section" aria-label="All news posts">
+      <div class="container">
+        {sortedPosts.length > 0 ? (
+          <ul class="blog-page__list">
+            {sortedPosts.map((post, i) => (
+              <li class="blog-page__card reveal" style={`--i:${i}`}>
+                <a class="blog-page__card-link" href={`/blog/${post.slug}/`}>
+                  <figure class="blog-page__card-media">
+                    <img
+                      src={post.image.src}
+                      alt={post.image.alt}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      width="640"
+                      height="360"
+                    />
+                  </figure>
+                  <div class="blog-page__card-body">
+                    <time class="blog-page__date" datetime={post.date}>
+                      {formatBlogDate(post.date)}
+                    </time>
+                    <h2 class="blog-page__card-title">{post.title}</h2>
+                    <p class="blog-page__excerpt">{post.excerpt}</p>
+                    <span class="blog-page__read">
+                      Read article <span class="arrow">→</span>
+                    </span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="blog-page__empty">No news posts yet — check back soon.</p>
+        )}
+
+        <p class="blog-page__cta">
           <a class="btn" href={quotePageHref}>Request a free quote <span class="arrow">→</span></a>
         </p>
       </div>
@@ -55,57 +69,118 @@ const pageDescription =
 </Layout>
 
 <style>
-  .info-page {
+  .blog-page {
     --page-stack-gap: 50px;
   }
-  .info-page__hero {
+  .blog-page__hero {
     padding-top: calc(38px + var(--page-stack-gap));
     padding-bottom: 0;
   }
-  .info-page__hero h1 {
+  .blog-page__hero h1 {
     margin-top: 14px;
     max-width: 14ch;
   }
-  .info-page__intro {
-    max-width: 52ch;
+  .blog-page__intro {
+    max-width: 48ch;
     margin-top: 16px;
   }
-  .info-page__band {
+  .blog-page__list-section {
     padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
     background: var(--bg-alt);
   }
-  .info-page__content {
-    max-width: 52ch;
-  }
-  .info-page__title {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 2.5vw, 28px);
-    margin: 0 0 16px;
-  }
-  .info-page__content p {
-    margin: 0 0 16px;
-    line-height: 1.6;
-    color: var(--c-graphite);
-  }
-  .info-page__links {
+  .blog-page__list {
     list-style: none;
-    margin: 24px 0;
+    margin: 0;
     padding: 0;
     display: grid;
-    gap: 10px;
+    gap: 20px;
+    max-width: 720px;
   }
-  .info-page__links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  .blog-page__card {
+    transition-delay: calc(var(--i) * 60ms);
+  }
+  .blog-page__card-link {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .blog-page__card-link:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .blog-page__card-media {
+    margin: 0;
+    aspect-ratio: 16 / 10;
+    background: #e8e8e6;
+    overflow: hidden;
+  }
+  .blog-page__card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+  }
+  .blog-page__card-link:hover .blog-page__card-media img {
+    transform: scale(1.04);
+  }
+  .blog-page__card-body {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .blog-page__date {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .blog-page__card-title {
+    margin: 8px 0 10px;
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.2vw, 24px);
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.2;
+  }
+  .blog-page__excerpt {
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+    flex: 1;
+  }
+  .blog-page__read {
+    font-size: 14px;
     font-weight: 700;
     color: var(--c-red);
-    text-decoration: none;
   }
-  .info-page__links a:hover {
-    text-decoration: underline;
+  .blog-page__empty {
+    color: var(--c-graphite);
   }
-  .info-page__cta {
-    margin-top: 28px;
+  .blog-page__cta {
+    margin-top: 36px;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .blog-page__hero h1 {
+      max-width: none;
+    }
+    .blog-page__card-link {
+      grid-template-columns: 1fr;
+    }
+    .blog-page__card-media {
+      aspect-ratio: 16 / 9;
+    }
   }
 </style>

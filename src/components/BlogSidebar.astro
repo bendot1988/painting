@@ -1,0 +1,182 @@
+---
+import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
+import googleReviews from '~/data/google-reviews.json';
+import { reviewSnippet, type GoogleReview } from '~/lib/reviews';
+import { contact, quotePageHref } from '~/data/contact';
+
+const latestReviews = (googleReviews.reviews as GoogleReview[]).slice(0, 3);
+
+const services = [
+  { href: '/commercial/', label: 'Commercial painting' },
+  { href: '/domestic/', label: 'Domestic painting' },
+  { href: '/housing-association-painting/', label: 'Housing associations' },
+  { href: '/work/', label: 'Recent work' },
+  { href: '/areas/', label: 'Areas covered' },
+  { href: '/how-we-work/', label: 'How we work' },
+  { href: '/faqs/', label: 'FAQs' },
+];
+---
+<aside class="blog-sidebar" aria-label="Related links and reviews">
+  <div class="blog-sidebar__widget">
+    <h2 class="blog-sidebar__title">Our services</h2>
+    <ul class="blog-sidebar__links">
+      {services.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="blog-sidebar__widget blog-sidebar__widget--rating">
+    <h2 class="blog-sidebar__title">Google reviews</h2>
+    <GoogleRatingBadge />
+    <ul class="blog-sidebar__reviews">
+      {latestReviews.map((item) => (
+        <li class="blog-sidebar__review">
+          <div class="blog-sidebar__stars" aria-hidden="true">★★★★★</div>
+          <p>{reviewSnippet(item.review, 120)}</p>
+          <footer>
+            <strong>{item.name}</strong>
+            <span>{item.date}</span>
+          </footer>
+        </li>
+      ))}
+    </ul>
+    <a class="blog-sidebar__more" href="/reviews/">All Google reviews <span class="arrow">→</span></a>
+  </div>
+
+  <div class="blog-sidebar__widget blog-sidebar__widget--cta">
+    <h2 class="blog-sidebar__title">Get a quote</h2>
+    <p>Free fixed-price quotes across Leicestershire — same-day reply Mon–Sun, 6am–5pm.</p>
+    <a class="btn blog-sidebar__btn" href={quotePageHref}>
+      Request a quote <span class="arrow">→</span>
+    </a>
+    <p class="blog-sidebar__contact">
+      <a href={`tel:${contact.phone.tel}`}>{contact.phone.display}</a>
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </p>
+  </div>
+</aside>
+
+<style>
+  .blog-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .blog-sidebar__widget {
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--bg-alt);
+    border: 1px solid rgba(14, 14, 16, 0.08);
+  }
+  .blog-sidebar__widget--cta {
+    background: var(--c-ink);
+    color: var(--c-paper);
+    border-color: transparent;
+  }
+  .blog-sidebar__title {
+    margin: 0 0 14px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .blog-sidebar__widget--cta .blog-sidebar__title {
+    color: var(--c-yellow);
+  }
+  .blog-sidebar__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .blog-sidebar__links a {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--c-ink);
+    text-decoration: none;
+  }
+  .blog-sidebar__links a:hover {
+    color: var(--c-red);
+  }
+  .blog-sidebar__widget--rating :global(.google-rating) {
+    margin-bottom: 16px;
+  }
+  .blog-sidebar__reviews {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .blog-sidebar__review {
+    padding-top: 14px;
+    border-top: 1px solid rgba(14, 14, 16, 0.08);
+  }
+  .blog-sidebar__review:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+  .blog-sidebar__stars {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--c-yellow);
+    margin-bottom: 6px;
+  }
+  .blog-sidebar__review p {
+    margin: 0 0 8px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--c-graphite);
+  }
+  .blog-sidebar__review footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    font-size: 12px;
+    color: var(--c-stone);
+  }
+  .blog-sidebar__review footer strong {
+    color: var(--c-ink);
+  }
+  .blog-sidebar__more {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .blog-sidebar__more:hover {
+    text-decoration: underline;
+  }
+  .blog-sidebar__widget--cta p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #cfcdc8;
+  }
+  .blog-sidebar__btn {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .blog-sidebar__contact {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+  }
+  .blog-sidebar__contact a {
+    color: #cfcdc8;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .blog-sidebar__contact a:hover {
+    color: var(--c-yellow);
+  }
+</style>

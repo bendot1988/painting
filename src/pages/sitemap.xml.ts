@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { areas } from '~/data/areas';
+import { blogPosts } from '~/data/blog';
 import { sitemapXmlUrls } from '~/data/sitemap';
 import { absoluteUrl } from '~/utils/site-url';
 
@@ -11,8 +12,14 @@ const areaXmlUrls = areas.map((area) => ({
   changefreq: 'monthly',
 }));
 
+const blogXmlUrls = blogPosts.map((post) => ({
+  loc: `/blog/${post.slug}/`,
+  priority: '0.5',
+  changefreq: 'yearly',
+}));
+
 export const GET: APIRoute = () => {
-  const urls = [...sitemapXmlUrls, ...areaXmlUrls]
+  const urls = [...sitemapXmlUrls, ...areaXmlUrls, ...blogXmlUrls]
     .map(
       ({ loc, priority, changefreq }) => `
   <url>

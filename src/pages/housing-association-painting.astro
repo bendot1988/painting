@@ -1,0 +1,795 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import {
+  heroTrustPoints,
+  areasCovered,
+  areasNote,
+  heroGallery,
+  midPageGallery,
+  housingAssociationFaqs,
+  housingAssociationPageMeta,
+  housingAssociationServices,
+  processSteps,
+  socialProofReview,
+  whyChoosePoints,
+} from '~/data/housing-association-page';
+import { contact, quotePageHref } from '~/data/contact';
+import { buildHousingAssociationJsonLd } from '~/utils/housing-association-json-ld';
+
+const jsonLd = buildHousingAssociationJsonLd(housingAssociationFaqs);
+---
+<Layout
+  title={housingAssociationPageMeta.title}
+  description={housingAssociationPageMeta.description}
+  canonical={housingAssociationPageMeta.canonical}
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main id="main" class="ha-page">
+    <section class="ha-page__hero" aria-labelledby="ha-heading">
+      <div class="container">
+        <span class="eyebrow">Social housing · B2B</span>
+        <h1 id="ha-heading" class="display h1">
+          Housing association painting in <span class="painted-word painted-word--blue">Leicestershire.</span>
+        </h1>
+        <p class="lead ha-page__intro">
+          Void properties, communal areas and cyclical programmes — delivered with RAMS, reliable
+          scheduling and respect for tenants. For registered providers, council housing teams and
+          maintenance contractors.
+        </p>
+        <div class="ha-page__hero-actions">
+          <a class="btn" href={quotePageHref}>Discuss a contract <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="/commercial/">Commercial services</a>
+        </div>
+
+        <ul class="ha-page__trust-strip" aria-label="Compliance at a glance">
+          {heroTrustPoints.map((item) => (
+            <li class="ha-page__trust-pill">
+              <button type="button" class="ha-page__trust-pill-btn">
+                {item.label}
+                <span class="ha-page__trust-tip" role="tooltip">{item.tip}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        <div class="ha-page__hero-gallery reveal" aria-label="Social housing decorating examples">
+          {heroGallery.map((img, i) => (
+            <figure class="ha-page__gallery-tile" style={`--i:${i}`}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                width="640"
+                height="480"
+              />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ha-page__band" aria-labelledby="intro-heading">
+      <div class="container ha-page__intro-wrap">
+        <h2 id="intro-heading" class="ha-page__section-title">A decorating partner for social housing</h2>
+        <div class="ha-page__prose">
+          <p>
+            <strong>A.S Painting Contractors</strong> provides painting and decorating for the social
+            housing sector across Leicestershire — not as a domestic decorator, but as a site-ready
+            contractor who understands void KPIs, planned programmes and life in occupied blocks.
+          </p>
+          <p>
+            Housing associations are independent registered providers; councils manage their own stock
+            (sometimes via an ALMO); and many jobs are let by larger maintenance contractors holding
+            framework agreements. We work with <strong>all three</strong> — whichever side you sit on,
+            you get clear quotes, compliant paperwork and crews who turn up when agreed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ha-page__section" aria-labelledby="services-heading">
+      <div class="container">
+        <h2 id="services-heading" class="ha-page__section-title">Services we provide</h2>
+        <p class="ha-page__section-lead">
+          Scopes aligned to social landlord specifications — void painting, communal decoration,
+          externals and responsive make-good.
+        </p>
+        <ul class="ha-page__services">
+          {housingAssociationServices.map((service, i) => (
+            <li class="ha-page__service reveal" style={`--i:${i % 7}`}>
+              {service.src && (
+                <div class="ha-page__service-media">
+                  <img src={service.src} alt={service.alt ?? ''} loading="lazy" width="480" height="300" />
+                </div>
+              )}
+              <div class="ha-page__service-body">
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p class="ha-page__inline-cta">
+          <a class="btn" href={quotePageHref}>Request a quote <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="ha-page__band" aria-labelledby="why-heading">
+      <div class="container">
+        <h2 id="why-heading" class="ha-page__section-title">Why housing associations choose us</h2>
+        <p class="ha-page__section-lead">
+          Procurement teams need reliability, compliance and minimal tenant disruption — not
+          decorative flair alone.
+        </p>
+        <ul class="ha-page__trust-grid">
+          {whyChoosePoints.map((item, i) => (
+            <li class="ha-page__trust-card reveal" style={`--i:${i}`}>
+              <strong>{item.title}</strong>
+              <p>{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="ha-page__mid-gallery" aria-label="Social housing decorating gallery">
+      <div class="container">
+        <ul class="ha-page__mid-gallery-grid reveal">
+          {midPageGallery.map((img, i) => (
+            <li class="ha-page__mid-gallery-item" style={`--i:${i}`}>
+              <figure>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  width="640"
+                  height="480"
+                />
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="ha-page__section" aria-labelledby="process-heading">
+      <div class="container">
+        <h2 id="process-heading" class="ha-page__section-title">How we work</h2>
+        <p class="ha-page__section-lead">
+          A straightforward process from first enquiry to sign-off — built around your void lists,
+          programmes and site rules.
+        </p>
+        <ol class="ha-page__process">
+          {processSteps.map((step, i) => (
+            <li class="ha-page__process-step reveal" style={`--i:${i}`}>
+              <span class="ha-page__process-num display">{step.n}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="ha-page__band" aria-labelledby="areas-heading">
+      <div class="container">
+        <h2 id="areas-heading" class="ha-page__section-title">Areas covered</h2>
+        <p class="ha-page__section-lead">
+          Leicester-based social housing decorating across Leicestershire and the wider East Midlands
+          where contracts require.
+        </p>
+        <ul class="ha-page__areas">
+          {areasCovered.map((town) => (
+            <li>{town}</li>
+          ))}
+        </ul>
+        <p class="ha-page__areas-note">{areasNote}</p>
+        <p class="ha-page__areas-link">
+          <a href="/areas/">View all areas we cover <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="ha-page__section" aria-labelledby="proof-heading">
+      <div class="container">
+        <h2 id="proof-heading" class="ha-page__section-title">Social proof</h2>
+        <div class="ha-page__proof-grid">
+          <blockquote class="ha-page__quote reveal">
+            <p>&ldquo;{socialProofReview.quote}&rdquo;</p>
+            <footer>
+              — {socialProofReview.org}
+              <a href={socialProofReview.href}>Read more reviews</a>
+            </footer>
+          </blockquote>
+          <div class="ha-page__proof-placeholder reveal">
+            <p class="ha-page__proof-placeholder-title">Client logos &amp; case studies</p>
+            <p>
+              [Named housing association or contractor clients / references, if any can be used.]
+            </p>
+            <p>[Short void or cyclical programme case study — before/after, programme length, stock type.]</p>
+            <p class="ha-page__proof-placeholder-note">
+              [Image placeholder: operatives in PPE on site / communal stairwell before &amp; after]
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ha-page__band ha-page__faqs" aria-labelledby="faq-heading">
+      <div class="container">
+        <h2 id="faq-heading" class="ha-page__section-title">Frequently asked questions</h2>
+        <p class="ha-page__section-lead">
+          Common questions from housing asset managers, repairs leads and maintenance contractors.
+        </p>
+        <div class="ha-page__faq-list">
+          {housingAssociationFaqs.map((item) => (
+            <details class="ha-page__faq">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ha-page__cta-band" aria-label="Contact us">
+      <div class="container">
+        <div class="ha-page__cta-inner reveal">
+          <h2 class="display h3">Discuss your void list or programme</h2>
+          <p>
+            Same-day reply during working hours (Mon–Sun, 6am–5pm). Send specifications, void numbers
+            or programme dates — we will arrange a survey and fixed-price quote.
+          </p>
+          <div class="ha-page__cta-contacts">
+            <a class="btn" href={quotePageHref}>Request a quote <span class="arrow">→</span></a>
+            <div class="ha-page__cta-links">
+              <a href={`tel:${contact.phone.tel}`}>{contact.phone.display}</a>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .ha-page {
+    --page-stack-gap: 50px;
+  }
+  .ha-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: 0;
+  }
+  .ha-page__hero h1 {
+    margin-top: 14px;
+    max-width: 16ch;
+  }
+  .ha-page__intro {
+    max-width: 54ch;
+    margin-top: 16px;
+  }
+  .ha-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .ha-page__trust-strip {
+    list-style: none;
+    margin: 28px 0 24px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ha-page__trust-pill {
+    margin: 0;
+  }
+  .ha-page__trust-pill-btn {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(14, 14, 16, 0.1);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-ink);
+    box-shadow: var(--shadow-sm);
+    cursor: help;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .ha-page__trust-pill-btn:hover,
+  .ha-page__trust-pill-btn:focus-visible {
+    border-color: var(--c-blue);
+    box-shadow: var(--shadow-md);
+    outline: none;
+  }
+  .ha-page__trust-tip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: min(280px, 85vw);
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--c-ink);
+    color: #cfcdc8;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.45;
+    text-align: left;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    z-index: 5;
+  }
+  .ha-page__trust-tip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--c-ink);
+  }
+  .ha-page__trust-pill-btn:hover .ha-page__trust-tip,
+  .ha-page__trust-pill-btn:focus-visible .ha-page__trust-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-2px);
+  }
+  .ha-page__hero-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: var(--page-stack-gap);
+  }
+  .ha-page__gallery-tile {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e8e8e6;
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .ha-page__gallery-tile::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--c-blue);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .ha-page__gallery-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ha-page__band {
+    background: var(--bg-alt);
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .ha-page__section {
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .ha-page__section-title {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+  }
+  .ha-page__section-lead {
+    max-width: 58ch;
+    margin: 0 0 28px;
+    color: var(--c-graphite);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .ha-page__prose {
+    max-width: 62ch;
+  }
+  .ha-page__prose p {
+    margin: 0 0 1em;
+    color: var(--c-graphite);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .ha-page__intro-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+
+  .ha-page__services {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .ha-page__service {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 40ms);
+  }
+  .ha-page__service-media {
+    background: #e8e8e6;
+    min-height: 100%;
+  }
+  .ha-page__service-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 120px;
+  }
+  .ha-page__service-body {
+    padding: 16px 18px 18px;
+  }
+  .ha-page__service-body h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .ha-page__service-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+  .ha-page__inline-cta {
+    margin: 32px 0 0;
+    text-align: center;
+  }
+
+  .ha-page__trust-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .ha-page__trust-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border-left: 4px solid var(--c-blue);
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .ha-page__trust-card strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--c-ink);
+  }
+  .ha-page__trust-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+
+  .ha-page__mid-gallery {
+    padding: clamp(40px, 5vw, 56px) 0;
+    background: #fff;
+  }
+  .ha-page__mid-gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .ha-page__mid-gallery-item {
+    transition-delay: calc(var(--i) * 45ms);
+  }
+  .ha-page__mid-gallery-item figure {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #e8e8e6;
+    box-shadow: var(--shadow-sm);
+  }
+  .ha-page__mid-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s var(--ease);
+  }
+  .ha-page__mid-gallery-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .ha-page__process {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .ha-page__process-step {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--c-lime);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .ha-page__process-num {
+    display: block;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--c-ink);
+    margin-bottom: 10px;
+  }
+  .ha-page__process-step h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .ha-page__process-step p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+
+  .ha-page__areas {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ha-page__areas li {
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(14, 14, 16, 0.1);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .ha-page__areas-note {
+    font-size: 14px;
+    color: var(--c-stone);
+    max-width: 52ch;
+  }
+  .ha-page__areas-link a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .ha-page__areas-link a:hover {
+    text-decoration: underline;
+  }
+
+  .ha-page__proof-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .ha-page__quote {
+    margin: 0;
+    padding: 28px;
+    border-radius: 18px;
+    background: var(--bg-alt);
+    border-left: 4px solid var(--c-yellow);
+  }
+  .ha-page__quote p {
+    margin: 0 0 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+  .ha-page__quote footer {
+    font-size: 14px;
+    color: var(--c-stone);
+  }
+  .ha-page__quote footer a {
+    display: block;
+    margin-top: 8px;
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .ha-page__proof-placeholder {
+    padding: 28px;
+    border-radius: 18px;
+    border: 1px dashed rgba(14, 14, 16, 0.2);
+    background: #fff;
+  }
+  .ha-page__proof-placeholder-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  .ha-page__proof-placeholder p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: var(--c-graphite);
+    line-height: 1.5;
+  }
+  .ha-page__proof-placeholder-note {
+    font-size: 13px;
+    color: var(--c-stone);
+  }
+
+  .ha-page__faq-list {
+    max-width: 720px;
+  }
+  .ha-page__faq {
+    border-top: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .ha-page__faq:last-of-type {
+    border-bottom: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .ha-page__faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 32px 16px 0;
+    font-weight: 600;
+    font-size: 15px;
+    position: relative;
+  }
+  .ha-page__faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .ha-page__faq summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--c-red);
+  }
+  .ha-page__faq[open] summary::after {
+    content: '−';
+  }
+  .ha-page__faq p {
+    margin: 0 0 16px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+
+  .ha-page__cta-band {
+    padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
+  }
+  .ha-page__cta-inner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    text-align: center;
+    padding: clamp(32px, 4vw, 48px);
+    border-radius: 20px;
+    color: var(--c-paper);
+    background-color: var(--c-ink);
+    background-image: url('/images/brand/paint-strokes.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(14, 14, 16, 0.12);
+    box-shadow: var(--shadow-md);
+  }
+  .ha-page__cta-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(14, 14, 16, 0.88) 0%,
+      rgba(14, 14, 16, 0.78) 50%,
+      rgba(14, 14, 16, 0.85) 100%
+    );
+  }
+  .ha-page__cta-inner :is(h2, p, .btn, a) {
+    position: relative;
+    z-index: 1;
+  }
+  .ha-page__cta-inner h2 {
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .ha-page__cta-inner > p {
+    margin: 0 0 24px;
+    color: #cfcdc8;
+    max-width: 48ch;
+    margin-inline: auto;
+  }
+  .ha-page__cta-contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .ha-page__cta-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .ha-page__cta-links a,
+  .ha-page__cta-contacts a:not(.btn) {
+    color: #cfcdc8;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .ha-page__cta-contacts a:not(.btn):hover {
+    color: var(--c-yellow);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1024px) {
+    .ha-page__mid-gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ha-page__trust-grid,
+    .ha-page__process {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ha-page__proof-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 768px) {
+    .ha-page__mid-gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    .ha-page__intro-wrap,
+    .ha-page__services,
+    .ha-page__trust-grid,
+    .ha-page__process {
+      grid-template-columns: 1fr;
+    }
+    .ha-page__service {
+      grid-template-columns: 1fr;
+    }
+    .ha-page__hero-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ha-page__hero h1 {
+      max-width: none;
+    }
+  }
+</style>
