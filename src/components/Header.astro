@@ -1,5 +1,6 @@
 ---
 import { contact, quotePageHref, siteStats } from '~/data/contact';
+import { threeBestRatedPromo } from '~/data/three-best-rated';
 
 const pathname = Astro.url.pathname;
 const homeHref = pathname === '/' ? '#top' : '/';
@@ -17,11 +18,22 @@ const quoteHref = quotePageHref;
   <div class="site-header__top">
     <div class="site-header__inner site-header__top-line">
       <p class="site-header__credibility">
-        <span>{siteStats.experience}</span>
-        <span class="site-header__credibility-extra">
-          <span class="site-header__sep" aria-hidden="true">·</span>
-          <span>{siteStats.jobs}</span>
-        </span>
+        <span class="site-header__experience">{siteStats.experience}</span>
+        <span class="site-header__sep" aria-hidden="true">·</span>
+        <button
+          type="button"
+          class="site-header__tbr-btn"
+          data-tbr-open
+          aria-haspopup="dialog"
+        >
+          <strong class="site-header__tbr-strong">{threeBestRatedPromo.label}</strong>
+          <span class="site-header__tbr-detail site-header__tbr-detail--long">
+            — {threeBestRatedPromo.sublabel}
+          </span>
+          <span class="site-header__tbr-detail site-header__tbr-detail--short">
+            {threeBestRatedPromo.labelShort}
+          </span>
+        </button>
       </p>
       <a href={`tel:${contact.phone.tel}`} class="site-header__phone" aria-label={`Call A.S Painting Contractors on ${contact.phone.display}`}>
         <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
@@ -132,6 +144,33 @@ const quoteHref = quotePageHref;
   .site-header__sep {
     opacity: 0.45;
     font-weight: 700;
+  }
+  .site-header__tbr-btn {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    color: var(--c-ink);
+    cursor: pointer;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: var(--c-red);
+    text-underline-offset: 0.15em;
+    transition: color 0.2s;
+  }
+  .site-header__tbr-btn:hover,
+  .site-header__tbr-btn:focus-visible {
+    color: var(--c-red);
+    outline: none;
+  }
+  .site-header__tbr-strong {
+    font-weight: 800;
+  }
+  .site-header__tbr-detail--short {
+    display: none;
   }
   .site-header__phone {
     color: var(--c-ink);
@@ -454,18 +493,11 @@ const quoteHref = quotePageHref;
     }
   }
 
-  @media (max-width: 768px) {
-    .site-header__credibility-extra {
-      display: none;
-    }
-  }
-
   @media (max-width: 720px) {
     .site-header__row { gap: 12px; }
     .site-header__top-line {
-      font-size: 12px;
-      min-height: 32px;
-      padding-block: 4px;
+      min-height: auto;
+      padding-block: 7px 6px;
     }
     .brand { margin-bottom: -28px; }
     .brand img { height: 91px; }
@@ -473,14 +505,25 @@ const quoteHref = quotePageHref;
     .nav__brand img { height: 64px; }
   }
 
-  @media (max-width: 560px) {
-    .site-header__credibility {
-      font-size: 12px;
-      gap: 4px;
+  @media (max-width: 1024px) {
+    .site-header__experience,
+    .site-header__sep {
+      display: none;
     }
-  }
-
-  @media (max-width: 480px) {
-    .site-header__phone span { display: none; }
+    .site-header__phone span {
+      display: none;
+    }
+    .site-header__phone {
+      padding: 4px;
+    }
+    .site-header__tbr-detail--long {
+      display: none;
+    }
+    .site-header__tbr-detail--short {
+      display: inline;
+    }
+    .site-header__tbr-strong {
+      display: none;
+    }
   }
 </style>

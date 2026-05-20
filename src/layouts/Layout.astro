@@ -18,6 +18,7 @@ const {
 import '~/styles/global.css';
 import ContactFab from '~/components/ContactFab.astro';
 import CookieBanner from '~/components/CookieBanner.astro';
+import ThreeBestRatedModal from '~/components/ThreeBestRatedModal.astro';
 import { absoluteUrl, OG_IMAGE_PATH } from '~/utils/site-url';
 
 const canonicalUrl = absoluteUrl(canonical ?? Astro.url.pathname);
@@ -74,6 +75,7 @@ const schemaJson = jsonLd ?? defaultJsonLd;
     <a href="#main" class="skip">Skip to content</a>
     <slot />
     <CookieBanner />
+    <ThreeBestRatedModal />
     <ContactFab />
 
     <script>

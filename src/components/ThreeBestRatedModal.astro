@@ -1,0 +1,226 @@
+---
+import { threeBestRatedPromo } from '~/data/three-best-rated';
+---
+<div
+  class="tbr-modal"
+  data-tbr-modal
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="tbr-modal-title"
+  hidden
+>
+  <div class="tbr-modal__backdrop" data-tbr-close tabindex="-1" aria-hidden="true"></div>
+  <div class="tbr-modal__panel">
+    <button type="button" class="tbr-modal__close" data-tbr-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M5 5l14 14M19 5L5 19"/>
+      </svg>
+    </button>
+    <figure class="tbr-modal__hero">
+      <img
+        src={threeBestRatedPromo.badgeSrc}
+        alt={threeBestRatedPromo.badgeAlt}
+        width="800"
+        height="450"
+        loading="lazy"
+      />
+    </figure>
+    <div class="tbr-modal__content">
+      <h2 id="tbr-modal-title" class="tbr-modal__title">Three Best Rated</h2>
+      <p class="tbr-modal__intro">{threeBestRatedPromo.intro}</p>
+      <p class="tbr-modal__body">{threeBestRatedPromo.body}</p>
+      <div class="tbr-modal__actions">
+        <a class="btn" href={threeBestRatedPromo.blogHref}>
+          {threeBestRatedPromo.blogLabel} <span class="arrow">→</span>
+        </a>
+        <a
+          class="btn btn--ghost"
+          href={threeBestRatedPromo.listingHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {threeBestRatedPromo.listingLabel} <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.querySelector<HTMLElement>('[data-tbr-modal]');
+  const panel = modal?.querySelector<HTMLElement>('.tbr-modal__panel');
+  const openers = document.querySelectorAll<HTMLElement>('[data-tbr-open]');
+  const closers = modal?.querySelectorAll<HTMLElement>('[data-tbr-close]') ?? [];
+
+  let lastFocus: HTMLElement | null = null;
+
+  const openModal = () => {
+    if (!modal || !panel) return;
+    lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.classList.add('is-open'));
+    document.body.style.overflow = 'hidden';
+    const closeBtn = modal.querySelector<HTMLButtonElement>('.tbr-modal__close');
+    closeBtn?.focus();
+  };
+
+  const closeModal = () => {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    window.setTimeout(() => {
+      modal.hidden = true;
+      lastFocus?.focus();
+      lastFocus = null;
+    }, 220);
+  };
+
+  openers.forEach((btn) => {
+    btn.addEventListener('click', () => openModal());
+  });
+
+  closers.forEach((el) => {
+    el.addEventListener('click', () => closeModal());
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hidden) {
+      e.preventDefault();
+      closeModal();
+    }
+  });
+</script>
+
+<style>
+  .tbr-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    pointer-events: none;
+  }
+  .tbr-modal[hidden] {
+    display: none;
+  }
+  .tbr-modal.is-open {
+    pointer-events: auto;
+  }
+  .tbr-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 14, 16, 0.55);
+    opacity: 0;
+    transition: opacity 0.22s var(--ease);
+  }
+  .tbr-modal.is-open .tbr-modal__backdrop {
+    opacity: 1;
+  }
+  .tbr-modal__panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 440px);
+    max-height: min(90vh, 720px);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: var(--c-paper);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--c-ink);
+    transform: translateY(12px) scale(0.98);
+    opacity: 0;
+    transition:
+      transform 0.28s var(--ease),
+      opacity 0.22s var(--ease);
+  }
+  .tbr-modal.is-open .tbr-modal__panel {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  .tbr-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--c-ink);
+    border-radius: 10px;
+    background: var(--c-paper);
+    color: var(--c-ink);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 0 var(--c-ink);
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .tbr-modal__close:hover,
+  .tbr-modal__close:focus-visible {
+    background: var(--c-red);
+    color: #fff;
+    border-color: var(--c-red-deep);
+    box-shadow: 3px 3px 0 0 var(--c-red-deep);
+    outline: none;
+  }
+  .tbr-modal__hero {
+    flex-shrink: 0;
+    margin: 0;
+    border-bottom: 2px solid var(--c-ink);
+    box-shadow: 0 4px 0 0 var(--c-ink);
+  }
+  .tbr-modal__hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+  }
+  .tbr-modal__content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 22px 24px 24px;
+  }
+  .tbr-modal__title {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .tbr-modal__intro,
+  .tbr-modal__body {
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+    text-align: center;
+  }
+  .tbr-modal__body {
+    margin-bottom: 22px;
+    color: var(--c-stone);
+    font-size: 14px;
+  }
+  .tbr-modal__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .tbr-modal__actions .btn {
+    justify-content: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tbr-modal__backdrop,
+    .tbr-modal__panel {
+      transition: none;
+    }
+    .tbr-modal__panel {
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>

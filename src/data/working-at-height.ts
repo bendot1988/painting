@@ -1,6 +1,6 @@
 export const workingAtHeightImage = {
   src: '/images/working-at-height-cherry-picker.png',
-  alt: 'IPAF-qualified painters using a cherry picker to paint high commercial cladding',
+  alt: 'A.S Painting operatives in a cherry picker painting high-level industrial cladding on a commercial building in Leicestershire',
 } as const;
 
 export type WorkingAtHeightVariant = 'commercial' | 'domestic';
