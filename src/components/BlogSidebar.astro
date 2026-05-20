@@ -1,10 +1,16 @@
 ---
+import BlogAside from '~/components/BlogAside.astro';
 import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import googleReviews from '~/data/google-reviews.json';
 import { reviewSnippet, type GoogleReview } from '~/lib/reviews';
 import { contact, quotePageHref } from '~/data/contact';
 import '~/styles/blog-ui.css';
 
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
 const latestReviews = (googleReviews.reviews as GoogleReview[]).slice(0, 2);
 
 const services = [
@@ -56,6 +62,8 @@ const services = [
       <a href={`mailto:${contact.email}`}>{contact.email}</a>
     </p>
   </div>
+
+  <BlogAside currentSlug={currentSlug} />
 </aside>
 
 <style>

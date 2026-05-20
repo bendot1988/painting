@@ -144,6 +144,10 @@ export const exteriorProjects: ExteriorProject[] = [
 
 export const domesticFaqs: Faq[] = [
   {
+    q: 'Do you offer dustless sanding at home?',
+    a: 'Yes. On domestic jobs we can sand and prep using professional extractors so dust is captured at the tool — far less mess in rooms you are still using. We will confirm on your home visit whether dustless prep suits your project and include it in your quote.',
+  },
+  {
     q: 'Do you hang wallpaper or do specialist decorating?',
     a: 'No. We focus on painting. Walls, ceilings, woodwork and masonry. Wallpaper would need removing before we start if you want surfaces painted.',
   },

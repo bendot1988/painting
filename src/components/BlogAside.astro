@@ -12,7 +12,7 @@ const otherPosts = [...blogPosts]
   .filter((p) => p.slug !== currentSlug)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
-<aside class="blog-aside" aria-label="More news">
+<div class="blog-aside" aria-label="More news">
   <div class="blog-ui-card">
     <h2 class="blog-ui-card__title">News</h2>
     <a class="blog-ui-card__link" href="/blog/">← All news articles</a>
@@ -43,7 +43,7 @@ const otherPosts = [...blogPosts]
       <p class="blog-aside__note">More news posts will appear here as we publish them.</p>
     </div>
   )}
-</aside>
+</div>
 
 <style>
   .blog-aside {

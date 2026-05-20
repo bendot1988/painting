@@ -1,3 +1,5 @@
+export type BlogGalleryImage = { src: string; alt: string };
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -6,12 +8,25 @@ export type BlogPost = {
   excerpt: string;
   image: { src: string; alt: string };
   paragraphs: string[];
+  /** Optional inline gallery below the article body */
+  gallery?: BlogGalleryImage[];
   externalLink?: { href: string; label: string };
   /** Show “Website by dotwall” credit (website launch post only) */
   dotwallCredit?: boolean;
 };
 
+import {
+  dustlessSandingBlogContent,
+  dustlessSandingFeaturedImage,
+  dustlessSandingGallery,
+} from '~/data/dustless-sanding';
+
 export const blogPosts: BlogPost[] = [
+  {
+    ...dustlessSandingBlogContent,
+    image: dustlessSandingFeaturedImage,
+    gallery: [...dustlessSandingGallery],
+  },
   {
     slug: 'new-website-launched',
     title: 'Our new website is live',

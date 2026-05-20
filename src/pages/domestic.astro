@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import DomesticDustlessCallout from '~/components/DomesticDustlessCallout.astro';
 import ServiceHeightCallout from '~/components/ServiceHeightCallout.astro';
 import {
   domesticHeroGallery,
@@ -35,6 +36,7 @@ const pageDescription =
           <span class="domestic-page__pill">Interior painting</span>
           <span class="domestic-page__pill">Exterior painting</span>
           <span class="domestic-page__pill">Kitchens & woodwork</span>
+          <span class="domestic-page__pill">Dustless sanding</span>
           <span class="domestic-page__pill">Working at height</span>
         </div>
 
@@ -90,6 +92,8 @@ const pageDescription =
         </div>
       </div>
     </section>
+
+    <DomesticDustlessCallout />
 
     <section class="domestic-page__band" aria-labelledby="exterior-heading">
       <div class="container">
