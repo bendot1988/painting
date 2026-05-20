@@ -5,12 +5,12 @@ const pathname = Astro.url.pathname;
 const homeHref = pathname === '/' ? '#top' : '/';
 
 const nav = [
-  { href: '/commercial/', label: 'Commercial', match: 'commercial', accent: 'yellow' },
-  { href: '/domestic/', label: 'Domestic', match: 'domestic', accent: 'pink' },
-  { href: '/work/', label: 'Our work', match: 'work-page', accent: 'lime' },
-  { href: '/reviews/', label: 'Our reviews', match: 'reviews-page', accent: 'blue' },
-  { href: '/contact/', label: 'Contact', match: 'contact-page', accent: 'red' },
-] as const;
+  { href: '/commercial/', label: 'Commercial', match: 'commercial' },
+  { href: '/domestic/', label: 'Domestic', match: 'domestic' },
+  { href: '/work/', label: 'Our work', match: 'work-page' },
+  { href: '/reviews/', label: 'Our reviews', match: 'reviews-page' },
+  { href: '/contact/', label: 'Contact', match: 'contact-page' },
+];
 const quoteHref = quotePageHref;
 ---
 <header class="site-header" data-header>
@@ -54,7 +54,7 @@ const quoteHref = quotePageHref;
           <ul class="nav__links nav__links--mobile">
             {nav.map((item) => (
               <li>
-                <a href={item.href} class={`nav__link nav__link--${item.accent}`}>{item.label}</a>
+                <a href={item.href} class="nav__link btn btn--ghost">{item.label}</a>
               </li>
             ))}
           </ul>
@@ -66,7 +66,7 @@ const quoteHref = quotePageHref;
         <ul class="nav__links nav__links--desktop">
           {nav.map((item) => (
             <li>
-              <a href={item.href} class={`nav__link nav__link--${item.accent}`}>{item.label}</a>
+              <a href={item.href} class="nav__link btn btn--ghost">{item.label}</a>
             </li>
           ))}
         </ul>
@@ -193,57 +193,44 @@ const quoteHref = quotePageHref;
   .site-header :is(.nav a, .btn) {
     font-family: var(--font-header);
   }
-  .nav__link {
-    position: relative;
-    display: inline-block;
-    padding: 10px 16px 12px;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: var(--tracking-ui);
-    color: var(--c-graphite);
-    background: rgba(14, 14, 16, 0.07);
-    border-radius: 999px;
-    transition: color .2s, background .2s;
+  .nav__link.btn--ghost {
+    padding: 10px 16px;
+    font-size: 14px;
     white-space: nowrap;
+    background: var(--c-paper);
+    color: var(--c-ink);
+    box-shadow: 4px 4px 0 0 var(--c-ink);
   }
-  .nav__link--yellow { --nav-accent: var(--c-yellow); }
-  .nav__link--pink   { --nav-accent: var(--c-pink); }
-  .nav__link--lime   { --nav-accent: var(--c-lime); }
-  .nav__link--blue   { --nav-accent: var(--c-blue); }
-  .nav__link--red    { --nav-accent: var(--c-red); }
-  .nav__link::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 5px;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--nav-accent);
-    pointer-events: none;
-    transition: opacity .2s;
+  .nav__link.btn--ghost:hover,
+  .nav__link.btn--ghost:focus-visible {
+    background: var(--c-paper);
+    color: var(--c-ink);
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0 0 var(--c-red-deep);
   }
-  .nav__link:hover,
-  .nav__link:focus-visible {
-    color: var(--c-white);
-    background: var(--c-red);
+  .nav__link.btn--ghost:active {
+    background: var(--c-paper);
+    color: var(--c-ink);
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0 0 var(--c-red-deep);
   }
-  .nav__link:hover::after,
-  .nav__link:focus-visible::after {
-    opacity: 0.95;
+  .nav__link.btn--ghost.is-active {
+    background: var(--c-ink);
+    color: var(--c-paper);
+    box-shadow: 4px 4px 0 0 var(--c-ink);
   }
-  .nav__link.is-active {
-    color: var(--c-white);
-    background: var(--c-blue);
+  .nav__link.btn--ghost.is-active:hover,
+  .nav__link.btn--ghost.is-active:focus-visible {
+    background: var(--c-paper);
+    color: var(--c-ink);
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0 0 var(--c-red-deep);
   }
-  .nav__link.is-active::after {
-    background: var(--nav-accent);
-    opacity: 1;
-  }
-  .nav__link.is-active:hover,
-  .nav__link.is-active:focus-visible {
-    color: var(--c-white);
-    background: var(--c-red);
+  .nav__link.btn--ghost.is-active:active {
+    background: var(--c-paper);
+    color: var(--c-ink);
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0 0 var(--c-red-deep);
   }
   .nav__brand {
     background: none;
@@ -394,23 +381,15 @@ const quoteHref = quotePageHref;
       margin: 0;
     }
     .nav__links--mobile li { width: 100%; }
-    .nav__links--mobile .nav__link {
-      display: flex;
+    .nav__links--mobile .nav__link.btn--ghost {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       min-height: 52px;
-      padding: 14px 20px 16px;
-      font-size: 17px;
-      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 16px;
       text-align: center;
-    }
-    .nav__links--mobile .nav__link::after {
-      left: 22px;
-      right: 22px;
-      bottom: 8px;
-      height: 4px;
-      border-radius: 999px;
     }
     .nav__foot {
       display: flex;

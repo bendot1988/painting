@@ -199,7 +199,16 @@ button { font: inherit; cursor: pointer; }
   border: 2px solid var(--c-ink);
   box-shadow: 4px 4px 0 0 var(--c-ink);
 }
-.btn--ghost:hover { background: var(--c-ink); color: var(--c-paper); }
+.btn--ghost:hover {
+  background: var(--c-ink);
+  color: var(--c-paper);
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0 0 var(--c-ink);
+}
+.btn--ghost:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0 0 var(--c-ink);
+}
 .section--ink .btn--ghost {
   --btn-fg: var(--c-paper);
   border-color: rgba(255, 255, 255, 0.5);
