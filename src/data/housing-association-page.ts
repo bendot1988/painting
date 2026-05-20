@@ -230,8 +230,9 @@ export const housingAssociationFaqs: HaFaq[] = [
   },
 ];
 
-/** Relevant third-sector communal work — not a housing association client name */
-export const socialProofReview = {
+/** Excerpt from Reena Purewal’s Google review (VAL communal corridors project) */
+export const housingAssociationFeaturedReview = {
+  reviewer: 'Reena Purewal',
   org: 'Voluntary Action LeicesterShire',
   quote:
     'Ash worked evenings and weekends to ensure the deadline was met on a large project painting our dated corridors and front staircase. The quality of his work truly stands out. Moreover, the quotes are very reasonable, offering great value for the excellent service he delivers.',

@@ -12,7 +12,7 @@ import {
   housingAssociationPageMeta,
   housingAssociationServices,
   processSteps,
-  socialProofReview,
+  housingAssociationFeaturedReview,
   whyChoosePoints,
 } from '~/data/housing-association-page';
 import { contact, quotePageHref } from '~/data/contact';
@@ -196,28 +196,17 @@ const jsonLd = buildHousingAssociationJsonLd(housingAssociationFaqs);
       </div>
     </section>
 
-    <section class="ha-page__section" aria-labelledby="proof-heading">
+    <section class="ha-page__section" aria-labelledby="reviews-heading">
       <div class="container">
-        <h2 id="proof-heading" class="ha-page__section-title">Social proof</h2>
-        <div class="ha-page__proof-grid">
-          <blockquote class="ha-page__quote reveal">
-            <p>&ldquo;{socialProofReview.quote}&rdquo;</p>
-            <footer>
-              — {socialProofReview.org}
-              <a href={socialProofReview.href}>Read more reviews</a>
-            </footer>
-          </blockquote>
-          <div class="ha-page__proof-placeholder reveal">
-            <p class="ha-page__proof-placeholder-title">Client logos &amp; case studies</p>
-            <p>
-              [Named housing association or contractor clients / references, if any can be used.]
-            </p>
-            <p>[Short void or cyclical programme case study — before/after, programme length, stock type.]</p>
-            <p class="ha-page__proof-placeholder-note">
-              [Image placeholder: operatives in PPE on site / communal stairwell before &amp; after]
-            </p>
-          </div>
-        </div>
+        <h2 id="reviews-heading" class="ha-page__section-title">Reviews</h2>
+        <blockquote class="ha-page__quote reveal">
+          <p>&ldquo;{housingAssociationFeaturedReview.quote}&rdquo;</p>
+          <footer>
+            — {housingAssociationFeaturedReview.reviewer},{' '}
+            {housingAssociationFeaturedReview.org}
+            <a href={housingAssociationFeaturedReview.href}>Read more reviews</a>
+          </footer>
+        </blockquote>
       </div>
     </section>
 
@@ -601,14 +590,9 @@ const jsonLd = buildHousingAssociationJsonLd(housingAssociationFaqs);
     text-decoration: underline;
   }
 
-  .ha-page__proof-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 20px;
-    align-items: start;
-  }
   .ha-page__quote {
     margin: 0;
+    max-width: 52rem;
     padding: 28px;
     border-radius: 18px;
     background: var(--bg-alt);
@@ -631,28 +615,6 @@ const jsonLd = buildHousingAssociationJsonLd(housingAssociationFaqs);
     color: var(--c-red);
     text-decoration: none;
   }
-  .ha-page__proof-placeholder {
-    padding: 28px;
-    border-radius: 18px;
-    border: 1px dashed rgba(14, 14, 16, 0.2);
-    background: #fff;
-  }
-  .ha-page__proof-placeholder-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    margin: 0 0 12px;
-  }
-  .ha-page__proof-placeholder p {
-    margin: 0 0 10px;
-    font-size: 14px;
-    color: var(--c-graphite);
-    line-height: 1.5;
-  }
-  .ha-page__proof-placeholder-note {
-    font-size: 13px;
-    color: var(--c-stone);
-  }
-
   .ha-page__faq-list {
     max-width: 720px;
   }
@@ -768,22 +730,77 @@ const jsonLd = buildHousingAssociationJsonLd(housingAssociationFaqs);
     .ha-page__process {
       grid-template-columns: repeat(2, 1fr);
     }
-    .ha-page__proof-grid {
-      grid-template-columns: 1fr;
-    }
   }
   @media (max-width: 768px) {
+    .ha-page__trust-strip {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .ha-page__trust-pill {
+      width: 100%;
+    }
+    .ha-page__trust-pill-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .ha-page__trust-tip {
+      left: 0;
+      right: 0;
+      bottom: auto;
+      top: calc(100% + 10px);
+      width: 100%;
+      max-width: 100%;
+      transform: none;
+    }
+    .ha-page__trust-tip::after {
+      top: auto;
+      bottom: 100%;
+      border-top-color: transparent;
+      border-bottom-color: var(--c-ink);
+    }
+    .ha-page__trust-pill-btn:hover .ha-page__trust-tip,
+    .ha-page__trust-pill-btn:focus-visible .ha-page__trust-tip {
+      transform: translateY(2px);
+    }
     .ha-page__mid-gallery-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
     }
     .ha-page__intro-wrap,
-    .ha-page__services,
     .ha-page__trust-grid,
     .ha-page__process {
       grid-template-columns: 1fr;
     }
+    .ha-page__services {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
     .ha-page__service {
       grid-template-columns: 1fr;
+      min-width: 0;
+    }
+    .ha-page__service-media {
+      min-height: 0;
+      max-height: none;
+    }
+    .ha-page__service-media img {
+      width: 100%;
+      height: 180px;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+    }
+    .ha-page__service-body {
+      padding: 10px 12px 12px;
+    }
+    .ha-page__service-body h3 {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .ha-page__service-body p {
+      font-size: 12px;
+      line-height: 1.45;
     }
     .ha-page__hero-gallery {
       grid-template-columns: repeat(2, 1fr);
