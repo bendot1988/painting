@@ -1,50 +1,176 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/Header.astro';
-import Footer from '~/components/Footer.astro';
-import { contact } from '~/data/contact';
----
-<Layout title="Privacy policy — A.S Painting Contractors" description="Privacy policy for A.S Painting Contractors.">
-  <Header />
-  <main id="main" class="legal-page section">
-    <div class="container legal-page__inner">
-      <span class="eyebrow">Legal</span>
-      <h1 class="display h2">Privacy policy</h1>
-      <p class="lead">
-        We only use your details to respond to enquiries about painting work.
-        We do not sell your data to third parties.
-      </p>
-      <p>
-        If you submit our quote form, we store your name, contact details and
-        project information so we can provide a quote and follow up. You can
-        ask us to delete your data at any time by emailing
-        <a href={`mailto:${contact.email}`}>{contact.email}</a>.
-      </p>
-      <h2 class="legal-page__h2">Cookies and analytics</h2>
-      <p>
-        If you choose <strong>Accept</strong> on our cookie notice, we load a privacy-friendly
-        analytics script (hosted by Dotwall) that helps us see how many people visit the site and
-        which pages they view. It does not use advertising cookies and we do not sell your data.
-        You can decline analytics cookies and still use the site normally.
-      </p>
-      <p>
-        Your choice is stored in your browser so we do not ask again on every visit. You can clear
-        it anytime by removing site data for as-painting.co.uk in your browser settings.
-      </p>
-      <p><a class="btn btn--ghost" href="/contact">Back to quote form</a></p>
-    </div>
-  </main>
-  <Footer />
-</Layout>
+import LegalDocument from '~/components/LegalDocument.astro';
+import { company, privacyPageMeta } from '~/data/legal';
+import { ANALYTICS_SCRIPT_SRC } from '~/lib/cookies';
 
-<style>
-  .legal-page { padding-block: clamp(120px, 14vw, 160px) clamp(72px, 9vw, 120px); }
-  .legal-page__inner { max-width: 60ch; }
-  .legal-page h1 { margin: 14px 0 18px; }
-  .legal-page__h2 {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 2.2vw, 24px);
-    margin: 1.75em 0 0.75em;
-  }
-  .legal-page p { color: var(--c-graphite); line-height: 1.6; margin: 0 0 1em; }
-</style>
+const updated = '20 May 2026';
+const lead = `We respect your privacy. This policy explains what personal data we collect, why we use it, and your rights. Last updated: ${updated}.`;
+---
+<LegalDocument
+  title={privacyPageMeta.title}
+  description={privacyPageMeta.description}
+  heading="Privacy policy"
+  lead={lead}
+>
+  <h2 class="legal-page__h2">Who we are</h2>
+  <p>
+    The data controller for this website is <strong>{company.legalName}</strong> (company number{' '}
+    <strong>{company.companyNumber}</strong>), trading as {company.tradingName}.
+  </p>
+  <p>
+    Registered office: {company.registeredAddress}.<br />
+    Email: <a href={`mailto:${company.email}`}>{company.email}</a><br />
+    Phone: <a href={`tel:${company.phone.tel}`}>{company.phone.display}</a> · Freephone:{' '}
+    <a href={`tel:${company.freephone.tel}`}>{company.freephone.display}</a>
+  </p>
+
+  <h2 class="legal-page__h2">What personal data we collect</h2>
+  <p>We may collect and process the following information:</p>
+  <ul>
+    <li>
+      <strong>Quote and contact enquiries</strong> — name, phone number, email address, job type
+      (commercial, domestic or not sure), postcode or area, and any message you send about your
+      project.
+    </li>
+    <li>
+      <strong>Communications</strong> — details you give when you call, email, message us on
+      WhatsApp, or correspond about a quote or job.
+    </li>
+    <li>
+      <strong>Website usage (if you accept cookies)</strong> — anonymised page views and general
+      traffic information via our analytics provider (see Cookies below). We do not use this to
+      identify you personally.
+    </li>
+    <li>
+      <strong>Technical data</strong> — standard server and security logs held by our hosting
+      provider when you visit the site (for example IP address, browser type and request time),
+      mainly to keep the site secure and reliable.
+    </li>
+  </ul>
+  <p>We do not knowingly collect special category data (such as health information) through this website.</p>
+
+  <h2 class="legal-page__h2">How we use your information</h2>
+  <p>We use your data to:</p>
+  <ul>
+    <li>Respond to quote requests and enquiries about painting work</li>
+    <li>Arrange site visits, provide written quotes and deliver our services</li>
+    <li>Contact you about your project (by phone, email or WhatsApp where you have provided those details)</li>
+    <li>Improve and protect our website (including optional analytics if you consent)</li>
+    <li>Meet legal, tax or insurance obligations where they apply</li>
+  </ul>
+  <p>
+    Our lawful bases under UK GDPR typically include <strong>contract</strong> (to provide quotes
+    and services you ask for), <strong>legitimate interests</strong> (to run and improve our
+    business and website), and <strong>consent</strong> (for non-essential cookies and where you
+    tick the privacy consent on our quote form).
+  </p>
+
+  <h2 class="legal-page__h2">Quote form and email</h2>
+  <p>
+    When you submit our online quote form, your details are sent securely to our systems and
+    forwarded by email using <strong>Resend</strong> so our team can reply. You must agree to this
+    privacy policy and our terms before submitting. We do not sell your data to marketing lists or
+    third-party advertisers.
+  </p>
+  <p>
+    If you prefer not to use the form, you can contact us directly by phone or email using the
+    details on our <a href="/contact/">contact page</a>.
+  </p>
+
+  <h2 class="legal-page__h2">Cookies and analytics</h2>
+  <p>
+    When you first visit, we show a cookie notice. You can choose <strong>Accept</strong> or{' '}
+    <strong>Decline</strong> for analytics. Your choice is stored in your browser (local storage)
+    so we do not ask on every page.
+  </p>
+  <h3 class="legal-page__h3">Essential use of the site</h3>
+  <p>
+    You can use most of the website without accepting analytics. We do not use advertising or
+    social-media tracking cookies on this site.
+  </p>
+  <h3 class="legal-page__h3">Analytics (optional)</h3>
+  <p>
+    If you accept, we load a privacy-oriented analytics script from{' '}
+    <strong>{ANALYTICS_SCRIPT_SRC}</strong> (operated by Dotwall) to understand how many people
+    visit the site and which pages are viewed. It is configured for our domain and is intended to
+    avoid cross-site advertising profiles. You can decline and still browse normally.
+  </p>
+  <p>
+    To withdraw consent later, clear site data for as-painting.co.uk in your browser settings, or
+    decline again after clearing the stored preference key.
+  </p>
+
+  <h2 class="legal-page__h2">Other third-party services on the site</h2>
+  <p>Some pages use services that may process data when you interact with them:</p>
+  <ul>
+    <li>
+      <strong>YouTube</strong> — we display videos from our YouTube channel (including embedded
+      players using youtube-nocookie.com where applicable). YouTube may set cookies if you play a
+      video; their privacy policy applies to that interaction.
+    </li>
+    <li>
+      <strong>Maps</strong> — area pages use Leaflet with map tiles from OpenStreetMap contributors
+      to show town locations. Loading a map may send your IP address to the tile provider.
+    </li>
+    <li>
+      <strong>Google reviews</strong> — we show selected customer reviews from publicly available
+      Google Business Profile information stored on our site. We do not receive your Google account
+      details through this display.
+    </li>
+    <li>
+      <strong>Social links</strong> — links to Facebook, Instagram and similar platforms open
+      third-party sites with their own privacy policies.
+    </li>
+    <li>
+      <strong>Hosting</strong> — the site is hosted on Netlify, which processes technical logs and
+      form submissions on our behalf.
+    </li>
+  </ul>
+
+  <h2 class="legal-page__h2">How long we keep your data</h2>
+  <p>
+    We keep enquiry and quote details for as long as needed to deal with your request, provide
+    services, handle any follow-up or warranty matters, and comply with legal or accounting
+    requirements. If you ask us to delete your data and we have no overriding reason to keep it,
+    we will do so within a reasonable period.
+  </p>
+
+  <h2 class="legal-page__h2">Your rights</h2>
+  <p>Under UK data protection law you may have the right to:</p>
+  <ul>
+    <li>Ask for a copy of the personal data we hold about you</li>
+    <li>Ask us to correct inaccurate data</li>
+    <li>Ask us to delete your data in certain circumstances</li>
+    <li>Object to or restrict some processing</li>
+    <li>Withdraw consent where processing is based on consent (such as analytics cookies)</li>
+    <li>Lodge a complaint with the Information Commissioner&apos;s Office (ICO)</li>
+  </ul>
+  <p>
+    To exercise any of these rights, email <a href={`mailto:${company.email}`}>{company.email}</a>{' '}
+    with your name and a clear description of your request. We may need to verify your identity
+    before responding.
+  </p>
+
+  <h2 class="legal-page__h2">Security</h2>
+  <p>
+    We take reasonable steps to protect your information, including secure hosting and limiting
+    access to enquiry data to people who need it for quotes and jobs. No method of transmission over
+    the internet is completely secure; please avoid sending sensitive information you do not need to
+    share for a painting quote.
+  </p>
+
+  <h2 class="legal-page__h2">Changes to this policy</h2>
+  <p>
+    We may update this privacy policy from time to time. The &quot;last updated&quot; date at the
+    top will change when we do. Significant changes may also be noted on the website.
+  </p>
+
+  <h2 class="legal-page__h2">Contact</h2>
+  <p>
+    Questions about privacy or your data: <a href={`mailto:${company.email}`}>{company.email}</a>
+    {' '}or write to us at {company.registeredAddress}.
+  </p>
+  <p>
+    See also our <a href="/terms/">terms and conditions</a>.
+  </p>
+</LegalDocument>

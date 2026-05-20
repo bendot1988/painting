@@ -1,0 +1,508 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import { allFaqs, faqSections, faqsPageMeta } from '~/data/faqs';
+import { quotePageHref } from '~/data/contact';
+import { buildFaqPageJsonLd } from '~/utils/faq-json-ld';
+
+const faqJsonLd = buildFaqPageJsonLd(allFaqs);
+---
+<Layout
+  title={faqsPageMeta.title}
+  description={faqsPageMeta.description}
+  canonical={faqsPageMeta.canonical}
+  jsonLd={faqJsonLd}
+>
+  <Header />
+  <main id="main" class="faqs-page">
+    <section class="faqs-page__hero" aria-labelledby="faqs-heading">
+      <div class="container">
+        <nav class="faqs-page__crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <span>FAQs</span>
+        </nav>
+        <span class="eyebrow">Help &amp; answers</span>
+        <h1 id="faqs-heading" class="display h1">
+          Painting questions, <span class="painted-word painted-word--lime">answered.</span>
+        </h1>
+        <p class="lead faqs-page__intro">
+          Everything we are asked most often about commercial and domestic painting in Leicester
+          and Leicestershire — quotes, what we do, areas we cover, and how we work on site.
+        </p>
+        <label class="faqs-page__search" for="faq-search">
+          <span class="faqs-page__search-label">Search questions</span>
+          <input
+            type="search"
+            id="faq-search"
+            class="faqs-page__search-input"
+            placeholder="e.g. plastering, quote, exterior, Leicester…"
+            autocomplete="off"
+            enterkeyhint="search"
+          />
+        </label>
+        <p class="faqs-page__search-hint" data-faq-status aria-live="polite">
+          Showing all {allFaqs.length} questions
+        </p>
+      </div>
+    </section>
+
+    <section class="faqs-page__body" aria-label="FAQ list">
+      <div class="container faqs-page__layout">
+        <nav class="faqs-page__nav" aria-label="Filter by topic">
+          <p class="faqs-page__nav-title">Browse by topic</p>
+          <ul class="faqs-page__nav-list">
+            <li>
+              <button type="button" class="faqs-page__nav-btn is-active" data-faq-filter="all">
+                All questions
+              </button>
+            </li>
+            {faqSections.map((section) => (
+              <li>
+                <button type="button" class="faqs-page__nav-btn" data-faq-filter={section.id}>
+                  {section.title}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p class="faqs-page__nav-note">
+            More detail on our <a href="/commercial/">commercial</a> and{' '}
+            <a href="/domestic/">domestic</a> service pages.
+          </p>
+        </nav>
+
+        <div class="faqs-page__content">
+          <p class="faqs-page__empty" data-faq-empty hidden>
+            No questions match your search. Try a different word or choose &quot;All questions&quot;.
+          </p>
+
+          {faqSections.map((section) => (
+            <div
+              class="faqs-page__group"
+              data-faq-group={section.id}
+              aria-labelledby={`${section.id}-heading`}
+            >
+              <h2 id={`${section.id}-heading`} class="faqs-page__group-title">
+                {section.title}
+              </h2>
+              <p class="faqs-page__group-intro">{section.description}</p>
+              <div class="faqs-page__grid">
+                {section.items.map((item) => (
+                  <details
+                    class="faqs-page__card"
+                    data-faq-item
+                    data-faq-section={section.id}
+                    data-search-text={`${item.q} ${item.a}`.toLowerCase()}
+                  >
+                    <summary>{item.q}</summary>
+                    <p>{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="faqs-page__cta" aria-label="Get a quote">
+      <div class="container">
+        <div class="faqs-page__cta-inner reveal">
+          <h2 class="display h3">Still have a question?</h2>
+          <p>
+            Call, message or send our quote form — same-day reply during working hours, free
+            fixed-price quotes, no hard sell.
+          </p>
+          <a class="btn" href={quotePageHref}>
+            Get a free quote <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('faq-search');
+  const statusEl = document.querySelector('[data-faq-status]');
+  const emptyEl = document.querySelector('[data-faq-empty]');
+  const filterButtons = document.querySelectorAll('[data-faq-filter]');
+  const items = document.querySelectorAll('[data-faq-item]');
+  const groups = document.querySelectorAll('[data-faq-group]');
+
+  let activeFilter = 'all';
+
+  function applyFilters() {
+    const query = (searchInput instanceof HTMLInputElement ? searchInput.value : '')
+      .trim()
+      .toLowerCase();
+
+    let visibleCount = 0;
+
+    items.forEach((item) => {
+      if (!(item instanceof HTMLElement)) return;
+      const section = item.dataset.faqSection ?? '';
+      const text = item.dataset.searchText ?? '';
+      const matchTopic = activeFilter === 'all' || section === activeFilter;
+      const matchSearch = !query || text.includes(query);
+      const show = matchTopic && matchSearch;
+      item.hidden = !show;
+      if (show) visibleCount += 1;
+    });
+
+    groups.forEach((group) => {
+      if (!(group instanceof HTMLElement)) return;
+      const cards = group.querySelectorAll('[data-faq-item]');
+      const anyVisible = [...cards].some((card) => card instanceof HTMLElement && !card.hidden);
+      group.hidden = !anyVisible;
+    });
+
+    if (emptyEl instanceof HTMLElement) {
+      emptyEl.hidden = visibleCount > 0;
+    }
+
+    if (statusEl) {
+      if (visibleCount === 0) {
+        statusEl.textContent = 'No matching questions';
+      } else if (query) {
+        statusEl.textContent = `${visibleCount} question${visibleCount === 1 ? '' : 's'} match your search`;
+      } else if (activeFilter !== 'all') {
+        statusEl.textContent = `Showing ${visibleCount} question${visibleCount === 1 ? '' : 's'} in this topic`;
+      } else {
+        statusEl.textContent = `Showing all ${visibleCount} questions`;
+      }
+    }
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeFilter = btn.getAttribute('data-faq-filter') ?? 'all';
+      filterButtons.forEach((b) => b.classList.toggle('is-active', b === btn));
+      applyFilters();
+    });
+  });
+</script>
+
+<style>
+  .faqs-page__hero {
+    padding: clamp(120px, 14vw, 160px) 0 clamp(32px, 4vw, 48px);
+  }
+  .faqs-page__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .faqs-page__crumb a {
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .faqs-page__crumb a:hover {
+    text-decoration: underline;
+  }
+  .faqs-page__hero h1 {
+    margin-top: 14px;
+    max-width: 18ch;
+  }
+  .faqs-page__intro {
+    margin: 0 0 28px;
+    max-width: 52ch;
+    color: var(--c-graphite);
+  }
+
+  .faqs-page__search {
+    display: block;
+    max-width: 520px;
+  }
+  .faqs-page__search-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .faqs-page__search-input {
+    width: 100%;
+    padding: 14px 18px 14px 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(14, 14, 16, 0.14);
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%238a8881' stroke-width='2'%3E%3Ccircle cx='7.5' cy='7.5' r='5.5'/%3E%3Cpath d='m13 13 3.5 3.5'/%3E%3C/svg%3E") 16px center no-repeat;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--c-ink);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .faqs-page__search-input::placeholder {
+    color: #a8a6a0;
+  }
+  .faqs-page__search-input:hover {
+    border-color: rgba(14, 14, 16, 0.22);
+  }
+  .faqs-page__search-input:focus {
+    outline: none;
+    border-color: var(--c-lime);
+    box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.25);
+  }
+  .faqs-page__search-hint {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: var(--c-stone);
+  }
+
+  .faqs-page__body {
+    padding: 0 0 clamp(48px, 6vw, 72px);
+    background: var(--bg-alt);
+  }
+  .faqs-page__layout {
+    display: grid;
+    grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 48px);
+    align-items: start;
+    padding-top: clamp(32px, 4vw, 48px);
+    padding-bottom: clamp(32px, 4vw, 48px);
+  }
+
+  .faqs-page__nav {
+    position: sticky;
+    top: calc(72px + 16px);
+    padding: 20px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    box-shadow: var(--shadow-sm);
+  }
+  .faqs-page__nav-title {
+    margin: 0 0 12px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .faqs-page__nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .faqs-page__nav-btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-ink);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .faqs-page__nav-btn:hover {
+    background: rgba(14, 14, 16, 0.04);
+  }
+  .faqs-page__nav-btn.is-active {
+    background: var(--c-ink);
+    color: #fff;
+  }
+  .faqs-page__nav-note {
+    margin: 16px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid rgba(14, 14, 16, 0.08);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--c-stone);
+  }
+  .faqs-page__nav-note a {
+    font-weight: 600;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .faqs-page__nav-note a:hover {
+    text-decoration: underline;
+  }
+
+  .faqs-page__content {
+    min-width: 0;
+  }
+  .faqs-page__empty {
+    margin: 0 0 24px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px dashed rgba(14, 14, 16, 0.15);
+    font-size: 15px;
+    color: var(--c-graphite);
+  }
+  .faqs-page__empty[hidden] {
+    display: none;
+  }
+
+  .faqs-page__group {
+    margin-bottom: clamp(36px, 5vw, 52px);
+  }
+  .faqs-page__group:last-child {
+    margin-bottom: 0;
+  }
+  .faqs-page__group[hidden] {
+    display: none;
+  }
+  .faqs-page__group-title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .faqs-page__group-intro {
+    margin: 0 0 20px;
+    max-width: 58ch;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+
+  .faqs-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+  .faqs-page__card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .faqs-page__card[hidden] {
+    display: none;
+  }
+  .faqs-page__card summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 40px 16px 18px;
+    font-weight: 600;
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: var(--c-ink);
+    position: relative;
+  }
+  .faqs-page__card summary::-webkit-details-marker {
+    display: none;
+  }
+  .faqs-page__card summary::after {
+    content: '+';
+    position: absolute;
+    right: 14px;
+    top: 16px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--c-red);
+  }
+  .faqs-page__card[open] summary::after {
+    content: '−';
+  }
+  .faqs-page__card summary:hover {
+    background: rgba(14, 14, 16, 0.02);
+  }
+  .faqs-page__card p {
+    margin: 0;
+    padding: 0 18px 18px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+
+  .faqs-page__cta {
+    padding: clamp(48px, 6vw, 72px) 0 clamp(72px, 9vw, 120px);
+  }
+  .faqs-page__cta-inner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: clamp(32px, 4vw, 48px);
+    border-radius: 20px;
+    color: var(--c-paper);
+    background-color: var(--c-ink);
+    background-image: url('/images/brand/paint-strokes.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(14, 14, 16, 0.12);
+    box-shadow: var(--shadow-md);
+  }
+  .faqs-page__cta-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(14, 14, 16, 0.88) 0%,
+      rgba(14, 14, 16, 0.78) 50%,
+      rgba(14, 14, 16, 0.85) 100%
+    );
+  }
+  .faqs-page__cta-inner :is(h2, p, .btn) {
+    position: relative;
+    z-index: 1;
+  }
+  .faqs-page__cta-inner h2 {
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .faqs-page__cta-inner p {
+    margin: 0 0 20px;
+    color: #cfcdc8;
+    max-width: 40ch;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 900px) {
+    .faqs-page__layout {
+      grid-template-columns: 1fr;
+    }
+    .faqs-page__nav {
+      position: static;
+    }
+    .faqs-page__nav-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .faqs-page__nav-btn {
+      width: auto;
+    }
+    .faqs-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .faqs-page__hero h1 {
+      max-width: none;
+    }
+    .faqs-page__search {
+      max-width: none;
+    }
+  }
+</style>

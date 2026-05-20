@@ -1,6 +1,7 @@
 ---
 import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import { contact, thankYouPageHref } from '~/data/contact';
+import { quoteFaqs } from '~/data/faqs';
 import { normalizeTrailingSlash } from '~/utils/site-url';
 
 interface Props {
@@ -18,28 +19,6 @@ const {
 /** Path-only action for no-JS fallback */
 const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
 
-const faqs = [
-  {
-    q: 'Do you do plastering?',
-    a: 'No — we focus on painting. We prep and paint sound surfaces and can lightly fill small blemishes as part of prep, but plastering is not a service we offer.',
-  },
-  {
-    q: 'Do you hang wallpaper?',
-    a: 'No. We paint only — walls, ceilings, woodwork, metal and masonry. Wallpaper would need removing before we start.',
-  },
-  {
-    q: 'What kind of work do you take on?',
-    a: 'Commercial and domestic painting — mainly offices, factories, shops, warehouses and homes across Leicestershire. Interiors and exteriors.',
-  },
-  {
-    q: 'How quickly will I hear back?',
-    a: 'Same day during working hours — Mon–Sun, 6am–5pm.',
-  },
-  {
-    q: 'Are quotes free?',
-    a: 'Yes. Free quotes with clear, fixed pricing — no hard sell.',
-  },
-];
 ---
 <section id="quote" class:list={['section', 'quote', compact && 'quote--compact']} aria-label="Get a free quote">
   <div class="container">
@@ -57,7 +36,7 @@ const faqs = [
 
         <div class="quote__faqs" aria-label="Frequently asked questions">
           <h3 class="quote__faqs-title">Quick answers</h3>
-          {faqs.map((item) => (
+          {quoteFaqs.map((item) => (
             <details class="quote__faq">
               <summary>{item.q}</summary>
               <p>{item.a}</p>

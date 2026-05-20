@@ -97,19 +97,19 @@ const domesticPoints = [
     <section class="area-page__band area-page__local" aria-labelledby="local-heading">
       <div class="container">
         <h2 id="local-heading" class="area-page__section-title">Local knowledge</h2>
-        <div class="area-page__local-grid reveal">
-          <article class="area-page__local-block">
-            <h3 class="area-page__local-label">Landmarks &amp; town centre</h3>
-            <p>{area.localLandmark}</p>
-          </article>
-          <article class="area-page__local-block">
-            <h3 class="area-page__local-label">Business parks &amp; industry</h3>
-            <p>{area.industrialEstates}</p>
-          </article>
-          <article class="area-page__local-block">
-            <h3 class="area-page__local-label">Homes &amp; housing stock</h3>
-            <p>{area.housingStock}</p>
-          </article>
+        <div class="area-page__local-accordions reveal">
+          <details class="area-page__local-accordion area-page__local-accordion--lime">
+            <summary class="area-page__local-label">Landmarks &amp; town centre</summary>
+            <div class="area-page__local-body" set:html={area.localLandmark} />
+          </details>
+          <details class="area-page__local-accordion area-page__local-accordion--blue">
+            <summary class="area-page__local-label">Business parks &amp; industry</summary>
+            <div class="area-page__local-body" set:html={area.industrialEstates} />
+          </details>
+          <details class="area-page__local-accordion area-page__local-accordion--pink">
+            <summary class="area-page__local-label">Homes &amp; housing stock</summary>
+            <div class="area-page__local-body" set:html={area.housingStock} />
+          </details>
         </div>
       </div>
     </section>
@@ -295,36 +295,74 @@ const domesticPoints = [
     background: var(--bg-alt);
     padding: clamp(48px, 6vw, 72px) 0;
   }
-  .area-page__local-grid {
+  .area-page__local-accordions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    align-items: start;
   }
-  .area-page__local-block {
+  .area-page__local-accordion {
     background: #fff;
     border-radius: 16px;
-    padding: 22px 24px;
-    border-top: 4px solid var(--c-lime);
+    border-top: 4px solid var(--local-accent, var(--c-lime));
     box-shadow: var(--shadow-sm);
+    overflow: hidden;
   }
-  .area-page__local-block:nth-child(2) {
-    border-top-color: var(--c-blue);
+  .area-page__local-accordion--lime {
+    --local-accent: var(--c-lime);
   }
-  .area-page__local-block:nth-child(3) {
-    border-top-color: var(--c-pink);
+  .area-page__local-accordion--blue {
+    --local-accent: var(--c-blue);
+  }
+  .area-page__local-accordion--pink {
+    --local-accent: var(--c-pink);
+  }
+  .area-page__local-label:hover {
+    background: rgba(14, 14, 16, 0.03);
   }
   .area-page__local-label {
-    margin: 0 0 10px;
+    list-style: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 18px 48px 18px 24px;
     font-family: var(--font-display);
     font-size: 17px;
     font-weight: 700;
     color: var(--c-ink);
+    position: relative;
   }
-  .area-page__local-block p {
-    margin: 0;
+  .area-page__local-label::-webkit-details-marker {
+    display: none;
+  }
+  .area-page__local-label::after {
+    content: "+";
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--local-accent, var(--c-lime));
+  }
+  .area-page__local-accordion[open] .area-page__local-label::after {
+    content: "−";
+  }
+  .area-page__local-body {
+    padding: 0 24px 20px;
     font-size: 15px;
     line-height: 1.6;
     color: var(--c-graphite);
+  }
+  .area-page__local-body :global(p) {
+    margin: 0 0 12px;
+  }
+  .area-page__local-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .area-page__local-body :global(strong) {
+    font-weight: 700;
+    color: var(--c-ink);
   }
 
   .area-page__services {
@@ -592,7 +630,7 @@ const domesticPoints = [
   }
 
   @media (max-width: 1024px) {
-    .area-page__local-grid {
+    .area-page__local-accordions {
       grid-template-columns: 1fr;
     }
     .area-page__gallery-grid {

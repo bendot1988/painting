@@ -1,34 +1,153 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/Header.astro';
-import Footer from '~/components/Footer.astro';
-import { contact } from '~/data/contact';
----
-<Layout title="Terms of service — A.S Painting Contractors" description="Terms of service for A.S Painting Contractors.">
-  <Header />
-  <main id="main" class="legal-page section">
-    <div class="container legal-page__inner">
-      <span class="eyebrow">Legal</span>
-      <h1 class="display h2">Terms of service</h1>
-      <p class="lead">
-        Quotes are subject to site survey. We provide painting services only —
-        not plastering or wallpaper hanging unless agreed separately in writing.
-      </p>
-      <p>
-        Deposits, timings and scope are confirmed in your written quote before
-        work begins. For questions, call
-        <a href={`tel:${contact.phone.tel}`}>{contact.phone.display}</a> or email
-        <a href={`mailto:${contact.email}`}>{contact.email}</a>.
-      </p>
-      <p><a class="btn btn--ghost" href="/contact">Back to quote form</a></p>
-    </div>
-  </main>
-  <Footer />
-</Layout>
+import LegalDocument from '~/components/LegalDocument.astro';
+import { company, termsPageMeta } from '~/data/legal';
 
-<style>
-  .legal-page { padding-block: clamp(120px, 14vw, 160px) clamp(72px, 9vw, 120px); }
-  .legal-page__inner { max-width: 60ch; }
-  .legal-page h1 { margin: 14px 0 18px; }
-  .legal-page p { color: var(--c-graphite); line-height: 1.6; margin: 0 0 1em; }
-</style>
+const updated = '20 May 2026';
+const lead = `These terms apply to quotes and painting work arranged with us, and to general use of this website. Last updated: ${updated}.`;
+---
+<LegalDocument
+  title={termsPageMeta.title}
+  description={termsPageMeta.description}
+  heading="Terms and conditions"
+  lead={lead}
+>
+  <h2 class="legal-page__h2">About us</h2>
+  <p>
+    These terms are issued by <strong>{company.legalName}</strong> (company number{' '}
+    <strong>{company.companyNumber}</strong>), trading as {company.tradingName}.
+  </p>
+  <p>
+    Registered office: {company.registeredAddress}.<br />
+    Email: <a href={`mailto:${company.email}`}>{company.email}</a><br />
+    Phone: <a href={`tel:${company.phone.tel}`}>{company.phone.display}</a> · Freephone:{' '}
+    <a href={`tel:${company.freephone.tel}`}>{company.freephone.display}</a>
+  </p>
+  <p>
+    By using this website, submitting a quote request, or agreeing to proceed with work, you
+    accept these terms. If you do not agree, please do not use the site or our services.
+  </p>
+
+  <h2 class="legal-page__h2">Our services</h2>
+  <p>
+    We provide <strong>painting and decorating</strong> for commercial, industrial and domestic
+    customers, mainly across Leicestershire. Unless agreed separately in writing:
+  </p>
+  <ul>
+    <li>We do not carry out plastering as a standalone trade</li>
+    <li>We do not hang wallpaper</li>
+    <li>Light filling and preparation of sound surfaces is included only as part of agreed painting work</li>
+  </ul>
+  <p>
+    Scope, materials, access and any exclusions will be set out in your written quote or contract
+    before work starts.
+  </p>
+
+  <h2 class="legal-page__h2">Quotes and estimates</h2>
+  <p>
+    Website descriptions and telephone discussions are for general information only. A binding
+    price is given in our <strong>written quote</strong> after we have assessed the job (usually
+    following a site visit or, for smaller domestic work, sufficient detail from you).
+  </p>
+  <p>
+    Quotes are valid for the period stated on them. If circumstances change (for example hidden
+    damage, additional areas, or client-specified changes), we will discuss revised pricing before
+    continuing.
+  </p>
+
+  <h2 class="legal-page__h2">Booking work, deposits and payment</h2>
+  <p>
+    Dates, deposits, stage payments and final balances are confirmed in your quote or job
+    confirmation. Deposits may be required to secure materials and diary space; if so, the amount
+    and refund position will be stated in writing.
+  </p>
+  <p>
+    Payment terms (due dates and methods) are as agreed on your quote. We may pause or stop work
+    if agreed payments are not received, after reasonable notice.
+  </p>
+
+  <h2 class="legal-page__h2">Access, preparation and site conditions</h2>
+  <p>You agree to:</p>
+  <ul>
+    <li>Provide safe access to the areas to be painted at agreed times</li>
+    <li>Clear or protect belongings as discussed before we start, unless we have agreed to move items</li>
+    <li>Tell us about hazards, asbestos, fragile surfaces, occupied areas, or restrictions (for example school hours, factory production, or live retail trading)</li>
+    <li>Ensure utilities and ventilation are available where needed for the work specified</li>
+  </ul>
+  <p>
+    We may request RAMS (risk assessments and method statements) on commercial or industrial sites
+    and will follow reasonable site rules and induction requirements.
+  </p>
+
+  <h2 class="legal-page__h2">Delays and cancellation</h2>
+  <p>
+    We will use reasonable efforts to meet agreed start and finish dates. Delays caused by weather,
+    supplier issues, illness, or circumstances outside our control may require rescheduling; we
+    will keep you informed.
+  </p>
+  <p>
+    If you need to cancel or postpone, please tell us as soon as possible. Cancellation charges may
+    apply if we have incurred cost for materials, labour allocation or third-party bookings; any
+    such charges will be explained in your quote or confirmation.
+  </p>
+
+  <h2 class="legal-page__h2">Quality, defects and complaints</h2>
+  <p>
+    We aim to complete work to a professional standard using appropriate preparation and trade
+    paints. If you believe there is a defect in our workmanship, notify us in writing within a
+    reasonable time (typically within 14 days of completion for visible interior work, or as stated
+    on your quote) with enough detail for us to inspect.
+  </p>
+  <p>
+    We will remedy genuine defects attributable to our work at no extra charge, provided you have
+    allowed access for inspection and any remedy. This does not cover normal wear and tear, damage
+    after handover, or issues caused by other trades, moisture, or unsuitable surfaces not disclosed
+    to us.
+  </p>
+
+  <h2 class="legal-page__h2">Liability</h2>
+  <p>
+    We hold appropriate insurance for our business activities. Nothing in these terms excludes or
+    limits liability for death or personal injury caused by negligence, fraud, or any other
+    liability that cannot be limited under English law.
+  </p>
+  <p>
+    Subject to that, our total liability for any claim arising from a specific job is limited to
+    the amount paid to us for that job, except where a different limit is required by law or agreed
+    in writing for a particular contract.
+  </p>
+  <p>
+    We are not responsible for indirect or consequential loss (such as loss of profit or business
+    interruption) except where required by law.
+  </p>
+
+  <h2 class="legal-page__h2">Website use</h2>
+  <p>
+    Content on this site (text, images, branding) is owned by or licensed to us. You may view pages
+    for personal or business enquiry purposes. You must not copy, scrape or misuse the site in a
+    way that could harm our systems or reputation.
+  </p>
+  <p>
+    By submitting the quote form you confirm the information is accurate and that you agree to our{' '}
+    <a href="/privacy/">privacy policy</a>.
+  </p>
+
+  <h2 class="legal-page__h2">Governing law</h2>
+  <p>
+    These terms are governed by the laws of <strong>England and Wales</strong>. Disputes are
+    subject to the exclusive jurisdiction of the courts of England and Wales, without prejudice
+    to your statutory rights as a consumer if you qualify for them.
+  </p>
+
+  <h2 class="legal-page__h2">Changes</h2>
+  <p>
+    We may update these terms from time to time. The version on this page applies from the date
+    shown above. Work already agreed under a written quote will normally continue on the terms
+    that applied when that quote was accepted.
+  </p>
+
+  <h2 class="legal-page__h2">Contact</h2>
+  <p>
+    Questions about these terms: <a href={`mailto:${company.email}`}>{company.email}</a> or{' '}
+    <a href="/contact/">request a quote online</a>.
+  </p>
+</LegalDocument>
