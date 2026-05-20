@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.as-painting.co.uk/sitemap.xml
+Sitemap: https://as-painting.co.uk/sitemap.xml

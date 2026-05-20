@@ -18,7 +18,7 @@ export function escapeHtml(value) {
  */
 export function buildQuoteEmailHtml(fields) {
   const { name, phone, email, jobLabel, messageHtml } = fields;
-  const siteUrl = 'https://www.as-painting.co.uk';
+  const siteUrl = 'https://as-painting.co.uk';
   const telHref = phone.replace(/\s+/g, '');
 
   return `<!DOCTYPE html>

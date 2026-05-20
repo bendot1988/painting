@@ -1,5 +1,5 @@
-/** Production origin — must match astro.config site and Netlify domain */
-export const SITE_ORIGIN = 'https://www.as-painting.co.uk';
+/** Production origin — must match astro.config site and Netlify primary domain */
+export const SITE_ORIGIN = 'https://as-painting.co.uk';
 
 /** Default Open Graph / Twitter card image (1200×630) */
 export const OG_IMAGE_PATH = '/images/brand/og-card.jpg';

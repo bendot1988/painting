@@ -81,7 +81,7 @@ function json(status, body, event) {
 function corsHeaders(event) {
   const origin = event.headers.origin || event.headers.Origin;
   const allowed =
-    origin && isAllowedOrigin(event) ? origin : 'https://www.as-painting.co.uk';
+    origin && isAllowedOrigin(event) ? origin : 'https://as-painting.co.uk';
   return {
     'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',

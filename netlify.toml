@@ -2,6 +2,12 @@
   command = "npm run build"
   publish = "dist"
 
+# Redirect loops (ERR_TOO_MANY_REDIRECTS) usually come from:
+# 1. Trailing-slash rules in public/_redirects (/work → /work/) — do not add them.
+# 2. Netlify Domain settings fighting each other (www → apex AND apex → www).
+#    Pick ONE primary host in Netlify → Domain management. This site uses as-painting.co.uk
+#    (www redirects there once). Do not add opposing host redirects here.
+
 [functions]
   directory = "netlify/functions"
 

@@ -27,7 +27,7 @@ const { slug } = Astro.params;
 const area = getAreaBySlug(slug!);
 
 if (!area) {
-  return Astro.redirect('/areas');
+  return Astro.redirect('/areas/');
 }
 
 const nearby = getNearbyAreas(area);
