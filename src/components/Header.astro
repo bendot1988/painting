@@ -5,12 +5,12 @@ const pathname = Astro.url.pathname;
 const homeHref = pathname === '/' ? '#top' : '/';
 
 const nav = [
-  { href: '/commercial/', label: 'Commercial', match: 'commercial' },
-  { href: '/domestic/', label: 'Domestic', match: 'domestic' },
-  { href: '/work/', label: 'Our work', match: 'work-page' },
-  { href: '/reviews/', label: 'Our reviews', match: 'reviews-page' },
-  { href: '/contact/', label: 'Contact', match: 'contact-page' },
-];
+  { href: '/commercial/', label: 'Commercial', match: 'commercial', accent: 'yellow' },
+  { href: '/domestic/', label: 'Domestic', match: 'domestic', accent: 'pink' },
+  { href: '/work/', label: 'Our work', match: 'work-page', accent: 'lime' },
+  { href: '/reviews/', label: 'Our reviews', match: 'reviews-page', accent: 'blue' },
+  { href: '/contact/', label: 'Contact', match: 'contact-page', accent: 'red' },
+] as const;
 const quoteHref = quotePageHref;
 ---
 <header class="site-header" data-header>
@@ -53,7 +53,9 @@ const quoteHref = quotePageHref;
           </div>
           <ul class="nav__links nav__links--mobile">
             {nav.map((item) => (
-              <li><a href={item.href}>{item.label}</a></li>
+              <li>
+                <a href={item.href} class={`nav__link nav__link--${item.accent}`}>{item.label}</a>
+              </li>
             ))}
           </ul>
           <div class="nav__foot">
@@ -63,7 +65,9 @@ const quoteHref = quotePageHref;
         </div>
         <ul class="nav__links nav__links--desktop">
           {nav.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
+            <li>
+              <a href={item.href} class={`nav__link nav__link--${item.accent}`}>{item.label}</a>
+            </li>
           ))}
         </ul>
       </nav>
@@ -189,9 +193,10 @@ const quoteHref = quotePageHref;
   .site-header :is(.nav a, .btn) {
     font-family: var(--font-header);
   }
-  .nav a {
+  .nav__link {
+    position: relative;
     display: inline-block;
-    padding: 10px 16px;
+    padding: 10px 16px 12px;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: var(--tracking-ui);
@@ -201,17 +206,42 @@ const quoteHref = quotePageHref;
     transition: color .2s, background .2s;
     white-space: nowrap;
   }
-  .nav a:hover,
-  .nav a:focus-visible {
+  .nav__link--yellow { --nav-accent: var(--c-yellow); }
+  .nav__link--pink   { --nav-accent: var(--c-pink); }
+  .nav__link--lime   { --nav-accent: var(--c-lime); }
+  .nav__link--blue   { --nav-accent: var(--c-blue); }
+  .nav__link--red    { --nav-accent: var(--c-red); }
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 5px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--nav-accent);
+    pointer-events: none;
+    transition: opacity .2s;
+  }
+  .nav__link:hover,
+  .nav__link:focus-visible {
     color: var(--c-white);
     background: var(--c-red);
   }
-  .nav a.is-active {
+  .nav__link:hover::after,
+  .nav__link:focus-visible::after {
+    opacity: 0.95;
+  }
+  .nav__link.is-active {
     color: var(--c-white);
     background: var(--c-blue);
   }
-  .nav a.is-active:hover,
-  .nav a.is-active:focus-visible {
+  .nav__link.is-active::after {
+    background: var(--nav-accent);
+    opacity: 1;
+  }
+  .nav__link.is-active:hover,
+  .nav__link.is-active:focus-visible {
     color: var(--c-white);
     background: var(--c-red);
   }
@@ -364,16 +394,23 @@ const quoteHref = quotePageHref;
       margin: 0;
     }
     .nav__links--mobile li { width: 100%; }
-    .nav__links--mobile a {
+    .nav__links--mobile .nav__link {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       min-height: 52px;
-      padding: 14px 20px;
+      padding: 14px 20px 16px;
       font-size: 17px;
       border-radius: 14px;
       text-align: center;
+    }
+    .nav__links--mobile .nav__link::after {
+      left: 22px;
+      right: 22px;
+      bottom: 8px;
+      height: 4px;
+      border-radius: 999px;
     }
     .nav__foot {
       display: flex;

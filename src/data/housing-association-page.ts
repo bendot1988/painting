@@ -28,48 +28,48 @@ export const housingAssociationPageMeta = {
 
 export const heroGallery = [
   {
-    src: '/images/commercial-interior-carpeted-stairwell.jpeg',
-    alt: 'Freshly decorated communal stairwell with carpet and white walls in a residential block',
+    src: '/images/housing-association/ha-kitchen-marble-worktop.png',
+    alt: 'Refurbished kitchen with marble-effect worktops and sage cabinetry in a social housing property',
   },
   {
-    src: '/images/commercial-interior-white-corridor-blue-carpet.jpeg',
-    alt: 'Repainted communal corridor with blue carpet and clean wall finishes',
+    src: '/images/housing-association/ha-hallway-burgundy-door.png',
+    alt: 'Repainted hallway with grey walls, white woodwork and burgundy front door ready for handover',
   },
   {
-    src: '/images/commercial-interior-classroom-stripped-back.jpeg',
-    alt: 'Void property interior prepared and repainted ready for new tenancy',
+    src: '/images/housing-association/ha-bedroom-blinds.png',
+    alt: 'Freshly decorated bedroom with cream walls, white trim and blinds in a void property',
   },
   {
-    src: '/images/commercial-exterior-clad-unit-staircase.jpeg',
-    alt: 'External decoration on clad housing block staircase and landings',
+    src: '/images/housing-association/ha-bathroom-white.png',
+    alt: 'Repainted bathroom with white walls, tiles and dark vinyl floor in social housing stock',
   },
 ] as const;
 
 /** Gallery between “Why choose us” and “How we work” */
 export const midPageGallery = [
   {
-    src: '/images/commercial-interior-qualvis-yellow-stair-hall.jpeg',
-    alt: 'Repainted communal stair hall with durable wall finishes in a residential block',
+    src: '/images/housing-association/ha-hallway-staircase.png',
+    alt: 'White hallway and staircase with gloss woodwork repainted during a void turnaround',
   },
   {
-    src: '/images/commercial-interior-white-stairwell-01.jpeg',
-    alt: 'Freshly decorated white stairwell and landings in social housing',
+    src: '/images/housing-association/ha-landing-grey.png',
+    alt: 'Grey landing and hallway with white radiator and repainted bathroom beyond',
   },
   {
-    src: '/images/domestic-interior-hallway-and-staircase.jpeg',
-    alt: 'Hallway and staircase repainted ready for tenant handover',
+    src: '/images/housing-association/ha-kitchen-sage-galley.png',
+    alt: 'Sage green kitchen walls and wood worktops repainted in a housing association void',
   },
   {
-    src: '/images/commercial-interior-grey-fire-doors.jpeg',
-    alt: 'Communal corridor with refreshed fire doors and wall paint',
+    src: '/images/housing-association/ha-kitchen-wood-units.png',
+    alt: 'Kitchen with refreshed white walls, tiled splashback and wood-effect units',
   },
   {
-    src: '/images/commercial-exterior-blue-railings-01.jpeg',
-    alt: 'External metal railings and masonry repainted on housing scheme',
+    src: '/images/housing-association/ha-void-tools.png',
+    alt: 'Void property with Johnstone\'s Trade paint and professional decorating tools on site',
   },
   {
-    src: '/images/commercial-interior-arched-corridor.jpeg',
-    alt: 'Decorated arched corridor in a sheltered housing scheme',
+    src: '/images/housing-association/ha-kitchen-prep.png',
+    alt: 'Kitchen prepared for painting with protected worktops, ladder and trade materials',
   },
 ] as const;
 
@@ -89,44 +89,44 @@ export const housingAssociationServices: HaService[] = [
   {
     title: 'Void property redecoration',
     desc: 'Fast-turnaround repainting of empty homes between tenancies — walls, ceilings, woodwork and kitchens — programmed to your void KPI and SLA targets.',
-    src: '/images/commercial-interior-classroom-stripped-back.jpeg',
-    alt: 'Void property interior with fresh emulsion ready for handover',
+    src: '/images/housing-association/ha-void-tools.png',
+    alt: 'Empty void property with trade paint and decorating equipment ready for redecoration',
   },
   {
     title: 'Planned & cyclical programmes',
     desc: 'Scheduled multi-year external and communal decoration cycles, scoped in phases so blocks stay partly occupied and programmes stay on programme.',
-    src: '/images/commercial-exterior-clad-unit-staircase.jpeg',
-    alt: 'External cyclical decoration on a residential block',
+    src: '/images/housing-association/ha-hallway-staircase.png',
+    alt: 'Hallway and staircase with fresh white paint during a planned redecoration programme',
   },
   {
     title: 'Communal areas',
     desc: 'Entrances, hallways, stairwells, landings and lift lobbies in blocks and sheltered schemes — durable, wipeable finishes for high footfall.',
-    src: '/images/commercial-interior-carpeted-stairwell.jpeg',
-    alt: 'Decorated communal stairwell in a block of flats',
+    src: '/images/housing-association/ha-landing-grey.png',
+    alt: 'Repainted grey landing and hallway in communal social housing areas',
   },
   {
     title: 'External decoration',
     desc: 'Fascias, soffits, render, masonry, windows, doors and garages — specified systems for social housing stock across Leicestershire.',
-    src: '/images/domestic-exterior-white-pebbledash-frontage.jpeg',
-    alt: 'External masonry and render repainted on social housing stock',
+    src: '/images/housing-association/ha-hallway-burgundy-door.png',
+    alt: 'Repainted internal hallway leading to a refreshed front door on housing stock',
   },
   {
     title: 'Responsive repairs decoration',
     desc: 'Making good after plumbing, electrical or building repairs — matched finishes and snagging so voids and occupied lets return to standard quickly.',
-    src: '/images/commercial-interior-grey-fire-doors.jpeg',
-    alt: 'Communal fire doors and walls refreshed after responsive works',
+    src: '/images/housing-association/ha-bedroom-white-in-progress.png',
+    alt: 'Bedroom walls and woodwork repainted with trade materials during responsive decoration',
   },
   {
     title: 'Sheltered & supported living',
     desc: 'Sensitive working around elderly and vulnerable residents — quiet methods, clear communication and minimal disturbance to daily routines.',
-    src: '/images/commercial-interior-arched-corridor.jpeg',
-    alt: 'Decorated corridor in a sheltered housing scheme',
+    src: '/images/housing-association/ha-bedroom-blinds.png',
+    alt: 'Finished bedroom with cream walls and blinds ready for sheltered housing residents',
   },
   {
     title: 'Damp & mould redecoration',
     desc: 'Preparation and redecoration following mould treatment, including anti-mould coatings where your specification requires — an increasing priority for social landlords.',
-    src: '/images/commercial-interior-white-stairwell-02.jpeg',
-    alt: 'Repainted stairwell following damp and mould remediation',
+    src: '/images/housing-association/ha-bedroom-aubergine.png',
+    alt: 'Freshly painted bedroom walls following damp and mould treatment in a void property',
   },
 ];
 
