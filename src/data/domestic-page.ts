@@ -156,6 +156,10 @@ export const domesticFaqs: Faq[] = [
     a: 'Yes. Render, masonry, woodwork, doors, fascias and fences across Leicestershire. We specify the right system for each surface.',
   },
   {
+    q: 'Can you paint hard-to-reach areas (cherry pickers)?',
+    a: 'Yes. Gable ends, chimneys, dormers and tall render often need powered access. Our operatives hold IPAF qualifications (via ipaf.org) to work from cherry pickers and other MEWPs. We agree positioning and protection with you before hire is booked, and include access in your fixed quote where needed.',
+  },
+  {
     q: 'How do you work around us living at home?',
     a: 'Room by room where it helps. Furniture moved and covered, floors protected, and each space left usable at the end of the day where possible.',
   },

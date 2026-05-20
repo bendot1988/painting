@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import ServiceHeightCallout from '~/components/ServiceHeightCallout.astro';
 import {
   commercialHeroGallery,
   commercialHighlights,
@@ -15,7 +16,7 @@ const commercialWork = workItems.filter((i) => i.tag === 'commercial').slice(0, 
 
 const pageTitle = 'Commercial Painting | A.S Painting Contractors';
 const pageDescription =
-  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail and schools. Out-of-hours available.';
+  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail and schools. IPAF working at height and out-of-hours available.';
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
@@ -35,6 +36,7 @@ const pageDescription =
           <span class="commercial-page__pill">Interior painting</span>
           <span class="commercial-page__pill">Exterior painting</span>
           <span class="commercial-page__pill">Out-of-hours work</span>
+          <span class="commercial-page__pill">Working at height</span>
         </div>
 
         <div class="commercial-page__hero-gallery reveal" aria-label="Commercial project gallery">
@@ -95,7 +97,8 @@ const pageDescription =
         <h2 id="exterior-heading" class="commercial-page__section-title">Exterior commercial painting</h2>
         <p class="commercial-page__section-lead">
           Weather-facing work needs the right prep and the right system. We handle shutters,
-          cladding, stair towers, railings, shopfronts and unit exteriors across Leicestershire.
+          cladding, stair towers, railings, shopfronts and unit exteriors across Leicestershire —
+          including high-level areas via MEWP access where needed.
         </p>
         <div class="commercial-page__grid">
           {exteriorProjects.map((p, i) => (
@@ -112,6 +115,8 @@ const pageDescription =
         </div>
       </div>
     </section>
+
+    <ServiceHeightCallout variant="commercial" />
 
     <section class="commercial-page__section" aria-labelledby="work-snapshot-heading">
       <div class="container">

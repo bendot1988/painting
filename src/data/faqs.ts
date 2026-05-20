@@ -64,6 +64,6 @@ export const allFaqs: FaqItem[] = faqSections.flatMap((section) => section.items
 export const faqsPageMeta = {
   title: 'FAQs — Painting & Decorating Questions | A.S Painting Contractors',
   description:
-    'Answers to common questions about commercial and domestic painting in Leicester and Leicestershire — quotes, plastering, wallpaper, areas covered, out-of-hours work and more.',
+    'Answers to common questions about commercial and domestic painting in Leicester and Leicestershire — quotes, plastering, wallpaper, working at height, IPAF, areas covered, out-of-hours work and more.',
   canonical: '/faqs/',
 } as const;

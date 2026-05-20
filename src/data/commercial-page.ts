@@ -56,6 +56,10 @@ export const commercialHighlights = [
     title: 'Single point of contact',
     desc: 'One project lead from quote to sign-off. No chasing.',
   },
+  {
+    title: 'Working at height (IPAF)',
+    desc: 'Cherry pickers and MEWPs for cladding, fascias and high bays — IPAF-qualified operatives and RAMS in place.',
+  },
 ];
 
 export const interiorSectors: Sector[] = [
@@ -148,6 +152,10 @@ export const commercialFaqs: Faq[] = [
   {
     q: 'Do you paint building exteriors?',
     a: 'Yes. Exterior work is a core part of our commercial offer. Shutters, cladding, stair towers, railings, shopfronts and unit exteriors across Leicestershire.',
+  },
+  {
+    q: 'Can you work at height (cherry pickers, MEWPs)?',
+    a: 'Yes. We carry out painting at height where access needs powered platforms — warehouse cladding, fascias, steelwork, high bay walls and similar. Our operatives hold IPAF qualifications (via ipaf.org) to work from cherry pickers, scissor lifts and other MEWPs. We plan elevated work in our RAMS with harness use, exclusion zones and ground supervision as the site requires.',
   },
   {
     q: 'Can you work outside normal business hours?',

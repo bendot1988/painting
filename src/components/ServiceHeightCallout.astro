@@ -1,0 +1,110 @@
+---
+import {
+  workingAtHeightContent,
+  workingAtHeightImage,
+  type WorkingAtHeightVariant,
+} from '~/data/working-at-height';
+
+interface Props {
+  variant: WorkingAtHeightVariant;
+}
+
+const { variant } = Astro.props;
+const content = workingAtHeightContent[variant];
+const accent = variant === 'commercial' ? 'yellow' : 'pink';
+---
+<section
+  class={`height-callout height-callout--${variant} reveal`}
+  aria-labelledby={`height-callout-${variant}`}
+>
+  <div class="container height-callout__inner">
+    <figure class="height-callout__media">
+      <img
+        src={workingAtHeightImage.src}
+        alt={workingAtHeightImage.alt}
+        loading="lazy"
+        width="800"
+        height="600"
+      />
+    </figure>
+    <div class="height-callout__copy">
+      <h2 id={`height-callout-${variant}`} class="height-callout__title display h3">
+        {content.title}
+      </h2>
+      <p class="height-callout__lead">{content.lead}</p>
+      {content.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+      <p class="height-callout__more">
+        <a href="/faqs/">More in our FAQs <span class="arrow">→</span></a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .height-callout {
+    padding: clamp(40px, 5vw, 56px) 0;
+    background: var(--bg-alt);
+  }
+  .height-callout--commercial {
+    --height-accent: var(--c-yellow);
+  }
+  .height-callout--domestic {
+    --height-accent: var(--c-pink);
+  }
+  .height-callout__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 40px);
+    align-items: center;
+  }
+  .height-callout__media {
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #e8e8e6;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--height-accent, var(--c-yellow));
+  }
+  .height-callout__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .height-callout__title {
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .height-callout__lead {
+    margin: 0 0 14px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+    font-weight: 600;
+  }
+  .height-callout__copy p {
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+  .height-callout__more {
+    margin: 18px 0 0 !important;
+  }
+  .height-callout__more a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .height-callout__more a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    .height-callout__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

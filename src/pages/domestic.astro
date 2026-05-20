@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import ServiceHeightCallout from '~/components/ServiceHeightCallout.astro';
 import {
   domesticHeroGallery,
   domesticHighlights,
@@ -15,7 +16,7 @@ const domesticWork = workItems.filter((i) => i.tag === 'domestic').slice(0, 6);
 
 const pageTitle = 'Domestic Painting | A.S Painting Contractors';
 const pageDescription =
-  'Domestic interior and exterior painting across Leicestershire. Kitchens, living rooms, halls, bedrooms and home exteriors. Free home visits.';
+  'Domestic interior and exterior painting across Leicestershire. Kitchens, living rooms, halls, bedrooms and home exteriors. IPAF access for hard-to-reach heights. Free home visits.';
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
@@ -34,6 +35,7 @@ const pageDescription =
           <span class="domestic-page__pill">Interior painting</span>
           <span class="domestic-page__pill">Exterior painting</span>
           <span class="domestic-page__pill">Kitchens & woodwork</span>
+          <span class="domestic-page__pill">Working at height</span>
         </div>
 
         <div class="domestic-page__hero-gallery reveal" aria-label="Domestic project gallery">
@@ -94,7 +96,8 @@ const pageDescription =
         <h2 id="exterior-heading" class="domestic-page__section-title">Exterior domestic painting</h2>
         <p class="domestic-page__section-lead">
           Weather-facing work needs the right prep and products. We handle render, masonry,
-          woodwork, doors, fascias and garden joinery across Leicestershire.
+          woodwork, doors, fascias and garden joinery across Leicestershire — including gables
+          and chimney stacks where cherry-picker access is required.
         </p>
         <div class="domestic-page__grid">
           {exteriorProjects.map((p, i) => (
@@ -111,6 +114,8 @@ const pageDescription =
         </div>
       </div>
     </section>
+
+    <ServiceHeightCallout variant="domestic" />
 
     <section class="domestic-page__section" aria-labelledby="work-snapshot-heading">
       <div class="container">
