@@ -151,7 +151,7 @@ import { homepageSectors as sectors } from '~/data/commercial-page';
   }
   .sectors__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   .sector-card {
@@ -208,10 +208,12 @@ import { homepageSectors as sectors } from '~/data/commercial-page';
   @media (max-width: 980px) {
     .commercial__inner { grid-template-columns: 1fr; }
     .commercial__media { aspect-ratio: 4 / 3; }
-    .sectors__grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 480px) {
-    .sectors__grid { gap: 12px; }
+    .sectors__grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
     .sector-card__body { padding: 14px 14px 16px; }
     .sector-card__body h4 { font-size: 15px; }
     .sector-card__body p { font-size: 13px; line-height: 1.45; }
