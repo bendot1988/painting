@@ -119,64 +119,46 @@ function thumbnailAlt(title: string): string {
       }
     }
 
-    function buildGrid(videos) {
-      var grid = document.createElement('ul');
-      grid.className = 'yt-feed__grid';
-      grid.setAttribute('data-yt-grid', '');
+    /** Clone SSR items so Astro scoped styles (data-astro-cid-*) stay attached. */
+    function refreshGrid(grid, videos) {
+      var template = grid.querySelector('[data-yt-item]');
+      if (!template) return false;
+
+      var frag = document.createDocumentFragment();
 
       for (var i = 0; i < videos.length; i++) {
         var v = videos[i];
-        var li = document.createElement('li');
+        var li = template.cloneNode(true);
         li.className = 'yt-feed__item' + (i >= initialVisible ? ' is-hidden' : '');
-        li.setAttribute('data-yt-item', '');
         li.setAttribute('data-index', String(i));
 
-        var a = document.createElement('a');
-        a.className = 'yt-feed__card';
-        a.href = v.url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
+        var a = li.querySelector('a.yt-feed__card');
+        if (a) a.href = v.url;
 
-        var thumb = document.createElement('span');
-        thumb.className = 'yt-feed__thumb';
-
-        var img = document.createElement('img');
-        img.src = v.thumbnail;
-        img.alt = thumbAlt(v.title);
-        img.loading = 'lazy';
-        img.width = 640;
-        img.height = 360;
-
-        var play = document.createElement('span');
-        play.className = 'yt-feed__play';
-        play.setAttribute('aria-hidden', 'true');
-        play.innerHTML =
-          '<svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>';
-
-        thumb.appendChild(img);
-        thumb.appendChild(play);
-
-        var meta = document.createElement('span');
-        meta.className = 'yt-feed__meta';
-
-        var h3 = document.createElement('h3');
-        h3.textContent = v.title;
-        meta.appendChild(h3);
-
-        if (v.published) {
-          var time = document.createElement('time');
-          time.dateTime = v.published;
-          time.textContent = formatVideoDate(v.published);
-          meta.appendChild(time);
+        var img = li.querySelector('img');
+        if (img) {
+          img.src = v.thumbnail;
+          img.alt = thumbAlt(v.title);
         }
 
-        a.appendChild(thumb);
-        a.appendChild(meta);
-        li.appendChild(a);
-        grid.appendChild(li);
+        var h3 = li.querySelector('h3');
+        if (h3) h3.textContent = v.title;
+
+        var time = li.querySelector('time');
+        if (v.published) {
+          if (time) {
+            time.dateTime = v.published;
+            time.textContent = formatVideoDate(v.published);
+          }
+        } else if (time) {
+          time.remove();
+        }
+
+        frag.appendChild(li);
       }
 
-      return grid;
+      grid.replaceChildren(frag);
+      return true;
     }
 
     function run() {
@@ -197,8 +179,7 @@ function thumbnailAlt(title: string): string {
           var nextFirstId = data.videos[0].id;
           if (prevFirstId && nextFirstId === prevFirstId) return;
 
-          var newGrid = buildGrid(data.videos);
-          oldGrid.replaceWith(newGrid);
+          if (!refreshGrid(oldGrid, data.videos)) return;
 
           var inner = section.querySelector('.yt-feed__inner');
           var actionsEl = section.querySelector('.yt-feed__actions');
