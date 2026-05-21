@@ -22,7 +22,7 @@ function thumbnailAlt(title: string): string {
 ---
 
 {hasVideos && (
-  <section class="yt-feed" id="videos" aria-label="Latest videos on YouTube">
+  <section class="yt-feed" id="videos" aria-label="Latest videos on YouTube" data-yt-feed>
     <div class="container yt-feed__inner">
     <div class="yt-feed__head">
       <div>
@@ -71,16 +71,182 @@ function thumbnailAlt(title: string): string {
 )}
 
 <script>
-  const loadMoreBtn = document.querySelector<HTMLButtonElement>('[data-yt-load-more]');
-  loadMoreBtn?.addEventListener('click', () => {
+  document.querySelector('[data-yt-feed]')?.addEventListener('click', (e) => {
+    const loadMoreBtn = e.target.closest<HTMLButtonElement>('[data-yt-load-more]');
+    if (!loadMoreBtn) return;
+    const section = e.currentTarget as HTMLElement;
     const step = Number(loadMoreBtn.dataset.step || 3);
-    const hidden = [...document.querySelectorAll<HTMLElement>('[data-yt-item].is-hidden')];
+    const hidden = [...section.querySelectorAll<HTMLElement>('[data-yt-item].is-hidden')];
     hidden.slice(0, step).forEach((item) => item.classList.remove('is-hidden'));
 
-    if (document.querySelectorAll('[data-yt-item].is-hidden').length === 0) {
+    if (section.querySelectorAll('[data-yt-item].is-hidden').length === 0) {
       loadMoreBtn.hidden = true;
     }
   });
+</script>
+
+<script is:inline define:vars={{ areaName: areaName ?? '', initialVisible: INITIAL_VISIBLE, loadMoreStep: LOAD_MORE_COUNT }}>
+  (function () {
+    function thumbAlt(title) {
+      if (areaName) {
+        const cleaned = title.replace(/\s*#\S+/g, '').replace(/\s+/g, ' ').trim();
+        return cleaned + ' — painting and decorating in ' + areaName;
+      }
+      return title;
+    }
+
+    function formatVideoDate(iso) {
+      if (!iso) return '';
+      try {
+        return new Intl.DateTimeFormat('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        }).format(new Date(iso));
+      } catch {
+        return '';
+      }
+    }
+
+    function videoIdFromHref(href) {
+      try {
+        var u = new URL(href);
+        var shorts = u.pathname.split('/shorts/')[1];
+        if (shorts) return shorts.split('/')[0];
+        return u.searchParams.get('v');
+      } catch {
+        return null;
+      }
+    }
+
+    function buildGrid(videos) {
+      var grid = document.createElement('ul');
+      grid.className = 'yt-feed__grid';
+      grid.setAttribute('data-yt-grid', '');
+
+      for (var i = 0; i < videos.length; i++) {
+        var v = videos[i];
+        var li = document.createElement('li');
+        li.className = 'yt-feed__item' + (i >= initialVisible ? ' is-hidden' : '');
+        li.setAttribute('data-yt-item', '');
+        li.setAttribute('data-index', String(i));
+
+        var a = document.createElement('a');
+        a.className = 'yt-feed__card';
+        a.href = v.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+
+        var thumb = document.createElement('span');
+        thumb.className = 'yt-feed__thumb';
+
+        var img = document.createElement('img');
+        img.src = v.thumbnail;
+        img.alt = thumbAlt(v.title);
+        img.loading = 'lazy';
+        img.width = 640;
+        img.height = 360;
+
+        var play = document.createElement('span');
+        play.className = 'yt-feed__play';
+        play.setAttribute('aria-hidden', 'true');
+        play.innerHTML =
+          '<svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>';
+
+        thumb.appendChild(img);
+        thumb.appendChild(play);
+
+        var meta = document.createElement('span');
+        meta.className = 'yt-feed__meta';
+
+        var h3 = document.createElement('h3');
+        h3.textContent = v.title;
+        meta.appendChild(h3);
+
+        if (v.published) {
+          var time = document.createElement('time');
+          time.dateTime = v.published;
+          time.textContent = formatVideoDate(v.published);
+          meta.appendChild(time);
+        }
+
+        a.appendChild(thumb);
+        a.appendChild(meta);
+        li.appendChild(a);
+        grid.appendChild(li);
+      }
+
+      return grid;
+    }
+
+    function run() {
+      var section = document.querySelector('[data-yt-feed]');
+      var oldGrid = section && section.querySelector('[data-yt-grid]');
+      if (!oldGrid || !section) return;
+
+      var firstLink = oldGrid.querySelector('a.yt-feed__card');
+      var prevFirstId = firstLink ? videoIdFromHref(firstLink.href) : null;
+
+      fetch('/.netlify/functions/youtube-latest')
+        .then(function (r) {
+          return r.ok ? r.json() : null;
+        })
+        .then(function (data) {
+          if (!data || !data.ok || !data.videos || !data.videos.length) return;
+
+          var nextFirstId = data.videos[0].id;
+          if (prevFirstId && nextFirstId === prevFirstId) return;
+
+          var newGrid = buildGrid(data.videos);
+          oldGrid.replaceWith(newGrid);
+
+          var inner = section.querySelector('.yt-feed__inner');
+          var actionsEl = section.querySelector('.yt-feed__actions');
+
+          if (data.videos.length > initialVisible) {
+            if (!actionsEl && inner) {
+              var wrap = document.createElement('div');
+              wrap.className = 'yt-feed__actions';
+              var b = document.createElement('button');
+              b.type = 'button';
+              b.className = 'btn yt-feed__more';
+              b.setAttribute('data-yt-load-more', '');
+              b.dataset.step = String(loadMoreStep);
+              b.textContent = 'Load more videos';
+              wrap.appendChild(b);
+              inner.appendChild(wrap);
+            }
+            var loadBtn = section.querySelector('[data-yt-load-more]');
+            if (loadBtn) {
+              loadBtn.hidden = false;
+              loadBtn.dataset.step = String(loadMoreStep);
+            }
+          } else if (actionsEl) {
+            actionsEl.remove();
+          }
+        })
+        .catch(function () {});
+    }
+
+    function schedule() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(
+          function () {
+            run();
+          },
+          { timeout: 4000 }
+        );
+      } else {
+        setTimeout(run, 100);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', schedule);
+    } else {
+      schedule();
+    }
+  })();
 </script>
 
 <style>
