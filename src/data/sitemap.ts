@@ -20,6 +20,11 @@ export const sitemapGroups: SitemapGroup[] = [
     links: [
       { label: 'Home', href: '/', description: 'Commercial & domestic painters in Leicester' },
       { label: 'Commercial painting', href: '/commercial', description: 'Factories, offices, retail & warehouses' },
+      {
+        label: 'Maintenance plans',
+        href: '/maintenance-plans',
+        description: 'Monthly decorating maintenance for landlords & commercial properties',
+      },
       { label: 'Domestic painting', href: '/domestic', description: 'Homes, kitchens, interiors & exteriors' },
       {
         label: 'Housing association painting',
@@ -62,6 +67,7 @@ export const sitemapGroups: SitemapGroup[] = [
 export const sitemapXmlUrls: { loc: string; priority: string; changefreq: string }[] = [
   { loc: '/', priority: '1.0', changefreq: 'weekly' },
   { loc: '/commercial/', priority: '0.9', changefreq: 'monthly' },
+  { loc: '/maintenance-plans/', priority: '0.88', changefreq: 'monthly' },
   { loc: '/domestic/', priority: '0.9', changefreq: 'monthly' },
   { loc: '/housing-association-painting/', priority: '0.85', changefreq: 'monthly' },
   { loc: '/work/', priority: '0.8', changefreq: 'monthly' },

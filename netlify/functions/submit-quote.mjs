@@ -23,7 +23,20 @@ export const handler = async (event) => {
     return json(400, { ok: false, message: 'Invalid form data' }, event);
   }
 
-  if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim()) {
+  const formName = (data['form-name'] || 'quote').trim();
+  if (formName === 'survey-request') {
+    if (!data.name?.trim() || !data.phone?.trim()) {
+      return json(400, { ok: false, message: 'Name and phone are required' }, event);
+    }
+  } else if (formName === 'contract-enquiry') {
+    if (!data.name?.trim() || !data.email?.trim()) {
+      return json(400, { ok: false, message: 'Name and email are required' }, event);
+    }
+  } else if (formName === 'maintenance-enquiry') {
+    if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim()) {
+      return json(400, { ok: false, message: 'Name, phone and email are required' }, event);
+    }
+  } else if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim()) {
     return json(400, { ok: false, message: 'Name, phone and email are required' }, event);
   }
 

@@ -135,6 +135,20 @@ const pageDescription =
       </div>
     </section>
 
+    <section class="commercial-page__band commercial-page__maintenance-callout" aria-labelledby="maintenance-callout-heading">
+      <div class="container commercial-page__maintenance-inner">
+        <div>
+          <h2 id="maintenance-callout-heading" class="commercial-page__section-title">Looking for Ongoing Maintenance?</h2>
+          <p class="commercial-page__section-lead">
+            We offer monthly Commercial Decorating Maintenance Plans for landlords, apartment blocks,
+            offices, and commercial properties — keeping your building looking sharp year-round for a
+            fixed monthly cost.
+          </p>
+        </div>
+        <a class="btn" href="/maintenance-plans/">View Maintenance Plans <span class="arrow">→</span></a>
+      </div>
+    </section>
+
     <section class="commercial-page__band commercial-page__faqs" aria-label="Frequently asked questions">
       <div class="container">
         <h2 class="commercial-page__section-title">Quick answers</h2>
@@ -415,6 +429,25 @@ const pageDescription =
   .commercial-page__cta {
     margin: 36px 0 0;
     text-align: center;
+  }
+
+  .commercial-page__maintenance-inner {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: clamp(28px, 4vw, 36px);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--c-yellow);
+  }
+  .commercial-page__maintenance-inner .commercial-page__section-lead {
+    margin-bottom: 0;
+  }
+  .commercial-page__maintenance-inner .btn {
+    flex-shrink: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
