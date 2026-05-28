@@ -95,9 +95,13 @@ const valuePropIcons: Record<string, string> = {
         <div class="mp-page__packages">
           {packages.map((pkg, i) => (
             <article class:list={['mp-page__package', { 'mp-page__package--featured': pkg.badge }]} style={`--i:${i}`}>
-              {pkg.badge && <span class="mp-page__package-badge">{pkg.badge}</span>}
-              <h3>{pkg.tier}</h3>
-              <p class="mp-page__package-subtitle">{pkg.subtitle}</p>
+              <div class="mp-page__package-head">
+                <div class="mp-page__package-head-text">
+                  <h3>{pkg.tier}</h3>
+                  <p class="mp-page__package-subtitle">{pkg.subtitle}</p>
+                </div>
+                {pkg.badge && <span class="mp-page__package-badge">{pkg.badge}</span>}
+              </div>
               <p class="mp-page__package-price">
                 {pkg.price}
                 <span class="mp-page__package-suffix">{pkg.priceSuffix}</span>
@@ -393,6 +397,8 @@ const valuePropIcons: Record<string, string> = {
 <style>
   .mp-page {
     --page-stack-gap: 50px;
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   .mp-page__hero {
@@ -465,7 +471,6 @@ const valuePropIcons: Record<string, string> = {
   .mp-page__section-lead--enquiry {
     max-width: none;
     text-align: center;
-    white-space: nowrap;
   }
   .mp-page__section-title--enquiry {
     text-align: center;
@@ -476,7 +481,7 @@ const valuePropIcons: Record<string, string> = {
     margin: 28px 0 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
   }
   .mp-page__value-prop {
@@ -487,6 +492,7 @@ const valuePropIcons: Record<string, string> = {
     border-radius: 16px;
     box-shadow: var(--shadow-sm);
     transition-delay: calc(var(--i) * 40ms);
+    min-width: 0;
   }
   .mp-page__value-prop:nth-child(4),
   .mp-page__value-prop:nth-child(5) {
@@ -525,7 +531,7 @@ const valuePropIcons: Record<string, string> = {
     margin: 28px 0 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
   .mp-page__feature {
@@ -533,6 +539,7 @@ const valuePropIcons: Record<string, string> = {
     align-items: center;
     gap: 14px;
     padding: 18px 20px;
+    min-width: 0;
     background: #fff;
     border-radius: 14px;
     border: 1.5px solid rgba(126, 211, 33, 0.35);
@@ -568,7 +575,7 @@ const valuePropIcons: Record<string, string> = {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
   .mp-page__exclusion {
@@ -576,6 +583,7 @@ const valuePropIcons: Record<string, string> = {
     align-items: flex-start;
     gap: 12px;
     padding: 16px 18px;
+    min-width: 0;
     background: #fff;
     border-radius: 14px;
     box-shadow: var(--shadow-sm);
@@ -601,7 +609,7 @@ const valuePropIcons: Record<string, string> = {
 
   .mp-page__packages {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
     margin-top: 28px;
   }
@@ -616,6 +624,8 @@ const valuePropIcons: Record<string, string> = {
     border-top: 4px solid var(--c-blue);
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
     transition-delay: calc(var(--i) * 50ms);
+    min-width: 0;
+    overflow-wrap: break-word;
   }
   .mp-page__package:hover {
     transform: translateY(-4px);
@@ -625,18 +635,31 @@ const valuePropIcons: Record<string, string> = {
     border-top-color: var(--c-yellow);
     box-shadow: var(--shadow-md);
   }
+  .mp-page__package-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+    min-width: 0;
+  }
+  .mp-page__package-head-text {
+    min-width: 0;
+    flex: 1;
+  }
   .mp-page__package-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
+    flex-shrink: 0;
     padding: 6px 10px;
     border-radius: 999px;
     background: var(--c-yellow);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--c-ink);
+    line-height: 1.2;
+    max-width: 100%;
+    text-align: center;
   }
   .mp-page__package h3 {
     margin: 0 0 4px;
@@ -646,12 +669,13 @@ const valuePropIcons: Record<string, string> = {
     color: var(--c-ink);
   }
   .mp-page__package-subtitle {
-    margin: 0 0 12px;
-    font-size: 13px;
+    margin: 0;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.03em;
     text-transform: uppercase;
     color: var(--c-stone);
+    line-height: 1.35;
   }
   .mp-page__package-price {
     margin: 0 0 16px;
@@ -704,6 +728,8 @@ const valuePropIcons: Record<string, string> = {
     width: 100%;
     justify-content: center;
     font-size: 14px;
+    white-space: normal;
+    text-align: center;
   }
   .mp-page__small-print {
     margin: 28px auto 0;
@@ -719,13 +745,14 @@ const valuePropIcons: Record<string, string> = {
   .mp-page__agreement {
     padding: clamp(56px, 7vw, 88px) 0;
     background: linear-gradient(180deg, #fff 0%, var(--bg-alt) 100%);
-    overflow: hidden;
+    overflow-x: clip;
   }
   .mp-page__agreement-inner {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     gap: clamp(32px, 5vw, 56px);
     align-items: center;
+    min-width: 0;
   }
   .mp-page__agreement-copy .mp-page__section-lead {
     margin-bottom: 0;
@@ -738,6 +765,9 @@ const valuePropIcons: Record<string, string> = {
     justify-content: center;
     align-items: center;
     min-height: clamp(320px, 42vw, 520px);
+    max-width: 100%;
+    overflow: hidden;
+    min-width: 0;
   }
   .mp-page__agreement-shadow {
     position: absolute;
@@ -755,9 +785,10 @@ const valuePropIcons: Record<string, string> = {
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: min(560px, 92vw);
+    max-width: min(560px, 100%);
     border-radius: 6px;
     transform: rotateY(-14deg) rotateX(7deg) rotateZ(-1.5deg);
+    transform-origin: center center;
     box-shadow:
       1px 2px 2px rgba(14, 14, 16, 0.06),
       4px 8px 16px rgba(14, 14, 16, 0.1),
@@ -779,7 +810,7 @@ const valuePropIcons: Record<string, string> = {
     margin: 28px 0 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
   .mp-page__term {
@@ -790,6 +821,7 @@ const valuePropIcons: Record<string, string> = {
     border-radius: 14px;
     box-shadow: var(--shadow-sm);
     transition-delay: calc(var(--i) * 40ms);
+    min-width: 0;
   }
   .mp-page__term-icon {
     display: grid;
@@ -800,6 +832,9 @@ const valuePropIcons: Record<string, string> = {
     background: rgba(31, 111, 235, 0.1);
     color: var(--c-blue);
     flex-shrink: 0;
+  }
+  .mp-page__term > div {
+    min-width: 0;
   }
   .mp-page__term h3 {
     margin: 0 0 6px;
@@ -817,7 +852,7 @@ const valuePropIcons: Record<string, string> = {
 
   .mp-page__gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
     margin-top: 28px;
   }
@@ -854,7 +889,7 @@ const valuePropIcons: Record<string, string> = {
   }
   .mp-page__form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
   .mp-page__field--full {
@@ -1051,7 +1086,7 @@ const valuePropIcons: Record<string, string> = {
 
   @media (max-width: 1200px) {
     .mp-page__packages {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media (max-width: 1100px) {
@@ -1070,7 +1105,7 @@ const valuePropIcons: Record<string, string> = {
       grid-template-columns: 1fr;
     }
     .mp-page__value-props {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media (max-width: 768px) {
@@ -1079,13 +1114,27 @@ const valuePropIcons: Record<string, string> = {
     .mp-page__exclusions,
     .mp-page__packages,
     .mp-page__value-props {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
-    .mp-page__section-lead--enquiry {
+    .mp-page__hero-title .painted-word {
       white-space: normal;
     }
+    .mp-page__agreement-stage {
+      perspective: none;
+      min-height: auto;
+      padding-block: 8px;
+    }
     .mp-page__agreement-doc {
-      transform: rotateY(-6deg) rotateX(4deg) rotateZ(-1deg);
+      transform: none;
+      box-shadow:
+        0 4px 8px rgba(14, 14, 16, 0.08),
+        0 16px 32px rgba(14, 14, 16, 0.14);
+    }
+    .mp-page__agreement-shadow {
+      display: none;
+    }
+    .mp-page__package-head {
+      flex-wrap: wrap;
     }
     .mp-page__trust-list {
       flex-direction: column;
