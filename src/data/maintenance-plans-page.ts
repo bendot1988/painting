@@ -3,7 +3,7 @@ export type MaintenanceFaq = { q: string; a: string };
 export type GalleryImage = { src: string; alt: string };
 
 export type ValueProp = {
-  icon: 'shield' | 'clock' | 'paintbrush' | 'pound' | 'grid';
+  icon: 'shield' | 'clock' | 'paintbrush' | 'pound' | 'grid' | 'pin';
   title: string;
   body: string;
 };
@@ -67,6 +67,11 @@ export const valueProps: ValueProp[] = [
     icon: 'grid',
     title: 'Tailored Packages',
     body: 'Choose the level of service that suits your property and budget.',
+  },
+  {
+    icon: 'pin',
+    title: 'Local Leicestershire Team',
+    body: 'Based in Leicester — fast response and a familiar face on every visit.',
   },
 ];
 
