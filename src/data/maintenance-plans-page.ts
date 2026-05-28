@@ -2,10 +2,26 @@ export type MaintenanceFaq = { q: string; a: string };
 
 export type GalleryImage = { src: string; alt: string };
 
+export type ValueProp = {
+  icon: 'shield' | 'clock' | 'paintbrush' | 'pound' | 'grid';
+  title: string;
+  body: string;
+};
+
+export type MaintenancePackage = {
+  tier: string;
+  subtitle: string;
+  price: string;
+  priceSuffix: string;
+  badge: string | null;
+  features: string[];
+  bestFor: string;
+};
+
 export const maintenancePlansPageMeta = {
   title: 'Commercial Decorating Maintenance Plans | A.S Painting Contractors',
   description:
-    'Monthly painting and decorating maintenance plans for landlords, apartment blocks, offices, schools and commercial properties across Leicestershire. Bronze, Silver, Gold and Platinum packages available.',
+    'Monthly painting and decorating maintenance plans for landlords, apartment blocks, offices, schools and commercial properties across Leicestershire. Bronze, Silver, Gold and Platinum packages from £495/month + VAT.',
   canonical: '/maintenance-plans/',
 };
 
@@ -19,164 +35,167 @@ export const finalCtaImage: GalleryImage = {
   alt: 'Commercial stair hall with fresh paint finish by A.S Painting Contractors',
 };
 
-export const traditionalApproach = [
-  'Building deteriorates over 5–10 years',
-  'Reactive decisions when it gets bad',
-  'Large one-off redecoration bill (often £10k–£50k+)',
-  'Disruption to tenants and staff',
-  'Repeat',
-];
-
-export const asPaintingWay = [
-  'Regular scheduled maintenance',
-  'Issues caught early',
-  'Fixed monthly cost',
-  'Pristine appearance year-round',
-  'Predictable budgeting — no surprises',
-];
-
-export const sectors = [
-  'Apartment Blocks & Communal Areas',
-  'HMOs & Shared Houses',
-  'Letting Agents & Managing Agents',
-  'Offices & Business Premises',
-  'Schools & Educational Buildings',
-  'Gyms & Leisure Facilities',
-  'Care Homes & Supported Living',
-  'Industrial Units & Warehouses',
-  'Hospitality & Hotels',
-  'Multi-site Landlords',
-];
-
-export const includedFeatures = [
-  'Scheduled site inspections',
-  'Touch-up painting to scuffed and damaged areas',
-  'Stain blocking treatment',
-  'Minor crack and hole filling',
-  'Communal area upkeep',
-  'Monthly condition reports with photos',
-  'Priority response for maintenance issues',
-  'Exterior condition checks',
-  'Planned preventative maintenance scheduling',
-  'Larger works quoted separately at preferential rates',
-];
-
-export type PlatinumFeature = {
-  label: string;
-  value: string;
+export const agreementPreview: GalleryImage = {
+  src: '/images/maintenance-agreement.png',
+  alt: 'A.S Painting Commercial Decorating Maintenance Agreement showing Bronze, Silver, Gold and Platinum packages',
 };
 
-export type MaintenancePackage = {
-  tier: string;
-  price: string;
-  badge: string | null;
-  includes: string[];
-  excludes?: string[];
-  cta?: { label: string; href: string };
-};
+export const valuePropsHeading = '4 Simple Packages. Complete Peace of Mind.';
+
+export const valueProps: ValueProp[] = [
+  {
+    icon: 'shield',
+    title: 'Protect Your Investment',
+    body: 'Regular maintenance prevents small issues becoming costly problems.',
+  },
+  {
+    icon: 'clock',
+    title: 'Planned & Reliable',
+    body: 'Scheduled visits keep your property looking its best all year.',
+  },
+  {
+    icon: 'paintbrush',
+    title: 'Expert Professionals',
+    body: 'Qualified decorators using premium materials for a high-quality finish.',
+  },
+  {
+    icon: 'pound',
+    title: 'Cost Effective',
+    body: 'Spread the cost with affordable monthly payments and save money in the long run.',
+  },
+  {
+    icon: 'grid',
+    title: 'Tailored Packages',
+    body: 'Choose the level of service that suits your property and budget.',
+  },
+];
 
 export const packages: MaintenancePackage[] = [
   {
     tier: 'Bronze',
-    price: 'From £150/month',
+    subtitle: 'Preventative Maintenance',
+    price: '£495.00',
+    priceSuffix: '+ VAT per month',
     badge: null,
-    includes: [
-      'Quarterly inspection',
-      'Written condition report',
+    features: [
+      'Quarterly scheduled visit (Every 3 Months)',
+      'Preventative maintenance inspection',
       'Minor touch-ups during scheduled visit only',
+      'Written condition report after each visit',
+      'No reactive / call-out visits included',
+      'Additional visits are chargeable',
     ],
-    excludes: ['No emergency/reactive visits included'],
+    bestFor: 'Best for clients looking for planned preventative upkeep.',
   },
   {
     tier: 'Silver',
-    price: 'From £400/month',
-    badge: 'Most Popular',
-    includes: [
-      'Inspection every 2 months',
-      'Small reactive visit allowance',
-      'Limited labour hours included yearly',
+    subtitle: 'Enhanced Maintenance',
+    price: '£695.00',
+    priceSuffix: '+ VAT per month',
+    badge: null,
+    features: [
+      'Bi-Monthly scheduled visit (Every 2 Months)',
+      'Preventative maintenance inspection',
+      'Up to 1 reactive visit included per quarter',
+      'Minor repairs & touch-ups during visits',
+      'Written condition report after each visit',
+      'Additional visits are chargeable',
     ],
+    bestFor: 'Ideal for clients who want extra support and flexibility.',
   },
   {
     tier: 'Gold',
-    price: 'From £1,200/month',
-    badge: null,
-    includes: [
-      'Monthly inspections',
-      'Reactive maintenance included within fair usage',
-      'Priority scheduling',
+    subtitle: 'Premium Maintenance',
+    price: '£895.00',
+    priceSuffix: '+ VAT per month',
+    badge: 'Most Popular',
+    features: [
+      'Monthly scheduled visit',
+      'Up to 1 reactive visit included per month',
+      'Minor repairs & touch-ups included',
+      'Stain blocking & small surface repairs',
+      'Priority response (3 Working Days)',
+      'Quarterly condition report & maintenance plan',
     ],
+    bestFor: 'Great for clients needing regular upkeep and fast response.',
+  },
+  {
+    tier: 'Platinum',
+    subtitle: 'Premier Maintenance',
+    price: '£1,295.00',
+    priceSuffix: '+ VAT per month',
+    badge: null,
+    features: [
+      'Monthly or tailored visits (Agreed Schedule)',
+      'Reactive visits included within fair usage',
+      'Priority response (1–2 Working Days)',
+      'All minor repairs, touch-ups & stain blocking included',
+      'Quarterly condition report & annual maintenance plan',
+      'Discounted larger works & preferred scheduling',
+    ],
+    bestFor: 'Our highest level of service and complete peace of mind.',
   },
 ];
 
-export const platinumPackage = {
-  tier: 'Platinum',
-  price: 'POA',
-  subtitle: 'Full tailored facilities-style agreement',
-  features: [
-    { label: 'Scheduled Visits', value: 'Monthly or tailored' },
-    { label: 'Reactive Call-Outs', value: 'Included within fair usage' },
-    { label: 'Response Priority', value: 'Priority scheduling' },
-    { label: 'Multi-Site Coverage', value: 'Included' },
-    { label: 'Condition Reports', value: 'Quarterly' },
-    { label: 'Minor Repairs', value: 'Included' },
-    { label: 'Touch-Ups', value: 'Included' },
-    { label: 'Stain Blocking', value: 'Included' },
-    { label: 'Annual Maintenance Planning', value: 'Included' },
-    { label: 'Dedicated Contact', value: 'Included' },
-    { label: 'Discounted Larger Works', value: 'Included' },
-    { label: 'Emergency Attendance', value: 'Optional add-on' },
-  ] satisfies PlatinumFeature[],
-  footnote: 'Reactive maintenance works included within reasonable/fair usage limits.',
-  cta: { label: 'Get a Custom Quote', href: '#enquiry' },
-};
-
 export const packagesSmallPrint =
-  'All plans are subject to a minimum 12-month term. Pricing varies by building size, condition, foot traffic, and number of units. All prices shown are guide prices — contact us for a tailored quote following a free site survey. Reactive maintenance on Silver, Gold and Platinum plans is included within fair usage limits.';
+  'All prices are exclusive of VAT. This Agreement is for a minimum term of 12 months. Pricing may vary by building size, condition, foot traffic, and number of units — contact us for a tailored quote following a free site survey.';
 
-export const pricingGuideRows = [
-  { property_type: 'Small office or retail unit', range: '£150 – £300/month' },
-  { property_type: 'Mid-size apartment block', range: '£400 – £800/month' },
-  { property_type: 'Large communal block', range: '£800 – £1,200/month' },
-  { property_type: 'Multi-site landlord portfolio', range: '£2,000+/month' },
+export const includedFeatures = [
+  'All works carried out by qualified, experienced decorators',
+  'Use of premium quality materials',
+  'Site left clean and tidy after each visit',
+  'Health & Safety and Risk Assessments adhered to',
+  'Proactive maintenance to prolong decoration lifespan and reduce future costs',
 ];
 
-export const pricingGuideFootnote =
-  'Pricing is scaled by building size, number of units, foot traffic, condition on first inspection, response time requirements, and included labour hours.';
+export const excludedFeatures = [
+  'Major redecoration works or full repaints',
+  'Structural repairs, plastering, or building works',
+  'Works caused by water ingress, flooding or major damage',
+  'Damage not reported in a timely manner',
+  'Additional visits or works outside the scope of the selected package (chargeable at standard rates)',
+];
 
 export const contractTerms = [
   {
     title: 'Minimum 12-month term',
-    body: 'All plans run on an initial 12-month agreement, renewable annually.',
+    body: 'This Agreement is for a minimum term of 12 months.',
+  },
+  {
+    title: 'Payment terms',
+    body: 'The agreed monthly fee will be invoiced in advance on the 1st of each month. Payment is due within 7 days of invoice date.',
   },
   {
     title: 'Fair usage',
-    body: 'Each plan includes defined labour hours; additional time is quoted transparently.',
+    body: 'Reactive visits are included within fair usage on Platinum. Additional visits outside the scope of your plan are chargeable at standard rates.',
   },
   {
     title: 'Clear exclusions',
-    body: 'Major structural works, specialist treatments, and new build finishing are quoted separately.',
+    body: 'Major structural works, plastering, building works, and damage caused by water ingress are outside the scope of all plans.',
   },
   {
     title: 'Defined response times',
-    body: 'Bronze: scheduled visits only. Silver & Gold: reactive works within fair usage. Platinum: full facilities-style agreement with optional emergency add-on.',
+    body: 'Bronze & Silver: additional visits chargeable. Gold: Priority response within 3 working days. Platinum: Priority response within 1–2 working days.',
   },
   {
-    title: 'Labour & materials cap',
-    body: 'Included hours cover labour; consumables are included for minor works up to a monthly cap.',
+    title: 'Termination',
+    body: "Either party may terminate with 30 days' written notice after the initial 12-month term.",
   },
   {
-    title: 'Automatic renewal',
-    body: "Plans renew automatically unless cancelled with 30 days' notice before the renewal date.",
+    title: 'Non-exclusive agreement',
+    body: 'This Agreement is non-exclusive — you are free to use other contractors for works outside the plan scope.',
   },
   {
-    title: 'Scheduled inspections',
-    body: 'Visit frequency is confirmed at contract start and built into your maintenance calendar.',
+    title: 'Prices exclude VAT',
+    body: 'All prices shown are exclusive of VAT at the prevailing rate.',
   },
-  {
-    title: 'Access requirements',
-    body: 'Client is responsible for providing safe access; delays are not counted against response time SLAs.',
-  },
+];
+
+export const trustBarItems = [
+  'Quality Workmanship',
+  'Reliable Service',
+  'Affordable Pricing',
+  'Long Term Value',
 ];
 
 /** TODO: replace with real before/after maintenance photos when available */
@@ -214,19 +233,19 @@ export const maintenanceFaqs: MaintenanceFaq[] = [
   },
   {
     q: 'Do I need to commit to a long contract?',
-    a: 'All plans start with a minimum 12-month term, which gives us enough time to properly assess and maintain the building through a full seasonal cycle. Plans renew automatically but can be cancelled with 30 days\' notice before renewal.',
+    a: "All plans start with a minimum 12-month term, which gives us enough time to properly assess and maintain the building through a full seasonal cycle. Either party may terminate with 30 days' written notice after the initial term.",
   },
   {
-    q: 'What if I have multiple properties?',
-    a: "Our Platinum plan and Gold tier are designed for multi-site landlords and managing agents. We'll create a bespoke maintenance schedule covering all your properties, with a single point of contact and consolidated reporting.",
+    q: "What's the difference between Bronze, Silver, Gold and Platinum?",
+    a: 'Bronze covers a quarterly visit with minor touch-ups only — no reactive call-outs. Silver adds bi-monthly visits and one reactive visit per quarter. Gold provides monthly visits, one reactive visit per month, stain blocking, and priority response within 3 working days. Platinum is our most comprehensive tier: tailored visit schedules, reactive visits within fair usage, priority response within 1–2 working days, all minor repairs included, and discounted rates on larger works.',
   },
   {
     q: 'What counts as a minor repair vs a larger quoted work?',
-    a: "Minor works — scuff touch-ups, small holes, localised staining, hairline cracks — are covered within the plan. Anything requiring full wall or room repaints, specialist coatings, or significant preparation work will be quoted separately. We'll always flag this clearly during our scheduled inspection, never without notice.",
+    a: "Minor works — scuff touch-ups, small holes, localised staining, hairline cracks, stain blocking, small surface repairs — are covered within the plan. Major redecoration, full repaints, structural repairs, plastering, building works, and damage caused by water ingress or flooding are outside scope and quoted separately. We'll always flag this clearly during a scheduled inspection.",
   },
   {
-    q: 'Can I use my own paint supplier or colours?',
-    a: 'Yes — if you have existing brand colours or specified products, let us know at the outset and we\'ll factor them into your plan. We typically use Dulux Trade, Crown Trade, and Zinsser products but can work with any approved commercial specification.',
+    q: 'Are there reactive call-outs on every plan?',
+    a: 'Bronze plans do not include reactive / call-out visits — these are chargeable if required. Silver includes up to 1 reactive visit per quarter. Gold includes up to 1 reactive visit per month. Platinum includes reactive visits within fair usage.',
   },
   {
     q: 'How quickly can you start?',
@@ -245,4 +264,13 @@ export const surveyPropertyTypes = [
   'Other',
 ];
 
-export const planOptions = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Not sure yet'];
+export const planOptions = [
+  'Bronze — £495/month',
+  'Silver — £695/month',
+  'Gold — £895/month',
+  'Platinum — £1,295/month',
+  'Not sure yet',
+];
+
+export const maintenancePhone = '01162914746';
+export const maintenancePhoneDisplay = '0116 291 4746';
