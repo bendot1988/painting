@@ -234,8 +234,8 @@ const quoteHref = quotePageHref;
     font-family: var(--font-header);
   }
   .nav__link.btn--ghost {
-    padding: 10px 16px;
-    font-size: 14px;
+    padding: 10px clamp(10px, 1.2vw, 16px);
+    font-size: clamp(12.5px, 1vw, 14px);
     white-space: nowrap;
     background: var(--c-paper);
     color: var(--c-ink);
@@ -325,7 +325,7 @@ const quoteHref = quotePageHref;
     transition: transform 0.25s, opacity 0.2s;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     .site-header { overflow: visible; }
     .nav-toggle { display: flex; }
     .site-header__cta .btn { display: none; }
@@ -506,7 +506,7 @@ const quoteHref = quotePageHref;
     .nav__brand img { height: 64px; }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     .site-header__experience,
     .site-header__sep {
       display: none;
