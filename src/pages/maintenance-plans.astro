@@ -733,19 +733,16 @@ const valuePropIcons: Record<string, string> = {
     box-shadow: var(--shadow-md);
   }
   .mp-page__package-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
     margin-bottom: 12px;
     min-width: 0;
   }
   .mp-page__package-head-text {
     min-width: 0;
-    flex: 1;
   }
   .mp-page__package-badge {
-    flex-shrink: 0;
+    position: absolute;
+    top: 14px;
+    right: 14px;
     padding: 6px 10px;
     border-radius: 999px;
     background: var(--c-yellow);
@@ -755,8 +752,12 @@ const valuePropIcons: Record<string, string> = {
     text-transform: uppercase;
     color: var(--c-ink);
     line-height: 1.2;
-    max-width: 100%;
     text-align: center;
+    white-space: nowrap;
+    z-index: 4;
+  }
+  .mp-page__package:has(.mp-page__package-badge) .mp-page__package-head-text {
+    padding-right: 96px;
   }
   .mp-page__package h3 {
     margin: 0 0 4px;
@@ -1466,8 +1467,8 @@ const valuePropIcons: Record<string, string> = {
       width: 100%;
       justify-content: center;
     }
-    .mp-page__package-head {
-      flex-wrap: wrap;
+    .mp-page__package:has(.mp-page__package-badge) .mp-page__package-head-text {
+      padding-right: 110px;
     }
     .mp-page__trust-list {
       flex-direction: column;
