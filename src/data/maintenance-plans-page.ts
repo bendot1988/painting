@@ -152,6 +152,29 @@ export const packages: MaintenancePackage[] = [
 export const packagesSmallPrint =
   'All prices are exclusive of VAT. This Agreement is for a minimum term of 12 months. Pricing may vary by building size, condition, foot traffic, and number of units — contact us for a tailored quote following a free site survey.';
 
+export const platinumAllowanceHeading =
+  'Platinum Property Allowance Structure';
+
+export const platinumAllowanceLead =
+  'For housing providers, supported accommodation, and multi-site portfolios, Platinum scales with your estate. Pricing is tailored to your portfolio size and usage following a free site survey.';
+
+export const platinumAllowanceRows: { range: string; pricing: string }[] = [
+  { range: 'Up to 5 properties / sites', pricing: '£1,295 + VAT per month' },
+  {
+    range: '6–15 properties / sites',
+    pricing: 'Custom pricing following survey and usage assessment',
+  },
+  { range: '15–50 properties / sites', pricing: 'Contract pricing available' },
+  { range: '50+ properties / sites', pricing: 'Tender / framework agreement pricing' },
+];
+
+export const platinumImportantInfo: string[] = [
+  'Pricing is based on property size, building condition, occupancy levels, foot traffic, service frequency, and overall maintenance requirements.',
+  'Additional properties, increased usage, out-of-hours works, specialist coatings, access equipment, and larger repair works may be charged separately following assessment.',
+  'All reactive visits and included repairs are subject to fair usage terms and agreed service limits.',
+  'Minimum contract term applies. Tailored commercial maintenance agreements available following free site survey.',
+];
+
 export const includedFeatures = [
   'All works carried out by qualified, experienced decorators',
   'Use of premium quality materials',

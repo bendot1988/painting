@@ -17,6 +17,10 @@ import {
   packages,
   packagesSmallPrint,
   planOptions,
+  platinumAllowanceHeading,
+  platinumAllowanceLead,
+  platinumAllowanceRows,
+  platinumImportantInfo,
   surveyPropertyTypes,
   trustBarItems,
   valueProps,
@@ -160,6 +164,42 @@ const valuePropIcons: Record<string, string> = {
           })}
         </div>
         <p class="mp-page__small-print">{packagesSmallPrint}</p>
+
+        <section class="mp-page__platinum-scale" aria-labelledby="platinum-scale-heading">
+          <div class="mp-page__platinum-scale-inner">
+            <header class="mp-page__platinum-scale-head">
+              <span class="mp-page__platinum-scale-eyebrow">Platinum · Portfolio</span>
+              <h3 id="platinum-scale-heading" class="mp-page__platinum-scale-title">
+                {platinumAllowanceHeading}
+              </h3>
+              <p class="mp-page__platinum-scale-lead">{platinumAllowanceLead}</p>
+            </header>
+
+            <ul class="mp-page__platinum-allowance" aria-label="Property allowance pricing">
+              {platinumAllowanceRows.map((row, i) => (
+                <li class="mp-page__platinum-allowance-row reveal" style={`--i:${i}`}>
+                  <span class="mp-page__platinum-allowance-range">{row.range}</span>
+                  <span class="mp-page__platinum-allowance-price">{row.pricing}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mp-page__platinum-info" aria-labelledby="platinum-info-heading">
+              <h4 id="platinum-info-heading" class="mp-page__platinum-info-title">Important Information</h4>
+              <ul class="mp-page__platinum-info-list">
+                {platinumImportantInfo.map((item) => (
+                  <li>
+                    <span class="mp-page__platinum-info-icon" aria-hidden="true">i</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a class="btn mp-page__platinum-info-cta" href="#enquiry">
+                Request a Portfolio Survey <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -1009,6 +1049,163 @@ const valuePropIcons: Record<string, string> = {
     font-size: 13.5px;
     line-height: 1.55;
     color: var(--c-stone);
+  }
+
+  .mp-page__platinum-scale {
+    margin: 56px 0 0;
+    position: relative;
+    border-radius: 24px;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--c-yellow), var(--c-pink), var(--c-blue));
+    box-shadow:
+      0 16px 40px rgba(14, 14, 16, 0.18),
+      0 4px 14px rgba(14, 14, 16, 0.08);
+  }
+  .mp-page__platinum-scale-inner {
+    background: #fff;
+    border-radius: 21px;
+    padding: clamp(28px, 4vw, 40px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(28px, 4vw, 44px);
+    align-items: start;
+  }
+  .mp-page__platinum-scale-head {
+    grid-column: 1 / -1;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 4px;
+  }
+  .mp-page__platinum-scale-eyebrow {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 214, 10, 0.2), rgba(236, 0, 140, 0.2));
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-ink);
+    margin-bottom: 12px;
+  }
+  .mp-page__platinum-scale-title {
+    margin: 0 0 10px;
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.6vw, 28px);
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .mp-page__platinum-scale-lead {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+  .mp-page__platinum-allowance {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+  }
+  .mp-page__platinum-allowance-row {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--bg-alt);
+    border-radius: 12px;
+    border-left: 4px solid var(--c-yellow);
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .mp-page__platinum-allowance-row:nth-child(2) { border-left-color: var(--c-lime); }
+  .mp-page__platinum-allowance-row:nth-child(3) { border-left-color: var(--c-pink); }
+  .mp-page__platinum-allowance-row:nth-child(4) { border-left-color: var(--c-blue); }
+  .mp-page__platinum-allowance-row:hover {
+    transform: translateX(4px);
+  }
+  .mp-page__platinum-allowance-range {
+    font-weight: 700;
+    color: var(--c-ink);
+    font-size: 14.5px;
+    white-space: nowrap;
+  }
+  .mp-page__platinum-allowance-price {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--c-graphite);
+    text-align: right;
+  }
+  .mp-page__platinum-info {
+    background: var(--c-ink);
+    border-radius: 16px;
+    padding: 24px;
+    color: var(--c-paper);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .mp-page__platinum-info-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-yellow);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .mp-page__platinum-info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .mp-page__platinum-info-list li {
+    display: flex;
+    gap: 12px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #cfcdc8;
+  }
+  .mp-page__platinum-info-icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 214, 10, 0.18);
+    color: var(--c-yellow);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 800;
+    font-style: italic;
+    margin-top: 1px;
+  }
+  .mp-page__platinum-info-cta {
+    align-self: flex-start;
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+    .mp-page__platinum-scale-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .mp-page__platinum-allowance-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+    }
+    .mp-page__platinum-allowance-price {
+      text-align: left;
+    }
+    .mp-page__platinum-allowance-range {
+      white-space: normal;
+    }
   }
 
   .mp-page__agreement {
