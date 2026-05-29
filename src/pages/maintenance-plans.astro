@@ -137,12 +137,12 @@ const valuePropIcons: Record<string, string> = {
                   </div>
                 )}
                 <div class="mp-page__package-head">
-                  <div class="mp-page__package-head-text">
+                  <div class="mp-page__package-head-row">
                     <h3>{pkg.tier}</h3>
-                    <p class="mp-page__package-subtitle">{pkg.subtitle}</p>
+                    {pkg.badge && <span class="mp-page__package-badge">{pkg.badge}</span>}
+                    {isPlatinum && <span class="mp-page__package-badge mp-page__package-badge--platinum">Top Tier</span>}
                   </div>
-                  {pkg.badge && <span class="mp-page__package-badge">{pkg.badge}</span>}
-                  {isPlatinum && <span class="mp-page__package-badge mp-page__package-badge--platinum">Top Tier</span>}
+                  <p class="mp-page__package-subtitle">{pkg.subtitle}</p>
                 </div>
                 <p class="mp-page__package-coverage" aria-label="Property coverage">
                   <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M12 3 4 9v12h5v-7h6v7h5V9z"/></svg>
@@ -776,14 +776,20 @@ const valuePropIcons: Record<string, string> = {
     margin-bottom: 12px;
     min-width: 0;
   }
-  .mp-page__package-head-text {
+  .mp-page__package-head-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
     min-width: 0;
+    margin-bottom: 4px;
+  }
+  .mp-page__package-head-row h3 {
+    margin: 0;
   }
   .mp-page__package-badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    padding: 6px 10px;
+    flex-shrink: 0;
+    padding: 5px 9px;
     border-radius: 999px;
     background: var(--c-yellow);
     font-size: 10px;
@@ -795,9 +801,6 @@ const valuePropIcons: Record<string, string> = {
     text-align: center;
     white-space: nowrap;
     z-index: 4;
-  }
-  .mp-page__package:has(.mp-page__package-badge) .mp-page__package-head-text {
-    padding-right: 96px;
   }
   .mp-page__package h3 {
     margin: 0 0 4px;
@@ -1664,8 +1667,8 @@ const valuePropIcons: Record<string, string> = {
       width: 100%;
       justify-content: center;
     }
-    .mp-page__package:has(.mp-page__package-badge) .mp-page__package-head-text {
-      padding-right: 110px;
+    .mp-page__package-head-row {
+      flex-wrap: wrap;
     }
     .mp-page__trust-list {
       flex-direction: column;
