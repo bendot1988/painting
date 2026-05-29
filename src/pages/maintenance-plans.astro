@@ -140,6 +140,10 @@ const valuePropIcons: Record<string, string> = {
                   {pkg.badge && <span class="mp-page__package-badge">{pkg.badge}</span>}
                   {isPlatinum && <span class="mp-page__package-badge mp-page__package-badge--platinum">Top Tier</span>}
                 </div>
+                <p class="mp-page__package-coverage" aria-label="Property coverage">
+                  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M12 3 4 9v12h5v-7h6v7h5V9z"/></svg>
+                  <span>{pkg.coverage}</span>
+                </p>
                 <p class="mp-page__package-price">
                   {pkg.price}
                   <span class="mp-page__package-suffix">{pkg.priceSuffix}</span>
@@ -769,6 +773,34 @@ const valuePropIcons: Record<string, string> = {
     text-transform: uppercase;
     color: var(--c-stone);
     line-height: 1.35;
+  }
+  .mp-page__package-coverage {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 14px;
+    padding: 6px 12px;
+    background: rgba(14, 14, 16, 0.06);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--c-ink);
+    line-height: 1.2;
+    align-self: flex-start;
+  }
+  .mp-page__package-coverage svg {
+    color: var(--c-red);
+    flex-shrink: 0;
+  }
+  .mp-page__package--bronze .mp-page__package-coverage svg { color: var(--c-red); }
+  .mp-page__package--silver .mp-page__package-coverage svg { color: var(--c-blue); }
+  .mp-page__package--gold .mp-page__package-coverage svg { color: var(--c-yellow); }
+  .mp-page__package--platinum .mp-page__package-coverage {
+    background: linear-gradient(135deg, rgba(255, 214, 10, 0.22), rgba(236, 0, 140, 0.22));
+  }
+  .mp-page__package--platinum .mp-page__package-coverage svg {
+    color: var(--c-pink);
   }
   .mp-page__package-price {
     margin: 0 0 16px;

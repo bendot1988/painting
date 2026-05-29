@@ -14,6 +14,7 @@ export type MaintenancePackage = {
   price: string;
   priceSuffix: string;
   badge: string | null;
+  coverage: string;
   features: string[];
   bestFor: string;
 };
@@ -82,6 +83,7 @@ export const packages: MaintenancePackage[] = [
     price: '£495.00',
     priceSuffix: '+ VAT per month',
     badge: null,
+    coverage: 'Up to 1 property',
     features: [
       'Quarterly scheduled visit (Every 3 Months)',
       'Preventative maintenance inspection',
@@ -98,6 +100,7 @@ export const packages: MaintenancePackage[] = [
     price: '£695.00',
     priceSuffix: '+ VAT per month',
     badge: null,
+    coverage: 'Up to 3 properties',
     features: [
       'Bi-Monthly scheduled visit (Every 2 Months)',
       'Preventative maintenance inspection',
@@ -114,6 +117,7 @@ export const packages: MaintenancePackage[] = [
     price: '£895.00',
     priceSuffix: '+ VAT per month',
     badge: 'Most Popular',
+    coverage: 'Up to 5 properties',
     features: [
       'Monthly scheduled visit',
       'Up to 1 reactive visit included per month',
@@ -130,15 +134,18 @@ export const packages: MaintenancePackage[] = [
     price: '£1,295.00',
     priceSuffix: '+ VAT per month',
     badge: null,
+    coverage: 'Portfolio / Custom',
     features: [
-      'Monthly or tailored visits (Agreed Schedule)',
-      'Reactive visits included within fair usage',
-      'Priority response (1–2 Working Days)',
-      'All minor repairs, touch-ups & stain blocking included',
-      'Quarterly condition report & annual maintenance plan',
-      'Discounted larger works & preferred scheduling',
+      '1 scheduled maintenance visit per month (or agreed tailored schedule)',
+      'Reactive support within fair usage policy',
+      'Priority response times (typically 1–2 working days)',
+      'Minor touch-ups, stain blocking & small maintenance repairs within agreed labour allowance',
+      'Quarterly condition reporting & annual maintenance planning',
+      'Preferred scheduling & discounted rates on larger planned works',
+      'Ongoing property condition monitoring & maintenance recommendations',
     ],
-    bestFor: 'Our highest level of service and complete peace of mind.',
+    bestFor:
+      'Designed for housing providers, supported accommodation, communal areas, offices, and multi-site portfolios needing ongoing planned and reactive support.',
   },
 ];
 
