@@ -144,12 +144,16 @@ const valuePropIcons: Record<string, string> = {
               <input id="quick-name" name="name" type="text" required autocomplete="name" placeholder="Name" />
             </div>
             <div class="mp-page__field">
-              <label class="visually-hidden" for="quick-phone">Phone</label>
-              <input id="quick-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone number" />
+              <label class="visually-hidden" for="quick-company">Company name</label>
+              <input id="quick-company" name="company" type="text" required autocomplete="organization" placeholder="Company name" />
             </div>
-            <div class="mp-page__field mp-page__field--full">
+            <div class="mp-page__field">
               <label class="visually-hidden" for="quick-email">Email</label>
               <input id="quick-email" name="email" type="email" required autocomplete="email" placeholder="Email" />
+            </div>
+            <div class="mp-page__field">
+              <label class="visually-hidden" for="quick-phone">Phone number</label>
+              <input id="quick-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone number" />
             </div>
             <div class="mp-page__field">
               <label class="visually-hidden" for="quick-type">Property type</label>
@@ -161,13 +165,26 @@ const valuePropIcons: Record<string, string> = {
               </select>
             </div>
             <div class="mp-page__field">
-              <label class="visually-hidden" for="quick-plan">Interested plan</label>
-              <select id="quick-plan" name="preferred_plan">
-                <option value="" disabled selected>Interested plan (optional)</option>
+              <label class="visually-hidden" for="quick-units">Number of properties / sites</label>
+              <input id="quick-units" name="properties_count" type="number" min="1" placeholder="Number of properties / sites" />
+            </div>
+            <div class="mp-page__field mp-page__field--full">
+              <label class="visually-hidden" for="quick-plan">Preferred package</label>
+              <select id="quick-plan" name="preferred_plan" required>
+                <option value="" disabled selected>Preferred package</option>
                 {planOptions.map((plan) => (
                   <option value={plan}>{plan}</option>
                 ))}
               </select>
+            </div>
+            <div class="mp-page__field mp-page__field--full">
+              <label class="visually-hidden" for="quick-message">Message / details</label>
+              <textarea
+                id="quick-message"
+                name="message"
+                rows="4"
+                placeholder="Message / details — tell us about your property and any current issues…"
+              ></textarea>
             </div>
           </div>
           <label class="mp-page__consent">
