@@ -109,6 +109,82 @@ const valuePropIcons: Record<string, string> = {
       </div>
     </section>
 
+    <section class="mp-page__quick-book" id="quick-book" aria-labelledby="quick-book-heading">
+      <div class="container mp-page__quick-book-inner">
+        <div class="mp-page__quick-book-copy">
+          <span class="eyebrow">Step 1 · Quick Request</span>
+          <h2 id="quick-book-heading" class="mp-page__section-title">Tell us about your property</h2>
+          <p class="mp-page__section-lead">
+            Drop your details below and we'll be in touch within one working day to arrange a free site
+            survey. Already know which plan you need? Subscribe directly below.
+          </p>
+          <ul class="mp-page__quick-book-bullets">
+            <li><span set:html={checkIcon} /> Free site survey, no obligation</li>
+            <li><span set:html={checkIcon} /> Same-day reply during working hours</li>
+            <li><span set:html={checkIcon} /> Instant confirmation email to your inbox</li>
+          </ul>
+        </div>
+        <form
+          class="mp-page__form mp-page__form--quick"
+          name="maintenance-quick"
+          method="POST"
+          action={netlifyAction}
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          data-success-url={successUrl}
+          aria-label="Quick maintenance request"
+        >
+          <input type="hidden" name="form-name" value="maintenance-quick" />
+          <p class="visually-hidden" aria-hidden="true">
+            <label>Don't fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <div class="mp-page__form-grid">
+            <div class="mp-page__field">
+              <label class="visually-hidden" for="quick-name">Name</label>
+              <input id="quick-name" name="name" type="text" required autocomplete="name" placeholder="Name" />
+            </div>
+            <div class="mp-page__field">
+              <label class="visually-hidden" for="quick-phone">Phone</label>
+              <input id="quick-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone number" />
+            </div>
+            <div class="mp-page__field mp-page__field--full">
+              <label class="visually-hidden" for="quick-email">Email</label>
+              <input id="quick-email" name="email" type="email" required autocomplete="email" placeholder="Email" />
+            </div>
+            <div class="mp-page__field">
+              <label class="visually-hidden" for="quick-type">Property type</label>
+              <select id="quick-type" name="property_type" required>
+                <option value="" disabled selected>Property type</option>
+                {surveyPropertyTypes.map((type) => (
+                  <option value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+            <div class="mp-page__field">
+              <label class="visually-hidden" for="quick-plan">Interested plan</label>
+              <select id="quick-plan" name="preferred_plan">
+                <option value="" disabled selected>Interested plan (optional)</option>
+                {planOptions.map((plan) => (
+                  <option value={plan}>{plan}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <label class="mp-page__consent">
+            <input type="checkbox" name="consent" value="yes" required />
+            <span>
+              I agree to the <a href="/privacy/">privacy policy</a> and to receive a confirmation email.
+            </span>
+          </label>
+          <p class="mp-page__error" role="alert" hidden>Something went wrong. Please call us or try again.</p>
+          <button type="submit" class="btn mp-page__submit">Send My Request <span class="arrow">→</span></button>
+          <p class="mp-page__quick-book-note">
+            Prefer to go straight to checkout? Pick a plan below and tap <strong>Subscribe Now</strong>.
+          </p>
+        </form>
+      </div>
+    </section>
+
     <section class="mp-page__band" id="packages" aria-labelledby="packages-heading">
       <div class="container">
         <h2 id="packages-heading" class="mp-page__section-title">Choose Your Cover Level</h2>
@@ -158,7 +234,20 @@ const valuePropIcons: Record<string, string> = {
                   ))}
                 </ul>
                 <p class="mp-page__package-best-for">{pkg.bestFor}</p>
-                <a class="btn btn--ghost mp-page__package-cta" href="#enquiry">Enquire about {pkg.tier} <span class="arrow">→</span></a>
+                <div class="mp-page__package-actions">
+                  <button
+                    type="button"
+                    class="btn mp-page__package-subscribe"
+                    data-subscribe-url={pkg.subscribeUrl}
+                    data-subscribe-tier={pkg.tier}
+                    data-subscribe-price={pkg.price}
+                  >
+                    Subscribe Now <span class="arrow">→</span>
+                  </button>
+                  <a class="btn btn--ghost mp-page__package-cta" href="#enquiry">
+                    Enquire about {pkg.tier}
+                  </a>
+                </div>
               </article>
             );
           })}
@@ -342,16 +431,16 @@ const valuePropIcons: Record<string, string> = {
               <input id="enquiry-name" name="name" type="text" required autocomplete="name" placeholder="Name" />
             </div>
             <div class="mp-page__field">
-              <label class="visually-hidden" for="enquiry-company">Company / Organisation</label>
-              <input id="enquiry-company" name="company" type="text" required placeholder="Company / Organisation" />
-            </div>
-            <div class="mp-page__field">
-              <label class="visually-hidden" for="enquiry-phone">Phone number</label>
-              <input id="enquiry-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone number" />
+              <label class="visually-hidden" for="enquiry-company">Company name</label>
+              <input id="enquiry-company" name="company" type="text" required autocomplete="organization" placeholder="Company name" />
             </div>
             <div class="mp-page__field">
               <label class="visually-hidden" for="enquiry-email">Email</label>
               <input id="enquiry-email" name="email" type="email" required autocomplete="email" placeholder="Email" />
+            </div>
+            <div class="mp-page__field">
+              <label class="visually-hidden" for="enquiry-phone">Phone number</label>
+              <input id="enquiry-phone" name="phone" type="tel" required autocomplete="tel" placeholder="Phone number" />
             </div>
             <div class="mp-page__field">
               <label class="visually-hidden" for="enquiry-type">Property type</label>
@@ -363,25 +452,25 @@ const valuePropIcons: Record<string, string> = {
               </select>
             </div>
             <div class="mp-page__field">
-              <label class="visually-hidden" for="enquiry-plan">Preferred plan</label>
+              <label class="visually-hidden" for="enquiry-units">Number of properties / sites</label>
+              <input id="enquiry-units" name="properties_count" type="number" min="1" placeholder="Number of properties / sites" />
+            </div>
+            <div class="mp-page__field mp-page__field--full">
+              <label class="visually-hidden" for="enquiry-plan">Preferred package</label>
               <select id="enquiry-plan" name="preferred_plan" required>
-                <option value="" disabled selected>Preferred plan</option>
+                <option value="" disabled selected>Preferred package</option>
                 {planOptions.map((plan) => (
                   <option value={plan}>{plan}</option>
                 ))}
               </select>
             </div>
-            <div class="mp-page__field">
-              <label class="visually-hidden" for="enquiry-units">Number of offices / areas covered</label>
-              <input id="enquiry-units" name="units" type="number" min="1" placeholder="Number of offices / areas covered" />
-            </div>
             <div class="mp-page__field mp-page__field--full">
-              <label class="visually-hidden" for="enquiry-situation">Current situation</label>
+              <label class="visually-hidden" for="enquiry-situation">Message / details</label>
               <textarea
                 id="enquiry-situation"
-                name="situation"
+                name="message"
                 rows="4"
-                placeholder="Tell us about your property and any current issues…"
+                placeholder="Message / details — tell us about your property and any current issues…"
               ></textarea>
             </div>
           </div>
@@ -448,10 +537,84 @@ const valuePropIcons: Record<string, string> = {
       </div>
     </section>
   </main>
+
+  <dialog id="subscribe-dialog" class="mp-page__subscribe-dialog" aria-labelledby="subscribe-dialog-title">
+    <form method="dialog" class="mp-page__subscribe-dialog-inner">
+      <header class="mp-page__subscribe-dialog-head">
+        <span class="mp-page__subscribe-dialog-eyebrow">Secure checkout via Stripe</span>
+        <h3 id="subscribe-dialog-title" class="mp-page__subscribe-dialog-title">
+          Subscribe to <span data-subscribe-dialog-tier>Maintenance</span>
+        </h3>
+        <p class="mp-page__subscribe-dialog-price">
+          <span data-subscribe-dialog-price>£0.00</span>
+          <span class="mp-page__subscribe-dialog-suffix">+ VAT per month</span>
+        </p>
+      </header>
+      <ul class="mp-page__subscribe-dialog-list">
+        <li>
+          <span class="mp-page__subscribe-dialog-icon" set:html={checkIcon} />
+          <span>You'll be securely redirected to <strong>Stripe</strong> to complete payment.</span>
+        </li>
+        <li>
+          <span class="mp-page__subscribe-dialog-icon" set:html={checkIcon} />
+          <span><strong>VAT (20%)</strong> will be added at checkout.</span>
+        </li>
+        <li>
+          <span class="mp-page__subscribe-dialog-icon" set:html={checkIcon} />
+          <span>12-month minimum term. Cancel any time after that with 30 days' notice.</span>
+        </li>
+        <li>
+          <span class="mp-page__subscribe-dialog-icon" set:html={checkIcon} />
+          <span>We'll email your maintenance agreement and onboarding details once payment clears.</span>
+        </li>
+      </ul>
+      <div class="mp-page__subscribe-dialog-actions">
+        <button type="button" class="btn btn--ghost" data-subscribe-cancel>Cancel</button>
+        <a class="btn" href="#" data-subscribe-confirm target="_blank" rel="noopener noreferrer">
+          Continue to Stripe <span class="arrow">→</span>
+        </a>
+      </div>
+    </form>
+  </dialog>
+
   <Footer />
 </Layout>
 
 <script>
+  const subscribeDialog = document.getElementById('subscribe-dialog') as HTMLDialogElement | null;
+  if (subscribeDialog) {
+    const tierEl = subscribeDialog.querySelector('[data-subscribe-dialog-tier]') as HTMLElement | null;
+    const priceEl = subscribeDialog.querySelector('[data-subscribe-dialog-price]') as HTMLElement | null;
+    const confirmEl = subscribeDialog.querySelector('[data-subscribe-confirm]') as HTMLAnchorElement | null;
+    const cancelEl = subscribeDialog.querySelector('[data-subscribe-cancel]') as HTMLButtonElement | null;
+
+    document.querySelectorAll<HTMLButtonElement>('[data-subscribe-url]').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const url = btn.dataset.subscribeUrl;
+        const tier = btn.dataset.subscribeTier || 'plan';
+        const price = btn.dataset.subscribePrice || '';
+        if (!url) return;
+        if (tierEl) tierEl.textContent = tier;
+        if (priceEl) priceEl.textContent = price;
+        if (confirmEl) confirmEl.href = url;
+        if (typeof subscribeDialog.showModal === 'function') {
+          subscribeDialog.showModal();
+        } else {
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+
+    cancelEl?.addEventListener('click', () => subscribeDialog.close());
+    confirmEl?.addEventListener('click', () => {
+      window.setTimeout(() => subscribeDialog.close(), 100);
+    });
+    subscribeDialog.addEventListener('click', (event) => {
+      if (event.target === subscribeDialog) subscribeDialog.close();
+    });
+  }
+
   const platinumCard = document.querySelector('.mp-page__package--platinum');
   if (platinumCard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const fireConfetti = () => {
@@ -892,13 +1055,26 @@ const valuePropIcons: Record<string, string> = {
     font-style: italic;
     color: var(--c-stone);
   }
-  .mp-page__package-cta {
+  .mp-page__package-actions {
     margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mp-page__package-subscribe {
     width: 100%;
     justify-content: center;
     font-size: 14px;
     white-space: normal;
     text-align: center;
+  }
+  .mp-page__package-cta {
+    width: 100%;
+    justify-content: center;
+    font-size: 13px;
+    white-space: normal;
+    text-align: center;
+    padding: 8px 14px;
   }
 
   @property --plat-angle {
@@ -1686,6 +1862,169 @@ const valuePropIcons: Record<string, string> = {
     .mp-page__agreement-stage:hover .mp-page__agreement-doc {
       transform: none;
       transition: none;
+    }
+  }
+
+  .mp-page__quick-book {
+    padding: clamp(48px, 6vw, 72px) 0;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, #fff 100%);
+  }
+  .mp-page__quick-book-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(28px, 4vw, 48px);
+    align-items: start;
+  }
+  .mp-page__quick-book-copy {
+    min-width: 0;
+  }
+  .mp-page__quick-book-copy .mp-page__section-lead {
+    margin-bottom: 20px;
+  }
+  .mp-page__quick-book-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .mp-page__quick-book-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14.5px;
+    color: var(--c-ink);
+    font-weight: 600;
+  }
+  .mp-page__quick-book-bullets li :global(svg) {
+    color: var(--c-lime);
+    flex-shrink: 0;
+  }
+  .mp-page__form--quick {
+    margin: 0;
+    max-width: none;
+  }
+  .mp-page__quick-book-note {
+    margin: 0;
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--c-stone);
+  }
+  .mp-page__quick-book-note strong {
+    color: var(--c-ink);
+  }
+
+  .mp-page__subscribe-dialog {
+    width: min(520px, calc(100% - 32px));
+    max-width: 520px;
+    border: 0;
+    border-radius: 18px;
+    padding: 0;
+    background: #fff;
+    color: var(--c-ink);
+    box-shadow: 0 24px 64px rgba(14, 14, 16, 0.32);
+  }
+  .mp-page__subscribe-dialog::backdrop {
+    background: rgba(14, 14, 16, 0.55);
+    backdrop-filter: blur(2px);
+  }
+  .mp-page__subscribe-dialog-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: clamp(24px, 4vw, 32px);
+    margin: 0;
+  }
+  .mp-page__subscribe-dialog-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mp-page__subscribe-dialog-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-red);
+  }
+  .mp-page__subscribe-dialog-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .mp-page__subscribe-dialog-price {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--c-red);
+  }
+  .mp-page__subscribe-dialog-suffix {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-stone);
+    letter-spacing: 0;
+  }
+  .mp-page__subscribe-dialog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .mp-page__subscribe-dialog-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+  .mp-page__subscribe-dialog-list strong {
+    color: var(--c-ink);
+  }
+  .mp-page__subscribe-dialog-icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--c-lime);
+    color: #fff;
+    margin-top: 1px;
+  }
+  .mp-page__subscribe-dialog-icon :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+  .mp-page__subscribe-dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 900px) {
+    .mp-page__quick-book-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .mp-page__subscribe-dialog-actions {
+      flex-direction: column-reverse;
+    }
+    .mp-page__subscribe-dialog-actions .btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>

@@ -1,0 +1,147 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import ConfettiCelebration from '~/components/ConfettiCelebration.astro';
+import { contact } from '~/data/contact';
+import { maintenancePhone, maintenancePhoneDisplay } from '~/data/maintenance-plans-page';
+
+const pageTitle = 'Subscription Confirmed | A.S Painting Contractors';
+const pageDescription =
+  'Thanks for subscribing to an A.S Painting Contractors maintenance plan. We’ll be in touch shortly with your agreement and onboarding details.';
+---
+<Layout title={pageTitle} description={pageDescription} canonical="/maintenance-thank-you/" noindex>
+  <ConfettiCelebration />
+  <Header />
+  <main id="main" class="thank-you">
+    <section class="thank-you__hero" aria-labelledby="thank-you-heading">
+      <div class="container thank-you__inner reveal">
+        <div class="thank-you__icon" aria-hidden="true">✓</div>
+        <span class="eyebrow">Subscription confirmed</span>
+        <h1 id="thank-you-heading" class="display h1 thank-you__title">
+          You're on board!
+        </h1>
+        <p class="lead thank-you__lead">
+          Thanks for subscribing to an A.S Painting Contractors maintenance plan. Your payment has been
+          processed securely by <strong>Stripe</strong> and we've received notification of your subscription.
+        </p>
+
+        <ul class="thank-you__next" aria-label="What happens next">
+          <li>
+            <span class="thank-you__step-num">1</span>
+            <span>You'll receive a Stripe receipt by email confirming your monthly subscription.</span>
+          </li>
+          <li>
+            <span class="thank-you__step-num">2</span>
+            <span>We'll email you within one working day with your maintenance agreement and onboarding details.</span>
+          </li>
+          <li>
+            <span class="thank-you__step-num">3</span>
+            <span>We'll arrange your first scheduled visit — typically within 2–4 weeks.</span>
+          </li>
+        </ul>
+
+        <div class="thank-you__actions">
+          <a class="btn" href="/">Back to home <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href={`tel:${maintenancePhone}`}>
+            Call {maintenancePhoneDisplay}
+          </a>
+        </div>
+
+        <p class="thank-you__urgent">
+          Questions about your plan?
+          <a href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+          or email <a href="mailto:info@aspainting.co.uk">info@aspainting.co.uk</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .thank-you__hero {
+    padding: calc(48px + var(--gutter, 24px)) 0 clamp(72px, 10vw, 120px);
+    min-height: min(88vh, 900px);
+    display: flex;
+    align-items: center;
+  }
+  .thank-you__inner {
+    max-width: 640px;
+    text-align: center;
+  }
+  .thank-you__icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-lime), #5cb318);
+    color: #fff;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 72px;
+    box-shadow: 0 12px 32px rgba(126, 211, 33, 0.35);
+  }
+  .thank-you__title {
+    margin-top: 12px;
+    max-width: 16ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .thank-you__lead {
+    margin: 18px auto 0;
+    max-width: 50ch;
+    color: var(--c-graphite);
+  }
+  .thank-you__lead strong {
+    color: var(--c-ink);
+  }
+  .thank-you__next {
+    list-style: none;
+    margin: 36px 0 0;
+    padding: 24px 28px;
+    text-align: left;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .thank-you__next li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+  .thank-you__step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--c-red);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 28px;
+    text-align: center;
+  }
+  .thank-you__actions {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .thank-you__urgent {
+    margin: 28px 0 0;
+    font-size: 14.5px;
+    color: var(--c-stone);
+  }
+  .thank-you__urgent a {
+    color: var(--c-red);
+    font-weight: 600;
+  }
+</style>

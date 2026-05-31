@@ -17,6 +17,7 @@ export type MaintenancePackage = {
   coverage: string;
   features: string[];
   bestFor: string;
+  subscribeUrl: string;
 };
 
 export const maintenancePlansPageMeta = {
@@ -93,6 +94,7 @@ export const packages: MaintenancePackage[] = [
       'Additional visits are chargeable',
     ],
     bestFor: 'Best for clients looking for planned preventative upkeep.',
+    subscribeUrl: 'https://buy.stripe.com/eVq14pbpG2Glg3qfVW33W00',
   },
   {
     tier: 'Silver',
@@ -110,6 +112,7 @@ export const packages: MaintenancePackage[] = [
       'Additional visits are chargeable',
     ],
     bestFor: 'Ideal for clients who want extra support and flexibility.',
+    subscribeUrl: 'https://buy.stripe.com/aFa9AV3Xe5Sx2cA39a33W01',
   },
   {
     tier: 'Gold',
@@ -127,6 +130,7 @@ export const packages: MaintenancePackage[] = [
       'Quarterly condition report & maintenance plan',
     ],
     bestFor: 'Great for clients needing regular upkeep and fast response.',
+    subscribeUrl: 'https://buy.stripe.com/aFa3cxalCa8N5oM25633W02',
   },
   {
     tier: 'Platinum',
@@ -146,6 +150,7 @@ export const packages: MaintenancePackage[] = [
     ],
     bestFor:
       'Designed for housing providers, supported accommodation, communal areas, offices, and multi-site portfolios needing ongoing planned and reactive support.',
+    subscribeUrl: 'https://buy.stripe.com/fZu14palC6WB8AYdNO33W03',
   },
 ];
 

@@ -32,7 +32,7 @@ export const handler = async (event) => {
     if (!data.name?.trim() || !data.email?.trim()) {
       return json(400, { ok: false, message: 'Name and email are required' }, event);
     }
-  } else if (formName === 'maintenance-enquiry') {
+  } else if (formName === 'maintenance-enquiry' || formName === 'maintenance-quick') {
     if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim()) {
       return json(400, { ok: false, message: 'Name, phone and email are required' }, event);
     }
