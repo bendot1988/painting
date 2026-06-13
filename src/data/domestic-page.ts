@@ -191,7 +191,7 @@ export const homepageFeatures: HomepageFeature[] = [
   },
   {
     title: 'Joinery & trim',
-    desc: 'Doors, skirting, architrave and built-ins hand-painted in eggshell or oil for a crisp, factory-look finish.',
+    desc: 'Doors, skirting boards and woodwork painted by hand — smooth, hard-wearing and built to last.',
     accent: 'lime',
   },
   {
