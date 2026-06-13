@@ -32,9 +32,31 @@ const pageDescription =
 
     <section class="reviews-page__list" aria-label="All reviews">
       <div class="container">
+        <label class="reviews-page__search" for="review-search">
+          <span class="reviews-page__search-label">Search reviews</span>
+          <input
+            type="search"
+            id="review-search"
+            class="reviews-page__search-input"
+            placeholder="e.g. name, kitchen, office, Leicester…"
+            autocomplete="off"
+            enterkeyhint="search"
+          />
+        </label>
+        <p class="reviews-page__search-hint" data-review-status aria-live="polite">
+          Showing all {reviews.length} reviews
+        </p>
+        <p class="reviews-page__empty" data-review-empty hidden>
+          No reviews match your search. Try a different name or keyword.
+        </p>
         <ol class="reviews-page__grid">
           {reviews.map((item, i) => (
-            <li class={`review-card review-card--${accents[i % accents.length]} reveal`} style={`--i:${i % 6}`}>
+            <li
+              class={`review-card review-card--${accents[i % accents.length]} reveal`}
+              style={`--i:${i % 6}`}
+              data-review-item
+              data-search-text={`${item.name} ${item.date} ${item.review}`.toLowerCase()}
+            >
               <div class="review-card__stars" aria-hidden="true">★★★★★</div>
               <p class="review-card__snippet">{reviewSnippet(item.review)}</p>
               <blockquote class="review-card__body">
@@ -55,6 +77,45 @@ const pageDescription =
   </main>
   <Footer />
 </Layout>
+
+<script>
+  const searchInput = document.getElementById('review-search');
+  const statusEl = document.querySelector('[data-review-status]');
+  const emptyEl = document.querySelector('[data-review-empty]');
+  const items = document.querySelectorAll('[data-review-item]');
+
+  function applyFilters() {
+    const query = (searchInput instanceof HTMLInputElement ? searchInput.value : '')
+      .trim()
+      .toLowerCase();
+
+    let visibleCount = 0;
+
+    items.forEach((item) => {
+      if (!(item instanceof HTMLElement)) return;
+      const text = item.dataset.searchText ?? '';
+      const show = !query || text.includes(query);
+      item.hidden = !show;
+      if (show) visibleCount += 1;
+    });
+
+    if (emptyEl instanceof HTMLElement) {
+      emptyEl.hidden = visibleCount > 0;
+    }
+
+    if (statusEl) {
+      if (visibleCount === 0) {
+        statusEl.textContent = 'No matching reviews';
+      } else if (query) {
+        statusEl.textContent = `${visibleCount} review${visibleCount === 1 ? '' : 's'} match your search`;
+      } else {
+        statusEl.textContent = `Showing all ${visibleCount} reviews`;
+      }
+    }
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+</script>
 
 <style>
   .reviews-page {
@@ -88,6 +149,61 @@ const pageDescription =
     background: var(--bg-alt);
     padding-top: 20px;
     padding-bottom: clamp(72px, 9vw, 120px);
+  }
+  .reviews-page__search {
+    display: block;
+    max-width: 520px;
+    margin-bottom: 8px;
+  }
+  .reviews-page__search-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .reviews-page__search-input {
+    width: 100%;
+    padding: 14px 18px 14px 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(14, 14, 16, 0.14);
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%238a8881' stroke-width='2'%3E%3Ccircle cx='7.5' cy='7.5' r='5.5'/%3E%3Cpath d='m13 13 3.5 3.5'/%3E%3C/svg%3E") 16px center no-repeat;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--c-ink);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .reviews-page__search-input::placeholder {
+    color: #a8a6a0;
+  }
+  .reviews-page__search-input:hover {
+    border-color: rgba(14, 14, 16, 0.22);
+  }
+  .reviews-page__search-input:focus {
+    outline: none;
+    border-color: var(--c-red);
+    box-shadow: 0 0 0 3px rgba(224, 49, 49, 0.12);
+  }
+  .reviews-page__search-hint {
+    margin: 0 0 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .reviews-page__empty {
+    margin: 0 0 24px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 15px;
+    color: var(--c-graphite);
+    box-shadow: var(--shadow-sm);
+  }
+  .reviews-page__empty[hidden] {
+    display: none;
   }
   .reviews-page__grid {
     list-style: none;
