@@ -93,13 +93,14 @@ import {
 <style>
   .cookie-banner {
     position: fixed;
-    left: var(--gutter);
-    right: var(--gutter);
+    left: 50%;
     bottom: max(16px, env(safe-area-inset-bottom));
     z-index: 260;
+    width: fit-content;
+    max-width: calc(100% - 2 * var(--gutter));
     pointer-events: none;
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateX(-50%) translateY(12px);
     transition:
       opacity 0.32s var(--ease),
       transform 0.32s var(--ease);
@@ -107,18 +108,16 @@ import {
   .cookie-banner.is-visible {
     pointer-events: auto;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
   .cookie-banner__inner {
-    max-width: 720px;
-    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 14px 20px;
-    padding: 14px 18px;
-    border-radius: 16px;
+    gap: 12px 16px;
+    padding: 12px 16px;
+    border-radius: 14px;
     background: rgba(14, 14, 16, 0.94);
     color: #e8e8e6;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -127,9 +126,10 @@ import {
   }
   .cookie-banner__text {
     margin: 0;
-    flex: 1 1 220px;
-    font-size: 13.5px;
-    line-height: 1.45;
+    flex: 1 1 16rem;
+    max-width: 36rem;
+    font-size: 13px;
+    line-height: 1.4;
     color: #cfcdc8;
   }
   .cookie-banner__text a {
@@ -149,13 +149,14 @@ import {
   }
   .cookie-banner__btn {
     font-family: var(--font-header);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: var(--tracking-ui);
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-radius: 999px;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
     transition: background 0.2s, color 0.2s, transform 0.2s;
   }
   .cookie-banner__btn--ghost {
@@ -180,16 +181,28 @@ import {
   }
 
   @media (max-width: 520px) {
+    .cookie-banner {
+      max-width: min(21rem, calc(100% - 24px));
+    }
     .cookie-banner__inner {
       flex-direction: column;
       align-items: stretch;
+      gap: 10px;
+      padding: 10px 12px;
+    }
+    .cookie-banner__text {
+      flex: none;
+      max-width: none;
+      font-size: 12px;
+      line-height: 1.35;
     }
     .cookie-banner__actions {
-      width: 100%;
+      width: auto;
+      align-self: flex-end;
+      justify-content: flex-end;
     }
     .cookie-banner__btn {
-      flex: 1;
-      text-align: center;
+      flex: 0 0 auto;
     }
   }
 
