@@ -4,7 +4,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import googleReviews from '~/data/google-reviews.json';
-import { isLongReview, reviewParagraphs, reviewSnippet, type GoogleReview } from '~/lib/reviews';
+import { isLongReview, reviewParagraphs, type GoogleReview } from '~/lib/reviews';
 
 const reviews = googleReviews.reviews as GoogleReview[];
 const accents = ['red', 'yellow', 'lime', 'pink', 'blue'] as const;
@@ -61,12 +61,10 @@ const pageDescription =
               data-search-text={`${item.name} ${item.date} ${item.review}`.toLowerCase()}
             >
               <div class="review-card__stars" aria-hidden="true">★★★★★</div>
-              <p class="review-card__snippet">{reviewSnippet(item.review)}</p>
               <blockquote
-                class="review-card__body"
+                class:list={['review-card__body', long && 'is-clamped']}
                 id={`review-body-${i}`}
                 data-review-body
-                hidden={long || undefined}
               >
                 {paragraphs.map((paragraph) => (
                   <p>{paragraph}</p>
@@ -138,6 +136,22 @@ const pageDescription =
 
   searchInput?.addEventListener('input', applyFilters);
 
+  function initReviewToggles() {
+    document.querySelectorAll('[data-review-body].is-clamped').forEach((body) => {
+      if (!(body instanceof HTMLElement)) return;
+      const card = body.closest('[data-review-item]');
+      const btn = card?.querySelector('[data-review-toggle]');
+      if (!(btn instanceof HTMLButtonElement)) return;
+
+      if (body.scrollHeight <= body.clientHeight + 1) {
+        btn.hidden = true;
+        body.classList.remove('is-clamped');
+      }
+    });
+  }
+
+  initReviewToggles();
+
   document.querySelectorAll('[data-review-toggle]').forEach((btn) => {
     btn.addEventListener('click', () => {
       if (!(btn instanceof HTMLButtonElement)) return;
@@ -150,7 +164,7 @@ const pageDescription =
 
       btn.setAttribute('aria-expanded', String(nextExpanded));
       btn.textContent = nextExpanded ? 'Read less' : 'Read more';
-      body.hidden = !nextExpanded;
+      body.classList.toggle('is-clamped', !nextExpanded);
     });
   });
 </script>
@@ -270,29 +284,21 @@ const pageDescription =
     color: var(--c-yellow);
     letter-spacing: 2px;
     font-size: 14px;
-    margin-bottom: 10px;
-  }
-  .review-card__snippet {
-    margin: 0 0 12px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(17px, 1.6vw, 19px);
-    line-height: 1.35;
-    letter-spacing: var(--tracking-snug);
-    color: var(--c-ink);
+    margin-bottom: 12px;
   }
   .review-card__body {
-    margin: 0 0 16px;
+    margin: 0 0 12px;
     padding: 0;
     border: 0;
+    font-size: 15px;
+    line-height: 1.55;
   }
-  .review-card__body[hidden] {
-    display: none;
+  .review-card__body.is-clamped {
+    max-height: calc(1.55em * 4);
+    overflow: hidden;
   }
   .review-card__body p {
     margin: 0;
-    font-size: 15px;
-    line-height: 1.55;
     color: var(--c-graphite);
   }
   .review-card__body p + p {
@@ -321,6 +327,9 @@ const pageDescription =
     outline: 2px solid var(--c-red);
     outline-offset: 2px;
     border-radius: 4px;
+  }
+  .review-card__toggle[hidden] {
+    display: none;
   }
   .review-card__meta {
     display: flex;
