@@ -4,7 +4,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import googleReviews from '~/data/google-reviews.json';
-import { reviewSnippet, type GoogleReview } from '~/lib/reviews';
+import { isLongReview, reviewParagraphs, reviewSnippet, type GoogleReview } from '~/lib/reviews';
 
 const reviews = googleReviews.reviews as GoogleReview[];
 const accents = ['red', 'yellow', 'lime', 'pink', 'blue'] as const;
@@ -50,7 +50,10 @@ const pageDescription =
           No reviews match your search. Try a different name or keyword.
         </p>
         <ol class="reviews-page__grid">
-          {reviews.map((item, i) => (
+          {reviews.map((item, i) => {
+            const long = isLongReview(item.review);
+            const paragraphs = reviewParagraphs(item.review);
+            return (
             <li
               class={`review-card review-card--${accents[i % accents.length]} reveal`}
               style={`--i:${i % 6}`}
@@ -59,15 +62,34 @@ const pageDescription =
             >
               <div class="review-card__stars" aria-hidden="true">★★★★★</div>
               <p class="review-card__snippet">{reviewSnippet(item.review)}</p>
-              <blockquote class="review-card__body">
-                <p>{item.review}</p>
+              <blockquote
+                class="review-card__body"
+                id={`review-body-${i}`}
+                data-review-body
+                hidden={long || undefined}
+              >
+                {paragraphs.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
               </blockquote>
+              {long && (
+                <button
+                  type="button"
+                  class="review-card__toggle"
+                  data-review-toggle
+                  aria-expanded="false"
+                  aria-controls={`review-body-${i}`}
+                >
+                  Read more
+                </button>
+              )}
               <footer class="review-card__meta">
                 <strong>{item.name}</strong>
                 <time>{item.date}</time>
               </footer>
             </li>
-          ))}
+            );
+          })}
         </ol>
         <p class="reviews-page__cta">
           <a class="btn" href="/contact">Get a free quote <span class="arrow">→</span></a>
@@ -115,6 +137,22 @@ const pageDescription =
   }
 
   searchInput?.addEventListener('input', applyFilters);
+
+  document.querySelectorAll('[data-review-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!(btn instanceof HTMLButtonElement)) return;
+      const card = btn.closest('[data-review-item]');
+      const body = card?.querySelector('[data-review-body]');
+      if (!(body instanceof HTMLElement)) return;
+
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const nextExpanded = !expanded;
+
+      btn.setAttribute('aria-expanded', String(nextExpanded));
+      btn.textContent = nextExpanded ? 'Read less' : 'Read more';
+      body.hidden = !nextExpanded;
+    });
+  });
 </script>
 
 <style>
@@ -248,11 +286,41 @@ const pageDescription =
     padding: 0;
     border: 0;
   }
+  .review-card__body[hidden] {
+    display: none;
+  }
   .review-card__body p {
     margin: 0;
     font-size: 15px;
     line-height: 1.55;
     color: var(--c-graphite);
+  }
+  .review-card__body p + p {
+    margin-top: 1em;
+  }
+  .review-card__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 16px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-red);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .review-card__toggle:hover {
+    color: var(--c-ink);
+  }
+  .review-card__toggle:focus-visible {
+    outline: 2px solid var(--c-red);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
   .review-card__meta {
     display: flex;
