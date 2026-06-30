@@ -1,5 +1,5 @@
 ---
-import { googleRating, googleRatingLabel } from '~/data/google-rating';
+import { googleRating, googleRatingLabel, googleRatingScoreDisplay } from '~/data/google-rating';
 
 interface Props {
   class?: string;
@@ -23,7 +23,7 @@ const { class: className, centered = false } = Astro.props;
     ))}
   </div>
   <span class="google-rating__text">
-    <strong>{googleRating.score}</strong> rated · <span>{googleRating.reviewCount} Google reviews</span>
+    <strong>{googleRatingScoreDisplay}</strong> rated · <span>{googleRating.reviewCount} Google reviews</span>
   </span>
 </div>
 

@@ -19,6 +19,7 @@ import '~/styles/global.css';
 import ContactFab from '~/components/ContactFab.astro';
 import CookieBanner from '~/components/CookieBanner.astro';
 import ThreeBestRatedModal from '~/components/ThreeBestRatedModal.astro';
+import { googleRating } from '~/data/google-rating';
 import { absoluteUrl, OG_IMAGE_PATH } from '~/utils/site-url';
 
 const canonicalUrl = absoluteUrl(canonical ?? Astro.url.pathname);
@@ -39,6 +40,12 @@ const defaultJsonLd = {
   },
   priceRange: '££',
   openingHours: 'Mo-Su 06:00-17:00',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: googleRating.score,
+    reviewCount: googleRating.reviewCount,
+    bestRating: 5,
+  },
 };
 
 const schemaJson = jsonLd ?? defaultJsonLd;

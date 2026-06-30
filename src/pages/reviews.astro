@@ -4,6 +4,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import googleReviews from '~/data/google-reviews.json';
+import { googleRatingSummaryLine } from '~/data/google-rating';
 import { isLongReview, reviewParagraphs, type GoogleReview } from '~/lib/reviews';
 
 const reviews = googleReviews.reviews as GoogleReview[];
@@ -24,7 +25,7 @@ const pageDescription =
         </h1>
         <p class="lead reviews-page__intro">
           Real feedback from homeowners and businesses across Leicestershire.
-          {reviews.length} reviews — all five stars.
+          {googleRatingSummaryLine} — all five stars.
         </p>
         <GoogleRatingBadge class="reviews-page__rating" />
       </div>
@@ -44,7 +45,7 @@ const pageDescription =
           />
         </label>
         <p class="reviews-page__search-hint" data-review-status aria-live="polite">
-          Showing all {reviews.length} reviews
+          Search {reviews.length} featured reviews below
         </p>
         <p class="reviews-page__empty" data-review-empty hidden>
           No reviews match your search. Try a different name or keyword.
@@ -129,7 +130,7 @@ const pageDescription =
       } else if (query) {
         statusEl.textContent = `${visibleCount} review${visibleCount === 1 ? '' : 's'} match your search`;
       } else {
-        statusEl.textContent = `Showing all ${visibleCount} reviews`;
+        statusEl.textContent = `Showing all ${visibleCount} featured review${visibleCount === 1 ? '' : 's'}`;
       }
     }
   }
