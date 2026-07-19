@@ -37,6 +37,20 @@ export const aboutVideo = {
   lead: 'A quick look at the kind of commercial and domestic work we deliver across Leicester and Leicestershire.',
 };
 
+/** Newly sign-written company van (summer 2026) */
+export const aboutVan = {
+  image: {
+    src: '/images/van-commercial-painting-side.png',
+    alt: 'A.S Painting Contractors sign-written van with commercial painting and decorating branding',
+  },
+  video: {
+    src: '/videos/van-signwriting.mp4',
+    poster: '/images/van-bonnet-paint-splash.png',
+    title: 'A walkaround of our newly sign-written A.S Painting Contractors van',
+  },
+  lead: 'Our freshly sign-written van is out on jobs across Leicester and Leicestershire — if you spot it, that\u2019s us. The QR code on the side takes you straight to our commercial maintenance plans.',
+};
+
 export const aboutHighlights = [
   {
     title: 'Public & private sector',

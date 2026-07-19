@@ -42,6 +42,12 @@ export const agreementPreview: GalleryImage = {
   alt: 'A.S Painting Commercial Decorating Maintenance Agreement showing Bronze, Silver, Gold and Platinum packages',
 };
 
+/** Sign-written company van — the QR on the side points to this page */
+export const vanImage: GalleryImage = {
+  src: '/images/van-maintenance-plans-side.png',
+  alt: 'A.S Painting Contractors sign-written van showing Bronze, Silver, Gold and Platinum maintenance plans with a scan-to-compare QR code',
+};
+
 export const valuePropsHeading = '4 Simple Packages. Complete Peace of Mind.';
 
 export const valueProps: ValueProp[] = [
