@@ -7,7 +7,6 @@ import {
   aboutHighlights,
   aboutIntro,
   aboutNarrative,
-  aboutVan,
   aboutVideo,
 } from '~/data/about-page';
 
@@ -108,38 +107,6 @@ const aboutJsonLd = {
           This clip has no narration. It loads muted — you can use YouTube&apos;s volume control if
           sound is ever added.
         </p>
-      </div>
-    </section>
-
-    <section class="about-page__band about-page__van-section" aria-labelledby="about-van-heading">
-      <div class="container">
-        <span class="eyebrow">Out on the road</span>
-        <h2 id="about-van-heading" class="about-page__section-title">Look out for our van</h2>
-        <p class="about-page__section-lead">{aboutVan.lead}</p>
-        <div class="about-page__van-grid">
-          <figure class="about-page__van-photo reveal">
-            <img
-              src={aboutVan.image.src}
-              alt={aboutVan.image.alt}
-              loading="lazy"
-              width="768"
-              height="1024"
-            />
-          </figure>
-          <div class="about-page__van-video reveal">
-            <video
-              controls
-              muted
-              playsinline
-              preload="metadata"
-              poster={aboutVan.video.poster}
-              title={aboutVan.video.title}
-            >
-              <source src={aboutVan.video.src} type="video/mp4" />
-              Your browser doesn&apos;t support embedded video.
-            </video>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -301,57 +268,6 @@ const aboutJsonLd = {
     font-size: 13px;
     line-height: 1.45;
     color: var(--c-stone);
-  }
-
-  .about-page__van-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(16px, 3vw, 32px);
-    align-items: start;
-    max-width: 920px;
-  }
-  .about-page__van-photo {
-    margin: 0;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transform: rotate(-1.5deg);
-    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  }
-  .about-page__van-photo:hover {
-    transform: rotate(0deg) translateY(-3px);
-    box-shadow: var(--shadow-lg);
-  }
-  .about-page__van-photo img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .about-page__van-video video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    max-height: 560px;
-    object-fit: cover;
-    border-radius: 18px;
-    background: var(--c-ink);
-    box-shadow: var(--shadow-md);
-  }
-  @media (max-width: 720px) {
-    .about-page__van-grid {
-      grid-template-columns: 1fr;
-    }
-    .about-page__van-video video {
-      max-height: 480px;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .about-page__van-photo,
-    .about-page__van-photo:hover {
-      transform: none;
-      transition: none;
-    }
   }
 
   .about-page__section {
