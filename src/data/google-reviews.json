@@ -1,6 +1,16 @@
 {
   "reviews": [
     {
+      "name": "The Vinyl Guys",
+      "review": "AS did a great job on our main office wall painting and refresh of some of our reception walls. I also had a chance to hear about their maintenance packages which seem like a great idea, nice to see something new being promoted. Thanks.",
+      "date": "today"
+    },
+    {
+      "name": "Lois Mason",
+      "review": "Couldn't have asked for any more! So professional, very clean & tidy, did a really wonderful job on our exterior windows and doors. Very respectful, accommodating & understanding! Took great care & did a splendid job! Thanks again.",
+      "date": "4 days ago"
+    },
+    {
       "name": "N R",
       "review": "Friendly service, arrived on time and work completed as expected! Thank you",
       "date": "today"
