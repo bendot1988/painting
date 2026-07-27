@@ -5,6 +5,8 @@ export type WorkItem = {
   title: string;
   meta: string;
   size?: 'lg' | 'md' | 'sm';
+  /** When set, gallery cards link to /work/[slug]/ */
+  slug?: string;
 };
 
 export const workItems: WorkItem[] = [
@@ -15,6 +17,7 @@ export const workItems: WorkItem[] = [
     title: 'Hazel Community Primary · interiors',
     meta: 'School painting · Leicester',
     size: 'lg',
+    slug: 'hazel-community-primary-school',
   },
   { src: '/images/commercial-interior-qualvis-reception.jpeg', alt: 'Repainted Qualvis reception with feature wall and branded signage', tag: 'commercial', title: 'Qualvis · Reception refresh', meta: 'Loughborough · 2 days', size: 'lg' },
   { src: '/images/commercial-exterior-gsf-red-shutters.jpeg', alt: 'GSF Car Parts warehouse with freshly coated red roller shutters', tag: 'commercial', title: 'GSF · Roller shutters', meta: 'High-build coating · Leicester' },
@@ -24,13 +27,6 @@ export const workItems: WorkItem[] = [
   { src: '/images/commercial-interior-warehouse-epoxy-floor-01.jpeg', alt: 'Warehouse with new epoxy resin floor and white-painted walls', tag: 'commercial', title: 'Warehouse · epoxy floor', meta: 'Resin floor & walls · Leicester' },
   { src: '/images/domestic-interior-classic-kitchen-island-detail-01.jpeg', alt: 'Hand-painted period kitchen island with detailed mouldings', tag: 'domestic', title: 'Kitchen island re-paint', meta: 'Hand-painted · Stoneygate' },
   { src: '/images/commercial-interior-navy-breakout-area-01.jpeg', alt: 'Office breakout area painted in deep navy with crisp white ceiling', tag: 'commercial', title: 'Breakout · navy accent', meta: 'Office fit-out · Leicester', size: 'md' },
-  {
-    src: '/images/commercial-interior-hazel-community-primary-school-assembly-hall.jpeg',
-    alt: 'School assembly hall at Hazel Community Primary with white painted brick walls and vaulted timber roof',
-    tag: 'commercial',
-    title: 'Hazel Community Primary · hall',
-    meta: 'Education sector · Leicester',
-  },
   { src: '/images/domestic-interior-marble-living-room-tv-wall.jpeg', alt: 'Contemporary living room with marble-effect feature wall', tag: 'domestic', title: 'Living room · feature wall', meta: 'Marble effect · Knighton' },
   { src: '/images/domestic-interior-sage-green-kitchen-01.jpeg', alt: 'Sage green shaker kitchen with hand-painted cabinetry', tag: 'domestic', title: 'Sage shaker kitchen', meta: 'Hand-painted · Clarendon Park' },
   { src: '/images/commercial-interior-factory-cmm-floor.jpeg', alt: 'Factory floor and production area with fresh industrial coating', tag: 'commercial', title: 'Factory · production floor', meta: 'Manufacturing · Leicestershire' },
@@ -42,13 +38,6 @@ export const workItems: WorkItem[] = [
   { src: '/images/commercial-exterior-blue-railings-park.jpeg', alt: 'Blue railings and exterior metalwork on a commercial site', tag: 'commercial', title: 'Exterior railings', meta: 'Metalwork coating · Leicester' },
   { src: '/images/domestic-exterior-grey-blue-rendered-house.jpeg', alt: 'Rendered house exterior in grey-blue with fresh window frames', tag: 'domestic', title: 'Rendered exterior', meta: 'Full exterior · Leicestershire' },
   { src: '/images/commercial-interior-sculpt-and-form-reception.jpeg', alt: 'Modern reception area with feature wall and clean finish', tag: 'commercial', title: 'Reception fit-out', meta: 'Commercial interior · Leicester' },
-  {
-    src: '/images/commercial-interior-hazel-community-primary-school-classroom.jpeg',
-    alt: 'Classroom at Hazel Community Primary School with freshly painted white walls and large windows',
-    tag: 'commercial',
-    title: 'Hazel Community Primary · classroom',
-    meta: 'School interior · Leicester',
-  },
 ];
 
 /** Homepage bento — curated highlight reel */

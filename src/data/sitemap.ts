@@ -32,6 +32,11 @@ export const sitemapGroups: SitemapGroup[] = [
         description: 'Void, communal & cyclical decorating for social housing',
       },
       { label: 'Our work', href: '/work', description: 'Recent projects across Leicestershire' },
+      {
+        label: 'Hazel Community Primary School',
+        href: '/work/hazel-community-primary-school',
+        description: 'School painting project in Leicester',
+      },
       { label: 'Our reviews', href: '/reviews', description: 'Google reviews from clients' },
       { label: 'Contact & quote', href: '/contact', description: 'Phone, email, WhatsApp and quote form' },
       { label: 'About us', href: '/about-us', description: 'Who we are and how we work' },

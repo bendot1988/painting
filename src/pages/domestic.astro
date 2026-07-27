@@ -126,7 +126,11 @@ const pageDescription =
         <h2 id="work-snapshot-heading" class="domestic-page__section-title">Recent domestic projects</h2>
         <div class="domestic-page__snapshots">
           {domesticWork.map((item, i) => (
-            <a class="domestic-page__snapshot reveal" href="/work" style={`--i:${i}`}>
+            <a
+              class="domestic-page__snapshot reveal"
+              href={item.slug ? `/work/${item.slug}/` : '/work/'}
+              style={`--i:${i}`}
+            >
               <img src={item.src} alt={item.alt} loading="lazy" />
               <span>{item.title}</span>
             </a>

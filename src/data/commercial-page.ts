@@ -19,18 +19,6 @@ export type GalleryImage = {
   alt: string;
 };
 
-export type FeaturedProject = {
-  eyebrow: string;
-  title: string;
-  location: string;
-  lead: string;
-  narrative: string[];
-  hero: GalleryImage;
-  gallery: GalleryImage[];
-  ctaHref: string;
-  ctaLabel: string;
-};
-
 /** Hero gallery on /commercial (4 equal tiles) */
 export const commercialHeroGallery: GalleryImage[] = [
   {
@@ -50,44 +38,6 @@ export const commercialHeroGallery: GalleryImage[] = [
     alt: 'A.S Painting Contractors van outside Hazel Community Primary School on Hazel Street, Leicester',
   },
 ];
-
-/** Featured school painting project on the commercial page */
-export const featuredSchoolProject: FeaturedProject = {
-  eyebrow: 'Featured project · Schools',
-  title: 'Hazel Community Primary School',
-  location: 'Hazel Street, Leicester',
-  lead:
-    'A full interior refresh for a busy Leicester primary school: corridors, classrooms and the assembly hall, finished bright, clean and ready for term.',
-  narrative: [
-    'School painting needs a careful hand. Circulation spaces take heavy daily traffic, classrooms need a finish that stays bright under natural light, and halls have to feel welcoming for assemblies and events. At Hazel Community Primary School we refreshed key interior areas so the building looks sharp and well cared for.',
-    'We painted white brick corridors and arched openings, classroom walls and window surrounds, and the large assembly hall with its high vaulted timber roof. Careful cutting-in around stained glass, door frames and wall graphics kept existing school branding intact while the new paint lifted the whole space.',
-    'If you manage a school, academy or education site in Leicestershire and need commercial painting around term time, we plan the work to keep disruption low and standards high.',
-  ],
-  hero: {
-    src: '/images/commercial-interior-hazel-community-primary-school-corridor-01.jpeg',
-    alt: 'Freshly painted white brick archway looking into a Hazel Community Primary School corridor with blue carpet and Hazel Pride mural',
-  },
-  gallery: [
-    {
-      src: '/images/commercial-interior-hazel-community-primary-school-corridor-02.jpeg',
-      alt: 'School corridor at Hazel Community Primary with white painted brick walls, coloured glass panels and blue carpet',
-    },
-    {
-      src: '/images/commercial-interior-hazel-community-primary-school-classroom.jpeg',
-      alt: 'Bright classroom at Hazel Community Primary School with freshly painted white brick walls and large windows',
-    },
-    {
-      src: '/images/commercial-interior-hazel-community-primary-school-assembly-hall.jpeg',
-      alt: 'School assembly hall with white painted brick walls, vaulted timber roof and polished wooden floor',
-    },
-    {
-      src: '/images/commercial-exterior-hazel-community-primary-school-van.jpeg',
-      alt: 'A.S Painting Contractors commercial painting van parked outside Hazel Community Primary School in Leicester',
-    },
-  ],
-  ctaHref: '/work/',
-  ctaLabel: 'See more commercial work',
-};
 
 export const commercialHighlights = [
   {

@@ -9,11 +9,13 @@ import {
   interiorSectors,
   exteriorProjects,
   commercialFaqs,
-  featuredSchoolProject,
 } from '~/data/commercial-page';
+import { getProjectBySlug, projectHref } from '~/data/projects';
 import { workItems } from '~/data/showcase-work';
 
 const commercialWork = workItems.filter((i) => i.tag === 'commercial').slice(0, 6);
+const featuredSchoolProject = getProjectBySlug('hazel-community-primary-school')!;
+const featuredSchoolHref = projectHref(featuredSchoolProject.slug);
 
 const pageTitle = 'Commercial Painting | A.S Painting Contractors';
 const pageDescription =
@@ -89,8 +91,8 @@ const pageDescription =
                 <h3>{s.name}</h3>
                 <p>{s.desc}</p>
                 {isSchools && (
-                  <a class="commercial-page__card-link" href="#hazel-community-primary">
-                    See Hazel Community Primary project <span class="arrow">→</span>
+                  <a class="commercial-page__card-link" href={featuredSchoolHref}>
+                    Read more about this school project <span class="arrow">→</span>
                   </a>
                 )}
               </div>
@@ -117,15 +119,15 @@ const pageDescription =
               ))}
             </div>
             <div class="commercial-page__featured-actions">
-              <a class="btn" href="/contact/">Get a school painting quote <span class="arrow">→</span></a>
-              <a class="btn btn--ghost" href={featuredSchoolProject.ctaHref}>
-                {featuredSchoolProject.ctaLabel} <span class="arrow">→</span>
+              <a class="btn" href={featuredSchoolHref}>
+                Read more <span class="arrow">→</span>
               </a>
+              <a class="btn btn--ghost" href="/contact/">Get a school painting quote</a>
             </div>
           </div>
 
           <div class="commercial-page__featured-media">
-            <figure class="commercial-page__featured-hero reveal">
+            <a class="commercial-page__featured-hero reveal" href={featuredSchoolHref}>
               <img
                 src={featuredSchoolProject.hero.src}
                 alt={featuredSchoolProject.hero.alt}
@@ -133,12 +135,12 @@ const pageDescription =
                 width="768"
                 height="1024"
               />
-            </figure>
+            </a>
             <div class="commercial-page__featured-thumbs" aria-label="More photos from this project">
               {featuredSchoolProject.gallery.map((img, i) => (
-                <figure class="commercial-page__featured-thumb reveal" style={`--i:${i}`}>
+                <a class="commercial-page__featured-thumb reveal" href={featuredSchoolHref} style={`--i:${i}`}>
                   <img src={img.src} alt={img.alt} loading="lazy" width="576" height="1024" />
-                </figure>
+                </a>
               ))}
             </div>
           </div>
@@ -177,7 +179,11 @@ const pageDescription =
         <h2 id="work-snapshot-heading" class="commercial-page__section-title">Recent commercial projects</h2>
         <div class="commercial-page__snapshots">
           {commercialWork.map((item, i) => (
-            <a class="commercial-page__snapshot reveal" href="/work" style={`--i:${i}`}>
+            <a
+              class="commercial-page__snapshot reveal"
+              href={item.slug ? `/work/${item.slug}/` : '/work/'}
+              style={`--i:${i}`}
+            >
               <img src={item.src} alt={item.alt} loading="lazy" />
               <span>{item.title}</span>
             </a>
@@ -386,6 +392,7 @@ const pageDescription =
     background: #fff;
     box-shadow: var(--shadow-md);
     aspect-ratio: 4 / 5;
+    display: block;
   }
   .commercial-page__featured-hero img {
     display: block;
@@ -405,6 +412,7 @@ const pageDescription =
     background: #fff;
     box-shadow: var(--shadow-sm);
     aspect-ratio: 3 / 4;
+    display: block;
     transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
     transition-delay: calc(var(--i) * 40ms);
   }

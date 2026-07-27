@@ -41,11 +41,15 @@ const pageDescription =
     <section class="work-page__gallery" aria-label="Project gallery">
       <div class="container">
         <div class="work-page__grid" data-work-grid>
-          {workItems.map((item, i) => (
-            <article
+          {workItems.map((item, i) => {
+            const href = item.slug ? `/work/${item.slug}/` : null;
+            const CardTag = href ? 'a' : 'article';
+            return (
+            <CardTag
               class={`work-card work-card--${item.tag} reveal`}
               data-tag={item.tag}
               style={`--i:${i % 8}`}
+              {...(href ? { href } : {})}
             >
               <div class="work-card__media">
                 <img src={item.src} alt={item.alt} loading="lazy" width="640" height="480" />
@@ -56,9 +60,11 @@ const pageDescription =
                 </span>
                 <h2>{item.title}</h2>
                 <p>{item.meta}</p>
+                {href && <span class="work-card__more">Read more <span class="arrow">→</span></span>}
               </div>
-            </article>
-          ))}
+            </CardTag>
+            );
+          })}
         </div>
         <p class="work-page__cta">
           <a class="btn" href="/contact">Get a free quote <span class="arrow">→</span></a>
@@ -167,6 +173,16 @@ const pageDescription =
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition-delay: calc(var(--i) * 50ms);
+    color: inherit;
+    text-decoration: none;
+  }
+  a.work-card {
+    display: block;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  }
+  a.work-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
   }
   .work-card--commercial {
     border-top: 4px solid var(--c-yellow);
@@ -206,6 +222,15 @@ const pageDescription =
     margin: 0;
     font-size: 14px;
     color: var(--c-stone);
+  }
+  .work-card__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-red);
   }
 
   .work-page__cta {

@@ -26,16 +26,33 @@ import { showcaseItems as items } from '~/data/showcase-work';
     </div>
 
     <div class="grid" data-grid>
-      {items.map((it, i) => (
+      {items.map((it, i) => {
+        const href = it.slug ? `/work/${it.slug}/` : null;
+        return (
         <figure class={`tile reveal ${it.size ? `tile--${it.size}` : ''} tile--${it.tag}`} data-tag={it.tag} style={`--i:${i}`}>
-          <img src={it.src} alt={it.alt} loading="lazy" />
-          <figcaption>
-            <span class={`tag tag--${it.tag}`}>{it.tag === 'commercial' ? 'Commercial' : 'Domestic'}</span>
-            <h3>{it.title}</h3>
-            <p>{it.meta}</p>
-          </figcaption>
+          {href ? (
+            <a class="tile__link" href={href}>
+              <img src={it.src} alt={it.alt} loading="lazy" />
+              <figcaption>
+                <span class={`tag tag--${it.tag}`}>{it.tag === 'commercial' ? 'Commercial' : 'Domestic'}</span>
+                <h3>{it.title}</h3>
+                <p>{it.meta}</p>
+                <span class="tile__more">Read more <span class="arrow">→</span></span>
+              </figcaption>
+            </a>
+          ) : (
+            <>
+              <img src={it.src} alt={it.alt} loading="lazy" />
+              <figcaption>
+                <span class={`tag tag--${it.tag}`}>{it.tag === 'commercial' ? 'Commercial' : 'Domestic'}</span>
+                <h3>{it.title}</h3>
+                <p>{it.meta}</p>
+              </figcaption>
+            </>
+          )}
         </figure>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
@@ -98,6 +115,13 @@ import { showcaseItems as items } from '~/data/showcase-work';
     transition: transform .35s var(--ease);
   }
   .tile:hover { transform: translateY(-4px); }
+  .tile__link {
+    display: block;
+    position: absolute;
+    inset: 0;
+    color: inherit;
+    text-decoration: none;
+  }
   .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), filter .35s; }
   .tile:hover img { transform: scale(1.05); }
   .tile figcaption {
@@ -113,6 +137,15 @@ import { showcaseItems as items } from '~/data/showcase-work';
   .tile h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 6px 0 2px; }
   .tile p { margin: 0; font-size: 13px; color: #d8d6cf; }
   .tile .tag { font-size: 11px; padding: 3px 8px; }
+  .tile__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-yellow);
+  }
 
   /* Bento sizing — spans fit a 4-column grid with dense packing */
   .tile--lg { grid-column: span 2; grid-row: span 2; }

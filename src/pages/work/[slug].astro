@@ -1,0 +1,243 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import { getProjectBySlug, projects, projectHref } from '~/data/projects';
+import { quotePageHref } from '~/data/contact';
+import { absoluteUrl } from '~/utils/site-url';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = getProjectBySlug(slug!);
+
+if (!project) {
+  return Astro.redirect('/work/');
+}
+
+const pageUrl = absoluteUrl(projectHref(project.slug));
+const pageTitle = `${project.title} | A.S Painting Contractors`;
+const allImages = [project.hero, ...project.gallery];
+
+const projectJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      '@id': pageUrl,
+      name: project.title,
+      description: project.seoDescription,
+      image: allImages.map((img) => absoluteUrl(img.src)),
+      about: {
+        '@type': 'Place',
+        name: project.location,
+      },
+      creator: {
+        '@type': 'Organization',
+        name: 'A.S Painting Contractors',
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: 'Our work', item: absoluteUrl('/work/') },
+        { '@type': 'ListItem', position: 3, name: project.title, item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title={pageTitle}
+  description={project.seoDescription}
+  canonical={projectHref(project.slug)}
+  jsonLd={projectJsonLd}
+>
+  <Header />
+  <main id="main" class="project-page">
+    <section class="project-page__hero" aria-labelledby="project-heading">
+      <div class="container">
+        <nav class="project-page__crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/work/">Our work</a>
+          <span aria-hidden="true">/</span>
+          <span>{project.title}</span>
+        </nav>
+        <span class="eyebrow">{project.eyebrow}</span>
+        <h1 id="project-heading" class="display h1">{project.title}</h1>
+        <p class="project-page__meta">
+          <span class={`tag tag--${project.tag}`}>
+            {project.tag === 'commercial' ? 'Commercial' : 'Domestic'}
+          </span>
+          <span>{project.location}</span>
+          <span aria-hidden="true">·</span>
+          <span>{project.meta}</span>
+        </p>
+        <p class="lead project-page__lead">{project.lead}</p>
+      </div>
+    </section>
+
+    <section class="project-page__gallery" aria-label="Project photos">
+      <div class="container">
+        <figure class="project-page__hero-shot reveal">
+          <img
+            src={project.hero.src}
+            alt={project.hero.alt}
+            width="960"
+            height="1280"
+            fetchpriority="high"
+          />
+        </figure>
+        <div class="project-page__grid">
+          {project.gallery.map((img, i) => (
+            <figure class="project-page__shot reveal" style={`--i:${i}`}>
+              <img src={img.src} alt={img.alt} loading="lazy" width="768" height="1024" />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="project-page__story" aria-labelledby="project-story-heading">
+      <div class="container project-page__story-inner">
+        <h2 id="project-story-heading" class="project-page__story-title">What we did</h2>
+        <div class="project-page__narrative">
+          {project.narrative.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        <div class="project-page__actions">
+          <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="/work/">Back to all work</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .project-page {
+    --page-stack-gap: 50px;
+  }
+  .project-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: 28px;
+  }
+  .project-page__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .project-page__crumb a {
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .project-page__crumb a:hover {
+    text-decoration: underline;
+  }
+  .project-page__hero h1 {
+    margin-top: 14px;
+    max-width: 18ch;
+  }
+  .project-page__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin: 16px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .project-page__lead {
+    max-width: 52ch;
+    margin-top: 18px;
+  }
+
+  .project-page__gallery {
+    background: var(--bg-alt);
+    padding: 20px 0 clamp(48px, 6vw, 72px);
+  }
+  .project-page__hero-shot {
+    margin: 0 0 14px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-md);
+    max-height: min(72vh, 820px);
+  }
+  .project-page__hero-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: min(72vh, 820px);
+    object-fit: cover;
+    object-position: center;
+  }
+  .project-page__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .project-page__shot {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    aspect-ratio: 3 / 4;
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .project-page__shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-page__story {
+    padding: clamp(48px, 6vw, 80px) 0 clamp(72px, 9vw, 120px);
+  }
+  .project-page__story-inner {
+    max-width: 720px;
+  }
+  .project-page__story-title {
+    margin: 0 0 18px;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .project-page__narrative {
+    display: grid;
+    gap: 1.15em;
+  }
+  .project-page__narrative p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--c-graphite);
+  }
+  .project-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 900px) {
+    .project-page__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
