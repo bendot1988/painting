@@ -9,6 +9,7 @@ import {
   interiorSectors,
   exteriorProjects,
   commercialFaqs,
+  featuredSchoolProject,
 } from '~/data/commercial-page';
 import { workItems } from '~/data/showcase-work';
 
@@ -16,7 +17,7 @@ const commercialWork = workItems.filter((i) => i.tag === 'commercial').slice(0, 
 
 const pageTitle = 'Commercial Painting | A.S Painting Contractors';
 const pageDescription =
-  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail and schools. IPAF working at height and out-of-hours available.';
+  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail and schools including Hazel Community Primary. IPAF working at height and out-of-hours available.';
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
@@ -77,7 +78,9 @@ const pageDescription =
           steel and floors. No wallpaper hanging. No plastering.
         </p>
         <div class="commercial-page__grid">
-          {interiorSectors.map((s, i) => (
+          {interiorSectors.map((s, i) => {
+            const isSchools = s.name === 'Schools and education';
+            return (
             <article class="commercial-page__card reveal" style={`--i:${i % 6}`}>
               <div class="commercial-page__card-media">
                 <img src={s.src} alt={s.alt} loading="lazy" width="640" height="400" />
@@ -85,9 +88,60 @@ const pageDescription =
               <div class="commercial-page__card-body">
                 <h3>{s.name}</h3>
                 <p>{s.desc}</p>
+                {isSchools && (
+                  <a class="commercial-page__card-link" href="#hazel-community-primary">
+                    See Hazel Community Primary project <span class="arrow">→</span>
+                  </a>
+                )}
               </div>
             </article>
-          ))}
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-page__featured" id="hazel-community-primary" aria-labelledby="featured-school-heading">
+      <div class="container">
+        <div class="commercial-page__featured-layout">
+          <div class="commercial-page__featured-copy">
+            <span class="eyebrow">{featuredSchoolProject.eyebrow}</span>
+            <h2 id="featured-school-heading" class="commercial-page__section-title">
+              {featuredSchoolProject.title}
+            </h2>
+            <p class="commercial-page__featured-location">{featuredSchoolProject.location}</p>
+            <p class="commercial-page__featured-lead">{featuredSchoolProject.lead}</p>
+            <div class="commercial-page__featured-narrative">
+              {featuredSchoolProject.narrative.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            <div class="commercial-page__featured-actions">
+              <a class="btn" href="/contact/">Get a school painting quote <span class="arrow">→</span></a>
+              <a class="btn btn--ghost" href={featuredSchoolProject.ctaHref}>
+                {featuredSchoolProject.ctaLabel} <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="commercial-page__featured-media">
+            <figure class="commercial-page__featured-hero reveal">
+              <img
+                src={featuredSchoolProject.hero.src}
+                alt={featuredSchoolProject.hero.alt}
+                loading="lazy"
+                width="768"
+                height="1024"
+              />
+            </figure>
+            <div class="commercial-page__featured-thumbs" aria-label="More photos from this project">
+              {featuredSchoolProject.gallery.map((img, i) => (
+                <figure class="commercial-page__featured-thumb reveal" style={`--i:${i}`}>
+                  <img src={img.src} alt={img.alt} loading="lazy" width="576" height="1024" />
+                </figure>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -271,6 +325,100 @@ const pageDescription =
     line-height: 1.55;
   }
 
+  .commercial-page__featured {
+    padding: clamp(56px, 7vw, 96px) 0;
+    background:
+      radial-gradient(900px 420px at 92% 8%, rgba(255, 214, 10, 0.12), transparent 55%),
+      radial-gradient(700px 380px at 8% 90%, rgba(31, 111, 235, 0.08), transparent 50%),
+      var(--bg-alt);
+  }
+  .commercial-page__featured-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+  }
+  .commercial-page__featured-copy .eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .commercial-page__featured-location {
+    margin: -4px 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .commercial-page__featured-lead {
+    margin: 0 0 18px;
+    max-width: 46ch;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: var(--c-ink);
+  }
+  .commercial-page__featured-narrative {
+    display: grid;
+    gap: 1em;
+    max-width: 52ch;
+  }
+  .commercial-page__featured-narrative p {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+  .commercial-page__featured-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .commercial-page__featured-media {
+    display: grid;
+    gap: 12px;
+  }
+  .commercial-page__featured-hero {
+    margin: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 4 / 5;
+  }
+  .commercial-page__featured-hero img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .commercial-page__featured-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .commercial-page__featured-thumb {
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    aspect-ratio: 3 / 4;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    transition-delay: calc(var(--i) * 40ms);
+  }
+  .commercial-page__featured-thumb:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .commercial-page__featured-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .commercial-page__highlights {
     list-style: none;
     margin: 0;
@@ -346,6 +494,20 @@ const pageDescription =
     font-size: 14.5px;
     line-height: 1.5;
     color: var(--c-graphite);
+  }
+  .commercial-page__card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .commercial-page__card-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .commercial-page__snapshots {
@@ -457,12 +619,22 @@ const pageDescription =
     .commercial-page__gallery-tile:hover img {
       transform: none;
     }
+    .commercial-page__featured-thumb:hover {
+      transform: none;
+    }
   }
 
   @media (max-width: 1024px) {
     .commercial-page__grid,
     .commercial-page__snapshots {
       grid-template-columns: repeat(2, 1fr);
+    }
+    .commercial-page__featured-layout {
+      grid-template-columns: 1fr;
+    }
+    .commercial-page__featured-hero {
+      max-width: 420px;
+      aspect-ratio: 3 / 4;
     }
   }
   @media (max-width: 640px) {
@@ -474,6 +646,9 @@ const pageDescription =
     .commercial-page__grid,
     .commercial-page__snapshots {
       grid-template-columns: 1fr;
+    }
+    .commercial-page__featured-thumbs {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
