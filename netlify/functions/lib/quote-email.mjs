@@ -1,27 +1,49 @@
 import { Resend } from 'resend';
 import { buildGenericFormEmailHtml, buildQuoteEmailHtml, escapeHtml } from './quote-email-template.mjs';
+import { assessSpam } from './spam-guard.mjs';
+import { saveSubmission } from './submissions-store.mjs';
 
 /**
  * @param {Record<string, string>} data
- * @returns {Promise<{ ok: true } | { ok: false, status: number, message: string }>}
+ * @param {{ ip?: string }} [meta]
+ * @returns {Promise<{ ok: true, spam?: boolean } | { ok: false, status: number, message: string }>}
  */
-export async function sendQuoteEmail(data) {
-  if (data['bot-field']) {
-    return { ok: true };
+export async function sendQuoteEmail(data, meta = {}) {
+  const formName = (data['form-name'] || 'quote').trim();
+  const spamCheck = assessSpam(data);
+
+  if (spamCheck.spam) {
+    await saveSubmission({
+      formName,
+      status: 'spam',
+      reason: spamCheck.reason,
+      fields: data,
+      ip: meta.ip,
+    }).catch((err) => console.error('Failed to store spam submission:', err));
+    // Fake success so bots do not retry forever
+    return { ok: true, spam: true };
   }
 
   if (data.consent !== 'yes') {
     return { ok: false, status: 422, message: 'Consent required' };
   }
 
-  const formName = (data['form-name'] || 'quote').trim();
   if (
     formName === 'survey-request' ||
     formName === 'contract-enquiry' ||
     formName === 'maintenance-enquiry' ||
     formName === 'maintenance-quick'
   ) {
-    return sendNamedFormEmail(data, formName);
+    const result = await sendNamedFormEmail(data, formName);
+    if (result.ok) {
+      await saveSubmission({
+        formName,
+        status: 'ok',
+        fields: data,
+        ip: meta.ip,
+      }).catch((err) => console.error('Failed to store submission:', err));
+    }
+    return result;
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -60,6 +82,13 @@ export async function sendQuoteEmail(data) {
     return { ok: false, status: 500, message: 'Failed to send email' };
   }
 
+  await saveSubmission({
+    formName,
+    status: 'ok',
+    fields: data,
+    ip: meta.ip,
+  }).catch((err) => console.error('Failed to store submission:', err));
+
   return { ok: true };
 }
 
@@ -96,7 +125,7 @@ async function sendNamedFormEmail(data, formName) {
     preferred_plan: 'Preferred package',
   };
 
-  const skipKeys = new Set(['form-name', 'bot-field', 'consent']);
+  const skipKeys = new Set(['form-name', 'bot-field', 'website', 'form_loaded_at', 'consent']);
   const rows = Object.entries(data)
     .filter(([key, value]) => !skipKeys.has(key) && String(value).trim())
     .map(([key, value]) => ({

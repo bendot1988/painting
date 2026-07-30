@@ -136,8 +136,12 @@ const valuePropIcons: Record<string, string> = {
           aria-label="Quick maintenance request"
         >
           <input type="hidden" name="form-name" value="maintenance-quick" />
+          <input type="hidden" name="form_loaded_at" value="" data-form-loaded-at />
           <p class="visually-hidden" aria-hidden="true">
             <label>Don't fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <p class="visually-hidden" aria-hidden="true">
+            <label>Website <input name="website" type="url" tabindex="-1" autocomplete="off" /></label>
           </p>
           <div class="mp-page__form-grid">
             <div class="mp-page__field">
@@ -469,8 +473,12 @@ const valuePropIcons: Record<string, string> = {
           aria-label="Maintenance plan enquiry"
         >
           <input type="hidden" name="form-name" value="maintenance-enquiry" />
+          <input type="hidden" name="form_loaded_at" value="" data-form-loaded-at />
           <p class="visually-hidden" aria-hidden="true">
             <label>Don't fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <p class="visually-hidden" aria-hidden="true">
+            <label>Website <input name="website" type="url" tabindex="-1" autocomplete="off" /></label>
           </p>
           <div class="mp-page__form-grid">
             <div class="mp-page__field">
@@ -684,6 +692,11 @@ const valuePropIcons: Record<string, string> = {
   document.querySelectorAll('form.mp-page__form[data-netlify]').forEach((form) => {
     if (form.dataset.netlifyBound) return;
     form.dataset.netlifyBound = 'true';
+
+    const loadedAt = form.querySelector('[data-form-loaded-at]');
+    if (loadedAt instanceof HTMLInputElement) {
+      loadedAt.value = String(Date.now());
+    }
 
     const successUrl = form.dataset.successUrl ?? '/thank-you/';
     const errorEl = form.querySelector('.mp-page__error');

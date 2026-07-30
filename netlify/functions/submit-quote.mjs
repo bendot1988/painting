@@ -1,4 +1,5 @@
 import { sendQuoteEmail } from './lib/quote-email.mjs';
+import { checkRateLimit, clientIp } from './lib/submissions-store.mjs';
 
 const ALLOWED_HOSTS = ['as-painting.co.uk', 'www.as-painting.co.uk', 'as-painting.netlify.app'];
 
@@ -23,6 +24,18 @@ export const handler = async (event) => {
     return json(400, { ok: false, message: 'Invalid form data' }, event);
   }
 
+  const ip = clientIp(event);
+  try {
+    const rate = await checkRateLimit(ip);
+    if (!rate.allowed) {
+      // Still look like success to bots; real users rarely hit this
+      console.warn('Rate limit hit', ip, rate.count);
+      return json(200, { ok: true }, event);
+    }
+  } catch (err) {
+    console.error('Rate limit check failed:', err);
+  }
+
   const formName = (data['form-name'] || 'quote').trim();
   if (formName === 'survey-request') {
     if (!data.name?.trim() || !data.phone?.trim()) {
@@ -40,7 +53,7 @@ export const handler = async (event) => {
     return json(400, { ok: false, message: 'Name, phone and email are required' }, event);
   }
 
-  const result = await sendQuoteEmail(data);
+  const result = await sendQuoteEmail(data, { ip });
   if (!result.ok) {
     return json(result.status, { ok: false, message: result.message }, event);
   }

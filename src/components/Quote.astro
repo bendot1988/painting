@@ -85,8 +85,12 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
         aria-label="Quote request form"
       >
         <input type="hidden" name="form-name" value="quote" />
+        <input type="hidden" name="form_loaded_at" value="" data-form-loaded-at />
         <p class="visually-hidden" aria-hidden="true">
           <label>Don’t fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <p class="visually-hidden" aria-hidden="true">
+          <label>Website <input name="website" type="url" tabindex="-1" autocomplete="off" /></label>
         </p>
         <p class="quote__form-intro">Request a free quote — we'll reply the same day.</p>
 
@@ -174,6 +178,11 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
   document.querySelectorAll('form.quote__form[data-netlify]').forEach((form) => {
     if (form.dataset.netlifyBound) return;
     form.dataset.netlifyBound = 'true';
+
+    const loadedAt = form.querySelector('[data-form-loaded-at]');
+    if (loadedAt instanceof HTMLInputElement) {
+      loadedAt.value = String(Date.now());
+    }
 
     const successUrl = form.dataset.successUrl ?? '/thank-you/';
     const errorEl = form.querySelector('.quote__error');
