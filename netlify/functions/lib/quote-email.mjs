@@ -1,7 +1,6 @@
 import { Resend } from 'resend';
 import { buildGenericFormEmailHtml, buildQuoteEmailHtml, escapeHtml } from './quote-email-template.mjs';
 import { assessSpam } from './spam-guard.mjs';
-import { saveSubmission } from './submissions-store.mjs';
 
 /**
  * @param {Record<string, string>} data
@@ -13,13 +12,9 @@ export async function sendQuoteEmail(data, meta = {}) {
   const spamCheck = assessSpam(data);
 
   if (spamCheck.spam) {
-    await saveSubmission({
-      formName,
-      status: 'spam',
-      reason: spamCheck.reason,
-      fields: data,
-      ip: meta.ip,
-    }).catch((err) => console.error('Failed to store spam submission:', err));
+    await notifySpamBlocked(data, formName, spamCheck.reason, meta.ip).catch((err) => {
+      console.error('Spam notify failed:', err);
+    });
     // Fake success so bots do not retry forever
     return { ok: true, spam: true };
   }
@@ -34,16 +29,7 @@ export async function sendQuoteEmail(data, meta = {}) {
     formName === 'maintenance-enquiry' ||
     formName === 'maintenance-quick'
   ) {
-    const result = await sendNamedFormEmail(data, formName);
-    if (result.ok) {
-      await saveSubmission({
-        formName,
-        status: 'ok',
-        fields: data,
-        ip: meta.ip,
-      }).catch((err) => console.error('Failed to store submission:', err));
-    }
-    return result;
+    return sendNamedFormEmail(data, formName);
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -82,14 +68,52 @@ export async function sendQuoteEmail(data, meta = {}) {
     return { ok: false, status: 500, message: 'Failed to send email' };
   }
 
-  await saveSubmission({
-    formName,
-    status: 'ok',
-    fields: data,
-    ip: meta.ip,
-  }).catch((err) => console.error('Failed to store submission:', err));
-
   return { ok: true };
+}
+
+/**
+ * Quiet copy of blocked spam so nothing is lost if a real lead was filtered.
+ * Goes to RESEND_BCC (or SPAM_NOTIFY_TO), not the main quotes inbox.
+ * @param {Record<string, string>} data
+ * @param {string} formName
+ * @param {string} [reason]
+ * @param {string} [ip]
+ */
+async function notifySpamBlocked(data, formName, reason, ip) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM;
+  const notifyTo =
+    process.env.SPAM_NOTIFY_TO?.trim() ||
+    process.env.RESEND_BCC?.trim() ||
+    process.env.RESEND_TO?.trim();
+
+  if (!apiKey || !from || !notifyTo) return;
+
+  const skipKeys = new Set(['form-name', 'bot-field', 'website', 'form_loaded_at', 'consent']);
+  const rows = Object.entries(data)
+    .filter(([key, value]) => !skipKeys.has(key) && String(value).trim())
+    .map(([key, value]) => ({
+      label: key.replace(/_/g, ' '),
+      value: escapeHtml(String(value).slice(0, 2000)),
+    }));
+
+  if (reason) rows.unshift({ label: 'Blocked reason', value: escapeHtml(reason) });
+  if (ip) rows.push({ label: 'IP', value: escapeHtml(ip) });
+
+  const resend = new Resend(apiKey);
+  const subjectName = data.name?.trim() || data.email?.trim() || 'unknown';
+
+  await resend.emails.send({
+    from,
+    to: [notifyTo],
+    subject: `[Spam blocked] ${formName} — ${subjectName}`,
+    html: buildGenericFormEmailHtml({
+      title: 'Spam blocked (review if this looks real)',
+      intro:
+        'This submission was blocked by the website spam filter and was not sent as a normal quote email. If it looks genuine, get in touch with the person below.',
+      rows,
+    }),
+  });
 }
 
 /**

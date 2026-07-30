@@ -1,10 +1,7 @@
 import { sendQuoteEmail } from './lib/quote-email.mjs';
-import { initBlobs } from './lib/submissions-store.mjs';
 
 /** @param {import('@netlify/functions').HandlerEvent} event */
 export const handler = async (event) => {
-  initBlobs(event);
-
   if (!event.body) {
     return { statusCode: 400, body: 'Missing body' };
   }

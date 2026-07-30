@@ -12,11 +12,6 @@
   directory = "netlify/functions"
 
 # Quote form: browser POSTs to netlify/functions/submit-quote.mjs (Resend).
-# Submissions (including blocked spam) are stored in Netlify Blobs.
-# Weekly digest: netlify/functions/weekly-submissions-digest.mjs (Mondays 08:00 UTC).
-# Inbox login: /.netlify/functions/submissions-inbox (SUBMISSIONS_PASSWORD).
-# Set RESEND_API_KEY, RESEND_FROM, RESEND_TO, RESEND_BCC, SUBMISSIONS_PASSWORD in Netlify UI.
-# Optional: DIGEST_TO (defaults to RESEND_TO).
-
-[functions."weekly-submissions-digest"]
-  schedule = "0 8 * * 1"
+# Spam is filtered (honeypot + timing + heuristics). Blocked spam is emailed to
+# RESEND_BCC (or SPAM_NOTIFY_TO) with subject "[Spam blocked]" for review.
+# Set RESEND_API_KEY, RESEND_FROM, RESEND_TO (and optional RESEND_BCC) in Netlify UI.
