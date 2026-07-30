@@ -25,7 +25,7 @@ export const handler = async (event) => {
       };
     }
 
-    if (safeEqual(body.password || '', password)) {
+    if (passwordsMatch(body.password || '', password)) {
       return {
         statusCode: 302,
         headers: {
@@ -98,15 +98,13 @@ function isAuthed(event, password) {
   }
 }
 
-const safe = {
-  /** @param {string} a @param {string} b */
-  equal(a, b) {
-    const left = Buffer.from(a);
-    const right = Buffer.from(b);
-    if (left.length !== right.length) return false;
-    return timingSafeEqual(left, right);
-  },
-};
+/** @param {string} a @param {string} b */
+function passwordsMatch(a, b) {
+  const left = Buffer.from(a);
+  const right = Buffer.from(b);
+  if (left.length !== right.length) return false;
+  return timingSafeEqual(left, right);
+}
 
 /** @param {string} [error] */
 function loginPage(error = '') {
