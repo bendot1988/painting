@@ -1,12 +1,36 @@
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 
 const STORE_NAME = 'form-submissions';
 const RATE_LIMIT_PER_DAY = 8;
 
 /**
+ * Must be called once per Lambda invocation before any Blobs use.
+ * Classic Netlify Functions (export const handler) need this.
+ * @param {import('@netlify/functions').HandlerEvent} [event]
+ */
+export function initBlobs(event) {
+  if (event) {
+    connectLambda(event);
+  }
+}
+
+/**
  * @returns {ReturnType<typeof getStore>}
  */
 function store() {
+  const siteID = process.env.SITE_ID || process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
+
+  // Prefer explicit credentials when available (scheduled jobs / local fallback)
+  if (siteID && token) {
+    return getStore({
+      name: STORE_NAME,
+      siteID,
+      token,
+      consistency: 'strong',
+    });
+  }
+
   return getStore({ name: STORE_NAME, consistency: 'strong' });
 }
 
@@ -78,7 +102,6 @@ export async function saveSubmission(entry) {
 }
 
 /**
- * Strip honeypot / timing internals from stored field dump (keep for spam audit lightly).
  * @param {Record<string, string>} fields
  */
 function sanitizeFields(fields) {

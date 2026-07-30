@@ -1,12 +1,14 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { escapeHtml } from './lib/quote-email-template.mjs';
-import { listSubmissions } from './lib/submissions-store.mjs';
+import { initBlobs, listSubmissions } from './lib/submissions-store.mjs';
 
 const COOKIE = 'as_subs_auth';
 const MAX_AGE_SEC = 60 * 60 * 12; // 12 hours
 
 /** @param {import('@netlify/functions').HandlerEvent} event */
 export const handler = async (event) => {
+  initBlobs(event);
+
   const password = process.env.SUBMISSIONS_PASSWORD?.trim();
   if (!password) {
     return html(503, pageShell('Inbox not configured', '<p>Set <code>SUBMISSIONS_PASSWORD</code> in Netlify environment variables.</p>'));

@@ -1,9 +1,11 @@
 import { Resend } from 'resend';
 import { escapeHtml } from './lib/quote-email-template.mjs';
-import { listSubmissions } from './lib/submissions-store.mjs';
+import { initBlobs, listSubmissions } from './lib/submissions-store.mjs';
 
 /** Schedule is set in netlify.toml (Mondays 08:00 UTC) */
-export const handler = async () => {
+export const handler = async (event) => {
+  initBlobs(event);
+
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM;
   const to = process.env.DIGEST_TO?.trim() || process.env.RESEND_TO;

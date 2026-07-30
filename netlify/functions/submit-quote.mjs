@@ -1,10 +1,12 @@
 import { sendQuoteEmail } from './lib/quote-email.mjs';
-import { checkRateLimit, clientIp } from './lib/submissions-store.mjs';
+import { checkRateLimit, clientIp, initBlobs } from './lib/submissions-store.mjs';
 
 const ALLOWED_HOSTS = ['as-painting.co.uk', 'www.as-painting.co.uk', 'as-painting.netlify.app'];
 
 /** @param {import('@netlify/functions').HandlerEvent} event */
 export const handler = async (event) => {
+  initBlobs(event);
+
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers: corsHeaders(event), body: '' };
   }
