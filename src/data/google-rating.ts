@@ -1,7 +1,7 @@
 /** Google Business rating — single source of truth across the site */
 export const googleRating = {
   score: 4.9,
-  reviewCount: 64,
+  reviewCount: 65,
 } as const;
 
 /** Display score with two decimal places (e.g. 4.90) */
