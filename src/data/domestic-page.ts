@@ -40,8 +40,8 @@ export const domesticHeroGallery: GalleryImage[] = [
     alt: 'Cosy cinema snug with fireplace and freshly decorated walls',
   },
   {
-    src: '/images/domestic-exterior-period-white-house-rear.jpeg',
-    alt: 'Period home rear elevation with crisp white render and painted woodwork',
+    src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
+    alt: '200-year-old farmhouse with freshly painted white window frames and entrance woodwork',
   },
 ];
 
@@ -113,8 +113,8 @@ export const exteriorProjects: ExteriorProject[] = [
   {
     title: 'Period and character homes',
     desc: 'Sash windows, bay fronts and detailed woodwork on older Leicestershire properties painted with the right prep.',
-    src: '/images/domestic-exterior-period-white-house-front.jpeg',
-    alt: 'Period detached home with freshly painted white render',
+    src: '/images/domestic-exterior-farmhouse-full-repaint-courtyard.jpeg',
+    alt: 'Period farmhouse courtyard with freshly painted red doors and white sash windows',
   },
   {
     title: 'Windows, doors and woodwork',

@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
+    alt: '200-year-old red brick farmhouse with freshly painted white window frames, door surround and entrance canopy',
+    tag: 'domestic',
+    title: 'Farmhouse · full re-paint',
+    meta: 'Exterior & woodwork · Leicestershire',
+    size: 'lg',
+    slug: '200-year-old-farmhouse-full-repaint',
+  },
+  {
     src: '/images/commercial-interior-hazel-community-primary-school-corridor-01.jpeg',
     alt: 'Hazel Community Primary School corridor with freshly painted white brick arch and Hazel Pride wall graphic',
     tag: 'commercial',

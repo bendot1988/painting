@@ -33,6 +33,11 @@ export const sitemapGroups: SitemapGroup[] = [
       },
       { label: 'Our work', href: '/work', description: 'Recent projects across Leicestershire' },
       {
+        label: '200-Year-Old Farmhouse Full Re-Paint',
+        href: '/work/200-year-old-farmhouse-full-repaint',
+        description: 'Period farmhouse exterior re-paint in Leicestershire',
+      },
+      {
         label: 'Hazel Community Primary School',
         href: '/work/hazel-community-primary-school',
         description: 'School painting project in Leicester',

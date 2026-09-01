@@ -25,6 +25,46 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    slug: '200-year-old-farmhouse-full-repaint',
+    tag: 'domestic',
+    title: '200-Year-Old Farmhouse Full Re-Paint',
+    shortTitle: 'Farmhouse · full re-paint',
+    meta: 'Full exterior & woodwork · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Domestic · Period property',
+    lead:
+      'A complete exterior re-paint for a 200-year-old farmhouse — brick elevations, sash windows, doors, gates and garden joinery brought back to a crisp, weather-ready finish.',
+    narrative: [
+      'Period farmhouses need more than a quick coat. Brickwork, timber and ironwork all move differently with the weather, and older properties often have layers of paint that need careful stripping back before anything new goes on. On this Leicestershire farmhouse we repainted the full exterior: white window frames and door surrounds, red entrance doors, courtyard elevations and the garden gate — all prepped properly and finished with systems suited to each surface.',
+      'We worked around the layout of the property, from the formal front elevation with its fanlight and canopy to the rear courtyard, side passages and perimeter walls. Ladders and careful masking kept brickwork clean while sash frames, architraves and iron gate furniture were stripped, primed and coated for a sharp, lasting finish. The A.S Painting team on site meant one crew, one schedule and consistent quality from the front door to the garden gate.',
+      'If you own a period home, farmhouse or character property in Leicestershire and need exterior painting — or a full re-decoration inside and out — we visit free of charge, agree a fixed price and plan the work around how you use the property.',
+    ],
+    hero: {
+      src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
+      alt: 'Front elevation of a 200-year-old red brick farmhouse with freshly painted white window frames, wooden front door and entrance canopy',
+    },
+    gallery: [
+      {
+        src: '/images/domestic-exterior-farmhouse-full-repaint-courtyard.jpeg',
+        alt: 'Farmhouse courtyard with freshly painted red entrance doors, white sash windows and arched window on red brick',
+      },
+      {
+        src: '/images/domestic-exterior-farmhouse-full-repaint-gate.jpeg',
+        alt: 'Newly painted red timber gate set in a weathered red brick garden wall at the farmhouse',
+      },
+      {
+        src: '/images/domestic-exterior-farmhouse-full-repaint-rear.jpeg',
+        alt: 'Rear courtyard of the farmhouse with white-painted windows and doors against historic red brick',
+      },
+      {
+        src: '/images/domestic-exterior-farmhouse-full-repaint-van.jpeg',
+        alt: 'A.S Painting Contractors van parked at the ivy-clad farmhouse during the exterior re-paint project',
+      },
+    ],
+    seoDescription:
+      'Full exterior re-paint of a 200-year-old farmhouse in Leicestershire. Windows, doors, gates and woodwork refreshed by A.S Painting Contractors.',
+  },
+  {
     slug: 'hazel-community-primary-school',
     tag: 'commercial',
     title: 'Hazel Community Primary School',
