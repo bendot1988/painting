@@ -16,10 +16,12 @@ import { workItems } from '~/data/showcase-work';
 const commercialWork = workItems.filter((i) => i.tag === 'commercial').slice(0, 6);
 const featuredSchoolProject = getProjectBySlug('hazel-community-primary-school')!;
 const featuredSchoolHref = projectHref(featuredSchoolProject.slug);
+const featuredChurchProject = getProjectBySlug('church-doors-painting-leicester')!;
+const featuredChurchHref = projectHref(featuredChurchProject.slug);
 
 const pageTitle = 'Commercial Painting | A.S Painting Contractors';
 const pageDescription =
-  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail and schools including Hazel Community Primary. IPAF working at height and out-of-hours available.';
+  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail, schools and churches. IPAF working at height and out-of-hours available.';
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
@@ -139,6 +141,51 @@ const pageDescription =
             <div class="commercial-page__featured-thumbs" aria-label="More photos from this project">
               {featuredSchoolProject.gallery.map((img, i) => (
                 <a class="commercial-page__featured-thumb reveal" href={featuredSchoolHref} style={`--i:${i}`}>
+                  <img src={img.src} alt={img.alt} loading="lazy" width="576" height="1024" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-page__featured" id="church-doors-leicester" aria-labelledby="featured-church-heading">
+      <div class="container">
+        <div class="commercial-page__featured-layout">
+          <div class="commercial-page__featured-copy">
+            <span class="eyebrow">{featuredChurchProject.eyebrow}</span>
+            <h2 id="featured-church-heading" class="commercial-page__section-title">
+              {featuredChurchProject.title}
+            </h2>
+            <p class="commercial-page__featured-location">{featuredChurchProject.location}</p>
+            <p class="commercial-page__featured-lead">{featuredChurchProject.lead}</p>
+            <div class="commercial-page__featured-narrative">
+              {featuredChurchProject.narrative.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            <div class="commercial-page__featured-actions">
+              <a class="btn" href={featuredChurchHref}>
+                Read more <span class="arrow">→</span>
+              </a>
+              <a class="btn btn--ghost" href="/contact/">Get a commercial painting quote</a>
+            </div>
+          </div>
+
+          <div class="commercial-page__featured-media">
+            <a class="commercial-page__featured-hero reveal" href={featuredChurchHref}>
+              <img
+                src={featuredChurchProject.hero.src}
+                alt={featuredChurchProject.hero.alt}
+                loading="lazy"
+                width="768"
+                height="1024"
+              />
+            </a>
+            <div class="commercial-page__featured-thumbs" aria-label="More photos from this project">
+              {featuredChurchProject.gallery.map((img, i) => (
+                <a class="commercial-page__featured-thumb reveal" href={featuredChurchHref} style={`--i:${i}`}>
                   <img src={img.src} alt={img.alt} loading="lazy" width="576" height="1024" />
                 </a>
               ))}

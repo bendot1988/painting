@@ -20,6 +20,15 @@ export const workItems: WorkItem[] = [
     slug: '200-year-old-farmhouse-full-repaint',
   },
   {
+    src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
+    alt: 'Freshly painted gloss green Gothic arched church doors in a stone and brick entrance, Leicester',
+    tag: 'commercial',
+    title: 'Church · doors & woodwork',
+    meta: 'Church painting · Leicester',
+    size: 'lg',
+    slug: 'church-doors-painting-leicester',
+  },
+  {
     src: '/images/commercial-interior-hazel-community-primary-school-corridor-01.jpeg',
     alt: 'Hazel Community Primary School corridor with freshly painted white brick arch and Hazel Pride wall graphic',
     tag: 'commercial',

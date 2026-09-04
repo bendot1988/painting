@@ -42,6 +42,11 @@ export const sitemapGroups: SitemapGroup[] = [
         href: '/work/hazel-community-primary-school',
         description: 'School painting project in Leicester',
       },
+      {
+        label: 'Church doors & woodwork, Leicester',
+        href: '/work/church-doors-painting-leicester',
+        description: 'Commercial church door and woodwork painting in Leicester',
+      },
       { label: 'Our reviews', href: '/reviews', description: 'Google reviews from clients' },
       { label: 'Contact & quote', href: '/contact', description: 'Phone, email, WhatsApp and quote form' },
       { label: 'About us', href: '/about-us', description: 'Who we are and how we work' },

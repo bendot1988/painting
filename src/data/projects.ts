@@ -104,6 +104,46 @@ export const projects: Project[] = [
     seoDescription:
       'Commercial school painting at Hazel Community Primary School in Leicester. Corridors, classrooms and assembly hall refreshed by A.S Painting Contractors.',
   },
+  {
+    slug: 'church-doors-painting-leicester',
+    tag: 'commercial',
+    title: 'Church doors & woodwork, Leicester',
+    shortTitle: 'Church · doors & woodwork',
+    meta: 'Church painting · Leicester',
+    location: 'Leicester',
+    eyebrow: 'Commercial · Places of worship',
+    lead:
+      'Exterior and interior door sets at a Leicester church — studded arched entrances, folding glass doors and foyer partitions finished in a rich gloss green.',
+    narrative: [
+      'Church buildings ask for careful painting. Historic timber, ironmongery and public spaces all need a finish that looks sharp and stands up to daily use. On this Leicester church project we painted exterior arched entrance doors with studded timber and iron hinges, folding glass doors onto the patio, and interior green partition doors looking through into the main hall.',
+      'Prep and cutting-in around brick arches, stone surrounds and glass panes kept the architecture clean while the new gloss lifted every entrance. Work was planned around the building’s schedule so services and visitors were disrupted as little as possible.',
+      'If you manage a church, chapel or community place of worship in Leicestershire and need commercial painting — doors, woodwork, interiors or exteriors — we survey free of charge and agree a fixed price before we start.',
+    ],
+    hero: {
+      src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
+      alt: 'Freshly painted gloss green Gothic arched church doors set in a stone and brick entrance archway in Leicester',
+    },
+    gallery: [
+      {
+        src: '/images/commercial-exterior-church-leicester-studded-arched-doors.jpeg',
+        alt: 'Studded arched timber church doors freshly painted gloss green against red brick',
+      },
+      {
+        src: '/images/commercial-exterior-church-leicester-folding-glass-doors.jpeg',
+        alt: 'Exterior folding glass doors painted forest green on a red brick church building in Leicester',
+      },
+      {
+        src: '/images/commercial-interior-church-leicester-green-partition-foyer.jpeg',
+        alt: 'Interior church foyer with high-gloss green glass partition doors and brick arch',
+      },
+      {
+        src: '/images/commercial-interior-church-leicester-green-doors-hall.jpeg',
+        alt: 'Green-painted interior glass doors looking through into a Leicester church hall with parquet flooring',
+      },
+    ],
+    seoDescription:
+      'Commercial church painting in Leicester. Exterior arched doors, folding glass doors and interior partitions finished by A.S Painting Contractors.',
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {

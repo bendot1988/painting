@@ -34,8 +34,8 @@ export const commercialHeroGallery: GalleryImage[] = [
     alt: 'Qualvis stair hall with bold yellow accents and crisp white paint',
   },
   {
-    src: '/images/commercial-exterior-hazel-community-primary-school-van.jpeg',
-    alt: 'A.S Painting Contractors van outside Hazel Community Primary School on Hazel Street, Leicester',
+    src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
+    alt: 'Gloss green Gothic arched church doors freshly painted at a Leicester church',
   },
 ];
 
@@ -103,6 +103,12 @@ export const interiorSectors: Sector[] = [
 
 export const exteriorProjects: ExteriorProject[] = [
   {
+    title: 'Church doors and entrances',
+    desc: 'Historic timber doors, ironmongery and glass door sets finished in durable exterior gloss — as on this Leicester church project.',
+    src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
+    alt: 'Gloss green Gothic arched church doors freshly painted in Leicester',
+  },
+  {
     title: 'Roller shutters and warehouse fronts',
     desc: 'High-build coatings on shutters, cladding and door gear for logistics and industrial units. Colour matched and sealed for weather.',
     src: '/images/commercial-exterior-gsf-red-shutters.jpeg',
@@ -131,12 +137,6 @@ export const exteriorProjects: ExteriorProject[] = [
     desc: 'Industrial units, clad buildings and service yards painted in phased programmes to keep sites operational.',
     src: '/images/commercial-exterior-green-roller-shutter-01.jpeg',
     alt: 'Industrial unit with green roller shutter and clad exterior',
-  },
-  {
-    title: 'Schools and public access',
-    desc: 'External ramps, handrails and circulation routes finished with hard-wearing coatings and clear safety markings.',
-    src: '/images/commercial-exterior-school-blue-ramp-01.jpeg',
-    alt: 'School exterior ramp and handrails with fresh blue coating',
   },
 ];
 
