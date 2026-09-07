@@ -25,6 +25,34 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    slug: 'canopy-front-door-fascia-soffits',
+    tag: 'domestic',
+    title: 'Canopy, front door, fascia & soffits',
+    shortTitle: 'Canopy · door · fascia & soffits',
+    meta: 'Exterior woodwork · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Domestic · Exterior woodwork',
+    lead:
+      'A crisp white refresh for a porch canopy, front door surround, fascias and soffits — tidy prep and a weather-ready finish that lifts the whole entrance.',
+    narrative: [
+      'Entrance woodwork takes the weather first: rain on the canopy, sun on the fascias, and constant use at the front door. On this Leicestershire home we painted the gabled porch canopy — brackets, soffit and finial — along with the fascia and soffit lines at the roofline, so the white timber reads clean against the brick.',
+      'Careful masking kept brickwork and roof tiles free of paint, and the finish was chosen for exterior timber so it stays bright and durable. The result is a sharper kerb appeal without a full house re-paint — just the details that catch the eye every time you come home.',
+      'If your canopy, fascias, soffits or front door need refreshing, we visit free of charge, agree a fixed price and leave the site tidy at the end of each day.',
+    ],
+    hero: {
+      src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
+      alt: 'Freshly painted white porch canopy and front door on a brick house in Leicestershire',
+    },
+    gallery: [
+      {
+        src: '/images/domestic-exterior-canopy-fascia-soffits-roofline.jpeg',
+        alt: 'White-painted porch canopy, fascia boards and soffits against brick and blue sky',
+      },
+    ],
+    seoDescription:
+      'Domestic exterior painting of porch canopy, front door, fascias and soffits in Leicestershire by A.S Painting Contractors.',
+  },
+  {
     slug: '200-year-old-farmhouse-full-repaint',
     tag: 'domestic',
     title: '200-Year-Old Farmhouse Full Re-Paint',

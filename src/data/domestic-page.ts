@@ -40,8 +40,8 @@ export const domesticHeroGallery: GalleryImage[] = [
     alt: 'Cosy cinema snug with fireplace and freshly decorated walls',
   },
   {
-    src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
-    alt: '200-year-old farmhouse with freshly painted white window frames and entrance woodwork',
+    src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
+    alt: 'Freshly painted white porch canopy, front door, fascia and soffits on a brick house',
   },
 ];
 
@@ -118,9 +118,9 @@ export const exteriorProjects: ExteriorProject[] = [
   },
   {
     title: 'Windows, doors and woodwork',
-    desc: 'Front doors, garage doors, fascias and soffits stripped back, primed and coated for weather and kerb appeal.',
-    src: '/images/domestic-exterior-black-gloss-door.jpeg',
-    alt: 'Front door in high-gloss black with crisp surrounding woodwork',
+    desc: 'Front doors, porch canopies, fascias and soffits stripped back, primed and coated for weather and kerb appeal.',
+    src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
+    alt: 'White porch canopy and front door freshly painted on a brick house',
   },
   {
     title: 'Fences and garden joinery',

@@ -33,6 +33,11 @@ export const sitemapGroups: SitemapGroup[] = [
       },
       { label: 'Our work', href: '/work', description: 'Recent projects across Leicestershire' },
       {
+        label: 'Canopy, front door, fascia & soffits',
+        href: '/work/canopy-front-door-fascia-soffits',
+        description: 'Domestic exterior woodwork painting in Leicestershire',
+      },
+      {
         label: '200-Year-Old Farmhouse Full Re-Paint',
         href: '/work/200-year-old-farmhouse-full-repaint',
         description: 'Period farmhouse exterior re-paint in Leicestershire',

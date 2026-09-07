@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
+    alt: 'Freshly painted white porch canopy and front door on a brick house',
+    tag: 'domestic',
+    title: 'Canopy · door · fascia & soffits',
+    meta: 'Exterior woodwork · Leicestershire',
+    size: 'lg',
+    slug: 'canopy-front-door-fascia-soffits',
+  },
+  {
     src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
     alt: '200-year-old red brick farmhouse with freshly painted white window frames, door surround and entrance canopy',
     tag: 'domestic',
