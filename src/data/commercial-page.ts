@@ -34,8 +34,8 @@ export const commercialHeroGallery: GalleryImage[] = [
     alt: 'Qualvis stair hall with bold yellow accents and crisp white paint',
   },
   {
-    src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
-    alt: 'Gloss green Gothic arched church doors freshly painted at a Leicester church',
+    src: '/images/commercial-exterior-celloglas-cladding-painting-cherry-picker-01.jpeg',
+    alt: 'Cherry picker set up for commercial cladding painting at Celloglas in Leicestershire',
   },
 ];
 
@@ -103,6 +103,12 @@ export const interiorSectors: Sector[] = [
 
 export const exteriorProjects: ExteriorProject[] = [
   {
+    title: 'Cladding and unit exteriors',
+    desc: 'Full elevation cladding re-coats with cherry picker / MEWP access — as on our Celloglas project — phased so sites stay operational.',
+    src: '/images/commercial-exterior-celloglas-cladding-painting-during-elevation.jpeg',
+    alt: 'Industrial cladding mid re-paint at Celloglas showing old and new coating side by side',
+  },
+  {
     title: 'Church doors and entrances',
     desc: 'Historic timber doors, ironmongery and glass door sets finished in durable exterior gloss — as on this Leicester church project.',
     src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
@@ -131,12 +137,6 @@ export const exteriorProjects: ExteriorProject[] = [
     desc: 'Handrails, perimeter railings and gates stripped back, primed and finished in durable exterior systems.',
     src: '/images/commercial-exterior-blue-railings-park.jpeg',
     alt: 'Blue railings and exterior metalwork on a commercial site',
-  },
-  {
-    title: 'Cladding and unit exteriors',
-    desc: 'Industrial units, clad buildings and service yards painted in phased programmes to keep sites operational.',
-    src: '/images/commercial-exterior-green-roller-shutter-01.jpeg',
-    alt: 'Industrial unit with green roller shutter and clad exterior',
   },
 ];
 

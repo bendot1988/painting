@@ -18,10 +18,12 @@ const featuredSchoolProject = getProjectBySlug('hazel-community-primary-school')
 const featuredSchoolHref = projectHref(featuredSchoolProject.slug);
 const featuredChurchProject = getProjectBySlug('church-doors-painting-leicester')!;
 const featuredChurchHref = projectHref(featuredChurchProject.slug);
+const featuredCladdingProject = getProjectBySlug('celloglas-commercial-cladding-painting')!;
+const featuredCladdingHref = projectHref(featuredCladdingProject.slug);
 
 const pageTitle = 'Commercial Painting | A.S Painting Contractors';
 const pageDescription =
-  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, retail, schools and churches. IPAF working at height and out-of-hours available.';
+  'Commercial interior and exterior painting across Leicestershire. Factories, offices, warehouses, cladding, retail, schools and churches. IPAF working at height and out-of-hours available.';
 ---
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
@@ -186,6 +188,51 @@ const pageDescription =
             <div class="commercial-page__featured-thumbs" aria-label="More photos from this project">
               {featuredChurchProject.gallery.map((img, i) => (
                 <a class="commercial-page__featured-thumb reveal" href={featuredChurchHref} style={`--i:${i}`}>
+                  <img src={img.src} alt={img.alt} loading="lazy" width="576" height="1024" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="commercial-page__featured" id="celloglas-cladding" aria-labelledby="featured-cladding-heading">
+      <div class="container">
+        <div class="commercial-page__featured-layout">
+          <div class="commercial-page__featured-copy">
+            <span class="eyebrow">{featuredCladdingProject.eyebrow}</span>
+            <h2 id="featured-cladding-heading" class="commercial-page__section-title">
+              {featuredCladdingProject.title}
+            </h2>
+            <p class="commercial-page__featured-location">{featuredCladdingProject.location}</p>
+            <p class="commercial-page__featured-lead">{featuredCladdingProject.lead}</p>
+            <div class="commercial-page__featured-narrative">
+              {featuredCladdingProject.narrative.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            <div class="commercial-page__featured-actions">
+              <a class="btn" href={featuredCladdingHref}>
+                Read more <span class="arrow">→</span>
+              </a>
+              <a class="btn btn--ghost" href="/contact/">Get a cladding painting quote</a>
+            </div>
+          </div>
+
+          <div class="commercial-page__featured-media">
+            <a class="commercial-page__featured-hero reveal" href={featuredCladdingHref}>
+              <img
+                src={featuredCladdingProject.hero.src}
+                alt={featuredCladdingProject.hero.alt}
+                loading="lazy"
+                width="768"
+                height="1024"
+              />
+            </a>
+            <div class="commercial-page__featured-thumbs" aria-label="More photos from this project">
+              {featuredCladdingProject.gallery.map((img, i) => (
+                <a class="commercial-page__featured-thumb reveal" href={featuredCladdingHref} style={`--i:${i}`}>
                   <img src={img.src} alt={img.alt} loading="lazy" width="576" height="1024" />
                 </a>
               ))}

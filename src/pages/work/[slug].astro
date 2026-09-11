@@ -91,11 +91,15 @@ const projectJsonLd = {
             height="1280"
             fetchpriority="high"
           />
+          {project.hero.caption && (
+            <figcaption class="project-page__caption">{project.hero.caption}</figcaption>
+          )}
         </figure>
         <div class="project-page__grid">
           {project.gallery.map((img, i) => (
             <figure class="project-page__shot reveal" style={`--i:${i}`}>
               <img src={img.src} alt={img.alt} loading="lazy" width="768" height="1024" />
+              {img.caption && <figcaption class="project-page__caption">{img.caption}</figcaption>}
             </figure>
           ))}
         </div>
@@ -175,6 +179,7 @@ const projectJsonLd = {
     background: #fff;
     box-shadow: var(--shadow-md);
     max-height: min(72vh, 820px);
+    position: relative;
   }
   .project-page__hero-shot img {
     display: block;
@@ -197,12 +202,27 @@ const projectJsonLd = {
     box-shadow: var(--shadow-sm);
     aspect-ratio: 3 / 4;
     transition-delay: calc(var(--i) * 50ms);
+    position: relative;
   }
   .project-page__shot img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .project-page__caption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    margin: 0;
+    padding: 6px 11px;
+    border-radius: 6px;
+    background: rgba(14, 14, 16, 0.82);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
   }
 
   .project-page__story {

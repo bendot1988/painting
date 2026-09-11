@@ -33,6 +33,11 @@ export const sitemapGroups: SitemapGroup[] = [
       },
       { label: 'Our work', href: '/work', description: 'Recent projects across Leicestershire' },
       {
+        label: 'Celloglas · commercial cladding painting',
+        href: '/work/celloglas-commercial-cladding-painting',
+        description: 'Industrial cladding re-paint with MEWP access in Leicestershire',
+      },
+      {
         label: 'Canopy, front door, fascia & soffits',
         href: '/work/canopy-front-door-fascia-soffits',
         description: 'Domestic exterior woodwork painting in Leicestershire',

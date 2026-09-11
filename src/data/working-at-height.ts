@@ -1,6 +1,6 @@
 export const workingAtHeightImage = {
-  src: '/images/working-at-height-cherry-picker.png',
-  alt: 'A.S Painting operatives in a cherry picker painting high-level industrial cladding on a commercial building in Leicestershire',
+  src: '/images/commercial-exterior-celloglas-cladding-painting-cherry-picker-01.jpeg',
+  alt: 'Cherry picker (MEWP) set up for commercial cladding painting at height on an industrial building in Leicestershire',
 } as const;
 
 export type WorkingAtHeightVariant = 'commercial' | 'domestic';

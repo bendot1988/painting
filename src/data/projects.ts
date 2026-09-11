@@ -1,6 +1,8 @@
 export type ProjectImage = {
   src: string;
   alt: string;
+  /** Optional label e.g. Before / During / After */
+  caption?: string;
 };
 
 export type Project = {
@@ -171,6 +173,46 @@ export const projects: Project[] = [
     ],
     seoDescription:
       'Commercial church painting in Leicester. Exterior arched doors, folding glass doors and interior partitions finished by A.S Painting Contractors.',
+  },
+  {
+    slug: 'celloglas-commercial-cladding-painting',
+    tag: 'commercial',
+    title: 'Celloglas · commercial cladding painting',
+    shortTitle: 'Celloglas · cladding',
+    meta: 'Cladding + MEWP access · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Commercial · Working at height',
+    lead:
+      'Full industrial cladding re-paint at Celloglas — prepared, coated and finished at height with cherry-picker (MEWP) access so the whole elevation stays consistent.',
+    narrative: [
+      'Warehouse and factory cladding sits well above safe ladder height. On this Celloglas project we programmed a cherry picker (articulated boom / MEWP) so every bay of the vertical metal cladding could be reached safely — from the brick line to the eaves — with IPAF-qualified operatives and site controls in place.',
+      'The photos show the job in stages: weathered cladding before and during prep, panels progressing through the programme, and the site with our van once the fresh coating was on. Phasing kept the unit operational while we worked through the elevation section by section.',
+      'If your cladding, fascias or high elevations need painting, we survey free of charge, include powered access in the method where it is needed, and agree a fixed price before work starts.',
+    ],
+    hero: {
+      src: '/images/commercial-exterior-celloglas-cladding-painting-during-elevation.jpeg',
+      alt: 'During: Celloglas warehouse cladding mid re-paint, showing old yellow-green panels next to freshly coated grey cladding',
+      caption: 'During',
+    },
+    gallery: [
+      {
+        src: '/images/commercial-exterior-celloglas-cladding-painting-during-prep.jpeg',
+        alt: 'During: Vertical metal cladding at Celloglas with surface prep and primer patches before full coating',
+        caption: 'During · prep',
+      },
+      {
+        src: '/images/commercial-exterior-celloglas-cladding-painting-cherry-picker-01.jpeg',
+        alt: 'Before: Cherry picker (MEWP) set up in front of Celloglas for commercial cladding painting at height',
+        caption: 'Before · MEWP access',
+      },
+      {
+        src: '/images/commercial-exterior-celloglas-cladding-painting-van-site.jpeg',
+        alt: 'After: A.S Painting Contractors van on site at Celloglas with freshly coated grey commercial cladding behind',
+        caption: 'After · on site',
+      },
+    ],
+    seoDescription:
+      'Commercial cladding painting at Celloglas in Leicestershire. Full elevation re-coat with cherry picker / MEWP working at height by A.S Painting Contractors.',
   },
 ];
 

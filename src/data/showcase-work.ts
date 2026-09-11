@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/commercial-exterior-celloglas-cladding-painting-during-elevation.jpeg',
+    alt: 'Celloglas warehouse cladding mid re-paint with cherry-picker access, Leicestershire',
+    tag: 'commercial',
+    title: 'Celloglas · cladding',
+    meta: 'Cladding + MEWP · Leicestershire',
+    size: 'lg',
+    slug: 'celloglas-commercial-cladding-painting',
+  },
+  {
     src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
     alt: 'Freshly painted white porch canopy and front door on a brick house',
     tag: 'domestic',
