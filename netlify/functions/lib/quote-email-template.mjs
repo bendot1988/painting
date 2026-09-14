@@ -110,7 +110,7 @@ export function buildQuoteEmailHtml(fields) {
             <td style="background-color:#d4262c;padding:28px 32px 24px;">
               <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffd60a;">Website enquiry</p>
               <h1 style="margin:0;font-size:22px;line-height:1.25;font-weight:800;color:#ffffff;">New quote request</h1>
-              <p style="margin:10px 0 0;font-size:14px;line-height:1.45;color:rgba(255,255,255,0.88);">Someone has asked for a free quote via as-painting.co.uk</p>
+              <p style="margin:10px 0 0;font-size:14px;line-height:1.45;color:rgba(255,255,255,0.88);">Someone has asked for a quote via as-painting.co.uk</p>
             </td>
           </tr>
           <!-- Accent bar -->

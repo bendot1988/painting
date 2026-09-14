@@ -48,7 +48,7 @@ export const jetCleaningHighlights = [
   },
   {
     title: 'Leicestershire-wide',
-    desc: 'Homes and commercial sites across Leicester and Leicestershire. Free survey and clear fixed pricing.',
+    desc: 'Homes and commercial sites across Leicester and Leicestershire. Clear fixed pricing after phone, photo or site survey.',
   },
 ];
 

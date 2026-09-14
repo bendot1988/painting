@@ -1,0 +1,86 @@
+---
+import LegalDocument from '~/components/LegalDocument.astro';
+import { company, siteVisitPolicyPageMeta } from '~/data/legal';
+
+const updated = '14 September 2026';
+const lead = `How we quote remotely and when a paid domestic site visit or commercial survey may apply. Last updated: ${updated}.`;
+---
+<LegalDocument
+  title={siteVisitPolicyPageMeta.title}
+  description={siteVisitPolicyPageMeta.description}
+  heading="Site visit & quotation policy"
+  lead={lead}
+>
+  <p>
+    At <strong>{company.legalName}</strong>, we aim to provide accurate and professional quotations
+    based on the individual requirements of each project.
+  </p>
+  <p>
+    Where sufficient photographs, measurements and project information can be provided remotely, we
+    may be able to provide an initial estimate without the need for a site visit.
+  </p>
+  <p>
+    Where an on-site assessment is required to prepare an accurate quotation, a site visit or survey
+    fee may apply.
+  </p>
+
+  <h2 class="legal-page__h2">Domestic site visit &amp; quotation</h2>
+  <p>
+    Where a domestic project requires an on-site assessment, measurement or detailed inspection, a
+    site visit fee of <strong>£60 + VAT</strong> may apply.
+  </p>
+  <p>This may include:</p>
+  <ul>
+    <li>Travel time and fuel costs</li>
+    <li>Assessment of the areas requiring work</li>
+    <li>Measurements where required</li>
+    <li>Review of surface condition and preparation requirements</li>
+    <li>Discussion of finishes and specifications</li>
+    <li>Preparation of a written quotation</li>
+  </ul>
+  <p>Where a site visit fee applies, an invoice will be issued in advance.</p>
+  <p>
+    The invoice must be paid in full before the appointment is confirmed and before{' '}
+    {company.legalName} attends the property.
+  </p>
+  <p>
+    If the quoted works are subsequently awarded to {company.legalName}, the full site visit fee
+    will be credited against the agreed contract value.
+  </p>
+
+  <h2 class="legal-page__h2">Commercial site survey &amp; quotation</h2>
+  <p>
+    Where a commercial project requires an on-site inspection, measurements, access assessment,
+    coating specification or detailed quotation, a commercial site survey fee of{' '}
+    <strong>£100 + VAT</strong> may apply.
+  </p>
+  <p>This may include:</p>
+  <ul>
+    <li>Travel time and fuel costs</li>
+    <li>Site inspection and measurements</li>
+    <li>Assessment of existing surfaces and coatings</li>
+    <li>Preparation requirements</li>
+    <li>Access and equipment requirements</li>
+    <li>Discussion of the required specification</li>
+    <li>Preparation of a detailed quotation</li>
+  </ul>
+  <p>Where a commercial survey fee applies, an invoice will be issued in advance.</p>
+  <p>
+    The invoice must be paid in full before the appointment is confirmed and before{' '}
+    {company.legalName} attends site.
+  </p>
+  <p>
+    If the quoted works are subsequently awarded to {company.legalName}, the full commercial survey
+    fee will be credited against the agreed contract value.
+  </p>
+  <p>
+    For larger, specialist or technically complex projects requiring extensive surveying,
+    specification work or multiple visits, an alternative survey fee may be agreed in advance.
+  </p>
+
+  <h2 class="legal-page__h2">Important</h2>
+  <p>
+    Any paid site visit or survey fee is <strong>fully credited</strong> against the agreed
+    contract value if the customer proceeds with {company.legalName}.
+  </p>
+</LegalDocument>

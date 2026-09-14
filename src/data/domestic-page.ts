@@ -51,7 +51,7 @@ export const domesticHighlights = [
     desc: 'Dust sheets, masking and a clean finish. We treat your home like our own.',
   },
   {
-    title: 'Free home visits and colour advice',
+    title: 'Clear quotes and colour advice',
     desc: 'We help you choose finishes that suit the light and the room. No hard sell.',
   },
   {
@@ -167,7 +167,7 @@ export const domesticFaqs: Faq[] = [
   },
   {
     q: 'Do you offer jet cleaning or pressure washing?',
-    a: 'Yes. We jet clean as prep for exterior paint jobs, and as a standalone service for patios, paths, garden furniture and metalwork. See our jet cleaning page or ask on your free home visit.',
+    a: 'Yes. We jet clean as prep for exterior paint jobs, and as a standalone service for patios, paths, garden furniture and metalwork. See our jet cleaning page or ask when you get in touch.',
   },
   {
     q: 'Can you paint hard-to-reach areas (cherry pickers)?',
@@ -183,7 +183,7 @@ export const domesticFaqs: Faq[] = [
   },
   {
     q: 'How do quotes work?',
-    a: 'Free home visits, clear fixed pricing and itemised scopes. You know what we are doing, what products we use and when we will be finished.',
+    a: 'Phone and photo quotes are free; site visits may be charged. Clear fixed pricing and itemised scopes. You know what we are doing, what products we use and when we will be finished.',
   },
 ];
 

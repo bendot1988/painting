@@ -34,7 +34,7 @@ export const quoteFaqs: FaqItem[] = [
   },
   {
     q: 'Are quotes free?',
-    a: 'Yes. Free quotes with clear, fixed pricing — no hard sell.',
+    a: 'Phone quotes and quotes from photos or video are free. If we need to attend for a site visit or survey, a fee may apply (£60 + VAT domestic, £100 + VAT commercial) — fully credited if you proceed with the work. See our site visit & quotation policy.',
   },
 ];
 

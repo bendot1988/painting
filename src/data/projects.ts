@@ -39,7 +39,7 @@ export const projects: Project[] = [
     narrative: [
       'Garden cast iron needs careful prep: flaking paint, rust in the detail, and weather that sits in every moulding. On this Leicestershire garden we restored a decorative water pump and a tall lamppost in solid black, cutting in around brick, trellis and planting so the finish looks sharp without marking the surrounds.',
       'The ornate urn planter and pedestal were finished in bright white — scrollwork, handles and fluting picked out cleanly so the piece reads as a garden feature again rather than a tired ornament. Exterior metal systems were chosen for durability outside.',
-      'If your garden has pumps, lampposts, planters, railings or other cast iron that needs jet cleaning and a fresh coat, we survey free of charge and agree a fixed price before we start.',
+      'If your garden has pumps, lampposts, planters, railings or other cast iron that needs jet cleaning and a fresh coat, get in touch for a quote — we agree a fixed price before we start.',
     ],
     hero: {
       src: '/images/domestic-exterior-cast-iron-water-pump-black.jpeg',
@@ -71,7 +71,7 @@ export const projects: Project[] = [
     narrative: [
       'Entrance woodwork takes the weather first: rain on the canopy, sun on the fascias, and constant use at the front door. On this Leicestershire home we painted the gabled porch canopy — brackets, soffit and finial — along with the fascia and soffit lines at the roofline, so the white timber reads clean against the brick.',
       'Careful masking kept brickwork and roof tiles free of paint, and the finish was chosen for exterior timber so it stays bright and durable. The result is a sharper kerb appeal without a full house re-paint — just the details that catch the eye every time you come home.',
-      'If your canopy, fascias, soffits or front door need refreshing, we visit free of charge, agree a fixed price and leave the site tidy at the end of each day.',
+      'If your canopy, fascias, soffits or front door need refreshing, get in touch for a quote — we agree a fixed price and leave the site tidy at the end of each day.',
     ],
     hero: {
       src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
@@ -99,7 +99,7 @@ export const projects: Project[] = [
     narrative: [
       'Period farmhouses need more than a quick coat. Brickwork, timber and ironwork all move differently with the weather, and older properties often have layers of paint that need careful stripping back before anything new goes on. On this Leicestershire farmhouse we repainted the full exterior: white window frames and door surrounds, red entrance doors, courtyard elevations and the garden gate — all prepped properly and finished with systems suited to each surface.',
       'We worked around the layout of the property, from the formal front elevation with its fanlight and canopy to the rear courtyard, side passages and perimeter walls. Ladders and careful masking kept brickwork clean while sash frames, architraves and iron gate furniture were stripped, primed and coated for a sharp, lasting finish. The A.S Painting team on site meant one crew, one schedule and consistent quality from the front door to the garden gate.',
-      'If you own a period home, farmhouse or character property in Leicestershire and need exterior painting — or a full re-decoration inside and out — we visit free of charge, agree a fixed price and plan the work around how you use the property.',
+      'If you own a period home, farmhouse or character property in Leicestershire and need exterior painting — or a full re-decoration inside and out — get in touch for a quote — we agree a fixed price and plan the work around how you use the property.',
     ],
     hero: {
       src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
@@ -179,7 +179,7 @@ export const projects: Project[] = [
     narrative: [
       'Church buildings ask for careful painting. Historic timber, ironmongery and public spaces all need a finish that looks sharp and stands up to daily use. On this Leicester church project we painted exterior arched entrance doors with studded timber and iron hinges, folding glass doors onto the patio, and interior green partition doors looking through into the main hall.',
       'Prep and cutting-in around brick arches, stone surrounds and glass panes kept the architecture clean while the new gloss lifted every entrance. Work was planned around the building’s schedule so services and visitors were disrupted as little as possible.',
-      'If you manage a church, chapel or community place of worship in Leicestershire and need commercial painting — doors, woodwork, interiors or exteriors — we survey free of charge and agree a fixed price before we start.',
+      'If you manage a church, chapel or community place of worship in Leicestershire and need commercial painting — doors, woodwork, interiors or exteriors — get in touch for a quote — we agree a fixed price before we start.',
     ],
     hero: {
       src: '/images/commercial-exterior-church-leicester-gothic-entrance-doors.jpeg',
@@ -219,7 +219,7 @@ export const projects: Project[] = [
     narrative: [
       'Warehouse and factory cladding sits well above safe ladder height. On this Celloglas project we programmed a cherry picker (articulated boom / MEWP) so every bay of the vertical metal cladding could be reached safely — from the brick line to the eaves — with IPAF-qualified operatives and site controls in place.',
       'The photos show the job in stages: weathered cladding before and during prep, panels progressing through the programme, and the site with our van once the fresh coating was on. Phasing kept the unit operational while we worked through the elevation section by section.',
-      'If your cladding, fascias or high elevations need painting, we survey free of charge, include powered access in the method where it is needed, and agree a fixed price before work starts.',
+      'If your cladding, fascias or high elevations need painting, get in touch for a quote — we agree a fixed price, include powered access in the method where it is needed, and confirm details before work starts.',
     ],
     hero: {
       src: '/images/commercial-exterior-celloglas-cladding-painting-during-elevation.jpeg',

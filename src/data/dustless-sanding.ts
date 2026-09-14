@@ -45,6 +45,6 @@ export const dustlessSandingBlogContent = {
     'Preparation is where a decorating job can feel most disruptive at home — sanding back old paint, smoothing filler and getting surfaces ready often creates fine dust that travels into halls, landings and the rooms you are still living in.',
     'We offer <strong>dustless sanding</strong> on domestic work across Leicestershire. Our sanders run through professional dust extractors (the kind of setup you would expect on a quality site) so dust is captured at the tool instead of filling the air. Floors stay protected, sheeted areas stay cleaner, and there is far less to wipe down before coats go on.',
     'It is ideal when you are refreshing a kitchen, repainting woodwork after knot staining, working through a refurbishment room by room, or simply want prep done without the “whole house covered in dust” experience. We still mask and sheet as standard — dustless sanding is an extra layer of care on top.',
-    'Every job is different. On a home visit we will look at what needs sanding, which rooms are in use, and whether dustless prep should be part of your quote. See how we approach <a href="/domestic/">domestic painting</a> or get in touch for a free visit.',
+    'Every job is different. On a home visit we will look at what needs sanding, which rooms are in use, and whether dustless prep should be part of your quote. See how we approach <a href="/domestic/">domestic painting</a> or <a href="/contact/">get in touch for a quote</a>.',
   ],
 } as const;

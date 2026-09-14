@@ -22,3 +22,10 @@ export const termsPageMeta = {
   description:
     'Terms and conditions for quotes, painting work and use of the A.S Painting Contractors website.',
 } as const;
+
+export const siteVisitPolicyPageMeta = {
+  title: 'Site visit & quotation policy — A.S Painting Contractors',
+  description:
+    'Domestic site visit (£60 + VAT) and commercial survey (£100 + VAT) fees for quotations. Fees are credited if you proceed with the work.',
+  canonical: '/site-visit-quotation-policy/',
+} as const;

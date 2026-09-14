@@ -210,14 +210,14 @@ async function sendCustomerConfirmation({ resend, from, to, name, formName }) {
       <h1 style="margin: 0 0 12px; font-size: 24px; color: #0E0E10;">Thanks, ${greetingName}!</h1>
       <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.55; color: #555;">
         We've received your request and a member of the A.S Painting Contractors team will be in touch
-        within one working day to arrange a free site survey or answer any questions about our
+        within one working day to arrange a site survey or answer any questions about our
         maintenance plans.
       </p>
       <div style="background: #FFF8DC; border-left: 4px solid #FFD60A; padding: 16px 20px; border-radius: 8px; margin: 20px 0;">
         <strong style="color: #0E0E10;">What happens next?</strong>
         <ol style="margin: 8px 0 0; padding-left: 18px; color: #555; line-height: 1.6;">
           <li>We'll review your details and call or email you back.</li>
-          <li>We'll arrange a free site survey if needed.</li>
+          <li>We'll arrange a site survey if needed.</li>
           <li>You'll receive a tailored maintenance agreement to review.</li>
         </ol>
       </div>

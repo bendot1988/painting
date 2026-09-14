@@ -20,18 +20,20 @@ const {
 const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
 
 ---
-<section id="quote" class:list={['section', 'quote', compact && 'quote--compact']} aria-label="Get a free quote">
+<section id="quote" class:list={['section', 'quote', compact && 'quote--compact']} aria-label="Get a quote">
   <div class="container">
     <div class="quote__card reveal">
       <div class="quote__copy">
-        <span class="eyebrow eyebrow--inv">Free quote</span>
+        <span class="eyebrow eyebrow--inv">Get a quote</span>
         <h2 class="display h2">
           Paint — <span class="painted-word painted-word--yellow">done properly.</span>
         </h2>
         <p class="lead">
           We paint commercial and domestic properties across Leicestershire — offices,
           factories, shops, warehouses and homes. Tell us what you need and we'll
-          come back the same day.
+          come back the same day. Phone and photo quotes are free; a site visit fee
+          may apply where we need to attend in person —
+          <a href="/site-visit-quotation-policy/">see our policy</a>.
         </p>
 
         <div class="quote__faqs" aria-label="Frequently asked questions">
@@ -92,7 +94,7 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
         <p class="visually-hidden" aria-hidden="true">
           <label>Website <input name="website" type="url" tabindex="-1" autocomplete="off" /></label>
         </p>
-        <p class="quote__form-intro">Request a free quote — we'll reply the same day.</p>
+        <p class="quote__form-intro">Request a quote — we'll reply the same day.</p>
 
         <div class="quote__field">
           <label class="visually-hidden" for="q-name">Your name</label>
@@ -284,6 +286,11 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
     color: #cfcdc8;
     max-width: 42ch;
     margin: 0;
+  }
+  .quote__copy .lead a {
+    color: var(--c-yellow);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .eyebrow--inv { color: var(--c-yellow); }
 

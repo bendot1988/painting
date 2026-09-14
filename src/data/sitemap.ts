@@ -85,7 +85,7 @@ export const sitemapGroups: SitemapGroup[] = [
       { label: 'Domestic', href: '/#domestic', description: 'Domestic painting overview' },
       { label: 'Recent work', href: '/#work', description: 'Project gallery on the homepage' },
       { label: 'How we work (homepage)', href: '/#process', description: 'Process section on the homepage' },
-      { label: 'Free quote', href: '/#quote', description: 'Quote form on the homepage' },
+      { label: 'Get a quote', href: '/#quote', description: 'Quote form on the homepage' },
     ],
   },
   {
@@ -94,6 +94,11 @@ export const sitemapGroups: SitemapGroup[] = [
     links: [
       { label: 'Privacy policy', href: '/privacy', description: 'How we handle your data' },
       { label: 'Terms of service', href: '/terms', description: 'Terms for quotes and work' },
+      {
+        label: 'Site visit & quotation policy',
+        href: '/site-visit-quotation-policy',
+        description: 'Domestic and commercial survey fees for quotations',
+      },
     ],
   },
 ];
@@ -117,5 +122,6 @@ export const sitemapXmlUrls: { loc: string; priority: string; changefreq: string
   { loc: '/areas/', priority: '0.8', changefreq: 'monthly' },
   { loc: '/privacy/', priority: '0.3', changefreq: 'yearly' },
   { loc: '/terms/', priority: '0.3', changefreq: 'yearly' },
+  { loc: '/site-visit-quotation-policy/', priority: '0.4', changefreq: 'yearly' },
   { loc: '/sitemap/', priority: '0.2', changefreq: 'yearly' },
 ];

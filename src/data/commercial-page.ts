@@ -171,7 +171,7 @@ export const commercialFaqs: Faq[] = [
   },
   {
     q: 'How do quotes work?',
-    a: 'Free site visits, clear fixed pricing and itemised scopes. You know what we are doing, what products we use and when we will be finished.',
+    a: 'Phone and photo quotes are free; site surveys may be charged. Clear fixed pricing and itemised scopes. You know what we are doing, what products we use and when we will be finished.',
   },
 ];
 

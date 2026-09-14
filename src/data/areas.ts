@@ -102,7 +102,7 @@ export function areaPageTitle(name: string): string {
 export function areaPageDescription(area: Area): string {
   return (
     areaMetaDescriptionBySlug[area.slug] ??
-    `Painting and decorating in ${area.name}, Leicestershire. Commercial and domestic work, free fixed quotes. A.S Painting Contractors.`
+    `Painting and decorating in ${area.name}, Leicestershire. Commercial and domestic work, fixed quotes. A.S Painting Contractors.`
   );
 }
 
