@@ -43,6 +43,11 @@ export const sitemapGroups: SitemapGroup[] = [
         description: 'Industrial cladding re-paint with MEWP access in Leicestershire',
       },
       {
+        label: 'Cast iron water pump, lamppost & planter',
+        href: '/work/cast-iron-water-pump-lamppost-planter',
+        description: 'Garden cast iron metalwork painting in Leicestershire',
+      },
+      {
         label: 'Canopy, front door, fascia & soffits',
         href: '/work/canopy-front-door-fascia-soffits',
         description: 'Domestic exterior woodwork painting in Leicestershire',

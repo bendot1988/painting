@@ -135,6 +135,12 @@ export const exteriorProjects: ExteriorProject[] = [
     alt: 'Stained timber fence with fresh protective finish',
   },
   {
+    title: 'Garden metalwork',
+    desc: 'Cast iron pumps, lampposts, planters and railings prepped and coated — as on this water pump, lamppost and urn project.',
+    src: '/images/domestic-exterior-cast-iron-water-pump-black.jpeg',
+    alt: 'Black-painted cast iron water pump freshly finished in a domestic garden',
+  },
+  {
     title: 'Pebbledash and textured finishes',
     desc: 'Textured elevations cleaned, stabilized and coated so the finish looks even and stays sound.',
     src: '/images/domestic-exterior-white-pebbledash-frontage.jpeg',

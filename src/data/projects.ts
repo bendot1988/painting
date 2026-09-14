@@ -27,6 +27,38 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    slug: 'cast-iron-water-pump-lamppost-planter',
+    tag: 'domestic',
+    title: 'Cast iron water pump, lamppost & planter',
+    shortTitle: 'Cast iron · pump, lamppost & planter',
+    meta: 'Garden metalwork · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Domestic · Garden metalwork',
+    lead:
+      'Ornamental outdoor ironwork refreshed — a vintage water pump and lamppost in gloss black, plus an ornate urn planter finished crisp white.',
+    narrative: [
+      'Garden cast iron needs careful prep: flaking paint, rust in the detail, and weather that sits in every moulding. On this Leicestershire garden we restored a decorative water pump and a tall lamppost in solid black, cutting in around brick, trellis and planting so the finish looks sharp without marking the surrounds.',
+      'The ornate urn planter and pedestal were finished in bright white — scrollwork, handles and fluting picked out cleanly so the piece reads as a garden feature again rather than a tired ornament. Exterior metal systems were chosen for durability outside.',
+      'If your garden has pumps, lampposts, planters, railings or other cast iron that needs jet cleaning and a fresh coat, we survey free of charge and agree a fixed price before we start.',
+    ],
+    hero: {
+      src: '/images/domestic-exterior-cast-iron-water-pump-black.jpeg',
+      alt: 'Freshly painted black cast iron water pump against a brick wall with garden pots at the base',
+    },
+    gallery: [
+      {
+        src: '/images/domestic-exterior-cast-iron-lamppost-black.jpeg',
+        alt: 'Tall cast iron lamppost freshly painted gloss black in a garden corner with stepladder nearby',
+      },
+      {
+        src: '/images/domestic-exterior-ornate-planter-white.jpeg',
+        alt: 'Ornate white-painted cast iron urn planter on a pedestal in a sunny Leicestershire garden',
+      },
+    ],
+    seoDescription:
+      'Domestic painting of cast iron garden metalwork in Leicestershire — water pump, lamppost and ornate planter by A.S Painting Contractors.',
+  },
+  {
     slug: 'canopy-front-door-fascia-soffits',
     tag: 'domestic',
     title: 'Canopy, front door, fascia & soffits',

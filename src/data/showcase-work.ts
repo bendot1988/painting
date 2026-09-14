@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/domestic-exterior-cast-iron-water-pump-black.jpeg',
+    alt: 'Freshly painted black cast iron water pump in a Leicestershire garden',
+    tag: 'domestic',
+    title: 'Cast iron · pump, lamppost & planter',
+    meta: 'Garden metalwork · Leicestershire',
+    size: 'lg',
+    slug: 'cast-iron-water-pump-lamppost-planter',
+  },
+  {
     src: '/images/commercial-exterior-celloglas-cladding-painting-during-elevation.jpeg',
     alt: 'Celloglas warehouse cladding mid re-paint with cherry-picker access, Leicestershire',
     tag: 'commercial',
