@@ -31,6 +31,11 @@ export const sitemapGroups: SitemapGroup[] = [
         href: '/housing-association-painting',
         description: 'Void, communal & cyclical decorating for social housing',
       },
+      {
+        label: 'Jet cleaning & pressure washing',
+        href: '/jet-cleaning',
+        description: 'Standalone jet cleaning, or included with exterior painting',
+      },
       { label: 'Our work', href: '/work', description: 'Recent projects across Leicestershire' },
       {
         label: 'Celloglas · commercial cladding painting',
@@ -95,6 +100,7 @@ export const sitemapXmlUrls: { loc: string; priority: string; changefreq: string
   { loc: '/maintenance-plans/', priority: '0.88', changefreq: 'monthly' },
   { loc: '/domestic/', priority: '0.9', changefreq: 'monthly' },
   { loc: '/housing-association-painting/', priority: '0.85', changefreq: 'monthly' },
+  { loc: '/jet-cleaning/', priority: '0.88', changefreq: 'monthly' },
   { loc: '/work/', priority: '0.8', changefreq: 'monthly' },
   { loc: '/reviews/', priority: '0.7', changefreq: 'monthly' },
   { loc: '/contact/', priority: '0.9', changefreq: 'monthly' },

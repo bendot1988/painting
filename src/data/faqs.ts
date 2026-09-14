@@ -22,7 +22,11 @@ export const quoteFaqs: FaqItem[] = [
   },
   {
     q: 'What kind of work do you take on?',
-    a: 'Commercial and domestic painting — mainly offices, factories, shops, warehouses and homes across Leicestershire. Interiors and exteriors.',
+    a: 'Commercial and domestic painting — mainly offices, factories, shops, warehouses and homes across Leicestershire. Interiors and exteriors. Jet cleaning is included with exterior painting where needed, and available on its own.',
+  },
+  {
+    q: 'Do you offer jet cleaning?',
+    a: 'Yes — as prep with exterior painting, or as a standalone pressure-washing service for patios, metalwork and outdoor surfaces across Leicestershire.',
   },
   {
     q: 'How quickly will I hear back?',

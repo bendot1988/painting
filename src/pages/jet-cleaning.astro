@@ -1,0 +1,316 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import {
+  jetCleaningFaqs,
+  jetCleaningHeroGallery,
+  jetCleaningHighlights,
+  jetCleaningPageMeta,
+  jetCleaningSurfaces,
+} from '~/data/jet-cleaning-page';
+import { quotePageHref } from '~/data/contact';
+import { absoluteUrl } from '~/utils/site-url';
+
+const pageUrl = absoluteUrl(jetCleaningPageMeta.canonical);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: 'Jet cleaning & pressure washing',
+      description: jetCleaningPageMeta.description,
+      url: pageUrl,
+      provider: {
+        '@type': 'Organization',
+        name: 'A.S Painting Contractors',
+        url: absoluteUrl('/'),
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Leicestershire',
+      },
+      serviceType: ['Jet cleaning', 'Pressure washing', 'Exterior surface preparation'],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: jetCleaningFaqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: { '@type': 'Answer', text: faq.a },
+      })),
+    },
+  ],
+};
+---
+<Layout
+  title={jetCleaningPageMeta.title}
+  description={jetCleaningPageMeta.description}
+  canonical={jetCleaningPageMeta.canonical}
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main id="main" class="jet-page">
+    <section class="jet-page__hero" aria-labelledby="jet-heading">
+      <div class="container">
+        <span class="eyebrow">New service · Exterior prep</span>
+        <h1 id="jet-heading" class="display h1">
+          Jet cleaning that <span class="painted-word painted-word--lime">prepares</span> the paint —
+          or stands alone.
+        </h1>
+        <p class="lead jet-page__intro">
+          Professional pressure washing across Leicestershire. Included with exterior painting
+          where surfaces need a proper wash-down — and available as a service in its own right for
+          patios, metalwork, garden furniture and outdoor joinery.
+        </p>
+        <div class="jet-page__hero-actions">
+          <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="/commercial/">Commercial exteriors</a>
+          <a class="btn btn--ghost" href="/domestic/">Domestic exteriors</a>
+        </div>
+
+        <div class="jet-page__hero-gallery reveal" aria-label="Jet cleaning in action">
+          {jetCleaningHeroGallery.map((img, i) => (
+            <figure class="jet-page__gallery-tile" style={`--i:${i}`}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                width="640"
+                height="800"
+              />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="jet-page__section" aria-labelledby="why-heading">
+      <div class="container">
+        <h2 id="why-heading" class="jet-page__section-title">Two ways to use it</h2>
+        <p class="jet-page__section-lead">
+          Same kit, same care — whether we are washing before we paint, or cleaning and leaving.
+        </p>
+        <div class="jet-page__highlights">
+          {jetCleaningHighlights.map((item, i) => (
+            <article class="jet-page__highlight reveal" style={`--i:${i}`}>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="jet-page__band" aria-labelledby="surfaces-heading">
+      <div class="container">
+        <h2 id="surfaces-heading" class="jet-page__section-title">What we jet clean</h2>
+        <p class="jet-page__section-lead">
+          From mossy patios to peeling garden ironwork — surfaces that look tired respond well to a
+          controlled wash before paint, or as a standalone refresh.
+        </p>
+        <div class="jet-page__grid">
+          {jetCleaningSurfaces.map((s, i) => (
+            <article class="jet-page__card reveal" style={`--i:${i % 4}`}>
+              <div class="jet-page__card-media">
+                <img src={s.src} alt={s.alt} loading="lazy" width="640" height="800" />
+              </div>
+              <div class="jet-page__card-body">
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="jet-page__section" aria-labelledby="faq-heading">
+      <div class="container jet-page__faq-wrap">
+        <h2 id="faq-heading" class="jet-page__section-title">Jet cleaning FAQs</h2>
+        <div class="jet-page__faqs">
+          {jetCleaningFaqs.map((faq) => (
+            <details class="jet-page__faq">
+              <summary>{faq.q}</summary>
+              <p>{faq.a}</p>
+            </details>
+          ))}
+        </div>
+        <div class="jet-page__cta">
+          <a class="btn" href={quotePageHref}>Ask about jet cleaning <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="/contact/">Contact us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .jet-page__hero {
+    padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 5vw, 64px);
+  }
+  .jet-page__intro {
+    max-width: 40rem;
+    margin: 14px 0 0;
+  }
+  .jet-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .jet-page__hero-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: clamp(28px, 4vw, 40px);
+  }
+  .jet-page__gallery-tile {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: #e8e8e6;
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 60ms);
+  }
+  .jet-page__gallery-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .jet-page__section,
+  .jet-page__band {
+    padding: clamp(48px, 6vw, 80px) 0;
+  }
+  .jet-page__band {
+    background: var(--bg-alt);
+  }
+  .jet-page__section-title {
+    margin: 0 0 10px;
+    font-size: clamp(1.55rem, 2.4vw, 2rem);
+    line-height: 1.15;
+  }
+  .jet-page__section-lead {
+    margin: 0 0 28px;
+    max-width: 40rem;
+    color: var(--ink-muted, #555);
+    line-height: 1.55;
+  }
+
+  .jet-page__highlights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .jet-page__highlight {
+    padding: 22px 22px 20px;
+    border-radius: 14px;
+    background: #fff;
+    border-left: 4px solid var(--c-lime, #7ed321);
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .jet-page__highlight h3 {
+    margin: 0 0 8px;
+    font-size: 1.05rem;
+  }
+  .jet-page__highlight p {
+    margin: 0;
+    color: var(--ink-muted, #555);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+
+  .jet-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .jet-page__card {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .jet-page__card-media {
+    aspect-ratio: 4 / 3;
+    background: #e8e8e6;
+  }
+  .jet-page__card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .jet-page__card-body {
+    padding: 18px 18px 20px;
+  }
+  .jet-page__card-body h3 {
+    margin: 0 0 8px;
+    font-size: 1.05rem;
+  }
+  .jet-page__card-body p {
+    margin: 0;
+    color: var(--ink-muted, #555);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+
+  .jet-page__faq-wrap {
+    max-width: 720px;
+  }
+  .jet-page__faqs {
+    display: grid;
+    gap: 10px;
+  }
+  .jet-page__faq {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .jet-page__faq summary {
+    cursor: pointer;
+    font-weight: 650;
+    list-style: none;
+  }
+  .jet-page__faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .jet-page__faq p {
+    margin: 10px 0 4px;
+    color: var(--ink-muted, #555);
+    line-height: 1.55;
+  }
+  .jet-page__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 900px) {
+    .jet-page__hero-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .jet-page__highlights,
+    .jet-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .jet-page__hero-gallery {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+  }
+</style>

@@ -105,6 +105,12 @@ export const interiorRooms: Sector[] = [
 
 export const exteriorProjects: ExteriorProject[] = [
   {
+    title: 'Jet cleaning & patio refresh',
+    desc: 'Moss, algae and grime lifted from patios, paths and outdoor metalwork — included with exterior painting where needed, or booked on its own.',
+    src: '/images/jet-cleaning-garden-bench-before.jpeg',
+    alt: 'Weathered garden bench and mossy patio before jet cleaning',
+  },
+  {
     title: 'Render and masonry',
     desc: 'Exterior walls prepared, repaired where needed and finished in breathable masonry paint for a lasting finish.',
     src: '/images/domestic-exterior-grey-blue-rendered-house.jpeg',
@@ -134,12 +140,6 @@ export const exteriorProjects: ExteriorProject[] = [
     src: '/images/domestic-exterior-white-pebbledash-frontage.jpeg',
     alt: 'White pebbledash frontage with freshly painted finish',
   },
-  {
-    title: 'Cottages and terraces',
-    desc: 'Smaller homes and terraces refreshed inside and out. Tight access, neat sites and finishes you notice every day.',
-    src: '/images/domestic-exterior-white-terrace-cottage.jpeg',
-    alt: 'White-painted terrace cottage with crisp exterior finish',
-  },
 ];
 
 export const domesticFaqs: Faq[] = [
@@ -157,7 +157,11 @@ export const domesticFaqs: Faq[] = [
   },
   {
     q: 'Do you paint house exteriors?',
-    a: 'Yes. Render, masonry, woodwork, doors, fascias and fences across Leicestershire. We specify the right system for each surface.',
+    a: 'Yes. Render, masonry, woodwork, doors, fascias and fences across Leicestershire. We specify the right system for each surface. Jet cleaning is included with exterior painting where needed, and available alone for patios and outdoor metalwork.',
+  },
+  {
+    q: 'Do you offer jet cleaning or pressure washing?',
+    a: 'Yes. We jet clean as prep for exterior paint jobs, and as a standalone service for patios, paths, garden furniture and metalwork. See our jet cleaning page or ask on your free home visit.',
   },
   {
     q: 'Can you paint hard-to-reach areas (cherry pickers)?',

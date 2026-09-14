@@ -103,6 +103,12 @@ export const interiorSectors: Sector[] = [
 
 export const exteriorProjects: ExteriorProject[] = [
   {
+    title: 'Jet cleaning & exterior prep',
+    desc: 'Professional pressure washing included with exterior paint jobs where needed — or booked alone for cladding, yards and metalwork. See our jet cleaning service.',
+    src: '/images/jet-cleaning-metal-post-in-progress.jpeg',
+    alt: 'Jet cleaning outdoor metalwork with a high-pressure washer',
+  },
+  {
     title: 'Cladding and unit exteriors',
     desc: 'Full elevation cladding re-coats with cherry picker / MEWP access — as on our Celloglas project — phased so sites stay operational.',
     src: '/images/commercial-exterior-celloglas-cladding-painting-during-elevation.jpeg',
@@ -132,12 +138,6 @@ export const exteriorProjects: ExteriorProject[] = [
     src: '/images/commercial-exterior-black-external-staircase-01.jpeg',
     alt: 'Black external staircase with fresh protective coating',
   },
-  {
-    title: 'Railings, gates and metalwork',
-    desc: 'Handrails, perimeter railings and gates stripped back, primed and finished in durable exterior systems.',
-    src: '/images/commercial-exterior-blue-railings-park.jpeg',
-    alt: 'Blue railings and exterior metalwork on a commercial site',
-  },
 ];
 
 export const commercialFaqs: Faq[] = [
@@ -151,7 +151,11 @@ export const commercialFaqs: Faq[] = [
   },
   {
     q: 'Do you paint building exteriors?',
-    a: 'Yes. Exterior work is a core part of our commercial offer. Shutters, cladding, stair towers, railings, shopfronts and unit exteriors across Leicestershire.',
+    a: 'Yes. Exterior work is a core part of our commercial offer. Shutters, cladding, stair towers, railings, shopfronts and unit exteriors across Leicestershire. Jet cleaning is included with exterior painting where surfaces need a wash-down — see our jet cleaning page for standalone cleans too.',
+  },
+  {
+    q: 'Do you offer jet cleaning or pressure washing?',
+    a: 'Yes. Professional jet cleaning is available with exterior painting prep, or as a standalone service for yards, cladding surrounds, metalwork and similar. Ask when you request a quote, or see our dedicated jet cleaning page.',
   },
   {
     q: 'Can you work at height (cherry pickers, MEWPs)?',
