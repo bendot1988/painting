@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/domestic-exterior-garden-bench-after.jpeg',
+    alt: 'Ornate garden bench freshly painted white — after restoration',
+    tag: 'domestic',
+    title: 'Garden bench · before & after',
+    meta: 'Garden metalwork · Leicestershire',
+    size: 'lg',
+    slug: 'garden-bench-before-after',
+  },
+  {
     src: '/images/domestic-exterior-cast-iron-water-pump-black.jpeg',
     alt: 'Freshly painted black cast iron water pump in a Leicestershire garden',
     tag: 'domestic',

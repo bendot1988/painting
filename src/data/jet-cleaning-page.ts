@@ -61,9 +61,9 @@ export const jetCleaningSurfaces: JetSurface[] = [
   },
   {
     title: 'Garden furniture and metalwork',
-    desc: 'Benches, posts, railings and ironwork cleaned of dirt, lichen and failing paint before a fresh coat — or left clean as a standalone tidy-up.',
-    src: '/images/jet-cleaning-garden-bench-before.jpeg',
-    alt: 'Weathered white garden bench with peeling paint on a mossy patio before jet cleaning',
+    desc: 'Benches, posts, railings and ironwork cleaned of dirt, lichen and failing paint before a fresh coat — or left clean as a standalone tidy-up. See this garden bench before & after.',
+    src: '/images/domestic-exterior-garden-bench-after.jpeg',
+    alt: 'Ornate garden bench freshly painted white after jet cleaning and restoration',
   },
   {
     title: 'Exterior paint prep',

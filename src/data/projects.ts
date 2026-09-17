@@ -27,6 +27,36 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    slug: 'garden-bench-before-after',
+    tag: 'domestic',
+    title: 'Garden bench · before & after',
+    shortTitle: 'Garden bench · before & after',
+    meta: 'Garden metalwork · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Domestic · Before & after',
+    lead:
+      'An ornate garden bench brought back from peeling paint and rust — prepped, treated and finished in crisp white so it looks new again on the patio.',
+    narrative: [
+      'Outdoor furniture takes a beating: flaking paint, rust in the scrollwork, and damp sitting on every slat. On this Leicestershire patio we restored a long cast-metal garden bench from tired and peeling to a clean, even white finish.',
+      'Prep came first — clearing loose coatings and treating the metal so the new paint would bond properly — then a careful coat through the ornate arms, legs and seat slats. The after shot shows the same bench, same spot, looking sharp against the brick and stone.',
+      'If your garden benches, metalwork or outdoor joinery need jet cleaning and a fresh coat, get in touch for a quote — we agree a fixed price before we start.',
+    ],
+    hero: {
+      src: '/images/domestic-exterior-garden-bench-after.jpeg',
+      alt: 'Ornate garden bench freshly painted white on a stone patio — after',
+      caption: 'After',
+    },
+    gallery: [
+      {
+        src: '/images/domestic-exterior-garden-bench-before.jpeg',
+        alt: 'Same ornate garden bench with peeling white paint and rust — before restoration',
+        caption: 'Before',
+      },
+    ],
+    seoDescription:
+      'Before and after: ornate garden bench restored and painted white in Leicestershire by A.S Painting Contractors.',
+  },
+  {
     slug: 'cast-iron-water-pump-lamppost-planter',
     tag: 'domestic',
     title: 'Cast iron water pump, lamppost & planter',

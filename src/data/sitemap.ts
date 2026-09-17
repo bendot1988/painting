@@ -43,6 +43,11 @@ export const sitemapGroups: SitemapGroup[] = [
         description: 'Industrial cladding re-paint with MEWP access in Leicestershire',
       },
       {
+        label: 'Garden bench · before & after',
+        href: '/work/garden-bench-before-after',
+        description: 'Ornate garden bench restored and painted white in Leicestershire',
+      },
+      {
         label: 'Cast iron water pump, lamppost & planter',
         href: '/work/cast-iron-water-pump-lamppost-planter',
         description: 'Garden cast iron metalwork painting in Leicestershire',
