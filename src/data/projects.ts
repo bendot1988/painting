@@ -17,6 +17,11 @@ export type Project = {
   narrative: string[];
   hero: ProjectImage;
   gallery: ProjectImage[];
+  /** When set, project page shows a drag-to-compare slider instead of the usual photo stack */
+  comparison?: {
+    before: ProjectImage;
+    after: ProjectImage;
+  };
   seoDescription: string;
 };
 
@@ -44,15 +49,18 @@ export const projects: Project[] = [
     hero: {
       src: '/images/domestic-exterior-garden-bench-after.jpeg',
       alt: 'Ornate garden bench freshly painted white on a stone patio — after',
-      caption: 'After',
     },
-    gallery: [
-      {
+    gallery: [],
+    comparison: {
+      after: {
+        src: '/images/domestic-exterior-garden-bench-after.jpeg',
+        alt: 'Ornate garden bench freshly painted white on a stone patio — after',
+      },
+      before: {
         src: '/images/domestic-exterior-garden-bench-before.jpeg',
         alt: 'Same ornate garden bench with peeling white paint and rust — before restoration',
-        caption: 'Before',
       },
-    ],
+    },
     seoDescription:
       'Before and after: ornate garden bench restored and painted white in Leicestershire by A.S Painting Contractors.',
   },

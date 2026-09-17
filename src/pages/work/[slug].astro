@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
+import BeforeAfterSlider from '~/components/BeforeAfterSlider.astro';
 import { getProjectBySlug, projects, projectHref } from '~/data/projects';
 import { quotePageHref } from '~/data/contact';
 import { absoluteUrl } from '~/utils/site-url';
@@ -19,7 +20,9 @@ if (!project) {
 
 const pageUrl = absoluteUrl(projectHref(project.slug));
 const pageTitle = `${project.title} | A.S Painting Contractors`;
-const allImages = [project.hero, ...project.gallery];
+const allImages = project.comparison
+  ? [project.comparison.after, project.comparison.before, ...project.gallery]
+  : [project.hero, ...project.gallery];
 
 const projectJsonLd = {
   '@context': 'https://schema.org',
@@ -83,26 +86,42 @@ const projectJsonLd = {
 
     <section class="project-page__gallery" aria-label="Project photos">
       <div class="container">
-        <figure class="project-page__hero-shot reveal">
-          <img
-            src={project.hero.src}
-            alt={project.hero.alt}
-            width="960"
-            height="1280"
-            fetchpriority="high"
-          />
-          {project.hero.caption && (
-            <figcaption class="project-page__caption">{project.hero.caption}</figcaption>
-          )}
-        </figure>
-        <div class="project-page__grid">
-          {project.gallery.map((img, i) => (
-            <figure class="project-page__shot reveal" style={`--i:${i}`}>
-              <img src={img.src} alt={img.alt} loading="lazy" width="768" height="1024" />
-              {img.caption && <figcaption class="project-page__caption">{img.caption}</figcaption>}
+        {project.comparison ? (
+          <div class="project-page__compare">
+            <p class="project-page__compare-hint">Drag the slider to compare before and after</p>
+            <BeforeAfterSlider
+              beforeSrc={project.comparison.before.src}
+              beforeAlt={project.comparison.before.alt}
+              afterSrc={project.comparison.after.src}
+              afterAlt={project.comparison.after.alt}
+            />
+          </div>
+        ) : (
+          <>
+            <figure class="project-page__hero-shot reveal">
+              <img
+                src={project.hero.src}
+                alt={project.hero.alt}
+                width="960"
+                height="1280"
+                fetchpriority="high"
+              />
+              {project.hero.caption && (
+                <figcaption class="project-page__caption">{project.hero.caption}</figcaption>
+              )}
             </figure>
-          ))}
-        </div>
+            {project.gallery.length > 0 && (
+              <div class="project-page__grid">
+                {project.gallery.map((img, i) => (
+                  <figure class="project-page__shot reveal" style={`--i:${i}`}>
+                    <img src={img.src} alt={img.alt} loading="lazy" width="768" height="1024" />
+                    {img.caption && <figcaption class="project-page__caption">{img.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
 
@@ -171,6 +190,13 @@ const projectJsonLd = {
   .project-page__gallery {
     background: var(--bg-alt);
     padding: 20px 0 clamp(48px, 6vw, 72px);
+  }
+  .project-page__compare-hint {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-stone);
   }
   .project-page__hero-shot {
     margin: 0 0 14px;
