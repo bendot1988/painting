@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import { buildGenericFormEmailHtml, buildQuoteEmailHtml, escapeHtml } from './quote-email-template.mjs';
+import { forwardToLeadInbox } from './lead-inbox.mjs';
 import { assessSpam } from './spam-guard.mjs';
 
 /**
@@ -23,15 +24,21 @@ export async function sendQuoteEmail(data, meta = {}) {
     return { ok: false, status: 422, message: 'Consent required' };
   }
 
-  if (
+  const leadInbox = forwardToLeadInbox(data, formName);
+  const isNamedForm =
     formName === 'survey-request' ||
     formName === 'contract-enquiry' ||
     formName === 'maintenance-enquiry' ||
-    formName === 'maintenance-quick'
-  ) {
-    return sendNamedFormEmail(data, formName);
-  }
+    formName === 'maintenance-quick';
+  const result = isNamedForm ? await sendNamedFormEmail(data, formName) : await sendQuoteFormEmail(data);
+  await leadInbox;
+  return result;
+}
 
+/**
+ * @param {Record<string, string>} data
+ */
+async function sendQuoteFormEmail(data) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM;
   const to = process.env.RESEND_TO;
