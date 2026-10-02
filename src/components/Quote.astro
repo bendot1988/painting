@@ -1,4 +1,5 @@
 ---
+import FormFallback from '~/components/FormFallback.astro';
 import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import { contact, thankYouPageHref } from '~/data/contact';
 import { quoteFaqs } from '~/data/faqs';
@@ -162,9 +163,7 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
           </span>
         </label>
 
-        <p class="quote__error quote__field--full" role="alert" hidden>
-          Something went wrong sending your details. Please call us or try again.
-        </p>
+        <FormFallback />
 
         <div class="quote__submit quote__field--full">
           <button type="submit" class="btn quote__btn">Send my details <span class="arrow">→</span></button>
@@ -177,7 +176,9 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
 </section>
 
 <script>
-  document.querySelectorAll('form.quote__form[data-netlify]').forEach((form) => {
+  import { hideFormFallback, showFormFallback, submitSignal } from '~/lib/form-fallback';
+
+  document.querySelectorAll<HTMLFormElement>('form.quote__form[data-netlify]').forEach((form) => {
     if (form.dataset.netlifyBound) return;
     form.dataset.netlifyBound = 'true';
 
@@ -187,12 +188,11 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
     }
 
     const successUrl = form.dataset.successUrl ?? '/thank-you/';
-    const errorEl = form.querySelector('.quote__error');
     const submitBtn = form.querySelector('button[type="submit"]');
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      errorEl?.setAttribute('hidden', '');
+      hideFormFallback(form);
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -209,6 +209,7 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: body.toString(),
+          signal: submitSignal(),
         });
 
         const result = response.ok ? await response.json().catch(() => null) : null;
@@ -229,7 +230,7 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
         submitBtn.disabled = false;
         submitBtn.removeAttribute('aria-busy');
       }
-      errorEl?.removeAttribute('hidden');
+      showFormFallback(form, body);
     });
   });
 </script>
@@ -407,16 +408,6 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
     border: 1px solid rgba(126, 211, 33, 0.35);
     color: var(--c-ink);
     font-size: 15px;
-    line-height: 1.5;
-  }
-  .quote__error {
-    margin: 0;
-    padding: 14px 16px;
-    border-radius: 12px;
-    background: rgba(212, 38, 44, 0.08);
-    border: 1px solid rgba(212, 38, 44, 0.35);
-    color: var(--c-ink);
-    font-size: 14.5px;
     line-height: 1.5;
   }
   .quote__btn:disabled {

@@ -56,7 +56,7 @@ function buildLeadBody(data, formName) {
   if (data.job_not_sure === 'yes') jobTypes.push('Not sure yet');
 
   const details = Object.entries(data)
-    .filter(([key, value]) => !SKIP_KEYS.has(key) && !key.startsWith('job_') && String(value).trim())
+    .filter(([key, value]) => !SKIP_KEYS.has(key) && !isMetaKey(key) && String(value).trim())
     .filter(([key]) => key !== 'name' && key !== 'email')
     .map(([key, value]) => `${key.replace(/_/g, ' ')}: ${String(value).trim()}`);
   if (jobTypes.length) details.push(`job type: ${jobTypes.join(', ')}`);
@@ -79,5 +79,14 @@ function buildLeadBody(data, formName) {
   if (data.company?.trim()) body.set('company', data.company.trim());
   body.set('form', formName);
   body.set('source', 'as-painting.co.uk');
+  // Attribution fields injected by the dotwall monitor tracker
+  for (const [key, value] of Object.entries(data)) {
+    if (key.startsWith('lv_') && String(value).trim()) body.set(key, String(value).trim());
+  }
   return body;
+}
+
+/** @param {string} key */
+function isMetaKey(key) {
+  return key.startsWith('job_') || key.startsWith('lv_');
 }

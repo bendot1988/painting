@@ -158,7 +158,7 @@ async function sendNamedFormEmail(data, formName) {
 
   const skipKeys = new Set(['form-name', 'bot-field', 'website', 'form_loaded_at', 'consent']);
   const rows = Object.entries(data)
-    .filter(([key, value]) => !skipKeys.has(key) && String(value).trim())
+    .filter(([key, value]) => !skipKeys.has(key) && !key.startsWith('lv_') && String(value).trim())
     .map(([key, value]) => ({
       label: fieldLabels[key] || key.replace(/_/g, ' '),
       value: escapeHtml(String(value)),

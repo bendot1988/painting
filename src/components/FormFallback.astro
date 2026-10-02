@@ -1,0 +1,87 @@
+---
+import { contact } from '~/data/contact';
+---
+<div class="form-fallback" role="alert" data-form-fallback hidden>
+  <p class="form-fallback__title">Sorry, our online form isn't working right now.</p>
+  <p class="form-fallback__text">
+    Please give us a call or send your details on WhatsApp. We'll get straight back to you.
+  </p>
+  <div class="form-fallback__actions">
+    <a class="form-fallback__btn form-fallback__btn--call" href={`tel:${contact.phone.tel}`}>
+      Call {contact.phone.display}
+    </a>
+    <a
+      class="form-fallback__btn form-fallback__btn--whatsapp"
+      href={contact.whatsapp.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-form-fallback-whatsapp
+    >
+      Send on WhatsApp
+    </a>
+  </div>
+  <p class="form-fallback__note">
+    Freephone <a href={`tel:${contact.freephone.tel}`}>{contact.freephone.display}</a>
+    · <a href={`mailto:${contact.email}`}>{contact.email}</a>
+  </p>
+</div>
+
+<style>
+  .form-fallback {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: rgba(212, 38, 44, 0.08);
+    border: 1px solid rgba(212, 38, 44, 0.35);
+    color: var(--c-ink);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .form-fallback[hidden] {
+    display: none;
+  }
+  .form-fallback__title {
+    margin: 0;
+    font-weight: 700;
+  }
+  .form-fallback__text {
+    margin: 4px 0 12px;
+    color: var(--c-graphite);
+  }
+  .form-fallback__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .form-fallback__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 180px;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+  }
+  .form-fallback__btn--call {
+    background: var(--c-red);
+  }
+  .form-fallback__btn--whatsapp {
+    background: #1fa855;
+  }
+  .form-fallback__btn:hover {
+    filter: brightness(1.08);
+  }
+  .form-fallback__note {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: var(--c-stone);
+  }
+  .form-fallback__note a {
+    color: var(--c-red);
+    font-weight: 600;
+  }
+</style>
