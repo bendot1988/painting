@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { buildGenericFormEmailHtml, buildQuoteEmailHtml, escapeHtml } from './quote-email-template.mjs';
 import { forwardToLeadInbox } from './lead-inbox.mjs';
 import { assessSpam } from './spam-guard.mjs';
+import { markLeadEmail, notifyPhone, saveLeadBackup, submitNetlifyForm } from '../../../src/utils/lead-backup.ts';
 
 /**
  * @param {Record<string, string>} data
@@ -24,34 +25,100 @@ export async function sendQuoteEmail(data, meta = {}) {
     return { ok: false, status: 422, message: 'Consent required' };
   }
 
-  const leadInbox = forwardToLeadInbox(data, formName);
-  const isNamedForm =
-    formName === 'survey-request' ||
-    formName === 'contract-enquiry' ||
-    formName === 'maintenance-enquiry' ||
-    formName === 'maintenance-quick';
-  const result = isNamedForm ? await sendNamedFormEmail(data, formName) : await sendQuoteFormEmail(data);
-  await leadInbox;
-  return result;
+  const backup = await saveLeadBackup(formName, data);
+  const leadInboxOk = await forwardToLeadInbox(data, formName);
+
+  const isNamedForm = NAMED_FORM_TITLES[formName] !== undefined;
+  const subject = isNamedForm
+    ? `${NAMED_FORM_TITLES[formName]} — ${data.name?.trim() || 'A.S Painting website'}`
+    : `Quote request — ${data.name || 'A.S Painting website'}`;
+
+  let email;
+  try {
+    email = isNamedForm ? await sendNamedFormEmail(data, formName, subject) : await sendQuoteFormEmail(data, subject);
+  } catch (err) {
+    console.error('Resend threw:', err);
+    email = { ok: false, error: err instanceof Error ? err.message : String(err) };
+  }
+
+  let netlifyFormsOk = false;
+  if (!email.ok) {
+    netlifyFormsOk = await submitNetlifyForm(isNamedForm ? formName : 'quote', {
+      subject: `Backup email: ${subject}`,
+      email_error: email.error,
+      ...backupFormFields(data, isNamedForm),
+    });
+  }
+
+  await Promise.all([
+    markLeadEmail(backup, email.ok ? 'sent' : 'failed', email.ok ? undefined : email.error),
+    notifyPhone(formName, email.ok),
+  ]);
+
+  if (email.ok || netlifyFormsOk || leadInboxOk || backup) {
+    return { ok: true };
+  }
+  return { ok: false, status: 502, message: 'Failed to send enquiry' };
+}
+
+const NAMED_FORM_TITLES = {
+  'survey-request': 'Site survey request',
+  'contract-enquiry': 'Maintenance contract enquiry',
+  'maintenance-enquiry': 'Maintenance plan enquiry',
+  'maintenance-quick': 'Quick maintenance request',
+};
+
+/**
+ * Fields declared for each form in public/netlify-forms.html.
+ * @param {Record<string, string>} data
+ * @param {boolean} isNamedForm
+ */
+function backupFormFields(data, isNamedForm) {
+  if (!isNamedForm) {
+    return {
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      job_type: jobTypeLabel(data),
+      message: data.message,
+    };
+  }
+  return {
+    name: data.name,
+    company: data.company,
+    email: data.email,
+    phone: data.phone,
+    property_type: data.property_type,
+    properties_count: data.properties_count ?? data.units,
+    preferred_plan: data.preferred_plan,
+    message: data.message ?? data.situation,
+  };
+}
+
+/** @param {Record<string, string>} data */
+function jobTypeLabel(data) {
+  const jobTypes = [];
+  if (data.job_commercial === 'yes') jobTypes.push('Commercial');
+  if (data.job_domestic === 'yes') jobTypes.push('Domestic');
+  if (data.job_not_sure === 'yes') jobTypes.push('Not sure yet');
+  return jobTypes.length ? jobTypes.join(', ') : 'Not specified';
 }
 
 /**
  * @param {Record<string, string>} data
+ * @param {string} subject
+ * @returns {Promise<{ ok: true } | { ok: false, error: string }>}
  */
-async function sendQuoteFormEmail(data) {
+async function sendQuoteFormEmail(data, subject) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM;
   const to = process.env.RESEND_TO;
   if (!apiKey || !from || !to) {
     console.error('Missing RESEND_API_KEY, RESEND_FROM, or RESEND_TO');
-    return { ok: false, status: 500, message: 'Email not configured' };
+    return { ok: false, error: 'Email not configured' };
   }
 
-  const jobTypes = [];
-  if (data.job_commercial === 'yes') jobTypes.push('Commercial');
-  if (data.job_domestic === 'yes') jobTypes.push('Domestic');
-  if (data.job_not_sure === 'yes') jobTypes.push('Not sure yet');
-  const jobLabel = jobTypes.length ? jobTypes.join(', ') : 'Not specified';
+  const jobLabel = jobTypeLabel(data);
 
   const name = escapeHtml(data.name ?? '');
   const phone = escapeHtml(data.phone ?? '');
@@ -66,13 +133,13 @@ async function sendQuoteFormEmail(data) {
     to: [to],
     ...(bcc ? { bcc: [bcc] } : {}),
     replyTo: data.email || undefined,
-    subject: `Quote request — ${data.name || 'A.S Painting website'}`,
+    subject,
     html: buildQuoteEmailHtml({ name, phone, email, jobLabel: escapeHtml(jobLabel), messageHtml }),
   });
 
   if (error) {
     console.error('Resend error:', error);
-    return { ok: false, status: 500, message: 'Failed to send email' };
+    return { ok: false, error: error.message || 'Failed to send email' };
   }
 
   return { ok: true };
@@ -126,22 +193,17 @@ async function notifySpamBlocked(data, formName, reason, ip) {
 /**
  * @param {Record<string, string>} data
  * @param {string} formName
+ * @param {string} subject
+ * @returns {Promise<{ ok: true } | { ok: false, error: string }>}
  */
-async function sendNamedFormEmail(data, formName) {
+async function sendNamedFormEmail(data, formName, subject) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM;
   const to = process.env.RESEND_TO;
   if (!apiKey || !from || !to) {
     console.error('Missing RESEND_API_KEY, RESEND_FROM, or RESEND_TO');
-    return { ok: false, status: 500, message: 'Email not configured' };
+    return { ok: false, error: 'Email not configured' };
   }
-
-  const titles = {
-    'survey-request': 'Site survey request',
-    'contract-enquiry': 'Maintenance contract enquiry',
-    'maintenance-enquiry': 'Maintenance plan enquiry',
-    'maintenance-quick': 'Quick maintenance request',
-  };
 
   const fieldLabels = {
     name: 'Name',
@@ -164,7 +226,6 @@ async function sendNamedFormEmail(data, formName) {
       value: escapeHtml(String(value)),
     }));
 
-  const subjectName = data.name?.trim() || 'A.S Painting website';
   const replyTo = data.email?.trim() || undefined;
   const bcc = process.env.RESEND_BCC?.trim();
   const resend = new Resend(apiKey);
@@ -174,9 +235,9 @@ async function sendNamedFormEmail(data, formName) {
     to: [to],
     ...(bcc ? { bcc: [bcc] } : {}),
     replyTo,
-    subject: `${titles[formName] || 'Enquiry'} — ${subjectName}`,
+    subject,
     html: buildGenericFormEmailHtml({
-      title: titles[formName] || 'Website enquiry',
+      title: NAMED_FORM_TITLES[formName] || 'Website enquiry',
       intro: `Submitted via the maintenance plans page on as-painting.co.uk`,
       rows,
     }),
@@ -184,7 +245,7 @@ async function sendNamedFormEmail(data, formName) {
 
   if (error) {
     console.error('Resend error:', error);
-    return { ok: false, status: 500, message: 'Failed to send email' };
+    return { ok: false, error: error.message || 'Failed to send email' };
   }
 
   if (replyTo) {

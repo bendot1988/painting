@@ -131,8 +131,6 @@ const valuePropIcons: Record<string, string> = {
           name="maintenance-quick"
           method="POST"
           action={netlifyAction}
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
           data-success-url={successUrl}
           aria-label="Quick maintenance request"
         >
@@ -468,8 +466,6 @@ const valuePropIcons: Record<string, string> = {
           name="maintenance-enquiry"
           method="POST"
           action={netlifyAction}
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
           data-success-url={successUrl}
           aria-label="Maintenance plan enquiry"
         >
@@ -692,7 +688,7 @@ const valuePropIcons: Record<string, string> = {
     platinumCard.addEventListener('mouseenter', fireConfetti);
   }
 
-  document.querySelectorAll<HTMLFormElement>('form.mp-page__form[data-netlify]').forEach((form) => {
+  document.querySelectorAll<HTMLFormElement>('form.mp-page__form').forEach((form) => {
     if (form.dataset.netlifyBound) return;
     form.dataset.netlifyBound = 'true';
 

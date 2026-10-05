@@ -2,44 +2,28 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Forms</title>
   </head>
   <body>
-    <!-- Netlify form detection (not shown to visitors) -->
+    <!-- Backup forms: only used by netlify/functions when Resend email fails. Not shown to visitors. -->
     <form name="quote" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="quote" />
-      <input name="bot-field" />
-      <input name="website" />
-      <input name="form_loaded_at" />
+      <input name="subject" />
+      <input name="notice" />
+      <input name="email_error" />
       <input name="name" />
       <input name="phone" />
       <input name="email" />
-      <input name="job_commercial" />
-      <input name="job_domestic" />
-      <input name="job_not_sure" />
+      <input name="job_type" />
       <textarea name="message"></textarea>
-      <input name="consent" />
-    </form>
-    <form name="maintenance-enquiry" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-      <input type="hidden" name="form-name" value="maintenance-enquiry" />
       <input name="bot-field" />
-      <input name="website" />
-      <input name="form_loaded_at" />
-      <input name="name" />
-      <input name="company" />
-      <input name="email" />
-      <input name="phone" />
-      <input name="property_type" />
-      <input name="properties_count" />
-      <input name="preferred_plan" />
-      <textarea name="message"></textarea>
-      <input name="consent" />
     </form>
     <form name="maintenance-quick" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="maintenance-quick" />
-      <input name="bot-field" />
-      <input name="website" />
-      <input name="form_loaded_at" />
+      <input name="subject" />
+      <input name="notice" />
+      <input name="email_error" />
       <input name="name" />
       <input name="company" />
       <input name="email" />
@@ -48,7 +32,22 @@
       <input name="properties_count" />
       <input name="preferred_plan" />
       <textarea name="message"></textarea>
-      <input name="consent" />
+      <input name="bot-field" />
+    </form>
+    <form name="maintenance-enquiry" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="maintenance-enquiry" />
+      <input name="subject" />
+      <input name="notice" />
+      <input name="email_error" />
+      <input name="name" />
+      <input name="company" />
+      <input name="email" />
+      <input name="phone" />
+      <input name="property_type" />
+      <input name="properties_count" />
+      <input name="preferred_plan" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
     </form>
   </body>
 </html>
