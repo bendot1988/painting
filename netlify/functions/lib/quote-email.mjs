@@ -2,12 +2,18 @@ import { Resend } from 'resend';
 import { buildGenericFormEmailHtml, buildQuoteEmailHtml, escapeHtml } from './quote-email-template.mjs';
 import { forwardToLeadInbox } from './lead-inbox.mjs';
 import { assessSpam } from './spam-guard.mjs';
-import { markLeadEmail, notifyPhone, saveLeadBackup, submitNetlifyForm } from '../../../src/utils/lead-backup.ts';
+import {
+  BACKUP_NOTICE,
+  markLeadEmail,
+  notifyPhone,
+  saveLeadBackup,
+  submitNetlifyForm,
+} from '../../../src/utils/lead-backup.ts';
 
 /**
  * @param {Record<string, string>} data
  * @param {{ ip?: string }} [meta]
- * @returns {Promise<{ ok: true, spam?: boolean } | { ok: false, status: number, message: string }>}
+ * @returns {Promise<{ ok: true, spam?: boolean, netlifyForm?: { name: string, fields: Record<string, unknown> } } | { ok: false, status: number, message: string }>}
  */
 export async function sendQuoteEmail(data, meta = {}) {
   const formName = (data['form-name'] || 'quote').trim();
@@ -42,12 +48,18 @@ export async function sendQuoteEmail(data, meta = {}) {
   }
 
   let netlifyFormsOk = false;
+  let netlifyForm;
   if (!email.ok) {
-    netlifyFormsOk = await submitNetlifyForm(isNamedForm ? formName : 'quote', {
-      subject: `Backup email: ${subject}`,
-      email_error: email.error,
-      ...backupFormFields(data, isNamedForm),
-    });
+    netlifyForm = {
+      name: isNamedForm ? formName : 'quote',
+      fields: {
+        subject: `Backup email: ${subject}`,
+        notice: BACKUP_NOTICE,
+        email_error: email.error,
+        ...backupFormFields(data, isNamedForm),
+      },
+    };
+    netlifyFormsOk = await submitNetlifyForm(netlifyForm.name, netlifyForm.fields);
   }
 
   await Promise.all([
@@ -56,7 +68,9 @@ export async function sendQuoteEmail(data, meta = {}) {
   ]);
 
   if (email.ok || netlifyFormsOk || leadInboxOk || backup) {
-    return { ok: true };
+    // Netlify marks submissions from the function's data-centre IP as spam (no email),
+    // so the browser re-posts the backup from the visitor's own connection.
+    return netlifyForm ? { ok: true, netlifyForm } : { ok: true };
   }
   return { ok: false, status: 502, message: 'Failed to send enquiry' };
 }

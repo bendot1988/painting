@@ -633,7 +633,7 @@ const valuePropIcons: Record<string, string> = {
 </Layout>
 
 <script>
-  import { hideFormFallback, showFormFallback, submitSignal } from '~/lib/form-fallback';
+  import { hideFormFallback, sendNetlifyBackup, showFormFallback, submitSignal } from '~/lib/form-fallback';
 
   const subscribeDialog = document.getElementById('subscribe-dialog') as HTMLDialogElement | null;
   if (subscribeDialog) {
@@ -724,6 +724,7 @@ const valuePropIcons: Record<string, string> = {
 
         const result = response.ok ? await response.json().catch(() => null) : null;
         if (response.ok && result?.ok) {
+          await sendNetlifyBackup(result.netlifyForm);
           const name = body.get('name');
           const dest = new URL(successUrl, window.location.origin);
           if (name && typeof name === 'string') {

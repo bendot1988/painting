@@ -9,7 +9,7 @@ const STORE_NAME = "form-submissions";
 const SITE_DOMAIN = "as-painting.co.uk";
 const NTFY_TOPIC = "dotwall-leads-ba811f89f886a840";
 const SPAM_TRAP_FIELDS = new Set(["_honey", "website", "bot-field", "_gotcha", "honeypot"]);
-const BACKUP_NOTICE =
+export const BACKUP_NOTICE =
   "This is a backup email. The main email service is down, so this enquiry was sent through Netlify Forms instead. All the details are below.";
 
 export type EmailStatus = "pending" | "sent" | "failed";

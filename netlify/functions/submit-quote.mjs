@@ -48,7 +48,7 @@ export const handler = async (event) => {
     return json(result.status, { ok: false, message: result.message }, event);
   }
 
-  return json(200, { ok: true }, event);
+  return json(200, result.netlifyForm ? { ok: true, netlifyForm: result.netlifyForm } : { ok: true }, event);
 };
 
 /** @param {import('@netlify/functions').HandlerEvent} event */
