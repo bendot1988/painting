@@ -82,8 +82,6 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
         name="quote"
         method="POST"
         action={netlifyAction}
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         data-success-url={successUrl}
         aria-label="Quote request form"
       >
@@ -178,7 +176,7 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
 <script>
   import { hideFormFallback, showFormFallback, submitSignal } from '~/lib/form-fallback';
 
-  document.querySelectorAll<HTMLFormElement>('form.quote__form[data-netlify]').forEach((form) => {
+  document.querySelectorAll<HTMLFormElement>('form.quote__form').forEach((form) => {
     if (form.dataset.netlifyBound) return;
     form.dataset.netlifyBound = 'true';
 

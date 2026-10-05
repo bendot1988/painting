@@ -1,4 +1,5 @@
 import { sendQuoteEmail } from './lib/quote-email.mjs';
+import { connectBlobs } from '../../src/utils/lead-backup.ts';
 
 const ALLOWED_HOSTS = ['as-painting.co.uk', 'www.as-painting.co.uk', 'as-painting.netlify.app'];
 
@@ -40,6 +41,7 @@ export const handler = async (event) => {
     return json(400, { ok: false, message: 'Name, phone and email are required' }, event);
   }
 
+  connectBlobs(event);
   const ip = clientIp(event);
   const result = await sendQuoteEmail(data, { ip });
   if (!result.ok) {

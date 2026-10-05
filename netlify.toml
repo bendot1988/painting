@@ -10,8 +10,12 @@
 
 [functions]
   directory = "netlify/functions"
+  # Functions import src/utils/lead-backup.ts
+  node_bundler = "esbuild"
 
 # Quote form: browser POSTs to netlify/functions/submit-quote.mjs (Resend).
 # Spam is filtered (honeypot + timing + heuristics). Blocked spam is emailed to
 # RESEND_BCC (or SPAM_NOTIFY_TO) with subject "[Spam blocked]" for review.
+# Every real submission is saved to Netlify Blobs (form-submissions). If Resend
+# fails, it is sent through Netlify Forms instead (public/netlify-forms.html).
 # Set RESEND_API_KEY, RESEND_FROM, RESEND_TO (and optional RESEND_BCC) in Netlify UI.
