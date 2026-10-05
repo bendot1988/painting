@@ -26,6 +26,27 @@ export function submitSignal(): AbortSignal | undefined {
   return typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(SUBMIT_TIMEOUT_MS) : undefined;
 }
 
+type NetlifyBackup = { name: string; fields: Record<string, unknown> };
+
+/** When the main email failed, post the backup to Netlify Forms from the visitor's browser. Never throws. */
+export async function sendNetlifyBackup(backup: NetlifyBackup | undefined) {
+  if (!backup?.name || !backup.fields) return;
+  try {
+    const body = new URLSearchParams({ 'form-name': backup.name });
+    for (const [key, value] of Object.entries(backup.fields)) {
+      if (value !== undefined && value !== null) body.set(key, String(value));
+    }
+    await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+      signal: typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(5000) : undefined,
+    });
+  } catch {
+    /* the lead is already saved server-side */
+  }
+}
+
 export function hideFormFallback(form: HTMLFormElement) {
   form.querySelector<HTMLElement>('[data-form-fallback]')?.setAttribute('hidden', '');
 }
