@@ -97,30 +97,28 @@ const projectJsonLd = {
             />
           </div>
         ) : (
-          <>
-            <figure class="project-page__hero-shot reveal">
-              <img
-                src={project.hero.src}
-                alt={project.hero.alt}
-                width="960"
-                height="1280"
-                fetchpriority="high"
-              />
-              {project.hero.caption && (
-                <figcaption class="project-page__caption">{project.hero.caption}</figcaption>
-              )}
-            </figure>
-            {project.gallery.length > 0 && (
-              <div class="project-page__grid">
-                {project.gallery.map((img, i) => (
-                  <figure class="project-page__shot reveal" style={`--i:${i}`}>
-                    <img src={img.src} alt={img.alt} loading="lazy" width="768" height="1024" />
-                    {img.caption && <figcaption class="project-page__caption">{img.caption}</figcaption>}
-                  </figure>
-                ))}
-              </div>
+          <figure class="project-page__hero-shot reveal">
+            <img
+              src={project.hero.src}
+              alt={project.hero.alt}
+              width="960"
+              height="1280"
+              fetchpriority="high"
+            />
+            {project.hero.caption && (
+              <figcaption class="project-page__caption">{project.hero.caption}</figcaption>
             )}
-          </>
+          </figure>
+        )}
+        {project.gallery.length > 0 && (
+          <div class="project-page__grid">
+            {project.gallery.map((img, i) => (
+              <figure class="project-page__shot reveal" style={`--i:${i}`}>
+                <img src={img.src} alt={img.alt} loading="lazy" width="768" height="1024" />
+                {img.caption && <figcaption class="project-page__caption">{img.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
         )}
       </div>
     </section>
@@ -214,6 +212,9 @@ const projectJsonLd = {
     max-height: min(72vh, 820px);
     object-fit: cover;
     object-position: center;
+  }
+  .project-page__compare + .project-page__grid {
+    margin-top: 24px;
   }
   .project-page__grid {
     display: grid;

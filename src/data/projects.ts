@@ -32,6 +32,60 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    slug: 'commercial-steel-staircase-before-after',
+    tag: 'commercial',
+    title: 'Commercial steel staircase · before & after',
+    shortTitle: 'Steel staircase · before & after',
+    meta: 'External steel stairs · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Commercial · Before & after',
+    lead:
+      'A tired external steel staircase brought back from moss, grime and worn paint — cleaned, prepped and painted black, with high-visibility anti-slip nosings on every step.',
+    narrative: [
+      'External fire escapes and access stairs take constant weather: moss on the treads, dirt in the chequer plate and paint wearing through to bare metal. On this commercial building we restored a two-flight steel staircase, its landings and handrails from grimy and slippery to clean, protected and safe to use.',
+      'The stairs and the ground around them were cleaned back first, then the steelwork was prepped so the new coating would bond properly. Stringers, treads, balustrades and wall handrails were painted in a durable black metal finish, and yellow and black anti-slip nosings were fitted to the step edges so every tread stands out clearly.',
+      'If your building has external staircases, fire escapes, railings or other steelwork that needs cleaning, painting or safety markings, get in touch for a quote — we agree a fixed price before we start.',
+    ],
+    hero: {
+      src: '/images/commercial-exterior-steel-staircase-after-lower-flight.jpeg',
+      alt: 'External steel staircase freshly painted black with yellow and black anti-slip step nosings — after',
+    },
+    gallery: [
+      {
+        src: '/images/commercial-exterior-steel-staircase-before-top.jpeg',
+        alt: 'Looking down the steel staircase before work, with worn grey treads and moss on the steps',
+        caption: 'Before',
+      },
+      {
+        src: '/images/commercial-exterior-steel-staircase-before-landing.jpeg',
+        alt: 'Lower flight and landing of the steel staircase covered in dirt, leaves and moss before work',
+        caption: 'Before',
+      },
+      {
+        src: '/images/commercial-exterior-steel-staircase-after-upper-flight.jpeg',
+        alt: 'Upper flight of the steel staircase painted black with yellow and black anti-slip nosings — after',
+        caption: 'After',
+      },
+      {
+        src: '/images/commercial-exterior-steel-staircase-after-turn.jpeg',
+        alt: 'Turn of the steel staircase with freshly painted black balustrade and high-visibility step edges — after',
+        caption: 'After',
+      },
+    ],
+    comparison: {
+      after: {
+        src: '/images/commercial-exterior-steel-staircase-after-lower-flight.jpeg',
+        alt: 'Lower flight of the external steel staircase painted black with anti-slip nosings on a clean floor — after',
+      },
+      before: {
+        src: '/images/commercial-exterior-steel-staircase-before-lower-flight.jpeg',
+        alt: 'Same lower flight of the steel staircase with moss, dirt and worn paint — before',
+      },
+    },
+    seoDescription:
+      'Before and after: commercial external steel staircase cleaned, painted black and fitted with anti-slip nosings in Leicestershire by A.S Painting Contractors.',
+  },
+  {
     slug: 'garden-bench-before-after',
     tag: 'domestic',
     title: 'Garden bench · before & after',

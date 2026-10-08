@@ -43,6 +43,11 @@ export const sitemapGroups: SitemapGroup[] = [
         description: 'Industrial cladding re-paint with MEWP access in Leicestershire',
       },
       {
+        label: 'Commercial steel staircase · before & after',
+        href: '/work/commercial-steel-staircase-before-after',
+        description: 'External steel stairs cleaned, painted and fitted with anti-slip nosings',
+      },
+      {
         label: 'Garden bench · before & after',
         href: '/work/garden-bench-before-after',
         description: 'Ornate garden bench restored and painted white in Leicestershire',

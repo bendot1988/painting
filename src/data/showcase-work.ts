@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/commercial-exterior-steel-staircase-after-lower-flight.jpeg',
+    alt: 'External steel staircase painted black with yellow and black anti-slip nosings — after',
+    tag: 'commercial',
+    title: 'Steel staircase · before & after',
+    meta: 'External steel stairs · Leicestershire',
+    size: 'lg',
+    slug: 'commercial-steel-staircase-before-after',
+  },
+  {
     src: '/images/domestic-exterior-garden-bench-after.jpeg',
     alt: 'Ornate garden bench freshly painted white — after restoration',
     tag: 'domestic',
