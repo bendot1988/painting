@@ -8,6 +8,12 @@
 #    Pick ONE primary host in Netlify → Domain management. This site uses as-painting.co.uk
 #    (www redirects there once). Do not add opposing host redirects here.
 
+[[redirects]]
+  from = "/api/quote"
+  to = "/.netlify/functions/quote"
+  status = 200
+  force = true
+
 [functions]
   directory = "netlify/functions"
   # Functions import src/utils/lead-backup.ts
