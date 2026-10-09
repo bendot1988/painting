@@ -163,6 +163,10 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
 
         <FormFallback />
 
+        <div class="quote__turnstile quote__field--full">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAFSCddU7yet9G_P4"></div>
+        </div>
+
         <div class="quote__submit quote__field--full">
           <button type="submit" class="btn quote__btn">Send my details <span class="arrow">→</span></button>
         </div>
@@ -172,6 +176,8 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
     </div>
   </div>
 </section>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script>
   import { hideFormFallback, sendNetlifyBackup, showFormFallback, submitSignal } from '~/lib/form-fallback';
@@ -203,7 +209,7 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
       }
 
       try {
-        const response = await fetch('/.netlify/functions/submit-quote', {
+        const response = await fetch('/api/quote', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: body.toString(),
@@ -229,6 +235,9 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
         submitBtn.disabled = false;
         submitBtn.removeAttribute('aria-busy');
       }
+      // Turnstile tokens are single-use
+      const widget = form.querySelector<HTMLElement>('.cf-turnstile');
+      if (widget) (window as { turnstile?: { reset: (el: HTMLElement) => void } }).turnstile?.reset(widget);
       showFormFallback(form, body);
     });
   });
@@ -505,6 +514,9 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
     text-underline-offset: 2px;
   }
 
+  .quote__turnstile {
+    min-height: 65px;
+  }
   .quote__submit {
     margin-top: 4px;
   }

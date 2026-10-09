@@ -1,7 +1,10 @@
 import { sendQuoteEmail } from './lib/quote-email.mjs';
 import { connectBlobs } from '../../src/utils/lead-backup.ts';
+import { verifyTurnstile } from './lib/turnstile.mjs';
 
 const ALLOWED_HOSTS = ['as-painting.co.uk', 'www.as-painting.co.uk', 'as-painting.netlify.app'];
+// Maintenance plan forms have no Turnstile widget yet; every other form (the quote form) must pass it.
+const TURNSTILE_EXEMPT_FORMS = new Set(['maintenance-enquiry', 'maintenance-quick', 'survey-request', 'contract-enquiry']);
 
 /** @param {import('@netlify/functions').HandlerEvent} event */
 export const handler = async (event) => {
@@ -25,6 +28,16 @@ export const handler = async (event) => {
   }
 
   const formName = (data['form-name'] || 'quote').trim();
+  const ip = clientIp(event);
+
+  if (!TURNSTILE_EXEMPT_FORMS.has(formName)) {
+    const human = await verifyTurnstile(data['cf-turnstile-response'], ip);
+    if (!human) {
+      return json(400, { ok: false, message: 'Verification failed' }, event);
+    }
+  }
+  delete data['cf-turnstile-response'];
+
   if (formName === 'survey-request') {
     if (!data.name?.trim() || !data.phone?.trim()) {
       return json(400, { ok: false, message: 'Name and phone are required' }, event);
@@ -42,7 +55,6 @@ export const handler = async (event) => {
   }
 
   connectBlobs(event);
-  const ip = clientIp(event);
   const result = await sendQuoteEmail(data, { ip });
   if (!result.ok) {
     return json(result.status, { ok: false, message: result.message }, event);
