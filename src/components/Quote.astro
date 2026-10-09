@@ -171,7 +171,9 @@ const netlifyAction = normalizeTrailingSlash(Astro.url.pathname);
           <button type="submit" class="btn quote__btn">Send my details <span class="arrow">→</span></button>
         </div>
 
-        <GoogleRatingBadge class="quote__rating quote__field--full" centered />
+        <div class="quote__rating quote__field--full">
+          <GoogleRatingBadge centered />
+        </div>
       </form>
     </div>
   </div>
