@@ -15,6 +15,15 @@ import { projectHref } from '~/data/projects';
 import { buildCotswoldsPageJsonLd } from '~/utils/area-json-ld';
 
 const jsonLd = buildCotswoldsPageJsonLd(cotswoldsFaqs);
+
+/** Each Cotswolds .jpg has a full-size .webp and a -640.webp for phones. */
+const webp = (jpg: string, width: number) => {
+  const base = jpg.replace(/\.jpg$/, '');
+  return { src: `${base}.webp`, srcset: `${base}-640.webp 640w, ${base}.webp ${width}w` };
+};
+const hero = webp('/images/cotswolds/domestic-stone-cottage-roses.jpg', 1137);
+const kitchen = webp('/images/cotswolds/domestic-kitchen-sage-island.jpg', 1117);
+const shopfront = webp('/images/cotswolds/commercial-shopfront-sage-green.jpg', 1008);
 const farmhouseHref = projectHref('200-year-old-farmhouse-full-repaint');
 const sage = '#5f7252';
 
@@ -24,8 +33,8 @@ const specialisms = [
     desc: 'Cotswold stone, lime render, sash windows and old timber need the right prep and breathable paint systems. We take the time to do it properly.',
   },
   {
-    title: 'Larger homes & estates',
-    desc: 'Manor houses, farmhouses, barn conversions and outbuildings painted inside and out, with one crew and one programme from start to finish.',
+    title: 'Luxury homes & estates',
+    desc: 'Manor houses, luxury homes, farmhouses, barn conversions and outbuildings painted inside and out, with one crew and one programme from start to finish.',
   },
   {
     title: 'Exterior decorating',
@@ -136,11 +145,11 @@ const realWork = [
           <div class="cots-page__hero-head">
             <span class="eyebrow cots-page__eyebrow">Cotswolds · Gloucestershire, Oxfordshire &amp; Worcestershire</span>
             <h1 id="cots-heading" class="display h1">
-              Painting &amp; decorating in the <span class="painted-word cots-page__painted">Cotswolds.</span>
+              Painters &amp; decorators in the <span class="painted-word cots-page__painted">Cotswolds.</span>
             </h1>
             <p class="lead cots-page__intro">
-              Domestic and commercial painters for period homes, larger properties and
-              businesses across the Cotswolds, from Moreton-in-Marsh and Chipping Campden to
+              Painters and decorators for luxury homes, period properties and commercial
+              contracts across the Cotswolds, from Moreton-in-Marsh and Chipping Campden to
               Broadway, Stow-on-the-Wold, Bourton-on-the-Water and Burford.
             </p>
             <p class="cots-page__intro-sub">
@@ -149,13 +158,15 @@ const realWork = [
               suit the character of your building.
             </p>
             <div class="cots-page__actions">
-              <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+              <a class="btn" href={quotePageHref}>Get a quote <span class="arrow">→</span></a>
               <a class="btn btn--ghost" href="#cots-towns">Towns we cover <span class="arrow">→</span></a>
             </div>
           </div>
           <figure class="cots-page__hero-figure">
             <img
-              src="/images/cotswolds/domestic-stone-cottage-roses.jpg"
+              src={hero.src}
+              srcset={hero.srcset}
+              sizes="(max-width: 900px) calc(100vw - 40px), 46vw"
               alt="Honey-coloured Cotswold stone cottage with climbing roses behind a dry stone wall"
               width="1137"
               height="706"
@@ -202,7 +213,9 @@ const realWork = [
           <article class="cots-page__panel reveal">
             <figure class="cots-page__panel-media">
               <img
-                src="/images/cotswolds/domestic-kitchen-sage-island.jpg"
+                src={kitchen.src}
+                srcset={kitchen.srcset}
+                sizes="(max-width: 768px) calc(100vw - 40px), 50vw"
                 alt="Farmhouse kitchen with sage green painted island and cabinets under oak beams"
                 width="1117"
                 height="753"
@@ -229,7 +242,9 @@ const realWork = [
           <article class="cots-page__panel cots-page__panel--commercial reveal">
             <figure class="cots-page__panel-media">
               <img
-                src="/images/cotswolds/commercial-shopfront-sage-green.jpg"
+                src={shopfront.src}
+                srcset={shopfront.srcset}
+                sizes="(max-width: 768px) calc(100vw - 40px), 50vw"
                 alt="Sage green painted timber shopfront set into a Cotswold stone building"
                 width="1008"
                 height="754"
@@ -240,9 +255,9 @@ const realWork = [
               <span class="cots-page__panel-tag">Commercial</span>
               <h2 class="display h3">Commercial painting in the Cotswolds</h2>
               <p>
-                Hospitality, retail and holiday lets depend on first impressions. We repaint
-                interiors and exteriors around bookings and trading hours, with RAMS, method
-                statements and tidy working as standard.
+                Hospitality, retail and holiday lets depend on first impressions. As commercial
+                painting contractors, we repaint interiors and exteriors around bookings and
+                trading hours, with RAMS, method statements and tidy working as standard.
               </p>
               <ul>
                 {commercialPoints.map((point) => (
@@ -271,7 +286,14 @@ const realWork = [
           {propertyTypes.map((img, i) => (
             <li class="cots-page__type" style={`--i:${i}`}>
               <figure>
-                <img src={img.src} alt={img.alt} loading="lazy" width={img.width} height={img.height} />
+                <img
+                  {...webp(img.src, img.width)}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  alt={img.alt}
+                  loading="lazy"
+                  width={img.width}
+                  height={img.height}
+                />
                 <figcaption>{img.label}</figcaption>
               </figure>
             </li>
@@ -372,7 +394,7 @@ const realWork = [
         <div class="cots-page__cta-inner reveal">
           <h2 class="display h3">Need painters in the Cotswolds?</h2>
           <p>Same-day reply, fixed-price quotes, no hard sell. Call, message or send us a few photos.</p>
-          <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+          <a class="btn" href={quotePageHref}>Get a quote <span class="arrow">→</span></a>
         </div>
       </div>
     </section>
@@ -435,7 +457,7 @@ const realWork = [
     text-decoration: underline;
   }
   .cots-page__eyebrow {
-    color: var(--cots-honey-deep);
+    color: #7a5826;
   }
   .cots-page__painted::after {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 60' preserveAspectRatio='none'><path d='M5 35 C 80 10, 200 50, 290 28 S 480 12, 595 30 L 590 50 C 470 30, 320 60, 200 50 S 60 40, 8 55 Z' fill='%23d9b26f'/></svg>");
@@ -505,7 +527,7 @@ const realWork = [
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--cots-stone);
+    color: var(--cots-cream);
   }
   .cots-page__hero-card-text {
     display: block;
@@ -911,7 +933,7 @@ const realWork = [
     text-align: center;
     color: #fff;
     background-color: var(--cots-sage-deep);
-    background-image: url('/images/cotswolds/domestic-stone-cottage-garden-wall.jpg');
+    background-image: url('/images/cotswolds/domestic-stone-cottage-garden-wall.webp');
     background-size: cover;
     background-position: center 60%;
     box-shadow: var(--shadow-md);
