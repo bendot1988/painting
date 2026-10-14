@@ -202,7 +202,7 @@ export const areaContentBySlug: Record<string, AreaContent> = {
         a: 'Melton Mowbray pubs, restaurants and production units often need evening or weekend work. We agree access and handover so your Melton premises are ready for staff and customers on schedule.',
       },
     ],
-    nearby: ['syston', 'market-harborough', 'kibworth'],
+    nearby: ['syston', 'market-harborough', 'kibworth', 'oakham'],
   },
 
   'market-harborough': {
@@ -240,7 +240,7 @@ export const areaContentBySlug: Record<string, AreaContent> = {
         a: 'Yes. Market Harborough offices and restaurants often prefer weekend decorating. We confirm security, drying and handover so Monday opening proceeds smoothly, with furniture and equipment protected throughout.',
       },
     ],
-    nearby: ['kibworth', 'lutterworth', 'oadby-wigston'],
+    nearby: ['kibworth', 'lutterworth', 'oadby-wigston', 'oakham'],
   },
 
   'oadby-wigston': {
@@ -278,7 +278,7 @@ export const areaContentBySlug: Record<string, AreaContent> = {
         a: 'Yes. Salons, restaurants and offices in Oadby and Wigston often use evening or weekend slots. We agree handover times so your premises are clean and dry for the next trading day.',
       },
     ],
-    nearby: ['leicester', 'blaby', 'market-harborough', 'kibworth'],
+    nearby: ['leicester', 'blaby', 'market-harborough', 'kibworth', 'houghton-on-the-hill'],
   },
 
   'ashby-de-la-zouch': {
@@ -544,7 +544,7 @@ export const areaContentBySlug: Record<string, AreaContent> = {
         a: 'Yes. We paint trade and office units on the western approaches to Glenfield, including between-tenancy refreshes for landlords and fit-outs for new occupiers.',
       },
     ],
-    nearby: ['leicester', 'anstey', 'blaby', 'hinckley'],
+    nearby: ['leicester', 'anstey', 'blaby', 'hinckley', 'leicester-forest-east'],
   },
 
   kibworth: {
@@ -582,7 +582,7 @@ export const areaContentBySlug: Record<string, AreaContent> = {
         a: 'Kibworth pubs and restaurants often prefer evening or weekend work. We agree handover times so weekend service is not delayed by wet paint or blocked entrances.',
       },
     ],
-    nearby: ['market-harborough', 'oadby-wigston', 'melton-mowbray'],
+    nearby: ['market-harborough', 'oadby-wigston', 'melton-mowbray', 'houghton-on-the-hill'],
   },
 
   shepshed: {
@@ -696,6 +696,120 @@ export const areaContentBySlug: Record<string, AreaContent> = {
         a: 'Yes. We refresh retail exteriors and interiors along Leicester Road and the village centre, with phased access so traders can keep serving customers during busy periods.',
       },
     ],
-    nearby: ['blaby', 'hinckley', 'leicester', 'earl-shilton'],
+    nearby: ['blaby', 'hinckley', 'leicester', 'earl-shilton', 'leicester-forest-east'],
+  },
+
+  'leicester-forest-east': {
+    areaIntro:
+      'Leicester Forest East sits on the western edge of Leicester along the A47 Hinckley Road, between Kirby Muxloe, Braunstone Town and Enderby, and gives its name to the M1 services just to the south. It is close to our own base, so homeowners and businesses here get quick site visits and crews who are rarely far away. The area is mainly residential, with long runs of semis and bungalows off Hinckley Road, newer estates on the fringes and a parade of local shops, pubs and food outlets serving commuters heading into the city. Fosse Park, Meridian Business Park and Grove Park are a short drive away, which keeps commercial demand steady for offices, trade counters and retail units. Whether you are refreshing a family home or a shopfront on the main road, you get the same fixed quotes and tidy working.',
+    localLandmark:
+      '<p><strong>Leicester Forest East services</strong> on the M1 are the name most people know, but the village itself is centred on <strong>Hinckley Road</strong>, where shops, pubs and takeaways serve a busy stretch of passing traffic.</p><p>The remains of the old <strong>Leicester Forest</strong> once covered this side of the city, and pockets of green space and playing fields still break up the housing toward Kirby Muxloe and Braunstone.</p><p>Frontages along the main road take a lot of traffic dirt and weather, so render, fascias and shopfronts benefit from planned repainting rather than waiting until finishes fail.</p>',
+    industrialEstates:
+      '<p>Leicester Forest East has little industrial land of its own, but it sits minutes from <strong>Meridian Business Park</strong>, <strong>Grove Park</strong> and the trade and logistics units around M1 Junction 21.</p><p>Offices, warehouse interiors, trade counters and staff areas on these sites need <strong>durable coatings</strong> and programmes that fit around deliveries and shift patterns.</p><p>Because we are based nearby, we can respond quickly to facilities managers who need units refreshed between tenants or touched up before an inspection.</p>',
+    housingStock:
+      '<p>Most homes are <strong>1930s and post-war semis and bungalows</strong> on the roads either side of Hinckley Road, with more modern detached houses and small estates on the edges of the village.</p><p>Older properties often need <strong>exterior masonry paint, fascias and soffits</strong> renewed, while inside, hallways, stairs and woodwork take the most wear from family life.</p><p>Bungalows are popular with downsizers, and we regularly combine a full interior refresh with exterior work so the whole property is done in one visit before a move or sale.</p>',
+    commercialContext:
+      'Commercial painting in Leicester Forest East covers shops, pubs and food outlets on Hinckley Road, local offices and the larger business parks a few minutes away near Junction 21. Shopfronts and hospitality venues often want work done early in the morning or out of hours so trading is not affected. We provide RAMS and method statements where sites need them, protect customer areas and leave premises clean and ready to open.',
+    domesticContext:
+      'Homeowners in Leicester Forest East book us for full house repaints, room-by-room decorating, exterior walls, fascias and garden joinery. Semis and bungalows here suit practical, hard-wearing finishes in kitchens, halls and woodwork, and we protect floors and furniture throughout. Being local to our base means flexible start dates and quick follow-up visits if anything needs a touch-up. Clear fixed quotes make it easy to plan work around family life or a house sale.',
+    faqs: [
+      {
+        q: 'Do you cover Leicester Forest East for house painting?',
+        a: 'Yes. Leicester Forest East is close to our base, so we can usually visit quickly and start sooner than decorators travelling from further away. We paint interiors and exteriors on semis, bungalows and newer homes, with a written fixed-price quote before any work begins.',
+      },
+      {
+        q: 'Can you paint the outside of a bungalow in Leicester Forest East?',
+        a: 'We regularly paint bungalow exteriors, including masonry, fascias, soffits, doors and window frames. We check the condition of render and woodwork first, carry out the right preparation and use exterior-grade products that stand up to the weather on exposed elevations.',
+      },
+      {
+        q: 'Do you paint shops and pubs on Hinckley Road?',
+        a: 'Yes. We repaint shopfronts, pub exteriors and interiors along Hinckley Road, often early in the day or outside opening hours so you can keep trading. Signage areas and brand colours are agreed before we start.',
+      },
+      {
+        q: 'Can you work on units near Meridian Business Park and Junction 21?',
+        a: 'We paint offices, warehouse interiors and trade counters on Meridian, Grove Park and the estates around Junction 21. Work can be phased or carried out out of hours, with RAMS and clear daily progress for site managers.',
+      },
+      {
+        q: 'How quickly can I get a quote in Leicester Forest East?',
+        a: 'We reply the same day during working hours and can often visit within a few days because we are nearby. Phone and photo quotes are free, and every quote lists the scope, products and timescale clearly.',
+      },
+    ],
+    nearby: ['glenfield', 'leicester', 'narborough', 'blaby', 'anstey'],
+  },
+
+  'houghton-on-the-hill': {
+    areaIntro:
+      'Houghton on the Hill is a village east of Leicester on the A47 Uppingham Road, sitting on high ground with long views over the surrounding countryside. It is a sought-after place to live, with an older village core around St Catharine\'s Church and a good number of larger detached homes built over the last few decades. Many properties here are substantial, with big elevations, plenty of woodwork and gardens that need regular exterior upkeep. Local businesses are mostly small and community-based, from the village shop and pubs to the school and village hall, alongside farms and rural businesses on the outskirts. Homeowners expect careful, tidy decorators who respect the property and the neighbours, and that is how we work.',
+    localLandmark:
+      '<p><strong>St Catharine\'s Church</strong> and the older streets around it form the historic heart of the village, where brick and stone cottages sit alongside more recent homes.</p><p>The village\'s hilltop position along the <strong>A47 Uppingham Road</strong> means houses face the wind and rain more than those in the valley, and exterior paintwork works hard as a result.</p><p>Nearby villages such as Thurnby, Bushby, Scraptoft, Billesdon and Great Glen share a similar mix of period cottages and larger family houses, and we cover them all.</p>',
+    industrialEstates:
+      '<p>There is no industrial estate in Houghton on the Hill itself. Commercial work here is mostly <strong>small business premises, community buildings and rural units</strong>, such as farm offices, converted barns and workshops.</p><p>For businesses with premises in Leicester as well as homes in the village, we can look after both, from <strong>office and warehouse interiors</strong> in the city to the house on the hill.</p><p>Every commercial job gets a clear scope, agreed working hours and RAMS where required.</p>',
+    housingStock:
+      '<p>Homes range from <strong>older brick and stone cottages</strong> in the village centre to 1960s to 1980s detached houses and <strong>larger executive homes</strong> built more recently.</p><p>Bigger properties mean more to paint: tall stairwells, high ceilings, lots of skirting, doors and windows, and exterior fascias, soffits and render that need access equipment to reach safely.</p><p>Period cottages need gentler preparation and breathable paints on older walls, while newer homes often want a cohesive colour scheme throughout open-plan living spaces.</p>',
+    commercialContext:
+      'Commercial painting around Houghton on the Hill is mainly for village businesses, pubs, the school and community buildings, plus rural units and converted barns on the outskirts. These jobs often need to fit around opening hours, term times or events, and we plan work so disruption is kept to a minimum. Where owners also run premises in Leicester, we can handle both under one point of contact with clear fixed pricing.',
+    domesticContext:
+      'Most of our work in Houghton on the Hill is domestic: full interior redecorations, exterior repaints on larger detached homes, period cottage refreshes and woodwork, doors and windows brought back to a crisp finish. We protect floors, furniture and gardens, keep driveways clear and tidy up at the end of each day. Bigger homes are scheduled room by room or floor by floor so you can keep living in the house, and every job starts with a written fixed quote.',
+    faqs: [
+      {
+        q: 'Do you paint large detached houses in Houghton on the Hill?',
+        a: 'Yes. Larger homes are a big part of our work in the village. We plan the job room by room or floor by floor, use the right access equipment for tall stairwells and high exterior elevations, and give you a fixed price covering preparation, materials and timescale.',
+      },
+      {
+        q: 'Can you decorate period cottages in the village?',
+        a: 'We do. Older brick and stone cottages need careful preparation and, on solid walls, breathable paints that let moisture escape. We take the time to prepare woodwork, doors and windows properly so the finish suits the character of the house.',
+      },
+      {
+        q: 'Do you paint exteriors exposed to the weather on the hill?',
+        a: 'Yes. Hilltop homes take more wind and rain, so exterior prep matters. We clean down, repair and prime where needed, then use exterior-grade masonry and wood paints designed to last on exposed elevations.',
+      },
+      {
+        q: 'Do you cover nearby villages like Thurnby, Bushby and Billesdon?',
+        a: 'Yes. We work right across the villages east of Leicester, including Thurnby, Bushby, Scraptoft, Billesdon and Great Glen, as well as Houghton on the Hill itself.',
+      },
+      {
+        q: 'How do I get a painting quote in Houghton on the Hill?',
+        a: 'Call, WhatsApp or use our quote form. Phone and photo quotes are free and we reply the same day during working hours. If we need to see the property in person, our standard site visit policy applies.',
+      },
+    ],
+    nearby: ['leicester', 'oadby-wigston', 'kibworth', 'syston', 'market-harborough'],
+  },
+
+  oakham: {
+    areaIntro:
+      'Oakham is the county town of Rutland, England\'s smallest historic county, and sits just west of Rutland Water. Its centre is full of character, with the Market Place and Buttercross, Oakham Castle\'s Norman great hall and the spire of All Saints\' Church, all surrounded by stone and brick buildings that reward careful decorating. Independent shops, cafés, pubs and hotels line the High Street, while Oakham School, holiday lets near the reservoir and a growing number of new homes at Barleythorpe add steady demand for painting. Business units at Oakham Enterprise Park, on the former Ashwell barracks site, bring commercial work too. We travel from Leicester to Oakham for domestic and commercial jobs of all sizes, with fixed quotes and tidy, reliable crews.',
+    localLandmark:
+      '<p><strong>Oakham Castle</strong>, with its 12th-century great hall and famous collection of ceremonial horseshoes, is the town\'s best-known landmark, a short walk from the <strong>Market Place and Buttercross</strong>.</p><p><strong>Rutland Water</strong>, just east of the town, draws walkers, cyclists, anglers and sailors all year, supporting hotels, holiday cottages and hospitality businesses that need to look their best for guests.</p><p>Period shopfronts and town houses around the centre often need sympathetic exterior repainting to keep their character while protecting old timber and masonry.</p>',
+    industrialEstates:
+      '<p><strong>Oakham Enterprise Park</strong>, on the former Ashwell barracks site to the north of the town, is home to a mix of workshops, offices, storage and small manufacturing businesses.</p><p>Units like these need <strong>hard-wearing coatings</strong> on walls, floors and metalwork, plus refreshed offices and welfare areas between tenants.</p><p>We plan commercial programmes around your working hours, provide RAMS and method statements, and keep access routes clear and safe throughout.</p>',
+    housingStock:
+      '<p>Oakham\'s housing ranges from <strong>historic stone and brick properties</strong> in the town centre to Victorian terraces, post-war semis and the large <strong>new-build developments at Barleythorpe</strong> on the north-west edge of town.</p><p>Older homes often have sash windows, panelled doors and solid walls that need careful preparation and breathable paints, while new builds usually need a full interior decoration after the developer\'s basic finish.</p><p>Holiday lets and rental homes near Rutland Water need durable finishes and quick turnarounds between bookings and tenancies.</p>',
+    commercialContext:
+      'Commercial painting in Oakham covers High Street shopfronts, cafés, pubs and hotels, school and boarding buildings, holiday lets near Rutland Water and units at Oakham Enterprise Park. Hospitality clients often need work timed around bookings and busy seasons, and retailers want exteriors refreshed without closing. We work out of hours where needed, protect guest and customer areas, and provide RAMS for sites that require them.',
+    domesticContext:
+      'Homeowners in Oakham ask us for full interior and exterior repaints, period property decorating, woodwork and sash windows, and full decoration of new builds at Barleythorpe. We protect floors and furniture, work in a planned order so you can keep using the house, and use quality trade paints suited to each surface. Holiday let and landlord work is scheduled around changeovers so properties are ready for the next guests or tenants.',
+    faqs: [
+      {
+        q: 'Do you travel from Leicester to Oakham for painting work?',
+        a: 'Yes. We cover Oakham and the villages around Rutland Water for domestic and commercial painting. You get a written fixed-price quote before work starts, so you know the full cost upfront.',
+      },
+      {
+        q: 'Can you decorate period properties in Oakham town centre?',
+        a: 'We can. Older stone and brick buildings need careful preparation, breathable paints on solid walls and proper treatment of sash windows, doors and timber. If your property is listed or in the conservation area, we can work to the specification agreed with the council.',
+      },
+      {
+        q: 'Do you paint new-build homes at Barleythorpe?',
+        a: 'Yes. Many new builds are handed over with a basic finish, and we offer full interior decoration including walls, ceilings, woodwork and doors, with colours agreed in advance and dates planned around your move.',
+      },
+      {
+        q: 'Can you refresh holiday lets near Rutland Water between bookings?',
+        a: 'Yes. We plan work around changeover days and quieter periods, use durable, wipeable finishes in high-wear areas and leave the property clean and ready for the next guests.',
+      },
+      {
+        q: 'Do you work on units at Oakham Enterprise Park?',
+        a: 'We paint workshops, offices, storage units and welfare areas, including between tenancies. Programmes can be phased or out of hours, with RAMS and method statements where required.',
+      },
+    ],
+    nearby: ['melton-mowbray', 'market-harborough', 'houghton-on-the-hill'],
   },
 };

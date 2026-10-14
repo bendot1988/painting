@@ -36,4 +36,10 @@ export const areaMetaDescriptionBySlug: Record<string, string> = {
     'Painters in Earl Shilton for homes, workshops and units on the Hinckley fringe. Interiors, exteriors and landlord refreshes. A.S Painting Contractors.',
   narborough:
     'Decorators in Narborough and south-west Leicestershire for homes, retail units and light industrial sites. Fixed quotes. A.S Painting Contractors.',
+  'leicester-forest-east':
+    'Painters in Leicester Forest East for semis, bungalows, Hinckley Road shops and units near Junction 21. Fixed quotes, local crews. A.S Painting Contractors.',
+  'houghton-on-the-hill':
+    'Painting and decorating in Houghton on the Hill for large detached homes and period cottages east of Leicester. Fixed quotes. A.S Painting Contractors.',
+  oakham:
+    'Painters and decorators in Oakham, Rutland, for period homes, Barleythorpe new builds, shops, hotels and holiday lets. Fixed quotes. A.S Painting Contractors.',
 };

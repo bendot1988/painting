@@ -1,4 +1,4 @@
-import type { Area } from '~/data/areas';
+import { areaCounty, type Area } from '~/data/areas';
 import type { AreaFaq } from '~/data/area-content';
 import { cotswoldsHref, cotswoldsTownNames } from '~/data/cotswolds';
 import { absoluteUrl } from '~/utils/site-url';
@@ -28,7 +28,7 @@ export function buildAreaPageJsonLd(area: Area, faqs: AreaFaq[]) {
     '@graph': [
       {
         ...paintingServiceBase,
-        areaServed: [area.name, 'Leicestershire', 'East Midlands'],
+        areaServed: [area.name, areaCounty(area), 'East Midlands'],
       },
       {
         '@type': 'FAQPage',

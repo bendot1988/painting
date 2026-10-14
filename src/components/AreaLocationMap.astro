@@ -12,14 +12,26 @@ interface Props {
   mapId?: string;
   /** Several pins (map fits them all); replaces the single lat/lng pin */
   points?: MapPoint[];
+  county?: string;
+  /** Pin colour; overrides the accent */
+  color?: string;
 }
 
-const { name, lat, lng, accent = 'red', mapId = 'area-location-map', points } = Astro.props;
+const {
+  name,
+  lat,
+  lng,
+  accent = 'red',
+  mapId = 'area-location-map',
+  points,
+  county = 'Leicestershire',
+  color,
+} = Astro.props;
 
 const mapPoints = points ?? [{ name, lat, lng }];
 const ariaLabel = points
   ? `Map of ${name} towns we cover`
-  : `Map showing ${name} in Leicestershire`;
+  : `Map showing ${name} in ${county}`;
 ---
 <div class="area-location-map-wrap">
   <div
@@ -29,6 +41,7 @@ const ariaLabel = points
     aria-label={ariaLabel}
     data-points={JSON.stringify(mapPoints)}
     data-accent={accent}
+    data-color={color}
   ></div>
   <p class="area-location-map__credit">
     <a href="/areas">All areas</a>
@@ -49,9 +62,9 @@ const ariaLabel = points
       const accent = el.dataset.accent ?? 'red';
 
       const root = getComputedStyle(document.documentElement);
-      const fill = root.getPropertyValue(`--c-${accent}`).trim() || '#d4262c';
+      const fill = el.dataset.color || root.getPropertyValue(`--c-${accent}`).trim() || '#d4262c';
       const stroke =
-        accent === 'yellow' || accent === 'lime' ? '#0e0e10' : '#ffffff';
+        !el.dataset.color && (accent === 'yellow' || accent === 'lime') ? '#0e0e10' : '#ffffff';
 
       const map = L.map(el, {
         scrollWheelZoom: false,

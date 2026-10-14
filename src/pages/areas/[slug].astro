@@ -14,6 +14,7 @@ import {
   getNearbyAreas,
   areaPageTitle,
   areaPageDescription,
+  areaCounty,
 } from '~/data/areas';
 import { quotePageHref } from '~/data/contact';
 import { getAreaGalleryImages } from '~/data/area-gallery';
@@ -38,6 +39,7 @@ const domesticContext = getDomesticContext(area);
 const areaIndex = areas.findIndex((a) => a.slug === area.slug);
 const accent = areaAccent(areaIndex >= 0 ? areaIndex : 0);
 const areaJsonLd = buildAreaPageJsonLd(area, area.faqs);
+const county = areaCounty(area);
 const galleryImages = getAreaGalleryImages(area.name);
 
 const commercialPoints = [
@@ -68,7 +70,7 @@ const domesticPoints = [
         </nav>
         <div class="area-page__hero-layout">
           <div class="area-page__hero-head">
-            <span class="eyebrow">Leicestershire</span>
+            <span class="eyebrow">{county}</span>
             <h1 id="area-heading" class="display h1">
               Painting &amp; decorating in <span class="painted-word painted-word--lime">{area.name}.</span>
             </h1>
@@ -84,6 +86,7 @@ const domesticPoints = [
               lng={area.lng}
               accent={accent}
               mapId={`area-map-${area.slug}`}
+              county={county}
             />
           </div>
           <div class="area-page__hero-body">
@@ -154,7 +157,7 @@ const domesticPoints = [
           Recent painting work in {area.name}
         </h2>
         <p class="area-page__gallery-intro">
-          Commercial and domestic projects across {area.name} and Leicestershire — interiors,
+          Commercial and domestic projects across {area.name} and {county} — interiors,
           exteriors, kitchens and industrial units.
         </p>
         <ul class="area-page__gallery-grid reveal">

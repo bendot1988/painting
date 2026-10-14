@@ -9,6 +9,8 @@ export type Area = {
   /** Town centre, for map pin */
   lat: number;
   lng: number;
+  /** Defaults to Leicestershire */
+  county?: string;
   areaIntro: string;
   localLandmark: string;
   industrialEstates: string;
@@ -50,6 +52,9 @@ const areaCoords: Omit<
   { slug: 'shepshed', name: 'Shepshed', lat: 52.776, lng: -1.2958 },
   { slug: 'earl-shilton', name: 'Earl Shilton', lat: 52.5289, lng: -1.314 },
   { slug: 'narborough', name: 'Narborough', lat: 52.5713, lng: -1.2033 },
+  { slug: 'leicester-forest-east', name: 'Leicester Forest East', lat: 52.6205, lng: -1.2205 },
+  { slug: 'houghton-on-the-hill', name: 'Houghton on the Hill', lat: 52.6295, lng: -1.0035 },
+  { slug: 'oakham', name: 'Oakham', lat: 52.6705, lng: -0.7280, county: 'Rutland' },
 ];
 
 export const areas: Area[] = areaCoords.map((base) => {
@@ -102,8 +107,12 @@ export function areaPageTitle(name: string): string {
 export function areaPageDescription(area: Area): string {
   return (
     areaMetaDescriptionBySlug[area.slug] ??
-    `Painting and decorating in ${area.name}, Leicestershire. Commercial and domestic work, fixed quotes. A.S Painting Contractors.`
+    `Painting and decorating in ${area.name}, ${areaCounty(area)}. Commercial and domestic work, fixed quotes. A.S Painting Contractors.`
   );
+}
+
+export function areaCounty(area: Pick<Area, 'county'>): string {
+  return area.county ?? 'Leicestershire';
 }
 
 export function areaListTitle(name: string): string {
