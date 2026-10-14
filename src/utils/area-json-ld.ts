@@ -7,7 +7,7 @@ const paintingServiceBase = {
   '@type': 'PaintingService' as const,
   name: 'A.S Painting Contractors',
   image:
-    'https://www.as-painting.co.uk/wp-content/uploads/2021/07/A.S-Painting-Contractors-2.png',
+    'https://as-painting.co.uk/images/brand/logo.png',
   telephone: ['+441162914746', '+448000096694'],
   address: {
     '@type': 'PostalAddress' as const,

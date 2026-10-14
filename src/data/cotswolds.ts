@@ -10,10 +10,10 @@ export type CotswoldsTown = {
 
 export const cotswoldsHref = '/areas/cotswolds/';
 
-export const cotswoldsPageTitle = 'Cotswolds Painting & Decorating | A.S Painting Contractors';
+export const cotswoldsPageTitle = 'Painters & Decorators Cotswolds | A.S Painting Contractors';
 
 export const cotswoldsPageDescription =
-  'Cotswolds painters and decorators for period homes, large properties, exteriors and commercial sites in Moreton-in-Marsh, Broadway, Chipping Campden, Stow, Burford and nearby.';
+  'Cotswolds painters & decorators for luxury homes, period properties and commercial contracts in Moreton-in-Marsh, Broadway, Chipping Campden, Stow and Burford.';
 
 export const cotswoldsTowns: CotswoldsTown[] = [
   {
