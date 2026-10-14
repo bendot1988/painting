@@ -179,7 +179,7 @@ export const domesticFaqs: Faq[] = [
   },
   {
     q: 'What areas do you cover?',
-    a: 'We are Leicester based and work across Leicestershire for homeowners, landlords and developers.',
+    a: 'We are Leicester based and work across Leicestershire and the Cotswolds for homeowners, landlords and developers, including Moreton-in-Marsh, Chipping Campden, Broadway, Chipping Norton, Burford, Northleach, Stow-on-the-Wold and Bourton-on-the-Water.',
   },
   {
     q: 'How do quotes work?',

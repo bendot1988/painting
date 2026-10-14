@@ -22,7 +22,7 @@ export const quoteFaqs: FaqItem[] = [
   },
   {
     q: 'What kind of work do you take on?',
-    a: 'Commercial and domestic painting — mainly offices, factories, shops, warehouses and homes across Leicestershire. Interiors and exteriors. Jet cleaning is included with exterior painting where needed, and available on its own.',
+    a: 'Commercial and domestic painting — mainly offices, factories, shops, warehouses and homes across Leicestershire and the Cotswolds. Interiors and exteriors. Jet cleaning is included with exterior painting where needed, and available on its own.',
   },
   {
     q: 'Do you offer jet cleaning?',
@@ -68,6 +68,6 @@ export const allFaqs: FaqItem[] = faqSections.flatMap((section) => section.items
 export const faqsPageMeta = {
   title: 'FAQs — Painting & Decorating Questions | A.S Painting Contractors',
   description:
-    'Answers to common questions about commercial and domestic painting in Leicester and Leicestershire — quotes, plastering, wallpaper, working at height, IPAF, areas covered, out-of-hours work and more.',
+    'Answers to common questions about commercial and domestic painting in Leicester and Leicestershire — quotes, plastering, wallpaper, Cotswolds coverage, working at height, IPAF, areas covered, out-of-hours work and more.',
   canonical: '/faqs/',
 } as const;

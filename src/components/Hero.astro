@@ -4,7 +4,7 @@ import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 <section id="top" class="hero">
   <div class="container hero__inner">
     <div class="hero__copy">
-      <span class="eyebrow">Est. 2010 · Leicester &amp; Leicestershire</span>
+      <span class="eyebrow">Est. 2010 · Leicestershire &amp; the Cotswolds</span>
 
       <h1 class="display h1">
         Commercial &amp; domestic painters — <span class="painted-word">5-star rated</span> across Leicestershire
@@ -12,7 +12,8 @@ import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 
       <p class="lead">
         Trusted painting &amp; decorating contractors for factories, offices,
-        retail fit-outs and homes across Leicestershire. Big jobs, small jobs —
+        retail fit-outs and homes across Leicestershire and the
+        <a class="hero__link" href="/areas/cotswolds/">Cotswolds</a>. Big jobs, small jobs —
         we keep it moving and we keep it tidy.
       </p>
 
@@ -55,7 +56,7 @@ import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
             <path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
             <circle cx="12" cy="11" r="2.3" fill="currentColor" />
           </svg>
-          <span><strong>Leicestershire-based</strong> — covering Leicester &amp; the whole county</span>
+          <span><strong>Leicestershire-based</strong> — covering Leicester, the whole county &amp; the Cotswolds</span>
         </div>
 
         <GoogleRatingBadge class="hero__reviews" />
@@ -99,6 +100,16 @@ import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 </section>
 
 <style>
+  .hero__link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--c-lime);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .hero__link:hover {
+    color: var(--c-red);
+  }
   .hero {
     position: relative;
     padding-top: clamp(52px, 6vw, 88px);

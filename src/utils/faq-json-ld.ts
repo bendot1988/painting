@@ -8,7 +8,7 @@ const paintingService = {
   image:
     'https://www.as-painting.co.uk/wp-content/uploads/2021/07/A.S-Painting-Contractors-2.png',
   telephone: ['+441162914746', '+448000096694'],
-  areaServed: ['Leicester', 'Leicestershire', 'East Midlands'],
+  areaServed: ['Leicester', 'Leicestershire', 'East Midlands', 'Cotswolds'],
   address: {
     '@type': 'PostalAddress' as const,
     addressLocality: 'Leicester',

@@ -167,7 +167,7 @@ export const commercialFaqs: Faq[] = [
   },
   {
     q: 'What areas do you cover?',
-    a: 'We are Leicester based and work across Leicestershire and the wider East Midlands for commercial clients.',
+    a: 'We are Leicester based and work across Leicestershire, the wider East Midlands and the Cotswolds for commercial clients. In the Cotswolds we take on hotels, pubs, shops and holiday lets in towns such as Moreton-in-Marsh, Broadway, Stow-on-the-Wold and Burford.',
   },
   {
     q: 'How do quotes work?',

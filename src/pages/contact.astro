@@ -7,7 +7,7 @@ import { contact } from '~/data/contact';
 
 const pageTitle = 'Contact | A.S Painting Contractors';
 const pageDescription =
-  'Contact A.S Painting Contractors in Leicester. Call, email or WhatsApp for commercial and domestic painting quotes across Leicestershire.';
+  'Contact A.S Painting Contractors in Leicester. Call, email or WhatsApp for commercial and domestic painting quotes across Leicestershire and the Cotswolds.';
 
 const contactMethods = [
   {
@@ -47,8 +47,9 @@ const contactMethods = [
           Talk to us about your <span class="painted-word painted-word--pink">project.</span>
         </h1>
         <p class="lead contact-page__intro">
-          Call, email or message us for a quote. We cover Leicester and the whole of
-          Leicestershire for commercial and domestic painting.
+          Call, email or message us for a quote. We cover Leicester, the whole of
+          Leicestershire and the <a href="/areas/cotswolds/">Cotswolds</a> for commercial
+          and domestic painting.
         </p>
       </div>
     </section>
@@ -78,7 +79,7 @@ const contactMethods = [
           <div class="contact-card contact-card--static reveal" style="--i:5">
             <span class="contact-card__label">Base</span>
             <span class="contact-card__value">{contact.location} · {contact.postcode}</span>
-            <span class="contact-card__hint">Covering Leicestershire and the East Midlands</span>
+            <span class="contact-card__hint">Covering Leicestershire, the East Midlands and the Cotswolds</span>
           </div>
         </div>
 
@@ -105,6 +106,12 @@ const contactMethods = [
   .contact-page__intro {
     max-width: 52ch;
     margin-top: 16px;
+  }
+  .contact-page__intro a {
+    color: var(--c-red);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .contact-page__details {

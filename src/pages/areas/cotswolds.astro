@@ -1,0 +1,734 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import AreaLocationMap from '~/components/AreaLocationMap.astro';
+import { quotePageHref } from '~/data/contact';
+import {
+  cotswoldsFaqs,
+  cotswoldsHref,
+  cotswoldsPageDescription,
+  cotswoldsPageTitle,
+  cotswoldsTowns,
+} from '~/data/cotswolds';
+import { projectHref } from '~/data/projects';
+import { buildCotswoldsPageJsonLd } from '~/utils/area-json-ld';
+
+const jsonLd = buildCotswoldsPageJsonLd(cotswoldsFaqs);
+const farmhouseHref = projectHref('200-year-old-farmhouse-full-repaint');
+
+const specialisms = [
+  {
+    title: 'Period & listed buildings',
+    desc: 'Cotswold stone, lime render, sash windows and old timber need the right prep and breathable paint systems. We take the time to do it properly.',
+    accent: 'lime',
+  },
+  {
+    title: 'Larger homes & estates',
+    desc: 'Manor houses, farmhouses, barn conversions and outbuildings painted inside and out, with one crew and one programme from start to finish.',
+    accent: 'yellow',
+  },
+  {
+    title: 'Exterior decorating',
+    desc: 'Windows, doors, fascias, soffits, gates, railings and garden joinery. IPAF-qualified operatives for cherry pickers on gables and tall elevations.',
+    accent: 'pink',
+  },
+  {
+    title: 'Maintenance work',
+    desc: 'Planned repainting and touch-ups for holiday lets, rental homes and commercial premises, so properties stay guest-ready all year.',
+    accent: 'blue',
+  },
+];
+
+const domesticPoints = [
+  'Full interior and exterior repaints',
+  'Period features, sash windows and panelled doors',
+  'Kitchens, woodwork, staircases and skirting',
+  'Barn conversions, annexes and outbuildings',
+  'Dustless sanding for cleaner prep at home',
+];
+
+const commercialPoints = [
+  'Hotels, inns, pubs and restaurants',
+  'Holiday lets and guest houses between bookings',
+  'Shops, galleries and offices',
+  'Schools, churches and community buildings',
+  'Out-of-hours and weekend working available',
+];
+
+const steps = [
+  {
+    title: 'Send photos or call',
+    desc: 'Tell us about the property. Phone and photo quotes are free, and we reply the same day.',
+  },
+  {
+    title: 'Fixed-price quote',
+    desc: 'A clear, itemised price with products and timings before work starts. No surprises later.',
+  },
+  {
+    title: 'Planned programme',
+    desc: 'We agree dates around you, your guests or your trading hours, then protect, prep and paint.',
+  },
+  {
+    title: 'Walk-round & sign-off',
+    desc: 'We check every area with you before we leave, and the site is left clean and tidy.',
+  },
+];
+
+const gallery = [
+  {
+    src: '/images/domestic-exterior-farmhouse-full-repaint-front.jpeg',
+    alt: '200-year-old red brick farmhouse with freshly painted white sash windows, entrance canopy and door surround',
+  },
+  {
+    src: '/images/domestic-exterior-farmhouse-full-repaint-courtyard.jpeg',
+    alt: 'Period farmhouse courtyard with newly painted red doors and white sash windows',
+  },
+  {
+    src: '/images/domestic-exterior-period-white-house-front.jpeg',
+    alt: 'Period detached house with freshly painted white render and dark window frames',
+  },
+  {
+    src: '/images/commercial-exterior-church-leicester-studded-arched-doors.jpeg',
+    alt: 'Studded arched church doors repainted with a deep, durable finish',
+  },
+  {
+    src: '/images/domestic-exterior-farmhouse-full-repaint-gate.jpeg',
+    alt: 'Red timber garden gate repainted in a weathered brick wall',
+  },
+  {
+    src: '/images/domestic-exterior-white-terrace-cottage.jpeg',
+    alt: 'White-painted cottage with crisp exterior woodwork',
+  },
+  {
+    src: '/images/domestic-exterior-canopy-front-door-fascia-soffits-entrance.jpeg',
+    alt: 'Front entrance with repainted door, canopy, fascia and soffits',
+  },
+  {
+    src: '/images/domestic-exterior-cast-iron-water-pump-black.jpeg',
+    alt: 'Cast iron garden water pump restored in black gloss',
+  },
+];
+---
+<Layout title={cotswoldsPageTitle} description={cotswoldsPageDescription} canonical={cotswoldsHref} jsonLd={jsonLd}>
+  <Header />
+  <main id="main" class="cots-page">
+    <section class="cots-page__hero" aria-labelledby="cots-heading">
+      <div class="container">
+        <nav class="cots-page__crumb" aria-label="Breadcrumb">
+          <a href="/areas">Areas covered</a>
+          <span aria-hidden="true">/</span>
+          <span>Cotswolds</span>
+        </nav>
+        <div class="cots-page__hero-layout">
+          <div class="cots-page__hero-head">
+            <span class="eyebrow">Cotswolds · Gloucestershire, Oxfordshire &amp; Worcestershire</span>
+            <h1 id="cots-heading" class="display h1">
+              Painting &amp; decorating in the <span class="painted-word painted-word--lime">Cotswolds.</span>
+            </h1>
+            <p class="lead cots-page__intro">
+              Domestic and commercial painters for period homes, larger properties and
+              businesses across the Cotswolds, from Moreton-in-Marsh and Chipping Campden to
+              Broadway, Stow-on-the-Wold, Bourton-on-the-Water and Burford.
+            </p>
+            <p class="cots-page__intro-sub">
+              We're a 5-star rated team with 25+ years of experience, based in Leicester and now
+              taking on work across the Cotswolds. Fixed-price quotes, tidy crews and finishes that
+              suit the character of your building.
+            </p>
+            <div class="cots-page__actions">
+              <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+              <a class="btn btn--ghost" href="#cots-towns">Towns we cover <span class="arrow">→</span></a>
+            </div>
+          </div>
+          <div class="cots-page__hero-map">
+            <AreaLocationMap
+              name="the Cotswolds"
+              lat={cotswoldsTowns[0].lat}
+              lng={cotswoldsTowns[0].lng}
+              accent="lime"
+              mapId="cotswolds-map"
+              points={cotswoldsTowns}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cots-page__band" aria-labelledby="cots-specialisms-heading">
+      <div class="container">
+        <h2 id="cots-specialisms-heading" class="cots-page__section-title">
+          Built for Cotswold properties
+        </h2>
+        <p class="cots-page__section-lead">
+          Honey-coloured stone, centuries-old joinery and buildings that face the weather on
+          every side. Cotswold properties reward careful preparation and the right products.
+        </p>
+        <ul class="cots-page__specialisms">
+          {specialisms.map((item, i) => (
+            <li class={`cots-page__specialism cots-page__specialism--${item.accent} reveal`} style={`--i:${i}`}>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="cots-page__proof">
+          See how we approach older buildings in our
+          <a href={farmhouseHref}>200-year-old farmhouse full repaint</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="cots-page__services" aria-label="Domestic and commercial painting in the Cotswolds">
+      <div class="container">
+        <div class="cots-page__services-grid">
+          <article class="cots-page__panel cots-page__panel--domestic reveal">
+            <span class="cots-page__panel-tag">Domestic</span>
+            <h2 class="display h3">Home painting in the Cotswolds</h2>
+            <p>
+              From a stone cottage in Northleach to a large family house outside Chipping Norton,
+              we decorate room by room or whole properties, inside and out. Furniture and floors are
+              protected, and we leave each space usable at the end of the day where possible.
+            </p>
+            <ul>
+              {domesticPoints.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+            <a href="/domestic">Domestic painting services <span class="arrow">→</span></a>
+          </article>
+
+          <article class="cots-page__panel reveal">
+            <span class="cots-page__panel-tag">Commercial</span>
+            <h2 class="display h3">Commercial painting in the Cotswolds</h2>
+            <p>
+              Hospitality, retail and holiday lets depend on first impressions. We repaint
+              interiors and exteriors around bookings and trading hours, with RAMS, method
+              statements and tidy working as standard.
+            </p>
+            <ul>
+              {commercialPoints.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+            <a href="/commercial">Commercial painting services <span class="arrow">→</span></a>
+          </article>
+        </div>
+        <p class="cots-page__services-more">
+          Ongoing upkeep? See our <a href="/maintenance-plans/">maintenance plans</a>.
+          Need stonework or paving cleaned first? We also offer <a href="/jet-cleaning/">jet cleaning</a>.
+        </p>
+      </div>
+    </section>
+
+    <section id="cots-towns" class="cots-page__towns" aria-labelledby="cots-towns-heading">
+      <div class="container">
+        <h2 id="cots-towns-heading" class="cots-page__section-title">Cotswold towns we cover</h2>
+        <p class="cots-page__section-lead">
+          We cover these towns and the villages around them, including the Slaughters, Blockley,
+          Snowshill, Kingham and Bledington. Not sure if we reach you? Just ask.
+        </p>
+        <ul class="cots-page__town-grid">
+          {cotswoldsTowns.map((town, i) => (
+            <li class="cots-page__town reveal" style={`--i:${i}`}>
+              <h3>Painters &amp; decorators in {town.name}</h3>
+              <p>{town.note}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="cots-page__gallery" aria-labelledby="cots-gallery-heading">
+      <div class="container">
+        <h2 id="cots-gallery-heading" class="cots-page__section-title">Period &amp; exterior work</h2>
+        <p class="cots-page__section-lead">
+          A selection of the period, exterior and heritage projects our team has completed.
+        </p>
+        <ul class="cots-page__gallery-grid reveal">
+          {gallery.map((img, i) => (
+            <li class="cots-page__gallery-item" style={`--i:${i}`}>
+              <figure>
+                <img src={img.src} alt={img.alt} loading="lazy" width="640" height="480" />
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <p class="cots-page__gallery-more">
+          <a href="/work">View all our work <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="cots-page__process" aria-labelledby="cots-process-heading">
+      <div class="container">
+        <h2 id="cots-process-heading" class="cots-page__section-title">How it works</h2>
+        <ol class="cots-page__steps">
+          {steps.map((step, i) => (
+            <li class="cots-page__step reveal" style={`--i:${i}`}>
+              <span class="cots-page__step-num" aria-hidden="true">{i + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="cots-page__services-more">
+          More detail in <a href="/how-we-work/">how we work</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="cots-page__faqs" aria-labelledby="cots-faq-heading">
+      <div class="container">
+        <h2 id="cots-faq-heading" class="cots-page__section-title">
+          Questions about painting in the Cotswolds
+        </h2>
+        <div class="cots-page__faq-list reveal">
+          {cotswoldsFaqs.map((item) => (
+            <details class="cots-page__faq">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cots-page__cta-band" aria-label="Get a quote">
+      <div class="container">
+        <div class="cots-page__cta-inner reveal">
+          <h2 class="display h3">Need painters in the Cotswolds?</h2>
+          <p>Same-day reply, fixed-price quotes, no hard sell. Call, message or send us a few photos.</p>
+          <a class="btn" href={quotePageHref}>Get a free quote <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .cots-page {
+    --page-stack-gap: 50px;
+  }
+  .cots-page__hero {
+    padding-top: calc(38px + var(--page-stack-gap));
+    padding-bottom: clamp(48px, 6vw, 72px);
+  }
+  .cots-page__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-stone);
+  }
+  .cots-page__crumb a {
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .cots-page__crumb a:hover {
+    text-decoration: underline;
+  }
+  .cots-page__hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 42%);
+    gap: clamp(28px, 4vw, 52px);
+    align-items: start;
+  }
+  .cots-page__hero-head {
+    min-width: 0;
+  }
+  .cots-page__hero-head h1 {
+    margin-top: 14px;
+    max-width: 14ch;
+  }
+  .cots-page__intro {
+    max-width: 54ch;
+    margin-top: 18px;
+  }
+  .cots-page__intro-sub {
+    max-width: 54ch;
+    margin: 14px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+  .cots-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .cots-page__hero-map {
+    min-width: 0;
+  }
+  .cots-page__hero-map :global(.area-location-map) {
+    height: clamp(300px, 34vw, 420px);
+  }
+
+  .cots-page__section-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.5vw, 28px);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  .cots-page__section-lead {
+    margin: 0 0 24px;
+    max-width: 60ch;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+
+  .cots-page__band {
+    background: var(--bg-alt);
+    padding: clamp(48px, 6vw, 72px) 0;
+  }
+  .cots-page__specialisms {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .cots-page__specialism {
+    padding: 22px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--accent, var(--c-lime));
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .cots-page__specialism--lime { --accent: var(--c-lime); }
+  .cots-page__specialism--yellow { --accent: var(--c-yellow); }
+  .cots-page__specialism--pink { --accent: var(--c-pink); }
+  .cots-page__specialism--blue { --accent: var(--c-blue); }
+  .cots-page__specialism h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .cots-page__specialism p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+  .cots-page__proof {
+    margin: 22px 0 0;
+    font-size: 15px;
+    color: var(--c-graphite);
+  }
+  .cots-page__proof a,
+  .cots-page__services-more a {
+    color: var(--c-red);
+    font-weight: 700;
+  }
+
+  .cots-page__services {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+  }
+  .cots-page__services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .cots-page__panel {
+    padding: clamp(24px, 3vw, 32px);
+    border-radius: 20px;
+    background: var(--bg-alt);
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    border-top: 4px solid var(--c-yellow);
+  }
+  .cots-page__panel--domestic {
+    border-top-color: var(--c-pink);
+  }
+  .cots-page__panel-tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-stone);
+  }
+  .cots-page__panel h2 {
+    margin: 0 0 12px;
+    max-width: 22ch;
+  }
+  .cots-page__panel > p {
+    margin: 0 0 16px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+  .cots-page__panel ul {
+    margin: 0 0 20px;
+    padding-left: 1.2em;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--c-graphite);
+  }
+  .cots-page__panel li + li {
+    margin-top: 6px;
+  }
+  .cots-page__panel > a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+  .cots-page__panel > a:hover {
+    text-decoration: underline;
+  }
+  .cots-page__services-more {
+    margin: 20px 0 0;
+    font-size: 15px;
+    color: var(--c-graphite);
+  }
+
+  .cots-page__towns {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+  }
+  .cots-page__town-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .cots-page__town {
+    padding: 20px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgba(14, 14, 16, 0.1);
+    box-shadow: var(--shadow-sm);
+    transition-delay: calc(var(--i) * 40ms);
+  }
+  .cots-page__town h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--c-ink);
+  }
+  .cots-page__town p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+
+  .cots-page__gallery {
+    margin-top: clamp(48px, 6vw, 72px);
+    padding: clamp(48px, 6vw, 72px) 0;
+    background: var(--bg-alt);
+  }
+  .cots-page__gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .cots-page__gallery-item {
+    transition-delay: calc(var(--i) * 35ms);
+  }
+  .cots-page__gallery-item figure {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    aspect-ratio: 4 / 3;
+  }
+  .cots-page__gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s var(--ease);
+  }
+  .cots-page__gallery-item:hover img {
+    transform: scale(1.04);
+  }
+  .cots-page__gallery-more {
+    margin: 28px 0 0;
+    text-align: center;
+  }
+  .cots-page__gallery-more a {
+    font-weight: 700;
+    color: var(--c-red);
+    text-decoration: none;
+  }
+
+  .cots-page__process {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+  }
+  .cots-page__steps {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .cots-page__step {
+    position: relative;
+    padding: 22px;
+    border-radius: 16px;
+    background: var(--bg-alt);
+    border: 1px solid rgba(14, 14, 16, 0.08);
+    transition-delay: calc(var(--i) * 50ms);
+  }
+  .cots-page__step-num {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--c-red);
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .cots-page__step h3 {
+    margin: 0 0 6px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+  .cots-page__step p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--c-graphite);
+  }
+
+  .cots-page__faqs {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+  }
+  .cots-page__faq-list {
+    max-width: 760px;
+  }
+  .cots-page__faq {
+    border-top: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .cots-page__faq:last-of-type {
+    border-bottom: 1px solid rgba(14, 14, 16, 0.1);
+  }
+  .cots-page__faq summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 32px 16px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--c-ink);
+  }
+  .cots-page__faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .cots-page__faq summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--c-red);
+  }
+  .cots-page__faq[open] summary::after {
+    content: '−';
+  }
+  .cots-page__faq p {
+    margin: 0 0 16px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--c-graphite);
+  }
+
+  .cots-page__cta-band {
+    padding: var(--page-stack-gap) 0 clamp(72px, 9vw, 120px);
+  }
+  .cots-page__cta-inner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(32px, 4vw, 48px);
+    border-radius: 20px;
+    text-align: center;
+    color: var(--c-paper);
+    background-color: var(--c-ink);
+    background-image: url('/images/brand/paint-strokes.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: var(--shadow-md);
+  }
+  .cots-page__cta-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, rgba(14, 14, 16, 0.88), rgba(14, 14, 16, 0.78) 50%, rgba(14, 14, 16, 0.85));
+  }
+  .cots-page__cta-inner :is(h2, p, .btn) {
+    position: relative;
+    z-index: 1;
+  }
+  .cots-page__cta-inner h2 {
+    margin: 0 0 10px;
+    color: #fff;
+  }
+  .cots-page__cta-inner p {
+    max-width: 44ch;
+    margin: 0 auto 20px;
+    color: #cfcdc8;
+  }
+
+  @media (max-width: 1024px) {
+    .cots-page__specialisms,
+    .cots-page__town-grid,
+    .cots-page__steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .cots-page__gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 900px) {
+    .cots-page__hero-layout {
+      grid-template-columns: 1fr;
+    }
+    .cots-page__hero-head h1 {
+      max-width: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .cots-page__services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 720px) {
+    .cots-page__gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 540px) {
+    .cots-page__specialisms,
+    .cots-page__town-grid,
+    .cots-page__steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

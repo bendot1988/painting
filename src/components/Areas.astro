@@ -1,7 +1,9 @@
 ---
 import { areaNames } from '~/data/areas';
+import { cotswoldsHref, cotswoldsTownNames } from '~/data/cotswolds';
 
-const loop = [...areaNames, ...areaNames];
+const allNames = [...areaNames, ...cotswoldsTownNames];
+const loop = [...allNames, ...allNames];
 const emblemSrc = '/images/brand/leicester-emblem.png';
 const emblemAlt =
   'A.S Painting Contractors emblem featuring Leicester landmarks including King Power Stadium, the Clock Tower and Leicester Cathedral, with painting equipment and a work van';
@@ -16,11 +18,13 @@ const emblemAlt =
         </h2>
         <p class="lead">
           Based in the south of the city, we cover Leicestershire end-to-end,
-          plus most of the East Midlands for commercial contracts. If you're not
-          sure, ask. We probably do.
+          plus most of the East Midlands for commercial contracts. We now also work
+          across the Cotswolds, from Moreton-in-Marsh and Broadway to Stow and Burford.
+          If you're not sure, ask. We probably do.
         </p>
         <p class="areas__more">
           <a class="btn btn--ghost" href="/areas">View all areas covered <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href={cotswoldsHref}>Cotswolds <span class="arrow">→</span></a>
         </p>
       </div>
       <figure class="areas__emblem">
@@ -77,6 +81,9 @@ const emblemAlt =
   }
   .areas__more {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
   }
   .areas__emblem {
     margin: 0;
