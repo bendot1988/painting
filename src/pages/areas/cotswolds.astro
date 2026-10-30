@@ -161,33 +161,34 @@ const realWork = [
               <a class="btn" href={quotePageHref}>Get a quote <span class="arrow">→</span></a>
               <a class="btn btn--ghost" href="#cots-towns">Towns we cover <span class="arrow">→</span></a>
             </div>
+          </div>
+          <div class="cots-page__hero-media">
             <figure class="cots-page__badge">
               <img
                 src="/images/cotswolds/proud-to-work-badge.webp"
                 srcset="/images/cotswolds/proud-to-work-badge-320.webp 320w, /images/cotswolds/proud-to-work-badge.webp 640w"
-                sizes="160px"
+                sizes="(max-width: 900px) 200px, 240px"
                 alt="A.S Painting Contractors — proud to work in the Cotswolds. Commercial, residential, schools and specialist coatings."
                 width="640"
                 height="639"
-                loading="lazy"
               />
             </figure>
+            <figure class="cots-page__hero-figure">
+              <img
+                src={hero.src}
+                srcset={hero.srcset}
+                sizes="(max-width: 900px) calc(100vw - 40px), 46vw"
+                alt="Honey-coloured Cotswold stone cottage with climbing roses behind a dry stone wall"
+                width="1137"
+                height="706"
+                fetchpriority="high"
+              />
+              <figcaption class="cots-page__hero-card">
+                <span class="cots-page__hero-card-label">Domestic &amp; commercial</span>
+                <span class="cots-page__hero-card-text">Moreton · Stow · Broadway · Burford · Chipping Campden</span>
+              </figcaption>
+            </figure>
           </div>
-          <figure class="cots-page__hero-figure">
-            <img
-              src={hero.src}
-              srcset={hero.srcset}
-              sizes="(max-width: 900px) calc(100vw - 40px), 46vw"
-              alt="Honey-coloured Cotswold stone cottage with climbing roses behind a dry stone wall"
-              width="1137"
-              height="706"
-              fetchpriority="high"
-            />
-            <figcaption class="cots-page__hero-card">
-              <span class="cots-page__hero-card-label">Domestic &amp; commercial</span>
-              <span class="cots-page__hero-card-text">Moreton · Stow · Broadway · Burford · Chipping Campden</span>
-            </figcaption>
-          </figure>
         </div>
       </div>
     </section>
@@ -505,17 +506,25 @@ const realWork = [
     gap: 12px;
     margin-top: 24px;
   }
+  .cots-page__hero-media {
+    position: relative;
+    min-width: 0;
+  }
   .cots-page__badge {
-    margin: 28px 0 0;
-    width: 160px;
+    position: relative;
+    z-index: 2;
+    width: min(58%, 240px);
+    margin: 0 auto -48px;
   }
   .cots-page__badge img {
     display: block;
     width: 100%;
     height: auto;
+    filter: drop-shadow(0 14px 28px rgba(46, 42, 35, 0.28)) drop-shadow(0 4px 10px rgba(46, 42, 35, 0.18));
   }
   .cots-page__hero-figure {
     position: relative;
+    z-index: 1;
     min-width: 0;
     margin: 0 0 28px;
   }
@@ -1001,6 +1010,10 @@ const realWork = [
     .cots-page__hero-head h1 {
       max-width: none;
     }
+    .cots-page__badge {
+      width: min(48%, 200px);
+      margin-bottom: -36px;
+    }
     .cots-page__towns-map {
       position: static;
     }
@@ -1018,6 +1031,10 @@ const realWork = [
     }
     .cots-page__type figure {
       aspect-ratio: 1 / 1;
+    }
+    .cots-page__badge {
+      width: min(56%, 180px);
+      margin-bottom: -28px;
     }
     .cots-page__hero-card {
       position: static;
