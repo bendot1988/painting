@@ -3,6 +3,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import AreaLocationMap from '~/components/AreaLocationMap.astro';
+import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
 import { quotePageHref } from '~/data/contact';
 import {
   cotswoldsFaqs,
@@ -11,8 +12,14 @@ import {
   cotswoldsPageTitle,
   cotswoldsTowns,
 } from '~/data/cotswolds';
+import googleReviews from '~/data/google-reviews.json';
 import { projectHref } from '~/data/projects';
 import { buildCotswoldsPageJsonLd } from '~/utils/area-json-ld';
+import type { GoogleReview } from '~/lib/reviews';
+
+const cotswoldsReview = (googleReviews.reviews as GoogleReview[]).find(
+  (item) => item.name === 'S' && item.review.toLowerCase().includes('cotswolds'),
+);
 
 const jsonLd = buildCotswoldsPageJsonLd(cotswoldsFaqs);
 
@@ -384,6 +391,35 @@ const realWork = [
         </p>
       </div>
     </section>
+
+    {cotswoldsReview && (
+      <section class="cots-page__review" aria-labelledby="cots-review-heading">
+        <div class="container">
+          <h2 id="cots-review-heading" class="cots-page__section-title">
+            What Cotswolds clients say
+          </h2>
+          <p class="cots-page__section-lead">
+            A recent Google review from a Cotswolds landing and skirting job.
+          </p>
+          <figure class="cots-page__review-card reveal">
+            <div class="cots-page__review-stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>
+              <p>{cotswoldsReview.review}</p>
+            </blockquote>
+            <figcaption>
+              <strong>{cotswoldsReview.name}</strong>
+              <span>Google review · {cotswoldsReview.date}</span>
+            </figcaption>
+          </figure>
+          <div class="cots-page__review-footer">
+            <GoogleRatingBadge centered />
+            <p>
+              <a href="/reviews/">Read all Google reviews <span class="arrow">→</span></a>
+            </p>
+          </div>
+        </div>
+      </section>
+    )}
 
     <section class="cots-page__faqs" aria-labelledby="cots-faq-heading">
       <div class="container">
@@ -905,6 +941,64 @@ const realWork = [
     font-size: 14.5px;
     line-height: 1.55;
     color: var(--c-graphite);
+  }
+
+  .cots-page__review {
+    padding: clamp(48px, 6vw, 72px) 0 0;
+  }
+  .cots-page__review-card {
+    margin: 0;
+    max-width: 720px;
+    padding: clamp(24px, 3vw, 32px);
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(156, 115, 52, 0.18);
+    border-left: 4px solid var(--cots-honey);
+    box-shadow: var(--shadow-sm);
+  }
+  .cots-page__review-stars {
+    margin-bottom: 12px;
+    color: var(--cots-honey);
+    letter-spacing: 2px;
+    font-size: 18px;
+  }
+  .cots-page__review-card blockquote {
+    margin: 0;
+  }
+  .cots-page__review-card p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cots-ink);
+  }
+  .cots-page__review-card figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--c-graphite);
+  }
+  .cots-page__review-card figcaption strong {
+    color: var(--cots-ink);
+  }
+  .cots-page__review-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
+    margin-top: 22px;
+  }
+  .cots-page__review-footer p {
+    margin: 0;
+  }
+  .cots-page__review-footer a {
+    font-weight: 700;
+    color: var(--cots-sage-deep);
+    text-decoration: none;
+  }
+  .cots-page__review-footer a:hover {
+    text-decoration: underline;
   }
 
   .cots-page__faqs {
