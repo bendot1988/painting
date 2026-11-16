@@ -99,9 +99,11 @@ http://as-painting.co.uk/sample-page                           https://as-painti
 /comments/feed/                    /                 301
 /comments/feed                     /                 301
 
-# Catch-all: any remaining www request → apex (must stay below host-specific rules)
+# Catch-all: any remaining www (and plain http apex) → https apex
+# (force_ssl is off so these rules can combine host + path into one hop)
 https://www.as-painting.co.uk/*    https://as-painting.co.uk/:splat  301!
 http://www.as-painting.co.uk/*     https://as-painting.co.uk/:splat  301!
+http://as-painting.co.uk/*         https://as-painting.co.uk/:splat  301!
 
 # Trailing slashes: do not add manual /page → /page/ rules here. Netlify already
 # redirects extensionless paths to the folder index (e.g. /work → /work/). Forcing
