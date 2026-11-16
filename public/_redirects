@@ -98,6 +98,12 @@ http://as-painting.co.uk/sample-page                           https://as-painti
 /feed                              /                 301
 /comments/feed/                    /                 301
 /comments/feed                     /                 301
+/wp-content/*                      /                 301
+/wp-json/*                         /                 301
+/wp-admin/*                        /                 301
+/index.php                         /                 301
+# /?p=:id is handled by netlify/edge-functions/wordpress-p-query.ts
+# (a _redirects rule to / would forward ?p= and loop)
 
 # Catch-all: any remaining www (and plain http apex) → https apex
 # (force_ssl is off so these rules can combine host + path into one hop)
