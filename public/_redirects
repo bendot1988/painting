@@ -1,6 +1,83 @@
-# Legacy WordPress URLs → new site (301 permanent)
+# Host-specific WordPress legacy URLs → final apex URL in one hop.
+# Must sit ABOVE the catch-all www → apex rule, or www + old path becomes two 301s.
+
+# domestic-painting-decorating → /domestic/
+https://www.as-painting.co.uk/domestic-painting-decorating/    https://as-painting.co.uk/domestic/    301!
+https://www.as-painting.co.uk/domestic-painting-decorating     https://as-painting.co.uk/domestic/    301!
+http://www.as-painting.co.uk/domestic-painting-decorating/     https://as-painting.co.uk/domestic/    301!
+http://www.as-painting.co.uk/domestic-painting-decorating      https://as-painting.co.uk/domestic/    301!
+http://as-painting.co.uk/domestic-painting-decorating/         https://as-painting.co.uk/domestic/    301!
+http://as-painting.co.uk/domestic-painting-decorating          https://as-painting.co.uk/domestic/    301!
+
+# comercial-painting-decorating → /commercial/
+https://www.as-painting.co.uk/comercial-painting-decorating/   https://as-painting.co.uk/commercial/  301!
+https://www.as-painting.co.uk/comercial-painting-decorating    https://as-painting.co.uk/commercial/  301!
+http://www.as-painting.co.uk/comercial-painting-decorating/    https://as-painting.co.uk/commercial/  301!
+http://www.as-painting.co.uk/comercial-painting-decorating     https://as-painting.co.uk/commercial/  301!
+http://as-painting.co.uk/comercial-painting-decorating/        https://as-painting.co.uk/commercial/  301!
+http://as-painting.co.uk/comercial-painting-decorating         https://as-painting.co.uk/commercial/  301!
+
+# gallery → /work/
+https://www.as-painting.co.uk/gallery/                         https://as-painting.co.uk/work/        301!
+https://www.as-painting.co.uk/gallery                          https://as-painting.co.uk/work/        301!
+http://www.as-painting.co.uk/gallery/                          https://as-painting.co.uk/work/        301!
+http://www.as-painting.co.uk/gallery                           https://as-painting.co.uk/work/        301!
+http://as-painting.co.uk/gallery/                              https://as-painting.co.uk/work/        301!
+http://as-painting.co.uk/gallery                               https://as-painting.co.uk/work/        301!
+
+# platering → /plastering/
+https://www.as-painting.co.uk/platering/                       https://as-painting.co.uk/plastering/  301!
+https://www.as-painting.co.uk/platering                        https://as-painting.co.uk/plastering/  301!
+http://www.as-painting.co.uk/platering/                        https://as-painting.co.uk/plastering/  301!
+http://www.as-painting.co.uk/platering                         https://as-painting.co.uk/plastering/  301!
+http://as-painting.co.uk/platering/                            https://as-painting.co.uk/plastering/  301!
+http://as-painting.co.uk/platering                             https://as-painting.co.uk/plastering/  301!
+
+# contact-us → /contact/
+https://www.as-painting.co.uk/contact-us/                      https://as-painting.co.uk/contact/     301!
+https://www.as-painting.co.uk/contact-us                       https://as-painting.co.uk/contact/     301!
+http://www.as-painting.co.uk/contact-us/                       https://as-painting.co.uk/contact/     301!
+http://www.as-painting.co.uk/contact-us                        https://as-painting.co.uk/contact/     301!
+http://as-painting.co.uk/contact-us/                           https://as-painting.co.uk/contact/     301!
+http://as-painting.co.uk/contact-us                            https://as-painting.co.uk/contact/     301!
+
+# address → /contact/
+https://www.as-painting.co.uk/address/                         https://as-painting.co.uk/contact/     301!
+https://www.as-painting.co.uk/address                          https://as-painting.co.uk/contact/     301!
+http://www.as-painting.co.uk/address/                          https://as-painting.co.uk/contact/     301!
+http://www.as-painting.co.uk/address                           https://as-painting.co.uk/contact/     301!
+http://as-painting.co.uk/address/                              https://as-painting.co.uk/contact/     301!
+http://as-painting.co.uk/address                               https://as-painting.co.uk/contact/     301!
+
+# home-1 → /
+https://www.as-painting.co.uk/home-1/                          https://as-painting.co.uk/             301!
+https://www.as-painting.co.uk/home-1                           https://as-painting.co.uk/             301!
+http://www.as-painting.co.uk/home-1/                           https://as-painting.co.uk/             301!
+http://www.as-painting.co.uk/home-1                            https://as-painting.co.uk/             301!
+http://as-painting.co.uk/home-1/                               https://as-painting.co.uk/             301!
+http://as-painting.co.uk/home-1                                https://as-painting.co.uk/             301!
+
+# our-services → /
+https://www.as-painting.co.uk/our-services/                    https://as-painting.co.uk/             301!
+https://www.as-painting.co.uk/our-services                     https://as-painting.co.uk/             301!
+http://www.as-painting.co.uk/our-services/                     https://as-painting.co.uk/             301!
+http://www.as-painting.co.uk/our-services                      https://as-painting.co.uk/             301!
+http://as-painting.co.uk/our-services/                         https://as-painting.co.uk/             301!
+http://as-painting.co.uk/our-services                          https://as-painting.co.uk/             301!
+
+# sample-page → /
+https://www.as-painting.co.uk/sample-page/                     https://as-painting.co.uk/             301!
+https://www.as-painting.co.uk/sample-page                      https://as-painting.co.uk/             301!
+http://www.as-painting.co.uk/sample-page/                      https://as-painting.co.uk/             301!
+http://www.as-painting.co.uk/sample-page                       https://as-painting.co.uk/             301!
+http://as-painting.co.uk/sample-page/                          https://as-painting.co.uk/             301!
+http://as-painting.co.uk/sample-page                           https://as-painting.co.uk/             301!
+
+# Apex path rules (https apex — one hop once already on the preferred host)
 /comercial-painting-decorating/    /commercial/      301!
 /comercial-painting-decorating     /commercial/      301!
+/commercial-painting-decorating/   /commercial/      301
+/commercial-painting-decorating    /commercial/      301
 /domestic-painting-decorating/     /domestic/        301!
 /domestic-painting-decorating      /domestic/        301!
 /platering/                        /plastering/      301!
@@ -17,6 +94,14 @@
 /home-1                            /                 301!
 /sample-page/                      /                 301!
 /sample-page                       /                 301!
+/feed/                             /                 301
+/feed                              /                 301
+/comments/feed/                    /                 301
+/comments/feed                     /                 301
+
+# Catch-all: any remaining www request → apex (must stay below host-specific rules)
+https://www.as-painting.co.uk/*    https://as-painting.co.uk/:splat  301!
+http://www.as-painting.co.uk/*     https://as-painting.co.uk/:splat  301!
 
 # Trailing slashes: do not add manual /page → /page/ rules here. Netlify already
 # redirects extensionless paths to the folder index (e.g. /work → /work/). Forcing
