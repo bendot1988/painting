@@ -1,7 +1,7 @@
 /** Single source of truth for Google rating shown site-wide. */
 export const googleRating = {
   score: 4.9,
-  reviewCount: 67,
+  reviewCount: 68,
 } as const;
 
 /** Display score with two decimal places (e.g. 4.90) */
