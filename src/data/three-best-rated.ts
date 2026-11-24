@@ -2,9 +2,8 @@ export const threeBestRatedPromo = {
   label: 'Three Best Rated',
   labelShort: 'Top 3 · Three Best Rated',
   sublabel: 'Top 3 in Leicester',
-  badgeSrc: '/images/blog/three-best-rated-award.png',
-  badgeAlt:
-    'Three Best Rated 2025 award — A.S Painting Contractors among the best painters and decorators in Leicester',
+  badgeSrc: '/images/awards/painters-leicester-2026.svg',
+  badgeAlt: 'Best Painters in Leicester — Three Best Rated 2026',
   blogHref: '/blog/three-best-rated-leicester/',
   blogLabel: 'Read our news story',
   listingHref: 'https://threebestrated.co.uk/painters-in-leicester',

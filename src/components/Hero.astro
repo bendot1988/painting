@@ -1,5 +1,6 @@
 ---
 import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
+import ThreeBestRatedBadge from '~/components/ThreeBestRatedBadge.astro';
 ---
 <section id="top" class="hero">
   <div class="container hero__inner">
@@ -59,7 +60,10 @@ import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
           <span><strong>Leicestershire-based</strong> — covering Leicester, the whole county &amp; the Cotswolds</span>
         </div>
 
-        <GoogleRatingBadge class="hero__reviews" />
+        <div class="hero__proof">
+          <GoogleRatingBadge class="hero__reviews" />
+          <ThreeBestRatedBadge class="hero__tbr" width={140} loading="eager" />
+        </div>
       </div>
     </div>
 
@@ -155,6 +159,16 @@ import GoogleRatingBadge from '~/components/GoogleRatingBadge.astro';
     flex-direction: column;
     gap: 14px;
     padding-top: 4px;
+  }
+  .hero__proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 20px;
+  }
+  .hero__tbr {
+    --tbr-badge-size: 140px;
+    flex-shrink: 0;
   }
   .hero__location {
     display: inline-flex;

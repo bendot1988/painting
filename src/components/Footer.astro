@@ -1,6 +1,7 @@
 ---
 import YouTubeFeed from './YouTubeFeed.astro';
 import SocialIcon from './SocialIcon.astro';
+import ThreeBestRatedBadge from './ThreeBestRatedBadge.astro';
 import { contact, quotePageHref } from '~/data/contact';
 import { socialLinks } from '~/data/social';
 
@@ -33,6 +34,7 @@ const year = new Date().getFullYear();
       <div class="footer__swatch swatch-row">
         <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span><span class="s5"></span>
       </div>
+      <ThreeBestRatedBadge class="footer__tbr" width={160} />
       <div class="footer__social">
         <h4 class="footer__social-title">Follow us</h4>
         <ul class="footer__social-list">
@@ -154,6 +156,12 @@ const year = new Date().getFullYear();
     margin-bottom: 6px;
   }
   .footer__swatch { width: 200px; margin-top: 18px; }
+
+  .footer__tbr {
+    --tbr-badge-size: 160px;
+    display: block;
+    margin-top: 22px;
+  }
 
   .footer__social {
     margin-top: 24px;

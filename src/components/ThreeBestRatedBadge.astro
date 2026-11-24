@@ -1,0 +1,49 @@
+---
+import { threeBestRatedPromo } from '~/data/three-best-rated';
+
+interface Props {
+  class?: string;
+  /** Display width in px — badge is square */
+  width?: number;
+  loading?: 'eager' | 'lazy';
+}
+
+const { class: className, width = 180, loading = 'lazy' } = Astro.props;
+---
+<a
+  class:list={['tbr-badge', className]}
+  href={threeBestRatedPromo.listingHref}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={threeBestRatedPromo.badgeAlt}
+>
+  <img
+    src={threeBestRatedPromo.badgeSrc}
+    alt={threeBestRatedPromo.badgeAlt}
+    width={width}
+    height={width}
+    loading={loading}
+    decoding="async"
+  />
+</a>
+
+<style>
+  .tbr-badge {
+    display: inline-block;
+    line-height: 0;
+    border: 0;
+    text-decoration: none;
+    transition: transform 0.25s var(--ease), opacity 0.2s;
+  }
+  .tbr-badge:hover,
+  .tbr-badge:focus-visible {
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .tbr-badge img {
+    display: block;
+    width: 100%;
+    max-width: var(--tbr-badge-size, 180px);
+    height: auto;
+  }
+</style>
