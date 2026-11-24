@@ -34,7 +34,9 @@ const year = new Date().getFullYear();
       <div class="footer__swatch swatch-row">
         <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span><span class="s5"></span>
       </div>
-      <ThreeBestRatedBadge class="footer__tbr" width={160} />
+      <div class="footer__tbr">
+        <ThreeBestRatedBadge width={160} />
+      </div>
       <div class="footer__social">
         <h4 class="footer__social-title">Follow us</h4>
         <ul class="footer__social-list">
@@ -160,7 +162,17 @@ const year = new Date().getFullYear();
   .footer__tbr {
     --tbr-badge-size: 160px;
     display: block;
-    margin-top: 36px;
+    margin-top: 40px;
+    width: var(--tbr-badge-size);
+  }
+  .footer__tbr :global(.tbr-badge) {
+    display: block;
+    width: 100%;
+  }
+  .footer__tbr :global(.tbr-badge img) {
+    max-width: none;
+    width: 100%;
+    height: auto;
   }
 
   .footer__social {
