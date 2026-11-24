@@ -60,10 +60,7 @@ import ThreeBestRatedBadge from '~/components/ThreeBestRatedBadge.astro';
           <span><strong>Leicestershire-based</strong> — covering Leicester, the whole county &amp; the Cotswolds</span>
         </div>
 
-        <div class="hero__proof">
-          <GoogleRatingBadge class="hero__reviews" />
-          <ThreeBestRatedBadge class="hero__tbr" width={140} loading="eager" />
-        </div>
+        <GoogleRatingBadge class="hero__reviews" />
       </div>
     </div>
 
@@ -77,14 +74,7 @@ import ThreeBestRatedBadge from '~/components/ThreeBestRatedBadge.astro';
         />
       </div>
 
-      <!-- Floating location badge -->
-      <div class="hero__tape" aria-hidden="true">
-        <svg class="hero__tape-pin" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="12" cy="11" r="2.3" fill="currentColor" />
-        </svg>
-        <span>Leicestershire</span>
-      </div>
+      <ThreeBestRatedBadge class="hero__tbr" width={148} loading="eager" />
 
       <!-- Floating stat card -->
       <div class="hero__chip">
@@ -160,16 +150,6 @@ import ThreeBestRatedBadge from '~/components/ThreeBestRatedBadge.astro';
     gap: 14px;
     padding-top: 4px;
   }
-  .hero__proof {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 20px;
-  }
-  .hero__tbr {
-    --tbr-badge-size: 140px;
-    flex-shrink: 0;
-  }
   .hero__location {
     display: inline-flex;
     align-items: center;
@@ -207,34 +187,14 @@ import ThreeBestRatedBadge from '~/components/ThreeBestRatedBadge.astro';
   }
   .hero__frame:hover { transform: rotate(-1deg); }
   .hero__frame img { width: 100%; height: 100%; object-fit: cover; }
-  .hero__tape {
+  .hero__tbr {
+    --tbr-badge-size: clamp(112px, 18vw, 148px);
     position: absolute;
-    top: 6%; left: -6%;
-    background: var(--c-yellow);
-    color: var(--c-ink);
-    padding: 12px 22px;
-    transform: rotate(-6deg);
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(20px, 2.2vw, 26px);
-    letter-spacing: var(--tracking-snug);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 10px 22px rgba(14,14,16,0.22);
+    top: 2%;
+    right: -4%;
     z-index: 2;
+    filter: drop-shadow(0 10px 20px rgba(14, 14, 16, 0.22));
   }
-  .hero__tape-pin {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-  }
-  .hero__tape::before, .hero__tape::after {
-    content: ""; position: absolute; top: 4px; bottom: 4px; width: 8px;
-    background: rgba(0,0,0,0.06);
-  }
-  .hero__tape::before { left: 0; }
-  .hero__tape::after { right: 0; }
 
   .hero__chip {
     position: absolute;
@@ -289,7 +249,7 @@ import ThreeBestRatedBadge from '~/components/ThreeBestRatedBadge.astro';
     }
     .hero__chip { transform: rotate(0); right: 8px; bottom: 8px; padding: 10px 12px; gap: 10px; }
     .hero__chip-num { font-size: 32px; }
-    .hero__tape { font-size: 20px; padding: 10px 18px; }
+    .hero__tbr { right: 4px; top: 4px; --tbr-badge-size: 104px; }
     .hero__location { font-size: 13px; max-width: none; }
     .hero__stars svg { width: 20px; height: 20px; }
   }
