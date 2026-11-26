@@ -1,6 +1,11 @@
 {
   "reviews": [
     {
+      "name": "Gemma Johnson",
+      "review": "Ashley did a great job painting several rooms in my home. He was very helpful, punctual, reliable, and thorough. I would 100% recommend!",
+      "date": "today"
+    },
+    {
       "name": "Thomas White",
       "review": "I got Ash in for a large project earlier this year. Great guy with top quality work. Clean, tidy, professional and completed within the given timeframe. I'd recommended AS Painting to anyone!",
       "date": "today"
