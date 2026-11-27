@@ -32,6 +32,42 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    slug: 'domestic-renovation-fresh-plaster-walls',
+    tag: 'domestic',
+    title: 'Domestic renovation · fresh plaster walls',
+    shortTitle: 'Renovation · fresh plaster walls',
+    meta: 'Interior decoration · Leicestershire',
+    location: 'Leicestershire',
+    eyebrow: 'Domestic · Renovation',
+    lead:
+      'New plaster through a domestic renovation — sealed, cut in and painted in calm neutrals with crisp white skirting, ready for flooring and final fittings.',
+    narrative: [
+      'Fresh plaster needs the right sequence: mist coats to seal the surface, then full coats that leave walls even and absorbent enough for a lasting finish. On this Leicestershire renovation we decorated newly plastered rooms while the build was still live — bare screed floors, hanging temporary lights and rooms cleared for paint — so the walls were ready as soon as the rest of the fit-out caught up.',
+      'Neutral taupe and greige walls with white ceilings and skirting give a clean, move-in-ready shell across halls and living spaces. Cutting-in around sockets, radiators and door linings kept edges sharp, and we worked around other trades so the site stayed usable while decoration progressed room by room.',
+      'If you are renovating, extending or finishing a new-build and need painting on fresh plaster — mist coats through to final colour — get in touch for a quote. We agree a fixed price and plan around your other trades.',
+    ],
+    hero: {
+      src: '/images/domestic-interior-renovation-fresh-plaster-hallway.jpeg',
+      alt: 'Domestic renovation hallway with freshly painted plaster walls, white skirting, front door and temporary site lighting',
+    },
+    gallery: [
+      {
+        src: '/images/domestic-interior-renovation-fresh-plaster-wall-corner.jpeg',
+        alt: 'Smooth freshly painted plaster wall corner with white skirting and double socket on unfinished screed',
+      },
+      {
+        src: '/images/domestic-interior-renovation-fresh-plaster-greige-radiator.jpeg',
+        alt: 'Greige freshly plastered and painted wall with charcoal radiator, white skirting and adjoining tiled room',
+      },
+      {
+        src: '/images/domestic-interior-renovation-fresh-plaster-room-junction.jpeg',
+        alt: 'Freshly painted beige plaster walls meeting at a corner with white doors and skirting during renovation',
+      },
+    ],
+    seoDescription:
+      'Domestic renovation painting on freshly plastered walls in Leicestershire — mist coats, neutrals and white woodwork by A.S Painting Contractors.',
+  },
+  {
     slug: 'commercial-steel-staircase-before-after',
     tag: 'commercial',
     title: 'Commercial steel staircase · before & after',

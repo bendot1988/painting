@@ -98,8 +98,8 @@ export const interiorRooms: Sector[] = [
   {
     name: 'New builds and refurbishments',
     desc: 'Snagging coats, full decoration packages and move-in ready finishes for extensions and renovations.',
-    src: '/images/domestic-interior-new-build-living-room.jpeg',
-    alt: 'New-build living room with fresh neutral walls and trim',
+    src: '/images/domestic-interior-renovation-fresh-plaster-hallway.jpeg',
+    alt: 'Domestic renovation with freshly painted plaster walls, white skirting and front door',
   },
 ];
 

@@ -11,6 +11,15 @@ export type WorkItem = {
 
 export const workItems: WorkItem[] = [
   {
+    src: '/images/domestic-interior-renovation-fresh-plaster-hallway.jpeg',
+    alt: 'Domestic renovation hallway with freshly painted plaster walls, white skirting and front door',
+    tag: 'domestic',
+    title: 'Renovation · fresh plaster walls',
+    meta: 'Interior decoration · Leicestershire',
+    size: 'lg',
+    slug: 'domestic-renovation-fresh-plaster-walls',
+  },
+  {
     src: '/images/commercial-exterior-steel-staircase-after-lower-flight.jpeg',
     alt: 'External steel staircase painted black with yellow and black anti-slip nosings — after',
     tag: 'commercial',

@@ -67,6 +67,10 @@ export const areaGalleryPool: AreaGalleryImage[] = [
     altTemplate: 'Hallway and staircase with fresh paint and crisp woodwork in {area}',
   },
   {
+    src: '/images/domestic-interior-renovation-fresh-plaster-hallway.jpeg',
+    altTemplate: 'Domestic renovation with freshly painted plaster walls and white skirting in {area}',
+  },
+  {
     src: '/images/domestic-interior-grey-shaker-kitchen.jpeg',
     altTemplate: 'Grey shaker kitchen with hand-finished cabinetry in {area}',
   },
